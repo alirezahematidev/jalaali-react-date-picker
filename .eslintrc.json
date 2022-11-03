@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "next": {
+      "rootDir": "src/"
+    }
+  },
+  "extends": [
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "@typescript-eslint/no-empty-interface": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "no-prototype-builtins": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-types": "off"
+  }
+}

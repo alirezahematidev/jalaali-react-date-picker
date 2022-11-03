@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*.jsbundle
+*.tsbuildinfo
+.DS_Store
+.history
+.jest
+.vscode
+**/*/.eslintcache
+.yarnrc
+debug.log
+build
+tsconfig.tsbuildinfo
+dist
