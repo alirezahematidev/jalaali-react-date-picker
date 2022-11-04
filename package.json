@@ -53,9 +53,11 @@
     "devDependencies": {
         "@types/enzyme": "^3.10.12",
         "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/lodash-es": "^4.17.6",
         "@types/moment-jalaali": "^0.7.5",
         "@typescript-eslint/eslint-plugin": "^5.31.0",
         "@typescript-eslint/parser": "^5.31.0",
+        "classnames": "^2.3.2",
         "commitlint": "^17.0.3",
         "concurrently": "^6.3.0",
         "cross-env": "^7.0.3",
@@ -66,10 +68,13 @@
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-react": "^7.30.1",
         "eslint-webpack-plugin": "^3.2.0",
+        "lodash-es": "^4.17.21",
         "prettier": "^2.3.2",
         "prettier-plugin-jsdoc": "^0.3.38",
         "prettier-plugin-organize-imports": "^2.3.4",
-        "react-app-rewired": "^2.2.1"
+        "react-app-rewired": "^2.2.1",
+        "sass": "^1.56.0",
+        "@commitlint/config-conventional": "^17.2.0"
     },
     "eslintConfig": {
         "extends": [

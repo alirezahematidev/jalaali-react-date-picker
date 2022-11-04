@@ -18,7 +18,7 @@ const TestOnchange = ({ onChange, value }: TestOnchangeProps) => {
   return <input onChange={onChangeTest} />;
 };
 
-export const onChangeCallbackTest = () => {
+const onChangeCallbackTest = () => {
   const onChangeMock = jest.fn(onChange);
 
   const value = moment().clone();

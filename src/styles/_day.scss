@@ -1,0 +1,10 @@
+@import "./mixins/mixin";
+.day {
+    @include flex-center;
+    @include day-box(true);
+    @include font-family;
+}
+
+.highlight {
+    background-color: var(--highlight);
+}

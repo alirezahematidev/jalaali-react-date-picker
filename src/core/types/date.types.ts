@@ -106,7 +106,7 @@ export namespace DatePickerTypes {
   /**
    * Custom format of return value
    *
-   * @link https://momentjs.com/docs
+   * @see https://momentjs.com/docs
    */
   export type Format = string | ((value: Moment) => string);
   /**
