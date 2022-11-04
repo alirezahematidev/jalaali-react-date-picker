@@ -1,0 +1,129 @@
+@import "./mixins/mixin";
+.panel {
+    @include flex-center;
+    @include font-family;
+    width: 368px;
+    height: 270px;
+    background-color: #f9f9f9;
+    border-radius: 2px;
+    overflow: hidden;
+    flex-direction: column;
+    p {
+        margin-block: 0;
+        font-size: 14px;
+    }
+}
+
+.panel-rtl {
+    @extend .panel;
+    direction: rtl;
+}
+
+.panel-ltr {
+    @extend .panel;
+    direction: ltr;
+}
+
+.panel-header {
+    @include widget;
+    @include flex-row;
+    overflow: hidden;
+}
+
+.panel-header-rtl {
+    @extend .panel-header;
+    direction: rtl;
+}
+
+.panel-header-ltr {
+    @extend .panel-header;
+    direction: ltr;
+}
+
+.panel-header-inner {
+    @include flex-row(space-between);
+    flex: 1;
+    margin-inline: 12px;
+    max-height: 100%;
+}
+
+.panel-date-holder {
+    @include flex-row;
+}
+
+.panel-date-holder-item {
+    @include flex-row;
+    margin-inline: 2px;
+    padding-inline: 2px;
+}
+
+.panel-body {
+    @include full;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(8, minmax(30px, 46px));
+    grid-template-rows: auto;
+}
+
+.panel-footer {
+    @include widget;
+    @include flex-row;
+}
+
+.panel-footer-rtl {
+    @extend .panel-footer;
+    direction: rtl;
+}
+
+.panel-footer-ltr {
+    @extend .panel-footer;
+    direction: ltr;
+}
+
+.day-item-outer {
+    position: relative;
+    flex-basis: 46px;
+    width: 100%;
+    overflow: hidden;
+    @include flex-center;
+}
+
+.day-item-after::after {
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 8px;
+    top: 0;
+    right: 0;
+    background-color: var(--highlight);
+}
+
+.day-item-before::before {
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 8px;
+    top: 0;
+    left: 0;
+    background-color: var(--highlight);
+}
+
+.day-item-both::before {
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 8px;
+    top: 0;
+    left: 0;
+    background-color: var(--highlight);
+}
+
+.day-item-both::after {
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 8px;
+    top: 0;
+    right: 0;
+    background-color: var(--highlight);
+}
