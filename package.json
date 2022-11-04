@@ -19,7 +19,10 @@
     "types": "dist/index.d.ts",
     "files": [
         "dist",
-        "src"
+        "src",
+        "__mocks__",
+        "!.husky",
+        "!public"
     ],
     "publishConfig": {
         "access": "public",
@@ -74,7 +77,9 @@
         "prettier-plugin-organize-imports": "^2.3.4",
         "react-app-rewired": "^2.2.1",
         "sass": "^1.56.0",
-        "@commitlint/config-conventional": "^17.2.0"
+        "@commitlint/config-conventional": "^17.2.0",
+        "lerna": "^6.0.1",
+        "rimraf": "^3.0.2"
     },
     "eslintConfig": {
         "extends": [
