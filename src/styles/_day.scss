@@ -6,14 +6,15 @@
     @include clickable;
 }
 
-.highlight {
-    background-color: var(--highlight);
-}
-
 .disabled {
-    color: var(--text-light);
+    opacity: 0.4;
 }
 
 .off-day {
-    color:var(--text-negative);
+    color: var(--text-negative);
+}
+
+.highlight {
+    background-color: var(--highlight);
+    color: var(--text-light);
 }
