@@ -1,9 +1,9 @@
-import Panel from "./components/panel";
+import { Picker } from "./components";
 
 function App() {
   return (
     <div>
-      <Panel />
+      <Picker />
     </div>
   );
 }
