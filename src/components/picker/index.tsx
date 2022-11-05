@@ -1,3 +1,10 @@
+import { Provider } from "../../core/context";
+import Panel from "../panel";
+
 export const Picker = () => {
-  return <div>Picker</div>;
+  return (
+    <Provider>
+      <Panel />
+    </Provider>
+  );
 };

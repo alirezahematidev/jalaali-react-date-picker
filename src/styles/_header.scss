@@ -1,0 +1,13 @@
+@import "./mixins/mixin";
+.center {
+    @include flex-row;
+    @include flex-center;
+    @include font-family;
+}
+
+.iconItem {
+    @include clickable;
+}
+
+
+

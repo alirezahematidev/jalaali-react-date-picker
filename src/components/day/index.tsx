@@ -10,7 +10,14 @@ interface DayProps {
 
 const Day = ({ day, isDisabled, isHighlight, isOffDay, onPress }: DayProps) => {
   return (
-    <div className={classnames("day", isHighlight && "highlight")}>
+    <div
+      className={classnames(
+        "day",
+        isHighlight && "highlight",
+        isDisabled && "disabled",
+      )}
+      onClick={onPress}
+    >
       <span>{day}</span>
     </div>
   );
