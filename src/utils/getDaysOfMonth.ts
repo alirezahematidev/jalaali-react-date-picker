@@ -8,14 +8,14 @@ export const getDaysOfMonth = (monthId: MonthKey, jYear: number) => {
 
   if (monthId === 12) {
     if (isLeapYear) {
-      return dayModelGenerator(30, monthId);
+      return dayModelGenerator(30, monthId, jYear);
     }
-    return dayModelGenerator(29, monthId);
+    return dayModelGenerator(29, monthId, jYear);
   }
 
   if (jalaaliMonths.findIndex(({ id }) => id === monthId) <= 5) {
-    return dayModelGenerator(31, monthId);
+    return dayModelGenerator(31, monthId, jYear);
   }
 
-  return dayModelGenerator(30, monthId);
+  return dayModelGenerator(30, monthId, jYear);
 };

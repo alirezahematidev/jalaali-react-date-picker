@@ -6,7 +6,9 @@ import { generatePrevMonthDays } from "./generatePrevMonthDays";
 
 export const generateDays = (monthId: MonthKey, jYear: number) => {
   const currentMonthDays = getDaysOfMonth(monthId, jYear);
-  const currentMonthWeekDay = dateTransformer(
+  console.log("currentMonthDays", currentMonthDays);
+
+  const startOfMonthWeekDay = dateTransformer(
     {
       day: currentMonthDays[0].day,
       month: monthId,
@@ -18,17 +20,18 @@ export const generateDays = (monthId: MonthKey, jYear: number) => {
   currentMonthDays.unshift(
     ...generatePrevMonthDays({
       currentMonth: monthId,
-      currentMonthWeekDay,
+      currentMonthWeekDay: 35 - currentMonthDays.length,
       jYear,
     }),
   );
   currentMonthDays.push(
     ...generateNextMonthDays({
       currentMonth: monthId,
-      currentMonthWeekDay: 35 - currentMonthDays.length,
+      currentMonthWeekDay: startOfMonthWeekDay,
       jYear,
     }),
   );
+  console.log("currentMonthDays", currentMonthDays);
 
   return { days: currentMonthDays };
 };

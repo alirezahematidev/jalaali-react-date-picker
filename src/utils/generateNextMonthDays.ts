@@ -14,11 +14,12 @@ export const generateNextMonthDays = ({
     return [];
   }
 
-  console.log("currentMonthWeekDay", currentMonthWeekDay);
   const nextMonthDays = getDaysOfMonth(
     (currentMonth === 12 ? 1 : currentMonth + 1) as MonthKey,
     jYear,
   );
 
-  return nextMonthDays.slice(0, currentMonthWeekDay);
+  return nextMonthDays
+    .slice(0, currentMonthWeekDay)
+    .map((item) => ({ ...item, isNotCurrentMonth: true }));
 };

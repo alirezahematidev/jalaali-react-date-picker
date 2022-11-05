@@ -25,6 +25,8 @@ export type JalaaliDay = {
   id: string;
   day: number;
   monthId: MonthKey;
+  year?: number;
+  isNotCurrentMonth?: boolean;
 };
 
 export interface DateTransformer {

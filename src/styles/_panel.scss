@@ -2,8 +2,8 @@
 .panel {
     @include flex-center;
     @include font-family;
-    width: 368px;
-    height: 270px;
+    width: 315px;
+    height: 315px;
     background-color: #f9f9f9;
     border-radius: 2px;
     overflow: hidden;
@@ -61,7 +61,7 @@
     @include full;
     display: grid;
     place-items: center;
-    grid-template-columns: repeat(8, minmax(30px, 46px));
+    grid-template-columns: repeat(7, minmax(30px, 46px));
     grid-template-rows: auto;
 }
 

@@ -13,9 +13,12 @@ export const generatePrevMonthDays = ({
   if (currentMonthWeekDay === 0) {
     return [];
   }
+  console.log("currentMonthWeekDay", currentMonthWeekDay);
   const prevMonthDays = getDaysOfMonth(
     (currentMonth === 1 ? 12 : currentMonth - 1) as MonthKey,
     jYear,
   );
-  return prevMonthDays.slice(-currentMonthWeekDay);
+  return prevMonthDays
+    .slice(currentMonthWeekDay === 6 ? -5 : -currentMonthWeekDay)
+    .map((item) => ({ ...item, isNotCurrentMonth: true }));
 };
