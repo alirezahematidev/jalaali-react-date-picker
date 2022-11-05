@@ -38,3 +38,9 @@ export type JalaaliDay = {
   day: number;
   monthId: MonthKey;
 };
+
+export interface DateTransformer {
+  year: number;
+  month: number;
+  day: number;
+}
