@@ -15,23 +15,11 @@ export type MonthNamedValue = {
 };
 
 export type JalaaliMonth = {
-  id: string;
+  id: number;
   name: string;
 };
 
-export type MonthKey =
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "10"
-  | "11"
-  | "12";
+export type MonthKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type JalaaliDay = {
   id: string;

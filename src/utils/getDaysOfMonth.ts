@@ -6,7 +6,7 @@ import { MonthKey } from "../core/types/global.types";
 export const getDaysOfMonth = (monthId: MonthKey, jYear: number) => {
   const isLeapYear = jIsLeapYear(jYear);
 
-  if (monthId === "12") {
+  if (monthId === 12) {
     if (isLeapYear) {
       return dayModelGenerator(30, monthId);
     }

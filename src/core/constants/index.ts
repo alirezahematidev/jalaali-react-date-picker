@@ -3,51 +3,51 @@ import { JalaaliMonth } from "../types/global.types";
 
 const jalaaliMonths: JalaaliMonth[] = [
   {
-    id: "1",
+    id: 1,
     name: "فروردین",
   },
   {
-    id: "2",
+    id: 2,
     name: "اردیبهشت",
   },
   {
-    id: "3",
+    id: 3,
     name: "خرداد",
   },
   {
-    id: "4",
+    id: 4,
     name: "تیر",
   },
   {
-    id: "5",
+    id: 5,
     name: "مرداد",
   },
   {
-    id: "6",
+    id: 6,
     name: "شهریور",
   },
   {
-    id: "7",
+    id: 7,
     name: "مهر",
   },
   {
-    id: "8",
+    id: 8,
     name: "آبان",
   },
   {
-    id: "9",
+    id: 9,
     name: "آذر",
   },
   {
-    id: "10",
+    id: 10,
     name: "دی",
   },
   {
-    id: "11",
+    id: 11,
     name: "بهمن",
   },
   {
-    id: "12",
+    id: 12,
     name: "اسفند",
   },
 ];
@@ -58,7 +58,7 @@ const sortedJalaaliMonthsByCurrent = (): JalaaliMonth[] => {
   if (currentMonthNumber === "1") return jalaaliMonths;
 
   const currentMonthIndex = jalaaliMonths.findIndex(
-    ({ id }) => id === currentMonthNumber,
+    ({ id }) => id === Number(currentMonthNumber),
   );
 
   const monthsBeforeCurrent = jalaaliMonths.slice(0, currentMonthIndex);
