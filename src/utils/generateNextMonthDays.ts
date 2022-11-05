@@ -1,22 +1,21 @@
-import { MonthKey } from "../core/types/global.types";
 import { getDaysOfMonth } from "./getDaysOfMonth";
 
 export const generateNextMonthDays = ({
   currentMonthWeekDay,
   currentMonth,
-  jYear,
+  year,
 }: {
   currentMonthWeekDay: number;
-  currentMonth: MonthKey;
-  jYear: number;
+  currentMonth: number;
+  year: number;
 }) => {
   if (currentMonthWeekDay === 0) {
     return [];
   }
 
   const nextMonthDays = getDaysOfMonth(
-    (currentMonth === 12 ? 1 : currentMonth + 1) as MonthKey,
-    jYear,
+    currentMonth === 12 ? 1 : currentMonth + 1,
+    currentMonth === 12 ? year + 1 : year,
   );
 
   return nextMonthDays

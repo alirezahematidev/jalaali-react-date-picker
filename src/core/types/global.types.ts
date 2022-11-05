@@ -19,13 +19,11 @@ export type JalaaliMonth = {
   name: string;
 };
 
-export type MonthKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-
 export type JalaaliDay = {
   id: string;
   day: number;
-  monthId: MonthKey;
-  year?: number;
+  month: number;
+  year: number;
   isNotCurrentMonth?: boolean;
 };
 

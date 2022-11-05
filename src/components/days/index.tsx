@@ -1,31 +1,27 @@
 import classNames from "classnames";
+import { isEqual } from "lodash-es";
 import { useDatepicker } from "../../core/logic/useDatepicker";
+import { isJalaaliFriday } from "../../utils";
 import Day from "../day";
 
 export interface DaysProps {}
 
 const Days = ({}: DaysProps) => {
-  const { days, onDaychange, state, cacheDate } = useDatepicker();
+  const { days, onDaychange, cacheDate } = useDatepicker();
 
   return (
     <>
-      {days.map(({ day, id, monthId, isNotCurrentMonth, year }) => (
-        <div key={`${id}-${monthId}`} className={classNames("day-item-outer")}>
+      {days.map(({ id, isNotCurrentMonth, ...date }) => (
+        <div
+          key={`${id}-${date.month}`}
+          className={classNames("day-item-outer")}
+        >
           <Day
-            day={day}
+            day={date.day}
             isDisabled={isNotCurrentMonth}
-            onPress={() =>
-              onDaychange({
-                day,
-                month: monthId,
-                year: state.year,
-              })
-            }
-            isHighlight={
-              day === cacheDate?.day &&
-              cacheDate?.month === monthId &&
-              cacheDate?.year === year
-            }
+            onPress={() => onDaychange(date)}
+            isHighlight={isEqual(cacheDate, date)}
+            isOffDay={isJalaaliFriday(date)}
           />
         </div>
       ))}

@@ -6,7 +6,6 @@ export const dateTransformer = (data: DateTransformer, isJalaali = true) => {
   if (day < 1 || month < 1 || year < 1) {
     throw new Error("entered inputs are not valid");
   }
-  console.log({ year, month, day });
   const result = moment(
     `${year}-${month}-${day}`,
     isJalaali ? "jYYYY-jMM-jDD" : "YYYY-MM-DD",

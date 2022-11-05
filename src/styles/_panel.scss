@@ -2,8 +2,9 @@
 .panel {
     @include flex-center;
     @include font-family;
-    width: 315px;
-    height: 315px;
+    width: 300px;
+    height: 352px;
+    max-height: 352px;
     background-color: #f9f9f9;
     border-radius: 2px;
     overflow: hidden;
@@ -58,11 +59,15 @@
 }
 
 .panel-body {
-    @include full;
     display: grid;
+    height: 100%;
+    margin-block: 8px;
+    max-width: 300px;
     place-items: center;
-    grid-template-columns: repeat(7, minmax(30px, 46px));
+    grid-template-columns: repeat(7, minmax(30px, 38px));
     grid-template-rows: auto;
+    row-gap: 8px;
+    column-gap: 4px;
 }
 
 .panel-footer {
@@ -80,10 +85,34 @@
     direction: ltr;
 }
 
+.day-label-bar {
+    width: 100%;
+    min-height: 28px;
+    margin-top: 8px;
+    @include flex-row;
+}
+
+.day-label-bar-inner {
+    margin-inline: 8px;
+    width: 100%;
+    min-height: 28px;
+    @include flex-row(space-between);
+    background-color: #666;
+    border-radius: 2px;
+}
+
+.day-label-item {
+    width: 30px;
+    min-height: 28px;
+    @include flex-center;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+
 .day-item-outer {
     position: relative;
-    flex-basis: 46px;
-    width: 100%;
+    min-width: 38px;
     overflow: hidden;
     @include flex-center;
 }

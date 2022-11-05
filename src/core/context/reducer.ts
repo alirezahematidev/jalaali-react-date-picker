@@ -27,6 +27,7 @@ export function reducer(
         ...state,
         day: payload.day,
         month: payload.month,
+        year: payload.year,
       };
     case ActionKind.MONTH:
       return {

@@ -34,15 +34,12 @@ const DatePickerContext = createContext<ContextType>({
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   const [cacheDate, setCacheDate] = useState<DateTransformer>();
   const [state, dispatch] = useReducer(reducer, {
-    day: moment().jDate(),
+    day: 0,
     year: moment().jYear(),
     month: Number(moment().format("jM")),
   });
 
-  console.log("cacheDate", cacheDate);
-
   const onDaychange = (payload: DateTransformer) => {
-    console.log("payload", payload);
     dispatch({ type: ActionKind.DAY, payload });
     setCacheDate(payload);
   };
