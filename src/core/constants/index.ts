@@ -1,6 +1,55 @@
-import moment from "moment-jalaali";
 import { Month } from "../types/global.types";
 
+const gregorianMonths: Month[] = [
+  {
+    id: 1,
+    name: "January",
+  },
+  {
+    id: 2,
+    name: "February",
+  },
+  {
+    id: 3,
+    name: "March",
+  },
+  {
+    id: 4,
+    name: "April",
+  },
+  {
+    id: 5,
+    name: "May",
+  },
+  {
+    id: 6,
+    name: "June",
+  },
+  {
+    id: 7,
+    name: "July",
+  },
+  {
+    id: 8,
+    name: "August",
+  },
+  {
+    id: 9,
+    name: "September",
+  },
+  {
+    id: 10,
+    name: "October",
+  },
+  {
+    id: 11,
+    name: "November",
+  },
+  {
+    id: 12,
+    name: "December",
+  },
+];
 const jalaaliMonths: Month[] = [
   {
     id: 1,
@@ -53,5 +102,6 @@ const jalaaliMonths: Month[] = [
 ];
 
 const jalaaliDayLabels = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
+const gregorianDayLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-export { jalaaliMonths, jalaaliDayLabels };
+export { jalaaliMonths, jalaaliDayLabels, gregorianMonths, gregorianDayLabels };

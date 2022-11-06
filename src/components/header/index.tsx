@@ -6,15 +6,19 @@ import LeftIcon from "../../assets/icons/chevron_left.svg";
 
 import { useDatepicker } from "../../core/logic/useDatepicker";
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  onSelectMonthPicker?: () => void;
+  onSelectYearPicker?: () => void;
+}
 
-const Header = ({}: HeaderProps) => {
+const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
   const {
     state,
     onDecreaseYear,
     onDecreaseMonth,
     onIncreaseMonth,
     onIncreaseYear,
+    isJalaali,
   } = useDatepicker();
 
   return (
@@ -35,11 +39,13 @@ const Header = ({}: HeaderProps) => {
           />
         </div>
         <div className="panel-date-holder">
-          <div className="panel-date-holder-item">
-            <p style={{ fontSize: 14 }}>{getMonthLabel(state.month, true)}</p>
+          <div className="panel-date-holder-item" onClick={onSelectMonthPicker}>
+            <p style={{ fontSize: 14, cursor: "pointer" }}>
+              {getMonthLabel(state.month, isJalaali)}
+            </p>
           </div>
-          <div className="panel-date-holder-item">
-            <p style={{ fontSize: 14 }}>{state.year}</p>
+          <div className="panel-date-holder-item" onClick={onSelectYearPicker}>
+            <p style={{ fontSize: 14, cursor: "pointer" }}>{state.year}</p>
           </div>
         </div>
         <div className="center">

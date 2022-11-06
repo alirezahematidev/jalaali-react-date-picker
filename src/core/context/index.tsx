@@ -59,7 +59,7 @@ export const Provider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
-  } = useDateReducer();
+  } = useDateReducer(!!props.isJalaali);
 
   const { setIsJalaali, propsState } = usePropsReducer();
 
