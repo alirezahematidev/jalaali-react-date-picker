@@ -2,7 +2,6 @@
 .day {
     @include flex-center;
     @include day-box(true);
-    @include font-family;
     @include clickable;
 }
 
