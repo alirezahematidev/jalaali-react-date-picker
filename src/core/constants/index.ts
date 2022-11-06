@@ -1,7 +1,7 @@
 import moment from "moment-jalaali";
-import { JalaaliMonth } from "../types/global.types";
+import { Month } from "../types/global.types";
 
-const jalaaliMonths: JalaaliMonth[] = [
+const jalaaliMonths: Month[] = [
   {
     id: 1,
     name: "فروردین",

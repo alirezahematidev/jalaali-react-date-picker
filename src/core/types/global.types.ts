@@ -14,20 +14,17 @@ export type MonthNamedValue = {
   value: number;
 };
 
-export type JalaaliMonth = {
+export type Month = {
   id: number;
   name: string;
 };
 
-export type JalaaliDay = {
+export interface DateMetadata extends Date {
   id: string;
-  day: number;
-  month: number;
-  year: number;
   isNotCurrentMonth?: boolean;
-};
+}
 
-export interface DateTransformer {
+export interface Date {
   year: number;
   month: number;
   day: number;
