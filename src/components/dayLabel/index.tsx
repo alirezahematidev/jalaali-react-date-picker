@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { gregorianDayLabels, jalaaliDayLabels } from "../../core";
 import { useDatepicker } from "../../core/logic/useDatepicker";
 
@@ -7,8 +8,9 @@ export const DayLabel = () => {
   return (
     <div className="day-label-bar">
       <div
-        className="day-label-bar-inner"
-        style={{ direction: isJalaali ? "rtl" : "ltr" }}
+        className={classNames(
+          isJalaali ? "day-label-bar-inner-rtl" : "day-label-bar-inner-ltr",
+        )}
       >
         {labels.map((char) => (
           <div key={char} className="day-label-item">

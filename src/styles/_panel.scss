@@ -56,6 +56,15 @@
     @include flex-row;
     margin-inline: 2px;
     padding-inline: 2px;
+    p  {
+        font-size: 14px;
+    }
+}
+.panel-date-holder-item-rtl {
+  direction: rtl
+}
+.panel-date-holder-item-ltr {
+  direction: ltr;
 }
 
 .days-body {
@@ -99,6 +108,15 @@
     @include flex-row(space-between);
     background-color: #666;
     border-radius: 2px;
+}
+
+.day-label-bar-inner-rtl  {
+    @extend .day-label-bar-inner;
+    direction: rtl;
+}
+.day-label-bar-inner-ltr  {
+    @extend .day-label-bar-inner;
+    direction: ltr;
 }
 
 .day-label-item {

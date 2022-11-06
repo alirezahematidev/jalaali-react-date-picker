@@ -28,37 +28,37 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <img
             className="iconItem"
             src={RightIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => onDecreaseYear(state)}
           />
           <img
             className="iconItem"
             src={RightIcon}
-            style={{ width: 18, height: 18 }}
             onClick={() => onDecreaseMonth(state)}
           />
         </div>
         <div className="panel-date-holder">
-          <div className="panel-date-holder-item" onClick={onSelectMonthPicker}>
-            <p style={{ fontSize: 14, cursor: "pointer" }}>
-              {getMonthLabel(state.month, isJalaali)}
-            </p>
+          <div
+            className="panel-date-holder-item clickable"
+            onClick={onSelectMonthPicker}
+          >
+            <p>{getMonthLabel(state.month, isJalaali)}</p>
           </div>
-          <div className="panel-date-holder-item" onClick={onSelectYearPicker}>
-            <p style={{ fontSize: 14, cursor: "pointer" }}>{state.year}</p>
+          <div
+            className="panel-date-holder-item clickable"
+            onClick={onSelectYearPicker}
+          >
+            <p>{state.year}</p>
           </div>
         </div>
         <div className="center">
           <img
             className="iconItem"
             src={LeftIcon}
-            style={{ width: 18, height: 18 }}
             onClick={() => onIncreaseMonth(state)}
           />
           <img
             className="iconItem"
             src={LeftIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => onIncreaseYear(state)}
           />
         </div>

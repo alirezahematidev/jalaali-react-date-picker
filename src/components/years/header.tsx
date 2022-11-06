@@ -1,6 +1,7 @@
 import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
 import { useDatepicker } from "../../core/logic/useDatepicker";
+import classNames from "classnames";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -23,29 +24,22 @@ const YearsHeader = ({
           <img
             className="iconItem"
             src={RightIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => (isRtl ? onDecreaseDecade() : onIncreaseDecade())}
           />
         </div>
         <div className="panel-date-holder">
           <div
-            className="panel-date-holder-item"
-            style={{ direction: isRtl ? "rtl" : "ltr" }}
+            className={classNames(
+              "panel-date-holder-item",
+              isRtl
+                ? "panel-date-holder-item-rtl"
+                : "panel-date-holder-item-ltr",
+            )}
           >
             {isRtl ? (
-              <p
-                style={{
-                  fontSize: 14,
-                  cursor: "pointer",
-                }}
-              >{`${upperDecade}-${lowerDecade}`}</p>
+              <p className="clickable">{`${upperDecade}-${lowerDecade}`}</p>
             ) : (
-              <p
-                style={{
-                  fontSize: 14,
-                  cursor: "pointer",
-                }}
-              >{`${lowerDecade}-${upperDecade}`}</p>
+              <p className="clickable">{`${lowerDecade}-${upperDecade}`}</p>
             )}
           </div>
         </div>
@@ -53,7 +47,6 @@ const YearsHeader = ({
           <img
             className="iconItem"
             src={LeftIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => (isRtl ? onIncreaseDecade() : onDecreaseDecade())}
           />
         </div>
