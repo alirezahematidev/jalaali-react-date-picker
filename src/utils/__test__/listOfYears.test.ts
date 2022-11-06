@@ -2,10 +2,11 @@ import { listOfYears } from "../listOfYears";
 
 const listOfYearsTestCallback = () => {
   const fn = jest.fn(listOfYears);
+  const { years } = fn();
 
-  expect(fn().length).toBe(1401);
-  expect(fn().at(0)).toBe(1);
-  expect(fn().at(-1)).toBe(1401);
+  expect(years.length).toBe(12);
+  expect(years[0].isNotCurrentDecade).toBe(true);
+  expect(years[0].isNotCurrentDecade).toBe(true);
 };
 
 test("get list of years", listOfYearsTestCallback);
