@@ -1,14 +1,22 @@
-import { generateDays } from "../../utils/generateDays";
+import moment from "moment-jalaali";
+import { generateDays } from "../../utils";
 import { useDatePickerContext } from "../context";
-import { MonthKey } from "../types/global.types";
 
 export const useDatepicker = () => {
-  const { state, ...fns } = useDatePickerContext();
-  const { days } = generateDays(state.month as MonthKey, state.year);
+  const { state, ...rest } = useDatePickerContext();
+  const { days } = generateDays(state.month, state.year);
 
+  const goToToday = () => {
+    rest.onDaychange({
+      day: moment().jDate(),
+      year: moment().jYear(),
+      month: Number(moment().format("jM")),
+    });
+  };
   return {
     days,
     state,
-    ...fns,
+    goToToday,
+    ...rest,
   };
 };

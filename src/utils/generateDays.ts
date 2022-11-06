@@ -1,37 +1,34 @@
 import { getDaysOfMonth } from ".";
-import { MonthKey } from "../core/types/global.types";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
 import { generatePrevMonthDays } from "./generatePrevMonthDays";
 
-export const generateDays = (monthId: MonthKey, jYear: number) => {
-  const currentMonthDays = getDaysOfMonth(monthId, jYear);
-  console.log("currentMonthDays", currentMonthDays);
+export const generateDays = (month: number, year: number) => {
+  const currentMonthDays = getDaysOfMonth(month, year);
 
   const startOfMonthWeekDay = dateTransformer(
     {
       day: currentMonthDays[0].day,
-      month: monthId,
-      year: jYear,
+      month,
+      year,
     },
     true,
   ).weekday();
 
-  currentMonthDays.unshift(
+  const daysOfMonthAfterUnshift = currentMonthDays.unshift(
     ...generatePrevMonthDays({
-      currentMonth: monthId,
-      currentMonthWeekDay: 35 - currentMonthDays.length,
-      jYear,
+      currentMonth: month,
+      currentMonthWeekDay: startOfMonthWeekDay,
+      year,
     }),
   );
   currentMonthDays.push(
     ...generateNextMonthDays({
-      currentMonth: monthId,
-      currentMonthWeekDay: startOfMonthWeekDay,
-      jYear,
+      currentMonth: month,
+      currentMonthWeekDay: 42 - daysOfMonthAfterUnshift,
+      year,
     }),
   );
-  console.log("currentMonthDays", currentMonthDays);
 
   return { days: currentMonthDays };
 };

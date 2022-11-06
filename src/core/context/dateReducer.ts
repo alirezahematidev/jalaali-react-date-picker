@@ -1,4 +1,4 @@
-import { DateTransformer } from "../types/global.types";
+import { Date } from "../types/global.types";
 
 export enum ActionKind {
   DAY = "DAY",
@@ -12,14 +12,11 @@ export enum ActionKind {
 
 export interface Action {
   type: ActionKind;
-  payload: DateTransformer;
+  payload: Date;
 }
 
 // Our reducer function that uses a switch statement to handle our actions
-export function reducer(
-  state: DateTransformer,
-  action: Action,
-): DateTransformer {
+export function reducer(state: Date, action: Action): Date {
   const { type, payload } = action;
   switch (type) {
     case ActionKind.DAY:
@@ -27,6 +24,7 @@ export function reducer(
         ...state,
         day: payload.day,
         month: payload.month,
+        year: payload.year,
       };
     case ActionKind.MONTH:
       return {

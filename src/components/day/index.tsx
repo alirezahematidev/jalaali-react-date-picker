@@ -15,6 +15,7 @@ const Day = ({ day, isDisabled, isHighlight, isOffDay, onPress }: DayProps) => {
         "day",
         isHighlight && "highlight",
         isDisabled && "disabled",
+        isOffDay && "off-day",
       )}
       onClick={onPress}
     >

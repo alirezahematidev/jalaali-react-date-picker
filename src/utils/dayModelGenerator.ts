@@ -1,14 +1,14 @@
-import { JalaaliDay, MonthKey } from "../core/types/global.types";
+import { DateMetadata } from "../core/types/global.types";
 
 export const dayModelGenerator = (
   count: number,
-  monthId: MonthKey,
+  month: number,
   year: number,
-): JalaaliDay[] => {
+): DateMetadata[] => {
   return Array.from({ length: count }, (_, i) => ({
     id: `${i + 1}`,
     day: i + 1,
-    monthId,
+    month,
     year,
   }));
 };

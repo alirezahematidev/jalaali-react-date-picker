@@ -3,7 +3,7 @@ import { Picker } from "./components";
 function App() {
   return (
     <div>
-      <Picker />
+      <Picker isJalaali={false} />
     </div>
   );
 }

@@ -1,18 +1,28 @@
 import moment from "moment-jalaali";
-import { createContext, useContext, useReducer, useState } from "react";
-import { DateTransformer } from "../types/global.types";
-import { ActionKind, reducer } from "./reducer";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { useDeepCompareEffect } from "../hooks";
+import { DatePickerProps } from "../interfaces";
+import { Date } from "../types/global.types";
+import { PropsReducerType } from "./propsReducer";
+import { useDateReducer } from "./useDateReducer";
+import { usePropsReducer } from "./usePropsReducer";
 
-interface ContextType {
-  state: DateTransformer;
-  cacheDate?: DateTransformer;
-  onDaychange: (payload: DateTransformer) => void;
-  onMonthchange: (payload: DateTransformer) => void;
-  onYearchange: (payload: DateTransformer) => void;
-  onIncreaseYear: (payload: DateTransformer) => void;
-  onDecreaseYear: (payload: DateTransformer) => void;
-  onIncreaseMonth: (payload: DateTransformer) => void;
-  onDecreaseMonth: (payload: DateTransformer) => void;
+interface ContextType extends PropsReducerType {
+  state: Date;
+  cacheDate?: Date;
+  onDaychange: (payload: Date) => void;
+  onMonthchange: (payload: Date) => void;
+  onYearchange: (payload: Date) => void;
+  onIncreaseYear: (payload: Date) => void;
+  onDecreaseYear: (payload: Date) => void;
+  onIncreaseMonth: (payload: Date) => void;
+  onDecreaseMonth: (payload: Date) => void;
 }
 
 const DatePickerContext = createContext<ContextType>({
@@ -29,65 +39,37 @@ const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
+  isJalaali: true,
 });
 
-export const Provider = ({ children }: { children: React.ReactNode }) => {
-  const [cacheDate, setCacheDate] = useState<DateTransformer>();
-  const [state, dispatch] = useReducer(reducer, {
-    day: moment().jDate(),
-    year: moment().jYear(),
-    month: Number(moment().format("jM")),
-  });
+export const Provider = ({
+  children,
+  props,
+}: {
+  children: React.ReactNode;
+  props: DatePickerProps;
+}) => {
+  const {
+    state,
+    onDaychange,
+    onMonthchange,
+    onYearchange,
+    onIncreaseYear,
+    onDecreaseYear,
+    onIncreaseMonth,
+    onDecreaseMonth,
+    cacheDate,
+  } = useDateReducer();
 
-  console.log("cacheDate", cacheDate);
+  const { setIsJalaali, propsState } = usePropsReducer();
 
-  const onDaychange = (payload: DateTransformer) => {
-    console.log("payload", payload);
-    dispatch({ type: ActionKind.DAY, payload });
-    setCacheDate(payload);
-  };
-  const onMonthchange = (payload: DateTransformer) => {
-    dispatch({ type: ActionKind.MONTH, payload });
-  };
-  const onYearchange = (payload: DateTransformer) => {
-    dispatch({ type: ActionKind.YEAR, payload });
-  };
-  const onIncreaseYear = (payload: DateTransformer) => {
-    dispatch({
-      type: ActionKind.YEAR_PLUS,
-      payload: {
-        ...state,
-        day: cacheDate?.year === payload.year ? cacheDate.day : 0,
-      },
-    });
-  };
-  const onDecreaseYear = (payload: DateTransformer) => {
-    dispatch({
-      type: ActionKind.YEAR_MINUS,
-      payload: {
-        ...state,
-        day: cacheDate?.year === payload.year ? cacheDate.day : 0,
-      },
-    });
-  };
-  const onIncreaseMonth = (payload: DateTransformer) => {
-    dispatch({
-      type: ActionKind.MONTH_PLUS,
-      payload: {
-        ...state,
-        day: cacheDate?.month === payload.month ? cacheDate.day : 0,
-      },
-    });
-  };
-  const onDecreaseMonth = (payload: DateTransformer) => {
-    dispatch({
-      type: ActionKind.MONTH_MINUS,
-      payload: {
-        ...state,
-        day: cacheDate?.month === payload.month ? cacheDate.day : 0,
-      },
-    });
-  };
+  useDeepCompareEffect(() => {
+    if (propsState.isJalaali !== props.isJalaali) {
+      setIsJalaali(props.isJalaali);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
+
   return (
     <DatePickerContext.Provider
       value={{
@@ -100,6 +82,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
         onIncreaseMonth,
         onDecreaseMonth,
         cacheDate,
+        isJalaali: propsState.isJalaali,
       }}
     >
       {children}

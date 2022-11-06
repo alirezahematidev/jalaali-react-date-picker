@@ -1,30 +1,34 @@
-import { JalaaliDay } from "../../core/types/global.types";
+import { DateMetadata } from "../../core/types/global.types";
 import { getDaysOfMonth } from "../getDaysOfMonth";
 
 const getDaysOfMonthTestCallback = () => {
   const fn = jest.fn(getDaysOfMonth);
 
-  expect(fn(1, 1401)?.at(-1)).toStrictEqual<JalaaliDay>({
+  expect(fn(1, 1401)?.at(-1)).toStrictEqual<DateMetadata>({
     id: "31",
     day: 31,
-    monthId: 1,
+    month: 1,
+    year: 1401,
   });
-  expect(fn(7, 1401)?.at(-1)).toStrictEqual<JalaaliDay>({
+  expect(fn(7, 1401)?.at(-1)).toStrictEqual<DateMetadata>({
     id: "30",
     day: 30,
-    monthId: 7,
+    month: 7,
+    year: 1401,
   });
-  expect(fn(12, 1401)?.at(-1)).toStrictEqual<JalaaliDay>({
+  expect(fn(12, 1401)?.at(-1)).toStrictEqual<DateMetadata>({
     id: "29",
     day: 29,
-    monthId: 12,
+    month: 12,
+    year: 1401,
   });
 
   // year 1403 is leap year.
-  expect(fn(12, 1403)?.at(-1)).toStrictEqual<JalaaliDay>({
+  expect(fn(12, 1403)?.at(-1)).toStrictEqual<DateMetadata>({
     id: "30",
     day: 30,
-    monthId: 12,
+    month: 12,
+    year: 1403,
   });
 };
 
