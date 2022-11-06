@@ -41,7 +41,7 @@ function App() {
 
 - Full support on React and React Native libraries
 - Full styles customization (style overrides, colors and etc)
-- Support jalaali(Shamsi) date mode format
+- Support jalaali (Shamsi) date mode format
 
 
 ## props
@@ -49,7 +49,7 @@ function App() {
 | Property | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `value` | `Moment` | To set date  |
-| `defaultValue` | `Moment` | To set default date, if start time or end time is null or undefined, the date will be set  |
+| `defaultValue` | `Moment` | To set default date, if date is null or undefined, the date will be set  |
 | `onChange` | `(date: Value, dateString: string) => void` | Callback function, can be executed when the selected date is changing  |
 | `onDayChange` | `(day: number) => void` | Callback function, can be executed then return day when the selected date is changing  |
 | `onMonthChange` | `(month: MonthValue) => void` | Callback function, can be executed then return month when the selected date is changing  |
@@ -71,7 +71,7 @@ function App() {
 
 ## Using Third Party
 
-[momentjs](#https://momentjs.com)
+[momentjs](https://momentjs.com)
 
 
 ## License
