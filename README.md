@@ -8,13 +8,13 @@ An advanced jalaali date or range picker that supports on all of Javascript fram
 [![Version][version-badge]][package]
 [![MIT License][license-badge]][license]
 
-[version-badge]: https://img.shields.io/npm/v/react-native-paper.svg?style=flat-square
-[package]: https://www.npmjs.com/package/react-native-paper
-[license-badge]: https://img.shields.io/npm/l/react-native-paper.svg?style=flat-square
+[version-badge]: https://img.shields.io/npm/v/jalaali-react-date-picker
+[package]: https://www.npmjs.com/package/jalaali-react-date-picker
+[license-badge]: https://img.shields.io/npm/l/jalaali-react-date-picker
 [license]: https://opensource.org/licenses/MIT
 
 
-
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gbraad)
 
 ## Installation
 
