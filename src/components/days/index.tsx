@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { isEqual } from "lodash-es";
 import { useDatepicker } from "../../core/logic/useDatepicker";
-import { isJalaaliFriday } from "../../utils";
+import { isWeekend } from "../../utils";
 import Day from "../day";
 
 export interface DaysProps {}
@@ -21,7 +21,7 @@ const Days = ({}: DaysProps) => {
             isDisabled={isNotCurrentMonth}
             onPress={() => onDaychange(date)}
             isHighlight={isEqual(cacheDate, date)}
-            isOffDay={isJalaaliFriday(date)}
+            isOffDay={isWeekend(date, true)}
           />
         </div>
       ))}

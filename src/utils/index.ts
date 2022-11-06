@@ -6,4 +6,4 @@ export * from "./dateTransformer";
 export * from "./generateDays";
 export * from "./generateNextMonthDays";
 export * from "./generatePrevMonthDays";
-export * from "./isFriday";
+export * from "./isWeekend";
