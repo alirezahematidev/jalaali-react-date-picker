@@ -4,9 +4,17 @@
 An advanced jalaali date or range picker that supports on all of Javascript frameworks, Specially React and React Native
 
 
+
 [![Version][version-badge]][package]
-[![All Contributors][all-contributors-badge]][all-contributors]
 [![MIT License][license-badge]][license]
+
+[version-badge]: https://img.shields.io/npm/v/react-native-paper.svg?style=flat-square
+[package]: https://www.npmjs.com/package/react-native-paper
+[license-badge]: https://img.shields.io/npm/l/react-native-paper.svg?style=flat-square
+[license]: https://opensource.org/licenses/MIT
+
+
+
 
 ## Installation
 
