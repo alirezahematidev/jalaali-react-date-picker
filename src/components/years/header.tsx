@@ -1,6 +1,6 @@
 import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
-import { useDatepicker } from "../../core/logic/useDatepicker";
+import { useLayoutDirection } from "../../core";
 import classNames from "classnames";
 
 export interface HeaderProps {
@@ -16,7 +16,8 @@ const YearsHeader = ({
   onDecreaseDecade,
   onIncreaseDecade,
 }: HeaderProps) => {
-  const { isJalaali: isRtl } = useDatepicker();
+  const { isRtl } = useLayoutDirection();
+
   return (
     <div className="panel-header-rtl">
       <div className="panel-header-inner">

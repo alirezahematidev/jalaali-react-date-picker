@@ -1,11 +1,5 @@
-import moment from "moment-jalaali";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { isEqual } from "lodash-es";
+import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
 import { Date } from "../types/global.types";
@@ -32,6 +26,11 @@ const DatePickerContext = createContext<ContextType>({
     year: 0,
   },
   cacheDate: undefined,
+  isJalaali: true,
+  locale: {
+    language: "fa",
+    zone: undefined,
+  },
   onDaychange: () => null,
   onMonthchange: () => null,
   onYearchange: () => null,
@@ -39,7 +38,6 @@ const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
-  isJalaali: true,
 });
 
 export const Provider = ({
@@ -61,12 +59,24 @@ export const Provider = ({
     cacheDate,
   } = useDateReducer(!!props.isJalaali);
 
-  const { setIsJalaali, propsState } = usePropsReducer();
+  const { setIsJalaali, setLocale, propsState } = usePropsReducer();
 
   useDeepCompareEffect(() => {
     if (propsState.isJalaali !== props.isJalaali) {
+      if (props.locale?.language && props.locale?.language !== "fa") {
+        setIsJalaali(false);
+        return;
+      }
       setIsJalaali(props.isJalaali);
     }
+
+    if (props.locale && !isEqual(props.locale, propsState.locale)) {
+      if (props.locale?.language !== "fa") {
+        setIsJalaali(false);
+      }
+      setLocale(props.locale);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
@@ -82,7 +92,7 @@ export const Provider = ({
         onIncreaseMonth,
         onDecreaseMonth,
         cacheDate,
-        isJalaali: propsState.isJalaali,
+        ...propsState,
       }}
     >
       {children}
@@ -91,5 +101,11 @@ export const Provider = ({
 };
 
 export const useDatePickerContext = () => {
+  if (typeof DatePickerContext === "undefined") {
+    throw new Error(
+      "useDatePickerContext must be under DatePickerContext Provider",
+    );
+  }
+
   return useContext(DatePickerContext);
 };

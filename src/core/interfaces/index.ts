@@ -5,6 +5,7 @@ export interface DatePickerProps {
   value?: DatePickerTypes.Value;
   onChange?: DatePickerTypes.OnChange;
   format?: DatePickerTypes.Format;
+  locale?: DatePickerTypes.Locale;
   isJalaali?: DatePickerTypes.IsJalaali;
   showGoToToday?: boolean;
   renderFooter?: DatePickerTypes.RenderFooter;

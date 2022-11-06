@@ -1,13 +1,15 @@
 import { DatePickerProps } from "../interfaces";
 
-export type PropsReducerType = Pick<DatePickerProps, "isJalaali">;
+export type PropsReducerType = Pick<DatePickerProps, "isJalaali" | "locale">;
 
 export enum PropsActionKind {
-  ISJALAALI = "ISJALAALI",
+  IS_JALAALI = "IS_JALAALI",
+  LOCALE = "LOCALE",
 }
 
 export interface Action {
   type: PropsActionKind;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload?: any;
 }
 
@@ -18,10 +20,15 @@ export function propsReducer(
 ): PropsReducerType {
   const { type, payload } = action;
   switch (type) {
-    case PropsActionKind.ISJALAALI:
+    case PropsActionKind.IS_JALAALI:
       return {
         ...state,
         isJalaali: payload,
+      };
+    case PropsActionKind.LOCALE:
+      return {
+        ...state,
+        locale: payload,
       };
     default:
       return state;

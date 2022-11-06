@@ -1,9 +1,10 @@
 import { jIsLeapYear } from "moment-jalaali";
 import { dayModelGenerator } from ".";
-import { jalaaliMonths } from "../core/constants";
+import { useLocale } from "../core";
 
 export const getDaysOfMonth = (month: number, jYear: number) => {
   const isLeapYear = jIsLeapYear(jYear);
+  const { months } = useLocale();
 
   if (month === 12) {
     if (isLeapYear) {
@@ -12,7 +13,7 @@ export const getDaysOfMonth = (month: number, jYear: number) => {
     return dayModelGenerator(29, month, jYear);
   }
 
-  if (jalaaliMonths.findIndex(({ id }) => id === month) <= 5) {
+  if (months.findIndex(({ id }) => id === month) <= 5) {
     return dayModelGenerator(31, month, jYear);
   }
 

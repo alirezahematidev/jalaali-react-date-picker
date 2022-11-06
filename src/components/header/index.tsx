@@ -1,10 +1,10 @@
-import { getMonthLabel } from "../../utils/getMonthLabel";
 import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
 import RightIcon from "../../assets/icons/chevron_right.svg";
 import LeftIcon from "../../assets/icons/chevron_left.svg";
 
 import { useDatepicker } from "../../core/logic/useDatepicker";
+import { useGetMonthLabel } from "../../utils/getMonthLabel";
 
 export interface HeaderProps {
   onSelectMonthPicker?: () => void;
@@ -18,8 +18,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
     onDecreaseMonth,
     onIncreaseMonth,
     onIncreaseYear,
-    isJalaali,
   } = useDatepicker();
+
+  const getMonthLabel = useGetMonthLabel();
 
   return (
     <div className="panel-header-rtl">
@@ -41,7 +42,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
             className="panel-date-holder-item clickable"
             onClick={onSelectMonthPicker}
           >
-            <p>{getMonthLabel(state.month, isJalaali)}</p>
+            <p>{getMonthLabel(state.month)}</p>
           </div>
           <div
             className="panel-date-holder-item clickable"

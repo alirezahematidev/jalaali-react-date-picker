@@ -1,6 +1,6 @@
 import { Moment as MomentType } from "moment-jalaali";
 import * as React from "react";
-import { ColorSchema, MonthNamedValue } from "./global.types";
+import { ColorSchema, Language, MonthNamedValue } from "./global.types";
 
 export namespace DatePickerTypes {
   /**
@@ -98,11 +98,28 @@ export namespace DatePickerTypes {
    */
   export type IsJalaali = boolean;
   /**
-   * A list of locales that customize language and time zone based on.
+   * Customize localization.
    *
-   * @default ["fa", "en"]
+   * @default { language: "fa", zone: "Iran/Tehran" }
    */
-  export type Locales = string[];
+  export type Locale = {
+    /**
+     * The language applied to picker
+     *
+     * @default "fa"
+     */
+    language?: Language;
+
+    /**
+     * The zone considering for date ISO timezone
+     *
+     * @example
+     *   "Iran/Tehran", "America/Los_Angles";
+     *
+     * @default "Iran/Tehran"
+     */
+    zone?: string;
+  };
   /**
    * Custom format of return value
    *
