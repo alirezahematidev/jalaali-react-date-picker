@@ -1,15 +1,14 @@
 import classNames from "classnames";
-import { useLayoutDirection, useLocale } from "../../core";
+import { useDatepicker } from "../../core";
 
 export const DayLabel = () => {
-  const { dayLabels } = useLocale();
-  const { isRtl } = useLayoutDirection();
+  const { isJalaali, dayLabels } = useDatepicker();
 
   return (
     <div className="day-label-bar">
       <div
         className={classNames(
-          isRtl ? "day-label-bar-inner-rtl" : "day-label-bar-inner-ltr",
+          isJalaali ? "day-label-bar-inner-rtl" : "day-label-bar-inner-ltr",
         )}
       >
         {dayLabels.map((char) => (

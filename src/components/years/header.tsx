@@ -1,7 +1,7 @@
 import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
-import { useLayoutDirection } from "../../core";
 import classNames from "classnames";
+import { useDatepicker } from "../../core";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -16,7 +16,7 @@ const YearsHeader = ({
   onDecreaseDecade,
   onIncreaseDecade,
 }: HeaderProps) => {
-  const { isRtl } = useLayoutDirection();
+  const { isJalaali } = useDatepicker();
 
   return (
     <div className="panel-header-rtl">
@@ -25,19 +25,21 @@ const YearsHeader = ({
           <img
             className="iconItem"
             src={RightIconDouble}
-            onClick={() => (isRtl ? onDecreaseDecade() : onIncreaseDecade())}
+            onClick={() =>
+              isJalaali ? onDecreaseDecade() : onIncreaseDecade()
+            }
           />
         </div>
         <div className="panel-date-holder">
           <div
             className={classNames(
               "panel-date-holder-item",
-              isRtl
+              isJalaali
                 ? "panel-date-holder-item-rtl"
                 : "panel-date-holder-item-ltr",
             )}
           >
-            {isRtl ? (
+            {isJalaali ? (
               <p className="clickable">{`${upperDecade}-${lowerDecade}`}</p>
             ) : (
               <p className="clickable">{`${lowerDecade}-${upperDecade}`}</p>
@@ -48,7 +50,9 @@ const YearsHeader = ({
           <img
             className="iconItem"
             src={LeftIconDouble}
-            onClick={() => (isRtl ? onIncreaseDecade() : onDecreaseDecade())}
+            onClick={() =>
+              isJalaali ? onIncreaseDecade() : onDecreaseDecade()
+            }
           />
         </div>
       </div>

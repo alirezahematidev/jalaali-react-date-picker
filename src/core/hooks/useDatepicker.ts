@@ -1,10 +1,20 @@
 import moment from "moment-jalaali";
 import { generateDays } from "../../utils";
+import { localizedDayLabels, localizedMonth } from "../constants";
 import { useDatePickerContext } from "../context";
 
 export const useDatepicker = () => {
-  const { state, isJalaali, ...rest } = useDatePickerContext();
-  const { days } = generateDays(state.month, state.year);
+  const { state, locale, ...rest } = useDatePickerContext();
+
+  const language = locale?.language || "fa";
+
+  const isJalaali = language === "fa";
+
+  const months = localizedMonth[language];
+
+  const dayLabels = localizedDayLabels[language];
+
+  const { days } = generateDays(state.month, state.year, isJalaali);
 
   const goToToday = () => {
     isJalaali
@@ -24,6 +34,9 @@ export const useDatepicker = () => {
     state,
     goToToday,
     isJalaali,
+    language,
+    months,
+    dayLabels,
     ...rest,
   };
 };

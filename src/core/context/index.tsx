@@ -1,4 +1,5 @@
 import { isEqual } from "lodash-es";
+import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
@@ -26,7 +27,6 @@ const DatePickerContext = createContext<ContextType>({
     year: 0,
   },
   cacheDate: undefined,
-  isJalaali: true,
   locale: {
     language: "fa",
     zone: undefined,
@@ -47,6 +47,8 @@ export const Provider = ({
   children: React.ReactNode;
   props: DatePickerProps;
 }) => {
+  const language = props ? props.locale?.language || "fa" : "fa";
+
   const {
     state,
     onDaychange,
@@ -57,24 +59,19 @@ export const Provider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
-  } = useDateReducer(!!props.isJalaali);
+  } = useDateReducer(language === "fa");
 
-  const { setIsJalaali, setLocale, propsState } = usePropsReducer();
+  const { setLocale, propsState } = usePropsReducer();
 
   useDeepCompareEffect(() => {
-    if (propsState.isJalaali !== props.isJalaali) {
-      if (props.locale?.language && props.locale?.language !== "fa") {
-        setIsJalaali(false);
-        return;
-      }
-      setIsJalaali(props.isJalaali);
-    }
-
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
-      if (props.locale?.language !== "fa") {
-        setIsJalaali(false);
-      }
+      const isJalaali = language === "fa";
       setLocale(props.locale);
+      onDaychange({
+        day: 0,
+        year: isJalaali ? moment().jYear() : moment().year(),
+        month: Number(moment().format(isJalaali ? "jM" : "M")),
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,5 +1,4 @@
-import { useLayoutDirection, useLocale } from "../../core";
-import { useDatepicker } from "../../core/logic/useDatepicker";
+import { useDatepicker } from "../../core";
 import { Header } from "../header";
 import classNames from "classnames";
 
@@ -9,14 +8,12 @@ export interface MonthsProps {
 }
 
 const Months = ({ onSelectMonth, onChangeMode }: MonthsProps) => {
-  const { onMonthchange, state } = useDatepicker();
-  const { months } = useLocale();
-  const { isRtl } = useLayoutDirection();
+  const { onMonthchange, state, isJalaali, months } = useDatepicker();
 
   return (
     <>
       <Header onSelectYearPicker={() => onChangeMode?.("year")} />
-      <div className={isRtl ? "months-body-rtl" : "months-body-ltr"}>
+      <div className={isJalaali ? "months-body-rtl" : "months-body-ltr"}>
         {months.map((item) => {
           const isSelected = item.id === state.month;
           return (

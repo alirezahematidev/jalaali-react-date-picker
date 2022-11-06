@@ -1,10 +1,12 @@
-import { getDaysOfMonth } from ".";
+import { getDaysOfJalaaliMonth, getDaysOfGregorianMonth } from ".";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
 import { generatePrevMonthDays } from "./generatePrevMonthDays";
 
-export const generateDays = (month: number, year: number) => {
-  const currentMonthDays = getDaysOfMonth(month, year);
+export const generateDays = (month: number, year: number, isJalaali = true) => {
+  const currentMonthDays = isJalaali
+    ? getDaysOfJalaaliMonth(month, year)
+    : getDaysOfGregorianMonth(month, year);
 
   const startOfMonthWeekDay = dateTransformer(
     {
@@ -12,7 +14,7 @@ export const generateDays = (month: number, year: number) => {
       month,
       year,
     },
-    true,
+    isJalaali,
   ).weekday();
 
   const daysOfMonthAfterUnshift = currentMonthDays.unshift(
@@ -20,6 +22,7 @@ export const generateDays = (month: number, year: number) => {
       currentMonth: month,
       currentMonthWeekDay: startOfMonthWeekDay,
       year,
+      isJalaali,
     }),
   );
   currentMonthDays.push(
@@ -27,6 +30,7 @@ export const generateDays = (month: number, year: number) => {
       currentMonth: month,
       currentMonthWeekDay: 42 - daysOfMonthAfterUnshift,
       year,
+      isJalaali,
     }),
   );
 

@@ -1,10 +1,10 @@
 import { isEqual } from "lodash-es";
-import { useDatepicker } from "../../core/logic/useDatepicker";
 import classNames from "classnames";
 import Day from "../day";
 import { DayLabel } from "../dayLabel";
 import { Header, HeaderProps } from "../header";
-import { useIsWeekend } from "../../core";
+import { useDatepicker } from "../../core";
+import { isWeekend } from "../../utils";
 
 export interface DaysProps extends HeaderProps {
   onChangeMode?: (mode: "month" | "year") => void;
@@ -12,8 +12,6 @@ export interface DaysProps extends HeaderProps {
 
 const Days = ({ onChangeMode }: DaysProps) => {
   const { days, onDaychange, cacheDate, isJalaali } = useDatepicker();
-
-  const { isWeekend } = useIsWeekend();
 
   return (
     <>

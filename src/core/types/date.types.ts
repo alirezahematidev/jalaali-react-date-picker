@@ -92,12 +92,6 @@ export namespace DatePickerTypes {
    */
   export type Today = () => Value;
   /**
-   * A boolean that convert datepicker to jalaali format
-   *
-   * @default true
-   */
-  export type IsJalaali = boolean;
-  /**
    * Customize localization.
    *
    * @default { language: "fa", zone: "Iran/Tehran" }
