@@ -1,7 +1,7 @@
 @import "./mixins/mixin";
 .panel {
     @include flex-center;
-    @include font-family;
+    
     width: 300px;
     height: 352px;
     max-height: 352px;
@@ -15,12 +15,13 @@
     }
 }
 
-.panel-rtl {
+.panel-jalaali {
+    @include font-family;
     @extend .panel;
     direction: rtl;
 }
-
-.panel-ltr {
+.panel-gregorian  {
+    @include font-family-en;
     @extend .panel;
     direction: ltr;
 }
