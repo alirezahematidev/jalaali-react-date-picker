@@ -4,6 +4,10 @@
 An advanced jalaali date or range picker that supports on all of Javascript frameworks, Specially React and React Native
 
 
+[![Version][version-badge]][package]
+[![All Contributors][all-contributors-badge]][all-contributors]
+[![MIT License][license-badge]][license]
+
 ## Installation
 
 Install jalaali-react-date-picker with npm
