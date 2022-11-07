@@ -1,0 +1,35 @@
+@import "./mixins/colors";
+.years-body {
+    display: grid;
+    height: 100%;
+    max-width: 300px;
+    place-items: center;
+    grid-template-columns: repeat(3, minmax(100px,100px));
+    grid-template-rows: auto;
+}
+
+
+.years-body-rtl {
+    @extend .years-body;
+    direction: rtl;
+}
+.years-body-ltr {
+    @extend .years-body;
+    direction: ltr;
+}
+
+.year-item {
+    padding-block: 4px;
+    padding-inline: 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    // hover
+}
+.year-item-selected {
+    background-color: var(--highlight);
+    color: var(--text-light);
+}
+
+.year-item-prev {
+    opacity: 0.4;
+}

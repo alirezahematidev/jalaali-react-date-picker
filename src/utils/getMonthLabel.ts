@@ -1,7 +1,11 @@
-import { jalaaliMonths } from "../core";
+import { useDatepicker } from "../core";
 
-export const getMonthLabel = (month: number, isJalaali: boolean) => {
-  return isJalaali
-    ? jalaaliMonths.find((item) => item.id === month)?.name
-    : jalaaliMonths.find((item) => item.id === month)?.name;
+export const useGetMonthLabel = () => {
+  const { months } = useDatepicker();
+
+  const getMonthLabels = (month: number) => {
+    return months.find((item) => item.id === month)?.name;
+  };
+
+  return getMonthLabels;
 };

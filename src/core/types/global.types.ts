@@ -29,3 +29,9 @@ export interface Date {
   month: number;
   day: number;
 }
+
+export type Language = "fa" | "en" | "de" | "fr" | "es";
+
+export type LocalizedMonth = Record<Language, Month[]>;
+
+export type LocalizedDayLabel = Record<Language, string[]>;

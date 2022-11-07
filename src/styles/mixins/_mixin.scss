@@ -21,6 +21,9 @@
 @mixin font-family($variant: Regular) {
     font-family: IRANSans + $variant;
 }
+@mixin font-family-en($variant: Regular) {
+    font-family: Roboto + $variant;
+}
 
 @mixin full {
     width: 100%;

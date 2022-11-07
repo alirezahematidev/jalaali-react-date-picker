@@ -2,11 +2,12 @@
 .center {
     @include flex-row;
     @include flex-center;
-    @include font-family;
 }
 
 .iconItem {
     @include clickable;
+    width: 18px;
+    height: 18px;
 }
 
 

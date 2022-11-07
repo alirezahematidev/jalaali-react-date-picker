@@ -1,7 +1,7 @@
 @import "./mixins/mixin";
 .panel {
     @include flex-center;
-    @include font-family;
+    
     width: 300px;
     height: 352px;
     max-height: 352px;
@@ -15,12 +15,13 @@
     }
 }
 
-.panel-rtl {
+.panel-jalaali {
+    @include font-family;
     @extend .panel;
     direction: rtl;
 }
-
-.panel-ltr {
+.panel-gregorian  {
+    @include font-family-en;
     @extend .panel;
     direction: ltr;
 }
@@ -56,9 +57,18 @@
     @include flex-row;
     margin-inline: 2px;
     padding-inline: 2px;
+    p  {
+        font-size: 14px;
+    }
+}
+.panel-date-holder-item-rtl {
+  direction: rtl
+}
+.panel-date-holder-item-ltr {
+  direction: ltr;
 }
 
-.panel-body {
+.days-body {
     display: grid;
     height: 100%;
     margin-block: 8px;
@@ -99,6 +109,15 @@
     @include flex-row(space-between);
     background-color: #666;
     border-radius: 2px;
+}
+
+.day-label-bar-inner-rtl  {
+    @extend .day-label-bar-inner;
+    direction: rtl;
+}
+.day-label-bar-inner-ltr  {
+    @extend .day-label-bar-inner;
+    direction: ltr;
 }
 
 .day-label-item {

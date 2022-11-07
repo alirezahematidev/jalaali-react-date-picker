@@ -1,3 +1,5 @@
+import { isEqual } from "lodash-es";
+import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
@@ -25,6 +27,10 @@ export const DatePickerContext = createContext<ContextType>({
     year: 0,
   },
   cacheDate: undefined,
+  locale: {
+    language: "fa",
+    zone: undefined,
+  },
   onDaychange: () => null,
   onMonthchange: () => null,
   onYearchange: () => null,
@@ -32,7 +38,6 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
-  isJalaali: true,
 });
 
 export const Provider = ({
@@ -42,6 +47,8 @@ export const Provider = ({
   children: React.ReactNode;
   props: DatePickerProps;
 }) => {
+  const language = props ? props.locale?.language || "fa" : "fa";
+
   const {
     state,
     onDaychange,
@@ -52,14 +59,21 @@ export const Provider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
-  } = useDateReducer();
+  } = useDateReducer(language === "fa");
 
-  const { setIsJalaali, propsState } = usePropsReducer();
+  const { setLocale, propsState } = usePropsReducer();
 
   useDeepCompareEffect(() => {
-    if (propsState.isJalaali !== props.isJalaali) {
-      setIsJalaali(props.isJalaali);
+    if (props.locale && !isEqual(props.locale, propsState.locale)) {
+      const isJalaali = language === "fa";
+      setLocale(props.locale);
+      onDaychange({
+        day: 0,
+        year: isJalaali ? moment().jYear() : moment().year(),
+        month: Number(moment().format(isJalaali ? "jM" : "M")),
+      });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
@@ -75,7 +89,7 @@ export const Provider = ({
         onIncreaseMonth,
         onDecreaseMonth,
         cacheDate,
-        isJalaali: propsState.isJalaali,
+        ...propsState,
       }}
     >
       {children}
@@ -84,5 +98,11 @@ export const Provider = ({
 };
 
 export const useDatePickerContext = () => {
+  if (typeof DatePickerContext === "undefined") {
+    throw new Error(
+      "useDatePickerContext must be under DatePickerContext Provider",
+    );
+  }
+
   return useContext(DatePickerContext);
 };

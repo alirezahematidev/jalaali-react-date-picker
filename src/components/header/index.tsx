@@ -1,14 +1,17 @@
-import { getMonthLabel } from "../../utils/getMonthLabel";
 import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
 import RightIcon from "../../assets/icons/chevron_right.svg";
 import LeftIcon from "../../assets/icons/chevron_left.svg";
 
-import { useDatepicker } from "../../core/logic/useDatepicker";
+import { useGetMonthLabel } from "../../utils/getMonthLabel";
+import { useDatepicker } from "../../core";
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  onSelectMonthPicker?: () => void;
+  onSelectYearPicker?: () => void;
+}
 
-const Header = ({}: HeaderProps) => {
+const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
   const {
     state,
     onDecreaseYear,
@@ -17,6 +20,8 @@ const Header = ({}: HeaderProps) => {
     onIncreaseYear,
   } = useDatepicker();
 
+  const getMonthLabel = useGetMonthLabel();
+
   return (
     <div className="panel-header-rtl">
       <div className="panel-header-inner">
@@ -24,35 +29,37 @@ const Header = ({}: HeaderProps) => {
           <img
             className="iconItem"
             src={RightIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => onDecreaseYear(state)}
           />
           <img
             className="iconItem"
             src={RightIcon}
-            style={{ width: 18, height: 18 }}
             onClick={() => onDecreaseMonth(state)}
           />
         </div>
         <div className="panel-date-holder">
-          <div className="panel-date-holder-item">
-            <p style={{ fontSize: 14 }}>{getMonthLabel(state.month, true)}</p>
+          <div
+            className="panel-date-holder-item clickable"
+            onClick={onSelectMonthPicker}
+          >
+            <p>{getMonthLabel(state.month)}</p>
           </div>
-          <div className="panel-date-holder-item">
-            <p style={{ fontSize: 14 }}>{state.year}</p>
+          <div
+            className="panel-date-holder-item clickable"
+            onClick={onSelectYearPicker}
+          >
+            <p>{state.year}</p>
           </div>
         </div>
         <div className="center">
           <img
             className="iconItem"
             src={LeftIcon}
-            style={{ width: 18, height: 18 }}
             onClick={() => onIncreaseMonth(state)}
           />
           <img
             className="iconItem"
             src={LeftIconDouble}
-            style={{ width: 18, height: 18 }}
             onClick={() => onIncreaseYear(state)}
           />
         </div>

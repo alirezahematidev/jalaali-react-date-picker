@@ -1,8 +1,11 @@
 import { DateMetadata } from "../../core/types/global.types";
-import { getDaysOfMonth } from "../getDaysOfMonth";
+import {
+  getDaysOfGregorianMonth,
+  getDaysOfJalaaliMonth,
+} from "../getDaysOfMonth";
 
-const getDaysOfMonthTestCallback = () => {
-  const fn = jest.fn(getDaysOfMonth);
+const getDaysOfJalaaliMonthTestCallback = () => {
+  const fn = jest.fn(getDaysOfJalaaliMonth);
 
   expect(fn(1, 1401)?.at(-1)).toStrictEqual<DateMetadata>({
     id: "31",
@@ -32,4 +35,37 @@ const getDaysOfMonthTestCallback = () => {
   });
 };
 
-test("get days of month ", getDaysOfMonthTestCallback);
+test("get days of jalaali month ", getDaysOfJalaaliMonthTestCallback);
+
+const getDaysOfGregorianMonthTestCallback = () => {
+  const fn = jest.fn(getDaysOfGregorianMonth);
+
+  expect(fn(1, 2022)?.at(-1)).toStrictEqual<DateMetadata>({
+    id: "31",
+    day: 31,
+    month: 1,
+    year: 2022,
+  });
+  expect(fn(4, 2022)?.at(-1)).toStrictEqual<DateMetadata>({
+    id: "30",
+    day: 30,
+    month: 4,
+    year: 2022,
+  });
+  expect(fn(2, 2022)?.at(-1)).toStrictEqual<DateMetadata>({
+    id: "28",
+    day: 28,
+    month: 2,
+    year: 2022,
+  });
+
+  // year 1403 is leap year.
+  expect(fn(2, 2024)?.at(-1)).toStrictEqual<DateMetadata>({
+    id: "29",
+    day: 29,
+    month: 2,
+    year: 2024,
+  });
+};
+
+test("get days of gregorian  month ", getDaysOfGregorianMonthTestCallback);

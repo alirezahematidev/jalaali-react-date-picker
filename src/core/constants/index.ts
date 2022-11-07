@@ -1,57 +1,34 @@
-import moment from "moment-jalaali";
-import { Month } from "../types/global.types";
+import { LocalizedDayLabel, LocalizedMonth } from "../types/global.types";
+import {
+  gregorianMonths,
+  jalaaliMonths,
+  gregorianDayLabels,
+  jalaaliDayLabels,
+} from "./datasets";
+import { en, fa, Translation } from "./translations";
 
-const jalaaliMonths: Month[] = [
-  {
-    id: 1,
-    name: "فروردین",
-  },
-  {
-    id: 2,
-    name: "اردیبهشت",
-  },
-  {
-    id: 3,
-    name: "خرداد",
-  },
-  {
-    id: 4,
-    name: "تیر",
-  },
-  {
-    id: 5,
-    name: "مرداد",
-  },
-  {
-    id: 6,
-    name: "شهریور",
-  },
-  {
-    id: 7,
-    name: "مهر",
-  },
-  {
-    id: 8,
-    name: "آبان",
-  },
-  {
-    id: 9,
-    name: "آذر",
-  },
-  {
-    id: 10,
-    name: "دی",
-  },
-  {
-    id: 11,
-    name: "بهمن",
-  },
-  {
-    id: 12,
-    name: "اسفند",
-  },
-];
+const localizedMonth: LocalizedMonth = {
+  fa: jalaaliMonths,
+  en: gregorianMonths,
+  de: [],
+  es: [],
+  fr: [],
+};
 
-const jalaaliDayLabels = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
+const localizedDayLabels: LocalizedDayLabel = {
+  fa: jalaaliDayLabels,
+  en: gregorianDayLabels,
+  de: [],
+  es: [],
+  fr: [],
+};
 
-export { jalaaliMonths, jalaaliDayLabels };
+const translations: Translation = {
+  fa,
+  en,
+  de: { today: "" },
+  es: { today: "" },
+  fr: { today: "" },
+};
+
+export { localizedMonth, localizedDayLabels, translations };

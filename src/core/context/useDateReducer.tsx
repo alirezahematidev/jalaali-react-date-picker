@@ -3,12 +3,12 @@ import { useState, useReducer } from "react";
 import { Date } from "../types/global.types";
 import { reducer, ActionKind } from "./dateReducer";
 
-export const useDateReducer = () => {
+export const useDateReducer = (isJalaali: boolean) => {
   const [cacheDate, setCacheDate] = useState<Date>();
   const [state, dispatch] = useReducer(reducer, {
     day: 0,
-    year: moment().jYear(),
-    month: Number(moment().format("jM")),
+    year: isJalaali ? moment().jYear() : moment().year(),
+    month: Number(moment().format(isJalaali ? "jM" : "M")),
   });
 
   const onDaychange = (payload: Date) => {

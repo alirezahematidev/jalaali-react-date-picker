@@ -1,7 +1,22 @@
 import moment from "moment-jalaali";
 
-export const listOfYears = () => {
-  const currentYear = moment().jYear();
+export const listOfYears = (isJalaali = true, offset = 0) => {
+  const dateRanges = (rule: number, sum = 0) =>
+    Math.floor((isJalaali ? moment().jYear() : moment().year()) / rule) * rule +
+    sum +
+    offset;
+  const lowerDecade = dateRanges(10 /** => decade* */);
+  const upperDecade = dateRanges(10 /** => decade* */, 9);
 
-  return Array.from({ length: currentYear }, (_, i) => i + 1);
+  const years = [];
+  years.push({ id: lowerDecade - 1, isNotCurrentDecade: true });
+  for (let i = lowerDecade; i <= upperDecade; i++) {
+    years.push({ id: i });
+  }
+  years.push({ id: upperDecade + 1, isNotCurrentDecade: true });
+  return {
+    years,
+    lowerDecade,
+    upperDecade,
+  };
 };

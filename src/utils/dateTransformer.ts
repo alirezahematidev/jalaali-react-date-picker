@@ -10,6 +10,7 @@ export const dateTransformer = (data: Date, isJalaali = true) => {
     `${year}-${month}-${day}`,
     isJalaali ? "jYYYY-jMM-jDD" : "YYYY-MM-DD",
   );
+
   if (!result.isValid()) {
     throw new Error("entered inputs are not valid");
   }

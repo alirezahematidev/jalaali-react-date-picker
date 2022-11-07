@@ -2,8 +2,9 @@ import { Picker } from "./components";
 
 function App() {
   return (
-    <div>
-      <Picker isJalaali={false} />
+    <div style={{ flexDirection: "row", display: "flex", gap: 16 }}>
+      <Picker locale={{ language: "fa" }} />
+      {/* <Picker locale={{ language: "fa" }} /> */}
     </div>
   );
 }
