@@ -1,8 +1,8 @@
-import { isEqual } from "lodash-es";
+// import { isEqual } from "lodash-es";
 import { useEffect, useRef, EffectCallback, DependencyList } from "react";
 
 function deepCompare<T>(value1: T, value2: T) {
-  return isEqual(value1, value2);
+  return true;
 }
 
 function useDeepCompareMemoize<T>(value?: T) {

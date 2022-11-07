@@ -1,11 +1,4 @@
-import moment from "moment-jalaali";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
 import { Date } from "../types/global.types";
@@ -25,7 +18,7 @@ interface ContextType extends PropsReducerType {
   onDecreaseMonth: (payload: Date) => void;
 }
 
-const DatePickerContext = createContext<ContextType>({
+export const DatePickerContext = createContext<ContextType>({
   state: {
     day: 0,
     month: 0,
