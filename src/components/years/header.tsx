@@ -2,6 +2,9 @@ import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg"
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
 import classNames from "classnames";
 import { useDatepicker } from "../../core";
+import { Fragment } from "react";
+import { usePanelContext } from "../panel/panelMode";
+import { dateTransformer } from "../../utils";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -16,9 +19,11 @@ const YearsHeader = ({
   onDecreaseDecade,
   onIncreaseDecade,
 }: HeaderProps) => {
-  const { isJalaali } = useDatepicker();
+  const { isJalaali, state } = useDatepicker();
 
-  return (
+  const { renderHeader } = usePanelContext();
+
+  const node = (
     <div className="panel-header-rtl">
       <div className="panel-header-inner">
         <div className="center">
@@ -57,6 +62,14 @@ const YearsHeader = ({
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <Fragment>
+      {renderHeader
+        ? renderHeader(dateTransformer(state, isJalaali), node)
+        : node}
+    </Fragment>
   );
 };
 

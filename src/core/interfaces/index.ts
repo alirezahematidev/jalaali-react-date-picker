@@ -1,15 +1,20 @@
 import { DatePickerTypes } from "../types";
-import { Date } from "../types/global.types";
 
 export interface DatePickerProps {
   value?: DatePickerTypes.Value;
   onChange?: DatePickerTypes.OnChange;
   format?: DatePickerTypes.Format;
   locale?: DatePickerTypes.Locale;
-  // isJalaali?: DatePickerTypes.IsJalaali;
-  showGoToToday?: boolean;
+  showToday?: boolean;
+  renderPanel?: DatePickerTypes.RenderPanel;
   renderFooter?: DatePickerTypes.RenderFooter;
-  renderExtraHeader?: DatePickerTypes.RenderExtraHeader;
+  renderHeader?: DatePickerTypes.RenderHeader;
   disabledDates?: DatePickerTypes.DisabledDates;
-  highlightDays?: { weekend?: boolean; customDates?: Date[] };
+  highlightOffDays?: DatePickerTypes.HighLightOffDays;
 }
+
+export interface PanelProps
+  extends Pick<
+    DatePickerProps,
+    "renderPanel" | "renderFooter" | "renderHeader"
+  > {}

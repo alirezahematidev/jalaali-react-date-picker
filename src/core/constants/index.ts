@@ -5,7 +5,7 @@ import {
   gregorianDayLabels,
   jalaaliDayLabels,
 } from "./datasets";
-import { en, fa, Translation } from "./translations";
+import { en, fa, de, fr, es, Translation } from "./translations";
 
 const localizedMonth: LocalizedMonth = {
   fa: jalaaliMonths,
@@ -26,9 +26,9 @@ const localizedDayLabels: LocalizedDayLabel = {
 const translations: Translation = {
   fa,
   en,
-  de: { today: "" },
-  es: { today: "" },
-  fr: { today: "" },
+  de,
+  es,
+  fr,
 };
 
 export { localizedMonth, localizedDayLabels, translations };

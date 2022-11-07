@@ -1,14 +1,13 @@
 import { useDatepicker } from "../../core";
 import { Header } from "../header";
 import classNames from "classnames";
+import { usePanelContext } from "../panel/panelMode";
 
-export interface MonthsProps {
-  onSelectMonth?: () => void;
-  onChangeMode?: (mode: "year") => void;
-}
+export interface MonthsProps {}
 
-const Months = ({ onSelectMonth, onChangeMode }: MonthsProps) => {
+const Months = () => {
   const { onMonthchange, state, isJalaali, months } = useDatepicker();
+  const { onChangeMode } = usePanelContext();
 
   return (
     <>
@@ -21,7 +20,7 @@ const Months = ({ onSelectMonth, onChangeMode }: MonthsProps) => {
               key={item.id}
               onClick={() => {
                 onMonthchange({ ...state, month: item.id });
-                onSelectMonth?.();
+                onChangeMode?.("day");
               }}
               className={classNames(
                 "month-item",

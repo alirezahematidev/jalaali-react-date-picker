@@ -1,19 +1,19 @@
 @import "./mixins/mixin";
 .day {
-    @include flex-center;
-    @include day-box(true);
-    @include clickable;
+  @include flex-center;
+  @include day-box(true);
+  @include clickable;
 }
 
 .disabled {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
-.off-day {
-    color: var(--text-negative);
+.weekend-day {
+  color: var(--text-negative);
 }
 
 .highlight {
-    background-color: var(--highlight);
-    color: var(--text-light);
+  background-color: var(--highlight);
+  color: var(--text-light);
 }

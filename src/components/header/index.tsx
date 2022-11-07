@@ -5,6 +5,9 @@ import LeftIcon from "../../assets/icons/chevron_left.svg";
 
 import { useGetMonthLabel } from "../../utils/getMonthLabel";
 import { useDatepicker } from "../../core";
+import { usePanelContext } from "../panel/panelMode";
+import { dateTransformer } from "../../utils";
+import { Fragment } from "react";
 
 export interface HeaderProps {
   onSelectMonthPicker?: () => void;
@@ -18,11 +21,13 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
     onDecreaseMonth,
     onIncreaseMonth,
     onIncreaseYear,
+    isJalaali,
   } = useDatepicker();
 
   const getMonthLabel = useGetMonthLabel();
+  const { renderHeader } = usePanelContext();
 
-  return (
+  const node = (
     <div className="panel-header-rtl">
       <div className="panel-header-inner">
         <div className="center">
@@ -65,6 +70,14 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <Fragment>
+      {renderHeader
+        ? renderHeader(dateTransformer(state, isJalaali), node)
+        : node}
+    </Fragment>
   );
 };
 

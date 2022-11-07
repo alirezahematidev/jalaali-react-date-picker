@@ -1,6 +1,6 @@
 import { Moment as MomentType } from "moment-jalaali";
 import * as React from "react";
-import { ColorSchema, Language, MonthNamedValue } from "./global.types";
+import { ColorSchema, Date, Language, MonthNamedValue } from "./global.types";
 
 export namespace DatePickerTypes {
   /**
@@ -11,6 +11,13 @@ export namespace DatePickerTypes {
   export type Moment = MomentType;
   /** Return type of month onChange */
   export type MonthValue = MonthNamedValue;
+
+  export type PanelDate = {
+    days: Date[];
+    dayLabels: string[];
+    selected?: Date;
+  };
+
   /**
    * Override all default colors
    *
@@ -91,11 +98,14 @@ export namespace DatePickerTypes {
    * @returns Value
    */
   export type Today = () => Value;
+
+  export type HighLightOffDays = { weekend?: boolean; customDates?: Date[] };
   /**
    * Customize localization.
    *
    * @default { language: "fa", zone: "Iran/Tehran" }
    */
+
   export type Locale = {
     /**
      * The language applied to picker
@@ -103,16 +113,6 @@ export namespace DatePickerTypes {
      * @default "fa"
      */
     language?: Language;
-
-    /**
-     * The zone considering for date ISO timezone
-     *
-     * @example
-     *   "Iran/Tehran", "America/Los_Angles";
-     *
-     * @default "Iran/Tehran"
-     */
-    zone?: string;
   };
   /**
    * Custom format of return value
@@ -124,14 +124,34 @@ export namespace DatePickerTypes {
    * A render callback that add extra node above of default header
    *
    * @param {Moment} [current]
+   * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderExtraHeader = (current: Moment) => React.ReactNode;
+  export type RenderHeader = (
+    current: Moment,
+    node: React.ReactNode,
+  ) => React.ReactNode;
   /**
    * A render callback that add custom footer below the panel
    *
    * @param {Moment} [current]
+   * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderFooter = (current: Moment) => React.ReactNode;
+  export type RenderFooter = (
+    current: Moment,
+    node: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * A render callback that add custom panel
+   *
+   * @param {PanelDate} [data]
+   * @param {React.ReactNode} [node]
+   * @returns React.ReactNode
+   */
+  export type RenderPanel = (
+    data: PanelDate,
+    node: React.ReactNode,
+  ) => React.ReactNode;
 }

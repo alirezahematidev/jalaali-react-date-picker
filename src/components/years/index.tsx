@@ -3,13 +3,13 @@ import { listOfYears } from "../../utils";
 import classNames from "classnames";
 import { YearsHeader } from "./header";
 import { useDatepicker } from "../../core";
+import { usePanelContext } from "../panel/panelMode";
 
-export interface MonthsProps {
-  onSelectYear?: () => void;
-}
+export interface MonthsProps {}
 
-const Years = ({ onSelectYear }: MonthsProps) => {
+const Years = () => {
   const { isJalaali, onYearchange, state } = useDatepicker();
+  const { onChangeMode } = usePanelContext();
   const [offset, setoffset] = useState(0);
   const { years, lowerDecade, upperDecade } = listOfYears(isJalaali, offset);
 
@@ -29,7 +29,7 @@ const Years = ({ onSelectYear }: MonthsProps) => {
               key={item.id}
               onClick={() => {
                 onYearchange({ ...state, year: item.id });
-                onSelectYear?.();
+                onChangeMode?.("month");
               }}
               className={classNames(
                 "year-item",

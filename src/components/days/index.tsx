@@ -5,23 +5,33 @@ import { DayLabel } from "../dayLabel";
 import { Header, HeaderProps } from "../header";
 import { useDatepicker } from "../../core";
 import { isWeekend } from "../../utils";
+import { usePanelContext } from "../panel/panelMode";
+import { Fragment } from "react";
+import { Date } from "../../core/types/global.types";
 
-export interface DaysProps extends HeaderProps {
-  onChangeMode?: (mode: "month" | "year") => void;
-}
+export interface DaysProps extends HeaderProps {}
 
-const Days = ({ onChangeMode }: DaysProps) => {
-  const { days, onDaychange, cacheDate, isJalaali } = useDatepicker();
+const Days = () => {
+  const {
+    days: metadataDays,
+    onDaychange,
+    cacheDate: selected,
+    isJalaali,
+    dayLabels,
+  } = useDatepicker();
+  const { onChangeMode, renderPanel } = usePanelContext();
 
-  return (
-    <>
-      <Header
-        onSelectMonthPicker={() => onChangeMode?.("month")}
-        onSelectYearPicker={() => onChangeMode?.("year")}
-      />
+  const days: Date[] = metadataDays.map(({ day, month, year }) => ({
+    day,
+    month,
+    year,
+  }));
+
+  const node = (
+    <Fragment>
       <DayLabel />
       <div className="days-body">
-        {days.map(({ id, isNotCurrentMonth, ...date }) => (
+        {metadataDays.map(({ id, isNotCurrentMonth, ...date }) => (
           <div
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
@@ -30,13 +40,23 @@ const Days = ({ onChangeMode }: DaysProps) => {
               day={date.day}
               isDisabled={isNotCurrentMonth}
               onPress={() => onDaychange(date)}
-              isHighlight={isEqual(cacheDate, date)}
-              isOffDay={isWeekend(date, isJalaali)}
+              isHighlight={isEqual(selected, date)}
+              isWeekend={isWeekend(date, isJalaali)}
             />
           </div>
         ))}
       </div>
-    </>
+    </Fragment>
+  );
+
+  return (
+    <Fragment>
+      <Header
+        onSelectMonthPicker={() => onChangeMode?.("month")}
+        onSelectYearPicker={() => onChangeMode?.("year")}
+      />
+      {renderPanel ? renderPanel({ days, dayLabels, selected }, node) : node}
+    </Fragment>
   );
 };
 
