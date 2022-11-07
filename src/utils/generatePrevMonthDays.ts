@@ -31,7 +31,13 @@ export const generatePrevMonthDays = ({
       currentMonth === 1 ? year - 1 : year,
     );
   }
-  return prevMonthDays
-    .slice(-currentMonthWeekDay)
-    .map((item) => ({ ...item, isNotCurrentMonth: true }));
+  const res: DateMetadata[] = [];
+  for (
+    let i = prevMonthDays.length;
+    i > prevMonthDays.length - currentMonthWeekDay;
+    i--
+  ) {
+    res.unshift({ ...prevMonthDays[i - 1], isNotCurrentMonth: true });
+  }
+  return res.length === 7 ? [] : res;
 };

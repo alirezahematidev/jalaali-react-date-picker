@@ -45,6 +45,7 @@ export const useDateReducer = (isJalaali: boolean) => {
       payload: {
         ...payload,
         day: cacheDate?.month === payload.month ? cacheDate.day : 0,
+        year: payload.month === 12 ? payload.year + 1 : payload.year,
       },
     });
   };
@@ -54,6 +55,7 @@ export const useDateReducer = (isJalaali: boolean) => {
       payload: {
         ...payload,
         day: cacheDate?.month === payload.month ? cacheDate.day : 0,
+        year: payload.month === 1 ? payload.year - 1 : payload.year,
       },
     });
   };

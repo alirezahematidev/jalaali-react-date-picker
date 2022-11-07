@@ -1,3 +1,4 @@
+import moment from "moment";
 import { getDaysOfJalaaliMonth, getDaysOfGregorianMonth } from ".";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
@@ -8,14 +9,19 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
     ? getDaysOfJalaaliMonth(month, year)
     : getDaysOfGregorianMonth(month, year);
 
-  const startOfMonthWeekDay = dateTransformer(
+  // console.log("currentMonthDays", currentMonthDays);
+
+  const firstDay = dateTransformer(
     {
       day: currentMonthDays[0].day,
       month,
       year,
     },
     isJalaali,
-  ).weekday();
+  );
+  const startOfMonthWeekDay = isJalaali
+    ? firstDay.weekday()
+    : firstDay.isoWeekday();
 
   const daysOfMonthAfterUnshift = currentMonthDays.unshift(
     ...generatePrevMonthDays({
