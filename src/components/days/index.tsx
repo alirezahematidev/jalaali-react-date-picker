@@ -12,6 +12,7 @@ export interface DaysProps extends HeaderProps {
 
 const Days = ({ onChangeMode }: DaysProps) => {
   const { days, onDaychange, cacheDate, isJalaali } = useDatepicker();
+  console.log("days", days);
 
   return (
     <>
@@ -21,7 +22,7 @@ const Days = ({ onChangeMode }: DaysProps) => {
       />
       <DayLabel />
       <div className="days-body">
-        {days.map(({ id, isNotCurrentMonth, ...date }) => (
+        {days.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
           <div
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
@@ -31,7 +32,7 @@ const Days = ({ onChangeMode }: DaysProps) => {
               isDisabled={isNotCurrentMonth}
               onPress={() => onDaychange(date)}
               isHighlight={isEqual(cacheDate, date)}
-              isOffDay={isWeekend(date, isJalaali)}
+              isOffDay={isWeekend}
             />
           </div>
         ))}

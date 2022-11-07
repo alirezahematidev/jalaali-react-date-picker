@@ -37,12 +37,14 @@ export function reducer(state: Date, action: Action): Date {
         ...state,
         month: state.month - 1 === 0 ? 12 : state.month - 1,
         day: 0,
+        year: payload.year,
       };
     case ActionKind.MONTH_PLUS:
       return {
         ...state,
         month: state.month + 1 === 13 ? 1 : state.month + 1,
         day: 0,
+        year: payload.year,
       };
     case ActionKind.YEAR:
       return {

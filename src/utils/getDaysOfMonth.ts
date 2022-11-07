@@ -7,16 +7,16 @@ export const getDaysOfJalaaliMonth = (month: number, year: number) => {
 
   if (month === 12) {
     if (isLeapYear) {
-      return dayModelGenerator(30, month, year);
+      return dayModelGenerator(30, month, year, true);
     }
-    return dayModelGenerator(29, month, year);
+    return dayModelGenerator(29, month, year, true);
   }
 
   if (jalaaliMonths.findIndex(({ id }) => id === month) <= 5) {
-    return dayModelGenerator(31, month, year);
+    return dayModelGenerator(31, month, year, true);
   }
 
-  return dayModelGenerator(30, month, year);
+  return dayModelGenerator(30, month, year, true);
 };
 
 export const getDaysOfGregorianMonth = (month: number, year: number) => {
@@ -26,9 +26,9 @@ export const getDaysOfGregorianMonth = (month: number, year: number) => {
 
   if (month === 2) {
     if (isLeapYear(year)) {
-      return dayModelGenerator(29, month, year);
+      return dayModelGenerator(29, month, year, false);
     }
-    return dayModelGenerator(28, month, year);
+    return dayModelGenerator(28, month, year, false);
   }
 
   if (
@@ -40,8 +40,8 @@ export const getDaysOfGregorianMonth = (month: number, year: number) => {
     month === 10 ||
     month === 12
   ) {
-    return dayModelGenerator(31, month, year);
+    return dayModelGenerator(31, month, year, false);
   }
 
-  return dayModelGenerator(30, month, year);
+  return dayModelGenerator(30, month, year, false);
 };

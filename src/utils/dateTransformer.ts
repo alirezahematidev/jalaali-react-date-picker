@@ -1,7 +1,9 @@
-import moment from "moment-jalaali";
+import m from "moment";
+import mj from "moment-jalaali";
 import { Date } from "../core/types/global.types";
 
 export const dateTransformer = (data: Date, isJalaali = true) => {
+  const moment = isJalaali ? mj : m;
   const { day, month, year } = data;
   if (day < 1 || month < 1 || year < 1) {
     throw new Error("entered inputs are not valid");
