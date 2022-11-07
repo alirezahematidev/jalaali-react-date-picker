@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment-jalaali";
 import { Date } from "../core/types/global.types";
 
@@ -17,11 +18,11 @@ const cache = <T>(callback: (...args: any[]) => T) => {
 export const dateTransformer = cache(
   (data: Date, isJalaali = true): moment.Moment => {
     const { day, month, year } = data;
-    if (month < 1 || year < 1) {
+    if (day < 1 || month < 1 || year < 1) {
       throw new Error("entered inputs are not valid");
     }
     const result = moment(
-      `${year}-${month}-${day || 1}`,
+      `${year}-${month}-${day}`,
       isJalaali ? "jYYYY-jM-jDD" : "YYYY-M-DD",
     );
 

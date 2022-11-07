@@ -19,13 +19,17 @@ const Years = () => {
         {...{ lowerDecade, upperDecade }}
         onDecreaseDecade={() => setoffset((prev) => prev - 10)}
         onIncreaseDecade={() => setoffset((prev) => prev + 10)}
+        onYearPress={(year) => {
+          onYearchange({ ...state, year });
+          onChangeMode?.("month");
+        }}
       />
       <div className={isJalaali ? "years-body-rtl" : "years-body-ltr"}>
         {years.map((item) => {
           const isSelected = item.id === state.year;
           const isNotCurrentDecade = item.isNotCurrentDecade;
           return (
-            <p
+            <div
               key={item.id}
               onClick={() => {
                 onYearchange({ ...state, year: item.id });
@@ -33,12 +37,13 @@ const Years = () => {
               }}
               className={classNames(
                 "year-item",
+                !isSelected && "year-item-hovered",
                 isSelected && "year-item-selected",
                 isNotCurrentDecade && "year-item-prev",
               )}
             >
-              {item.id}
-            </p>
+              <p>{item.id}</p>
+            </div>
           );
         })}
       </div>

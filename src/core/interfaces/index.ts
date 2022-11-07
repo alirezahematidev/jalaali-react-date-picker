@@ -6,15 +6,20 @@ export interface DatePickerProps {
   format?: DatePickerTypes.Format;
   locale?: DatePickerTypes.Locale;
   showToday?: boolean;
-  renderPanel?: DatePickerTypes.RenderPanel;
+  renderCustomPanel?: DatePickerTypes.RenderCustomPanel;
   renderFooter?: DatePickerTypes.RenderFooter;
   renderHeader?: DatePickerTypes.RenderHeader;
   disabledDates?: DatePickerTypes.DisabledDates;
   highlightOffDays?: DatePickerTypes.HighLightOffDays;
+  renderDayLabel?: DatePickerTypes.RenderDayLabel;
 }
 
 export interface PanelProps
   extends Pick<
     DatePickerProps,
-    "renderPanel" | "renderFooter" | "renderHeader"
+    | "renderCustomPanel"
+    | "renderFooter"
+    | "renderHeader"
+    | "highlightOffDays"
+    | "renderDayLabel"
   > {}

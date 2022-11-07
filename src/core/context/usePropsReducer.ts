@@ -7,20 +7,20 @@ export const usePropsReducer = () => {
     locale: {
       language: "fa",
     },
-    highlightOffDays: { customDates: [], weekend: true },
+    // highlightOffDays: { customDates: [], weekend: true },
   });
 
   const setLocale = (payload?: DatePickerProps["locale"]) => {
     dispatch({ type: PropsActionKind.LOCALE, payload });
   };
 
-  const setHighlightDays = (payload?: DatePickerProps["highlightOffDays"]) => {
-    dispatch({ type: PropsActionKind.HIGHLIGHT_DAYS, payload });
-  };
+  // const setHighlightDays = (payload?: DatePickerProps["highlightOffDays"]) => {
+  //   dispatch({ type: PropsActionKind.HIGHLIGHT_DAYS, payload });
+  // };
 
   return {
     setLocale,
-    setHighlightDays,
     propsState,
+    // setHighlightDays,
   };
 };

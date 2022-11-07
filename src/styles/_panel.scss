@@ -1,11 +1,10 @@
 @import "./mixins/mixin";
 .panel {
     @include flex-center;
-    
     width: 300px;
     height: 352px;
     max-height: 352px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 2px;
     overflow: hidden;
     flex-direction: column;
@@ -15,12 +14,17 @@
     }
 }
 
+.panel-elevation {
+    box-shadow: 0px 0px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
 .panel-jalaali {
     @include font-family;
     @extend .panel;
     direction: rtl;
 }
-.panel-gregorian  {
+
+.panel-gregorian {
     @include font-family-en;
     @extend .panel;
     direction: ltr;
@@ -30,6 +34,7 @@
     @include widget;
     @include flex-row;
     overflow: hidden;
+    border-bottom: 1px solid var(--light);
 }
 
 .panel-header-rtl {
@@ -40,6 +45,23 @@
 .panel-header-ltr {
     @extend .panel-header;
     direction: ltr;
+}
+
+.panel-outer-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+.panel-header-wrapper {
+    width: 100%;
+    min-height: 40px;
+}
+
+.panel-footer-wrapper {
+    width: 100%;
+    min-height: 40px;
 }
 
 .panel-header-inner {
@@ -57,15 +79,19 @@
     @include flex-row;
     margin-inline: 2px;
     padding-inline: 2px;
-    p  {
+    p {
         font-size: 14px;
     }
 }
+
 .panel-date-holder-item-rtl {
-  direction: rtl
+    @extend .panel-date-holder;
+    direction: rtl;
 }
+
 .panel-date-holder-item-ltr {
-  direction: ltr;
+    @extend .panel-date-holder;
+    direction: ltr;
 }
 
 .days-body {
@@ -78,11 +104,13 @@
     grid-template-rows: auto;
     row-gap: 8px;
     column-gap: 4px;
+    overflow: hidden;
 }
 
 .panel-footer {
     @include widget;
     @include flex-row;
+    border-top: 1px solid var(--light);
 }
 
 .panel-footer-rtl {
@@ -99,6 +127,7 @@
     width: 100%;
     min-height: 28px;
     margin-top: 8px;
+    overflow: hidden;
     @include flex-row;
 }
 
@@ -107,15 +136,16 @@
     width: 100%;
     min-height: 28px;
     @include flex-row(space-between);
-    background-color: #666;
+    background-color: #555;
     border-radius: 2px;
 }
 
-.day-label-bar-inner-rtl  {
+.day-label-bar-inner-rtl {
     @extend .day-label-bar-inner;
     direction: rtl;
 }
-.day-label-bar-inner-ltr  {
+
+.day-label-bar-inner-ltr {
     @extend .day-label-bar-inner;
     direction: ltr;
 }
@@ -125,8 +155,16 @@
     min-height: 28px;
     @include flex-center;
     text-align: center;
-    color: #fff;
+    color: var(--text-light);
     font-size: 14px;
+    user-select: none;
+}
+
+.today-text {
+    transition: color 100ms ease;
+    &:hover {
+        color: var(--highlight);
+    }
 }
 
 .day-item-outer {

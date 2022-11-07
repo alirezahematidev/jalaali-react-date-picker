@@ -1,4 +1,3 @@
-import moment from "moment";
 import { getDaysOfJalaaliMonth, getDaysOfGregorianMonth } from ".";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
@@ -8,8 +7,6 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
   const currentMonthDays = isJalaali
     ? getDaysOfJalaaliMonth(month, year)
     : getDaysOfGregorianMonth(month, year);
-
-  // console.log("currentMonthDays", currentMonthDays);
 
   const firstDay = dateTransformer(
     {

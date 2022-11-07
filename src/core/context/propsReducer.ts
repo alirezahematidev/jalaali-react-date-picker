@@ -1,13 +1,9 @@
 import { DatePickerProps } from "../interfaces";
 
-export type PropsReducerType = Pick<
-  DatePickerProps,
-  "locale" | "highlightOffDays"
->;
+export type PropsReducerType = Pick<DatePickerProps, "locale">;
 
 export enum PropsActionKind {
   LOCALE = "LOCALE",
-  HIGHLIGHT_DAYS = "HIGHLIGHT_DAYS",
 }
 
 export interface Action {
@@ -28,11 +24,11 @@ export function propsReducer(
         ...state,
         locale: payload,
       };
-    case PropsActionKind.HIGHLIGHT_DAYS:
-      return {
-        ...state,
-        highlightOffDays: payload,
-      };
+    // case PropsActionKind.HIGHLIGHT_DAYS:
+    //   return {
+    //     ...state,
+    //     highlightOffDays: payload,
+    //   };
     default:
       return state;
   }

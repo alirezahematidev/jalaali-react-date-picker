@@ -150,8 +150,20 @@ export namespace DatePickerTypes {
    * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderPanel = (
+  export type RenderCustomPanel = (
     data: PanelDate,
+    node: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * A render callback that add custom panel
+   *
+   * @param {string[]} [labels]
+   * @param {React.ReactNode} [node]
+   * @returns React.ReactNode
+   */
+  export type RenderDayLabel = (
+    labels: string[],
     node: React.ReactNode,
   ) => React.ReactNode;
 }

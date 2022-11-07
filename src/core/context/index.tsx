@@ -30,10 +30,10 @@ export const DatePickerContext = createContext<ContextType>({
   locale: {
     language: "fa",
   },
-  highlightOffDays: {
-    customDates: [],
-    weekend: true,
-  },
+  // highlightOffDays: {
+  //   customDates: [],
+  //   weekend: true,
+  // },
   onDaychange: () => null,
   onMonthchange: () => null,
   onYearchange: () => null,
@@ -64,7 +64,7 @@ export const Provider = ({
     cacheDate,
   } = useDateReducer(language === "fa");
 
-  const { setLocale, setHighlightDays, propsState } = usePropsReducer();
+  const { setLocale, propsState } = usePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
@@ -75,15 +75,6 @@ export const Provider = ({
         year: isJalaali ? moment().jYear() : moment().year(),
         month: Number(moment().format(isJalaali ? "jM" : "M")),
       });
-    }
-
-    if (
-      props.highlightOffDays &&
-      !isEqual(props.highlightOffDays, propsState.highlightOffDays)
-    ) {
-      setHighlightDays(props.highlightOffDays);
-    } else {
-      setHighlightDays(undefined);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

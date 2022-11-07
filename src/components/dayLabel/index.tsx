@@ -1,22 +1,28 @@
 import classNames from "classnames";
-import { useDatepicker } from "../../core";
+import { PanelProps, useDatepicker } from "../../core";
 
-export const DayLabel = () => {
+interface DayLabelProps extends Pick<PanelProps, "renderDayLabel"> {}
+
+export const DayLabel = ({ renderDayLabel }: DayLabelProps) => {
   const { isJalaali, dayLabels } = useDatepicker();
+
+  const node = (
+    <div
+      className={classNames(
+        isJalaali ? "day-label-bar-inner-rtl" : "day-label-bar-inner-ltr",
+      )}
+    >
+      {dayLabels.map((char) => (
+        <div key={char} className="day-label-item">
+          {char}
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="day-label-bar">
-      <div
-        className={classNames(
-          isJalaali ? "day-label-bar-inner-rtl" : "day-label-bar-inner-ltr",
-        )}
-      >
-        {dayLabels.map((char) => (
-          <div key={char} className="day-label-item">
-            {char}
-          </div>
-        ))}
-      </div>
+      {renderDayLabel ? renderDayLabel(dayLabels, node) : node}
     </div>
   );
 };

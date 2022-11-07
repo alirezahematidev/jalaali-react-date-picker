@@ -6,7 +6,6 @@ import LeftIcon from "../../assets/icons/chevron_left.svg";
 import { useGetMonthLabel } from "../../utils/getMonthLabel";
 import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
-import { Fragment } from "react";
 
 export interface HeaderProps {
   onSelectMonthPicker?: () => void;
@@ -32,57 +31,75 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
     <div className="panel-header-rtl">
       <div className="panel-header-inner">
         <div className="center">
-          <img
+          <div
             className="iconItem"
-            src={RightIconDouble}
             onClick={() =>
-              isJalaali ? onDecreaseYear(state) : onIncreaseMonth(state)
+              isJalaali ? onDecreaseYear(state) : onIncreaseYear(state)
             }
-          />
-          <img
+          >
+            <img
+              width={18}
+              height={18}
+              src={RightIconDouble}
+              alt="RightIconDouble"
+            />
+          </div>
+          <div
             className="iconItem"
-            src={RightIcon}
             onClick={() =>
               isJalaali ? onDecreaseMonth(state) : onIncreaseMonth(state)
             }
-          />
+          >
+            <img width={18} height={18} src={RightIcon} alt="RightIcon" />
+          </div>
         </div>
-        <div className="panel-date-holder">
+        <div className="panel-date-holder-item-ltr">
           <div
             className="panel-date-holder-item clickable"
             onClick={onSelectMonthPicker}
           >
-            <p>{getMonthLabel(state.month)}</p>
+            <p className="panel-header-item-text">
+              {getMonthLabel(state.month)}
+            </p>
           </div>
           <div
             className="panel-date-holder-item clickable"
             onClick={onSelectYearPicker}
           >
-            <p>{state.year}</p>
+            <p className="panel-header-item-text">{state.year}</p>
           </div>
         </div>
         <div className="center">
-          <img
+          <div
             className="iconItem"
-            src={LeftIcon}
             onClick={() =>
               isJalaali ? onIncreaseMonth(state) : onDecreaseMonth(state)
             }
-          />
-          <img
+          >
+            <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
+          </div>
+          <div
             className="iconItem"
-            src={LeftIconDouble}
             onClick={() =>
-              isJalaali ? onIncreaseYear(state) : onDecreaseMonth(state)
+              isJalaali ? onIncreaseYear(state) : onDecreaseYear(state)
             }
-          />
+          >
+            <img
+              width={18}
+              height={18}
+              alt="LeftIconDouble"
+              src={LeftIconDouble}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 
   return (
-    <Fragment>{renderHeader ? renderHeader(current, node) : node}</Fragment>
+    <div className="panel-header-wrapper">
+      {renderHeader ? renderHeader(current, node) : node}
+    </div>
   );
 };
 

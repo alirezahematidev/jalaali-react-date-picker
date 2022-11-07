@@ -16,9 +16,10 @@ const Days = () => {
     cacheDate: selected,
     onDaychange,
     dayLabels,
-    canHighlighWeekend,
   } = useDatepicker();
-  const { onChangeMode, renderPanel } = usePanelContext();
+
+  const { onChangeMode, renderCustomPanel, renderDayLabel, highlightOffDays } =
+    usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
     day,
@@ -26,28 +27,30 @@ const Days = () => {
     year,
   }));
 
+  const canHighlighWeekend =
+    highlightOffDays && highlightOffDays.weekend !== undefined
+      ? highlightOffDays.weekend
+      : true;
+
   const node = (
     <Fragment>
-      <DayLabel />
-      <div className="days-body">
-        {metadataDays.map(
-          ({ id, isNotCurrentMonth, isWeekend, isOff, ...date }) => (
-            <div
-              key={`${id}-${date.month}`}
-              className={classNames("day-item-outer")}
-            >
-              <Day
-                day={date.day}
-                isDisabled={isNotCurrentMonth}
-                onPress={() => onDaychange(date)}
-                isHighlight={isEqual(selected, date)}
-                isOff={isOff}
-                isWeekend={canHighlighWeekend ? isWeekend : false}
-              />
-            </div>
-          ),
-        )}
-      </div>
+      {metadataDays.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
+        <div
+          key={`${id}-${date.month}`}
+          className={classNames("day-item-outer")}
+        >
+          <Day
+            day={date.day}
+            isNotCurrentMonth={isNotCurrentMonth}
+            onPress={() => onDaychange(date)}
+            isHighlight={isEqual(selected, date)}
+            isOff={(highlightOffDays?.customDates || [])?.some((d) =>
+              isEqual(d, date),
+            )}
+            isWeekend={canHighlighWeekend ? isWeekend : false}
+          />
+        </div>
+      ))}
     </Fragment>
   );
 
@@ -57,7 +60,12 @@ const Days = () => {
         onSelectMonthPicker={() => onChangeMode?.("month")}
         onSelectYearPicker={() => onChangeMode?.("year")}
       />
-      {renderPanel ? renderPanel({ days, dayLabels, selected }, node) : node}
+      <DayLabel renderDayLabel={renderDayLabel} />
+      <div className="days-body">
+        {renderCustomPanel
+          ? renderCustomPanel({ days, dayLabels, selected }, node)
+          : node}
+      </div>
     </Fragment>
   );
 };

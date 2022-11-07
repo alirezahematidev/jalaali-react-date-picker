@@ -16,8 +16,13 @@ interface PanelModeContext extends PanelModeProps {
 
 const PanelModeContext = createContext<PanelModeContext>({
   renderHeader: () => null,
-  renderPanel: () => null,
+  renderCustomPanel: () => null,
   onChangeMode: () => null,
+  renderDayLabel: () => null,
+  highlightOffDays: {
+    customDates: [],
+    weekend: true,
+  },
 });
 
 export const PanelMode = (props: PanelModeProps) => {

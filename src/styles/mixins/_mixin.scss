@@ -21,6 +21,7 @@
 @mixin font-family($variant: Regular) {
     font-family: IRANSans + $variant;
 }
+
 @mixin font-family-en($variant: Regular) {
     font-family: Roboto + $variant;
 }
@@ -43,7 +44,6 @@
 @mixin widget {
     width: 100%;
     min-height: 40px;
-    background-color: #ddd;
 }
 
 @mixin clickable {

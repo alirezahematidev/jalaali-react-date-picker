@@ -2,7 +2,6 @@ import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg"
 import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
 import classNames from "classnames";
 import { useDatepicker } from "../../core";
-import { Fragment } from "react";
 import { usePanelContext } from "../panel/panelMode";
 
 export interface HeaderProps {
@@ -10,6 +9,7 @@ export interface HeaderProps {
   upperDecade: number;
   onIncreaseDecade: () => void;
   onDecreaseDecade: () => void;
+  onYearPress?: (id: number) => void;
 }
 
 const YearsHeader = ({
@@ -17,6 +17,7 @@ const YearsHeader = ({
   upperDecade,
   onDecreaseDecade,
   onIncreaseDecade,
+  onYearPress,
 }: HeaderProps) => {
   const { isJalaali, state } = useDatepicker();
 
@@ -28,13 +29,19 @@ const YearsHeader = ({
     <div className="panel-header-rtl">
       <div className="panel-header-inner">
         <div className="center">
-          <img
+          <div
             className="iconItem"
-            src={RightIconDouble}
             onClick={() =>
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
-          />
+          >
+            <img
+              width={18}
+              height={18}
+              alt="RightIconDouble"
+              src={RightIconDouble}
+            />
+          </div>
         </div>
         <div className="panel-date-holder">
           <div
@@ -46,27 +53,63 @@ const YearsHeader = ({
             )}
           >
             {isJalaali ? (
-              <p className="clickable">{`${upperDecade}-${lowerDecade}`}</p>
+              <div className="panel-header-year-picker">
+                <p
+                  className="clickable"
+                  onClick={() => onYearPress?.(lowerDecade)}
+                >
+                  {lowerDecade}
+                </p>
+                <span>{"-"}</span>
+                <p
+                  className="clickable"
+                  onClick={() => onYearPress?.(upperDecade)}
+                >
+                  {upperDecade}
+                </p>
+              </div>
             ) : (
-              <p className="clickable">{`${lowerDecade}-${upperDecade}`}</p>
+              <div className="panel-header-year-picker">
+                <p
+                  className="clickable"
+                  onClick={() => onYearPress?.(upperDecade)}
+                >
+                  {upperDecade}
+                </p>
+                <span>{"-"}</span>
+                <p
+                  className="clickable"
+                  onClick={() => onYearPress?.(lowerDecade)}
+                >
+                  {lowerDecade}
+                </p>
+              </div>
             )}
           </div>
         </div>
         <div className="center">
-          <img
+          <div
             className="iconItem"
-            src={LeftIconDouble}
             onClick={() =>
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
-          />
+          >
+            <img
+              width={18}
+              height={18}
+              alt="LeftIconDouble"
+              src={LeftIconDouble}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 
   return (
-    <Fragment>{renderHeader ? renderHeader(current, node) : node}</Fragment>
+    <div className="panel-header-wrapper">
+      {renderHeader ? renderHeader(current, node) : node}
+    </div>
   );
 };
 

@@ -5,7 +5,9 @@ import Panel from "../panel";
 export const Picker = ({
   renderFooter,
   renderHeader,
-  renderPanel,
+  renderDayLabel,
+  renderCustomPanel,
+  highlightOffDays,
   ...restProps
 }: DatePickerProps) => {
   return (
@@ -13,7 +15,9 @@ export const Picker = ({
       <Panel
         renderFooter={renderFooter}
         renderHeader={renderHeader}
-        renderPanel={renderPanel}
+        renderCustomPanel={renderCustomPanel}
+        renderDayLabel={renderDayLabel}
+        highlightOffDays={highlightOffDays}
       />
     </Provider>
   );

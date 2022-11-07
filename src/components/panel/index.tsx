@@ -10,14 +10,30 @@ import { Footer } from "../footer";
 moment.loadPersian({ dialect: "persian-modern" });
 
 const Panel = memo(
-  ({ renderFooter, renderHeader, renderPanel }: PanelProps) => {
+  ({
+    renderFooter,
+    renderHeader,
+    renderCustomPanel,
+    highlightOffDays,
+    renderDayLabel,
+  }: PanelProps) => {
     const { isJalaali } = useDatepicker();
 
     return (
       <div
-        className={classNames(isJalaali ? "panel-jalaali" : "panel-gregorian")}
+        className={classNames(
+          isJalaali ? "panel-jalaali" : "panel-gregorian",
+          "panel-elevation",
+        )}
       >
-        <PanelMode {...{ renderHeader, renderPanel }} />
+        <PanelMode
+          {...{
+            renderHeader,
+            renderCustomPanel,
+            renderDayLabel,
+            highlightOffDays,
+          }}
+        />
         <Footer renderFooter={renderFooter} />
       </div>
     );
