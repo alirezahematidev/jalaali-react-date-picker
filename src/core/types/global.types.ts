@@ -22,6 +22,7 @@ export type Month = {
 export interface DateMetadata extends Date {
   id: string;
   isNotCurrentMonth?: boolean;
+  isWeekend?: boolean;
 }
 
 export interface Date {

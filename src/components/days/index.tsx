@@ -4,7 +4,6 @@ import Day from "../day";
 import { DayLabel } from "../dayLabel";
 import { Header, HeaderProps } from "../header";
 import { useDatepicker } from "../../core";
-import { isWeekend } from "../../utils";
 import { usePanelContext } from "../panel/panelMode";
 import { Fragment } from "react";
 import { Date } from "../../core/types/global.types";
@@ -16,7 +15,6 @@ const Days = () => {
     days: metadataDays,
     onDaychange,
     cacheDate: selected,
-    isJalaali,
     dayLabels,
   } = useDatepicker();
   const { onChangeMode, renderPanel } = usePanelContext();
@@ -31,7 +29,7 @@ const Days = () => {
     <Fragment>
       <DayLabel />
       <div className="days-body">
-        {metadataDays.map(({ id, isNotCurrentMonth, ...date }) => (
+        {metadataDays.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
           <div
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
@@ -41,7 +39,7 @@ const Days = () => {
               isDisabled={isNotCurrentMonth}
               onPress={() => onDaychange(date)}
               isHighlight={isEqual(selected, date)}
-              isWeekend={isWeekend(date, isJalaali)}
+              isWeekend={isWeekend}
             />
           </div>
         ))}

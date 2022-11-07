@@ -34,12 +34,16 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <img
             className="iconItem"
             src={RightIconDouble}
-            onClick={() => onDecreaseYear(state)}
+            onClick={() =>
+              isJalaali ? onDecreaseYear(state) : onIncreaseMonth(state)
+            }
           />
           <img
             className="iconItem"
             src={RightIcon}
-            onClick={() => onDecreaseMonth(state)}
+            onClick={() =>
+              isJalaali ? onDecreaseMonth(state) : onIncreaseMonth(state)
+            }
           />
         </div>
         <div className="panel-date-holder">
@@ -60,12 +64,16 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <img
             className="iconItem"
             src={LeftIcon}
-            onClick={() => onIncreaseMonth(state)}
+            onClick={() =>
+              isJalaali ? onIncreaseMonth(state) : onDecreaseMonth(state)
+            }
           />
           <img
             className="iconItem"
             src={LeftIconDouble}
-            onClick={() => onIncreaseYear(state)}
+            onClick={() =>
+              isJalaali ? onIncreaseYear(state) : onDecreaseMonth(state)
+            }
           />
         </div>
       </div>

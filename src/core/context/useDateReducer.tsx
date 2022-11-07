@@ -25,7 +25,7 @@ export const useDateReducer = (isJalaali: boolean) => {
     dispatch({
       type: ActionKind.YEAR_PLUS,
       payload: {
-        ...state,
+        ...payload,
         day: cacheDate?.year === payload.year ? cacheDate.day : 0,
       },
     });
@@ -34,7 +34,7 @@ export const useDateReducer = (isJalaali: boolean) => {
     dispatch({
       type: ActionKind.YEAR_MINUS,
       payload: {
-        ...state,
+        ...payload,
         day: cacheDate?.year === payload.year ? cacheDate.day : 0,
       },
     });
@@ -43,8 +43,9 @@ export const useDateReducer = (isJalaali: boolean) => {
     dispatch({
       type: ActionKind.MONTH_PLUS,
       payload: {
-        ...state,
+        ...payload,
         day: cacheDate?.month === payload.month ? cacheDate.day : 0,
+        year: payload.month === 12 ? payload.year + 1 : payload.year,
       },
     });
   };
@@ -52,8 +53,9 @@ export const useDateReducer = (isJalaali: boolean) => {
     dispatch({
       type: ActionKind.MONTH_MINUS,
       payload: {
-        ...state,
+        ...payload,
         day: cacheDate?.month === payload.month ? cacheDate.day : 0,
+        year: payload.month === 1 ? payload.year - 1 : payload.year,
       },
     });
   };

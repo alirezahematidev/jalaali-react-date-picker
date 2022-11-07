@@ -20,7 +20,7 @@ interface ContextType extends PropsReducerType {
   onDecreaseMonth: (payload: Date) => void;
 }
 
-const DatePickerContext = createContext<ContextType>({
+export const DatePickerContext = createContext<ContextType>({
   state: {
     day: 0,
     month: 0,
