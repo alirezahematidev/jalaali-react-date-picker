@@ -1,12 +1,14 @@
-import { renderHook, act, waitFor } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import { useDateReducer } from "../../core/context/useDateReducer";
 import { Provider } from "../../core/context/index";
 
 describe("onDaychange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onDaychange({ day: 5, month: 7, year: 1401 }));
@@ -21,9 +23,11 @@ describe("onDaychange", () => {
 
 describe("onDecreaseMonth", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onDecreaseMonth({ day: 0, month: 8, year: 1401 }));
@@ -37,9 +41,11 @@ describe("onDecreaseMonth", () => {
 
 describe("onIncreaseMonth", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onIncreaseMonth({ day: 0, month: 4, year: 1401 })),
@@ -52,9 +58,11 @@ describe("onIncreaseMonth", () => {
 });
 describe("onYearchange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onYearchange({ day: 0, month: 0, year: 1401 }));
@@ -68,9 +76,11 @@ describe("onYearchange", () => {
 });
 describe("onMonthchange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onMonthchange({ day: 0, month: 8, year: 1401 }));
@@ -84,9 +94,11 @@ describe("onMonthchange", () => {
 });
 describe("onIncreaseYear", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onIncreaseYear({ day: 1, month: 7, year: 1401 }));
@@ -99,9 +111,11 @@ describe("onIncreaseYear", () => {
 });
 describe("onDecreaseYear", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(), {
+    const { result } = renderHook(() => useDateReducer(true), {
       wrapper({ children }) {
-        return <Provider props={{ isJalaali: true }}>{children}</Provider>;
+        return (
+          <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        );
       },
     });
     act(() => result.current.onDecreaseYear({ day: 1, month: 9, year: 1401 }));
