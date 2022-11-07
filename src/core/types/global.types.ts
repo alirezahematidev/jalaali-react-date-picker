@@ -23,6 +23,7 @@ export interface DateMetadata extends Date {
   id: string;
   isNotCurrentMonth?: boolean;
   isWeekend?: boolean;
+  isOff?: boolean;
 }
 
 export interface Date {

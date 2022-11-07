@@ -13,9 +13,10 @@ export interface DaysProps extends HeaderProps {}
 const Days = () => {
   const {
     days: metadataDays,
-    onDaychange,
     cacheDate: selected,
+    onDaychange,
     dayLabels,
+    canHighlighWeekend,
   } = useDatepicker();
   const { onChangeMode, renderPanel } = usePanelContext();
 
@@ -29,20 +30,23 @@ const Days = () => {
     <Fragment>
       <DayLabel />
       <div className="days-body">
-        {metadataDays.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
-          <div
-            key={`${id}-${date.month}`}
-            className={classNames("day-item-outer")}
-          >
-            <Day
-              day={date.day}
-              isDisabled={isNotCurrentMonth}
-              onPress={() => onDaychange(date)}
-              isHighlight={isEqual(selected, date)}
-              isWeekend={isWeekend}
-            />
-          </div>
-        ))}
+        {metadataDays.map(
+          ({ id, isNotCurrentMonth, isWeekend, isOff, ...date }) => (
+            <div
+              key={`${id}-${date.month}`}
+              className={classNames("day-item-outer")}
+            >
+              <Day
+                day={date.day}
+                isDisabled={isNotCurrentMonth}
+                onPress={() => onDaychange(date)}
+                isHighlight={isEqual(selected, date)}
+                isOff={isOff}
+                isWeekend={canHighlighWeekend ? isWeekend : false}
+              />
+            </div>
+          ),
+        )}
       </div>
     </Fragment>
   );

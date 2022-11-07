@@ -1,6 +1,6 @@
 import moment from "moment-jalaali";
-import { useMemo } from "react";
-import { generateDays } from "../../utils";
+import { useCallback, useMemo } from "react";
+import { dateTransformer, generateDays } from "../../utils";
 import { localizedDayLabels, localizedMonth } from "../constants";
 import { useDatePickerContext } from "../context";
 
@@ -15,9 +15,9 @@ export const useDatepicker = () => {
 
   const dayLabels = localizedDayLabels[language];
 
-  const { days } = generateDays(state.month, state.year, isJalaali);
+  const { days: _days } = generateDays(state.month, state.year, isJalaali);
 
-  const { canHighlighWeekend, customDates } = useMemo(() => {
+  const { canHighlighWeekend, days } = useMemo(() => {
     const isWeekendDefined =
       highlightOffDays && highlightOffDays.weekend !== undefined;
 
@@ -32,8 +32,20 @@ export const useDatepicker = () => {
       ? highlightOffDays?.customDates
       : [];
 
-    return { canHighlighWeekend, customDates };
-  }, [highlightOffDays]);
+    const days = _days.map((date) => {
+      return {
+        ...date,
+        isOff: customDates?.some(
+          (d) =>
+            d.day === date.day &&
+            d.month === date.month &&
+            d.year === date.year,
+        ),
+      };
+    });
+
+    return { canHighlighWeekend, days };
+  }, [_days, highlightOffDays]);
 
   const goToToday = () => {
     isJalaali

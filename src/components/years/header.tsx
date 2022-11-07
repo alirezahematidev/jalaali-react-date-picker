@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { useDatepicker } from "../../core";
 import { Fragment } from "react";
 import { usePanelContext } from "../panel/panelMode";
-import { dateTransformer } from "../../utils";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -22,6 +21,8 @@ const YearsHeader = ({
   const { isJalaali, state } = useDatepicker();
 
   const { renderHeader } = usePanelContext();
+
+  const current = state && state.day !== 0 ? state : null;
 
   const node = (
     <div className="panel-header-rtl">
@@ -65,11 +66,7 @@ const YearsHeader = ({
   );
 
   return (
-    <Fragment>
-      {renderHeader
-        ? renderHeader(dateTransformer(state, isJalaali), node)
-        : node}
-    </Fragment>
+    <Fragment>{renderHeader ? renderHeader(current, node) : node}</Fragment>
   );
 };
 

@@ -7,14 +7,14 @@ export const usePropsReducer = () => {
     locale: {
       language: "fa",
     },
-    highlightDays: { customDates: [], weekend: true },
+    highlightOffDays: { customDates: [], weekend: true },
   });
 
   const setLocale = (payload?: DatePickerProps["locale"]) => {
     dispatch({ type: PropsActionKind.LOCALE, payload });
   };
 
-  const setHighlightDays = (payload?: DatePickerProps["highlightDays"]) => {
+  const setHighlightDays = (payload?: DatePickerProps["highlightOffDays"]) => {
     dispatch({ type: PropsActionKind.HIGHLIGHT_DAYS, payload });
   };
 

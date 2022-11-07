@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { PanelProps, useDatepicker, useTranslation } from "../../core";
-import { dateTransformer } from "../../utils";
 
 interface FooterProps extends Pick<PanelProps, "renderFooter"> {}
 
 export const Footer = ({ renderFooter }: FooterProps) => {
   const { t } = useTranslation();
-  const { goToToday, isJalaali, state } = useDatepicker();
+  const { goToToday, state } = useDatepicker();
+
+  const current = state && state.day !== 0 ? state : null;
 
   const node = (
     <div className="panel-footer-rtl">
@@ -17,10 +18,6 @@ export const Footer = ({ renderFooter }: FooterProps) => {
   );
 
   return (
-    <Fragment>
-      {renderFooter
-        ? renderFooter(dateTransformer(state, isJalaali), node)
-        : node}
-    </Fragment>
+    <Fragment>{renderFooter ? renderFooter(current, node) : node}</Fragment>
   );
 };

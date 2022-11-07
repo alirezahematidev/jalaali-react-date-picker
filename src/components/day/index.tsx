@@ -5,6 +5,7 @@ interface DayProps {
   isHighlight?: boolean;
   isWeekend?: boolean;
   isDisabled?: boolean;
+  isOff?: boolean;
   onPress?: () => void;
 }
 
@@ -14,6 +15,7 @@ const Day = ({
   isHighlight,
   isWeekend,
   onPress,
+  isOff,
 }: DayProps) => {
   return (
     <div
@@ -22,6 +24,7 @@ const Day = ({
         isHighlight && "highlight",
         isDisabled && "disabled",
         isWeekend && "weekend-day",
+        isOff && "off-day",
       )}
       onClick={onPress}
     >

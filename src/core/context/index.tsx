@@ -82,6 +82,8 @@ export const Provider = ({
       !isEqual(props.highlightOffDays, propsState.highlightOffDays)
     ) {
       setHighlightDays(props.highlightOffDays);
+    } else {
+      setHighlightDays(undefined);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

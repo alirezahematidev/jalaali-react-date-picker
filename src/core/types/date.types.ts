@@ -128,7 +128,7 @@ export namespace DatePickerTypes {
    * @returns React.ReactNode
    */
   export type RenderHeader = (
-    current: Moment,
+    current: Date | null,
     node: React.ReactNode,
   ) => React.ReactNode;
   /**
@@ -139,7 +139,7 @@ export namespace DatePickerTypes {
    * @returns React.ReactNode
    */
   export type RenderFooter = (
-    current: Moment,
+    current: Date | null,
     node: React.ReactNode,
   ) => React.ReactNode;
 
