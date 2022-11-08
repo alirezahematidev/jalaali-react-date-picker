@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjalaali_datepicker=self.webpackChunkjalaali_datepicker||[]).push([[357],{4469:a=>{a.exports=JSON.parse('{"name":"docusaurus-plugin-content-blog","id":"default"}')}}]);
