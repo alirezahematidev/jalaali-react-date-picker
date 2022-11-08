@@ -23,10 +23,10 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
     isJalaali,
   } = useDatepicker();
 
-  const selectedDate = cacheDate || state;
+  const selectedDate = state || cacheDate;
 
   const getMonthLabel = useGetMonthLabel();
-  const { renderHeader } = usePanelContext();
+  const { headerRender } = usePanelContext();
 
   const current = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
@@ -109,7 +109,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
 
   return (
     <div className="panel-header-wrapper">
-      {renderHeader ? renderHeader(current, node) : node}
+      {headerRender ? headerRender(current, node) : node}
     </div>
   );
 };

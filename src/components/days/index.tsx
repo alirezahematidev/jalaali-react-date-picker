@@ -19,7 +19,7 @@ const Days = () => {
     dayLabels,
   } = useDatepicker();
 
-  const { onChangeMode, renderCustomPanel, renderDayLabel, highlightOffDays } =
+  const { onChangeMode, panelRender, dayLabelRender, highlightOffDays } =
     usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
@@ -64,11 +64,9 @@ const Days = () => {
         onSelectMonthPicker={() => onChangeMode?.("month")}
         onSelectYearPicker={() => onChangeMode?.("year")}
       />
-      <DayLabel renderDayLabel={renderDayLabel} />
+      <DayLabel dayLabelRender={dayLabelRender} />
       <div className="days-body">
-        {renderCustomPanel
-          ? renderCustomPanel({ days, dayLabels, selected }, node)
-          : node}
+        {panelRender ? panelRender({ days, dayLabels, selected }, node) : node}
       </div>
     </Fragment>
   );

@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { DatePickerTypes } from "../types";
 
 export interface DatePickerProps {
@@ -8,24 +9,58 @@ export interface DatePickerProps {
   onYearChange?: DatePickerTypes.OnYearChange;
   format?: DatePickerTypes.Format;
   locale?: DatePickerTypes.Locale;
-  showToday?: boolean;
-  renderCustomPanel?: DatePickerTypes.RenderCustomPanel;
-  renderFooter?: DatePickerTypes.RenderFooter;
-  renderHeader?: DatePickerTypes.RenderHeader;
   disabledDates?: DatePickerTypes.DisabledDates;
+  onModeChange?: DatePickerTypes.OnModeChange;
+  panelRender?: DatePickerTypes.panelRender;
+  footerRender?: DatePickerTypes.footerRender;
+  headerRender?: DatePickerTypes.headerRender;
+  dayLabelRender?: DatePickerTypes.dayLabelRender;
   highlightOffDays?: DatePickerTypes.HighLightOffDays;
-  renderDayLabel?: DatePickerTypes.RenderDayLabel;
+  customColors?: DatePickerTypes.Colors;
 }
 
 export interface PanelProps
   extends Pick<
     DatePickerProps,
-    | "renderCustomPanel"
-    | "renderFooter"
-    | "renderHeader"
+    | "panelRender"
+    | "footerRender"
+    | "headerRender"
     | "highlightOffDays"
-    | "renderDayLabel"
+    | "dayLabelRender"
+    | "onModeChange"
+    | "customColors"
+  > {}
+
+interface PickerProps extends PanelProps {}
+
+interface DatePickerPickable
+  extends Pick<
+    DatePickerProps,
+    | "value"
+    | "onChange"
     | "onDayChange"
     | "onMonthChange"
     | "onYearChange"
+    | "format"
+    | "locale"
+    | "disabledDates"
   > {}
+
+type InputBuiltInProps = Omit<
+  React.HtmlHTMLAttributes<HTMLInputElement>,
+  "value" | "onChange"
+>;
+
+type InputDatePickerPickable = InputBuiltInProps & DatePickerPickable;
+
+export interface InputDatePickerProps extends InputDatePickerPickable {
+  pickerProps?: PickerProps;
+  open?: boolean;
+  disabled?: boolean;
+  wrapperClassName?: string;
+  wrapperStyle?: CSSProperties;
+  prefixIcon?: React.ReactNode;
+  suffixIcon?: React.ReactNode;
+  placement?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+  onOpenChange?: (open: boolean) => void;
+}

@@ -15,8 +15,8 @@ export const useDatepicker = () => {
   const dayLabels = localizedDayLabels[language];
 
   const { days } = generateDays(
-    (cacheDate || state).month,
-    (cacheDate || state).year,
+    (state || cacheDate).month,
+    (state || cacheDate).year,
     isJalaali,
   );
 

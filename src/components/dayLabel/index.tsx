@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { PanelProps, useDatepicker } from "../../core";
 
-interface DayLabelProps extends Pick<PanelProps, "renderDayLabel"> {}
+interface DayLabelProps extends Pick<PanelProps, "dayLabelRender"> {}
 
-export const DayLabel = ({ renderDayLabel }: DayLabelProps) => {
+export const DayLabel = ({ dayLabelRender }: DayLabelProps) => {
   const { isJalaali, dayLabels } = useDatepicker();
 
   const node = (
@@ -22,7 +22,7 @@ export const DayLabel = ({ renderDayLabel }: DayLabelProps) => {
 
   return (
     <div className="day-label-bar">
-      {renderDayLabel ? renderDayLabel(dayLabels, node) : node}
+      {dayLabelRender ? dayLabelRender(dayLabels, node) : node}
     </div>
   );
 };

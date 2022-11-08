@@ -1,7 +1,8 @@
-@import "./global";
 @import "./mixins/colors";
+@import "./global";
 @import "./day";
 @import "./panel";
 @import "./header";
 @import "./months";
-@import "./years.scss";
+@import "./years";
+@import "./input";

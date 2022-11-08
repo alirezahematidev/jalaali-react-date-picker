@@ -18,6 +18,8 @@ export namespace DatePickerTypes {
     selected?: Date;
   };
 
+  export type Mode = "day" | "month" | "year";
+
   /**
    * Override all default colors
    *
@@ -68,6 +70,9 @@ export namespace DatePickerTypes {
    * @param {Moment} [year]
    */
   export type OnYearChange = (year: number) => void;
+
+  export type OnModeChange = (mode: Mode) => void;
+
   /**
    * A callback that can determine what dates should be disabled
    *
@@ -92,12 +97,6 @@ export namespace DatePickerTypes {
    * @type Moment
    */
   export type OffDays = Moment[];
-  /**
-   * A callback that returns today date
-   *
-   * @returns Value
-   */
-  export type Today = () => Value;
 
   export type HighLightOffDays = { weekend?: boolean; customDates?: Date[] };
   /**
@@ -127,9 +126,9 @@ export namespace DatePickerTypes {
    * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderHeader = (
+  export type headerRender = (
     current: Date | null,
-    node: React.ReactNode,
+    headerNode: React.ReactNode,
   ) => React.ReactNode;
   /**
    * A render callback that add custom footer below the panel
@@ -138,9 +137,9 @@ export namespace DatePickerTypes {
    * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderFooter = (
+  export type footerRender = (
     current: Date | null,
-    node: React.ReactNode,
+    footerNode: React.ReactNode,
   ) => React.ReactNode;
 
   /**
@@ -150,9 +149,9 @@ export namespace DatePickerTypes {
    * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderCustomPanel = (
+  export type panelRender = (
     data: PanelDate,
-    node: React.ReactNode,
+    panelNode: React.ReactNode,
   ) => React.ReactNode;
 
   /**
@@ -162,8 +161,8 @@ export namespace DatePickerTypes {
    * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderDayLabel = (
+  export type dayLabelRender = (
     labels: string[],
-    node: React.ReactNode,
+    labelNode: React.ReactNode,
   ) => React.ReactNode;
 }
