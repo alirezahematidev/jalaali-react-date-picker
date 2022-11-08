@@ -3,6 +3,9 @@ import { DatePickerTypes } from "../types";
 export interface DatePickerProps {
   value?: DatePickerTypes.Value;
   onChange?: DatePickerTypes.OnChange;
+  onDayChange?: DatePickerTypes.OnDayChange;
+  onMonthChange?: DatePickerTypes.OnMonthChange;
+  onYearChange?: DatePickerTypes.OnYearChange;
   format?: DatePickerTypes.Format;
   locale?: DatePickerTypes.Locale;
   showToday?: boolean;
@@ -22,4 +25,7 @@ export interface PanelProps
     | "renderHeader"
     | "highlightOffDays"
     | "renderDayLabel"
+    | "onDayChange"
+    | "onMonthChange"
+    | "onYearChange"
   > {}

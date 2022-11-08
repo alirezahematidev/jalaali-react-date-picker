@@ -4,7 +4,7 @@ import { Provider } from "../../core/context/index";
 
 describe("onDaychange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -23,7 +23,7 @@ describe("onDaychange", () => {
 
 describe("onDecreaseMonth", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -41,7 +41,7 @@ describe("onDecreaseMonth", () => {
 
 describe("onIncreaseMonth", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -58,7 +58,7 @@ describe("onIncreaseMonth", () => {
 });
 describe("onYearchange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -76,7 +76,7 @@ describe("onYearchange", () => {
 });
 describe("onMonthchange", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -94,7 +94,7 @@ describe("onMonthchange", () => {
 });
 describe("onIncreaseYear", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
@@ -111,7 +111,7 @@ describe("onIncreaseYear", () => {
 });
 describe("onDecreaseYear", () => {
   test("test useReducer", async () => {
-    const { result } = renderHook(() => useDateReducer(true), {
+    const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper({ children }) {
         return (
           <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
