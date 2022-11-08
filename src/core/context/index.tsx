@@ -11,6 +11,7 @@ import { usePropsReducer } from "./usePropsReducer";
 interface ContextType extends PropsReducerType {
   state: Date;
   cacheDate?: Date;
+  onDateChange: (payload: Date) => void;
   onDaychange: (payload: Date) => void;
   onMonthchange: (payload: Date) => void;
   onYearchange: (payload: Date) => void;
@@ -34,6 +35,7 @@ export const DatePickerContext = createContext<ContextType>({
   //   customDates: [],
   //   weekend: true,
   // },
+  onDateChange: () => null,
   onDaychange: () => null,
   onMonthchange: () => null,
   onYearchange: () => null,
@@ -55,6 +57,7 @@ export const Provider = ({
   const {
     state,
     onDaychange,
+    onDateChange,
     onMonthchange,
     onYearchange,
     onIncreaseYear,
@@ -62,7 +65,16 @@ export const Provider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
-  } = useDateReducer(language === "fa");
+  } = useDateReducer({
+    language,
+    onDayChangeProp: props?.onDayChange,
+    onMonthChangeProp: props?.onMonthChange,
+    onYearChangeProp: props?.onYearChange,
+    onChangeProp: props.onChange,
+    formatProp: props.format,
+    valueProp: props.value,
+    // defaultValueProp: props.defaultValue,
+  });
 
   const { setLocale, propsState } = usePropsReducer();
 
@@ -84,6 +96,7 @@ export const Provider = ({
     <DatePickerContext.Provider
       value={{
         state,
+        onDateChange,
         onDaychange,
         onMonthchange,
         onYearchange,

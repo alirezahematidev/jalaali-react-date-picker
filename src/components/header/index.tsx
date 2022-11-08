@@ -14,6 +14,7 @@ export interface HeaderProps {
 
 const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
   const {
+    cacheDate,
     state,
     onDecreaseYear,
     onDecreaseMonth,
@@ -22,10 +23,12 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
     isJalaali,
   } = useDatepicker();
 
+  const selectedDate = cacheDate || state;
+
   const getMonthLabel = useGetMonthLabel();
   const { renderHeader } = usePanelContext();
 
-  const current = state && state.day !== 0 ? state : null;
+  const current = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
   const node = (
     <div className="panel-header-rtl">
@@ -34,7 +37,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <div
             className="iconItem"
             onClick={() =>
-              isJalaali ? onDecreaseYear(state) : onIncreaseYear(state)
+              isJalaali
+                ? onDecreaseYear(selectedDate)
+                : onIncreaseYear(selectedDate)
             }
           >
             <img
@@ -47,7 +52,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <div
             className="iconItem"
             onClick={() =>
-              isJalaali ? onDecreaseMonth(state) : onIncreaseMonth(state)
+              isJalaali
+                ? onDecreaseMonth(selectedDate)
+                : onIncreaseMonth(selectedDate)
             }
           >
             <img width={18} height={18} src={RightIcon} alt="RightIcon" />
@@ -59,21 +66,23 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
             onClick={onSelectMonthPicker}
           >
             <p className="panel-header-item-text">
-              {getMonthLabel(state.month)}
+              {getMonthLabel(selectedDate.month)}
             </p>
           </div>
           <div
             className="panel-date-holder-item clickable"
             onClick={onSelectYearPicker}
           >
-            <p className="panel-header-item-text">{state.year}</p>
+            <p className="panel-header-item-text">{selectedDate.year}</p>
           </div>
         </div>
         <div className="center">
           <div
             className="iconItem"
             onClick={() =>
-              isJalaali ? onIncreaseMonth(state) : onDecreaseMonth(state)
+              isJalaali
+                ? onIncreaseMonth(selectedDate)
+                : onDecreaseMonth(selectedDate)
             }
           >
             <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
@@ -81,7 +90,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <div
             className="iconItem"
             onClick={() =>
-              isJalaali ? onIncreaseYear(state) : onDecreaseYear(state)
+              isJalaali
+                ? onIncreaseYear(selectedDate)
+                : onDecreaseYear(selectedDate)
             }
           >
             <img

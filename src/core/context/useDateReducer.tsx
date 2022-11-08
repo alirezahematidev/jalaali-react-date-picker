@@ -1,25 +1,97 @@
-import moment from "moment-jalaali";
-import { useState, useReducer } from "react";
-import { Date } from "../types/global.types";
+import moment, { Moment } from "moment-jalaali";
+import { useState, useReducer, useEffect } from "react";
+import { dateTransformer } from "../../utils";
+import { formatGenerator } from "../../utils/formatGenerator";
+import { useGetMonthLabel } from "../../utils/getMonthLabel";
+import { localizedMonth } from "../constants";
+import { jalaaliMonths } from "../constants/datasets";
+import { DatePickerTypes } from "../types";
+import { Date, Language } from "../types/global.types";
 import { reducer, ActionKind } from "./dateReducer";
 
-export const useDateReducer = (isJalaali: boolean) => {
-  const [cacheDate, setCacheDate] = useState<Date>();
-  const [state, dispatch] = useReducer(reducer, {
-    day: 0,
-    year: isJalaali ? moment().jYear() : moment().year(),
-    month: Number(moment().format(isJalaali ? "jM" : "M")),
-  });
+interface DateReducerType {
+  formatProp?: DatePickerTypes.Format;
+  onChangeProp?: DatePickerTypes.OnChange;
+  valueProp?: DatePickerTypes.Value;
+  defaultValueProp?: DatePickerTypes.Value;
+  onDayChangeProp?: DatePickerTypes.OnDayChange;
+  onMonthChangeProp?: DatePickerTypes.OnMonthChange;
+  onYearChangeProp?: DatePickerTypes.OnYearChange;
+  language: Language;
+}
 
+const getDefaultValue = (value: Moment, isJalaali: boolean) => {
+  return {
+    day: 0,
+    year: isJalaali ? value.jYear() : value.year(),
+    month: Number(value.format(isJalaali ? "jM" : "M")),
+  };
+};
+
+export const useDateReducer = ({
+  formatProp,
+  valueProp,
+  defaultValueProp,
+  onChangeProp,
+  onDayChangeProp,
+  onMonthChangeProp,
+  onYearChangeProp,
+  language,
+}: DateReducerType) => {
+  const isJalaali = language === "fa";
+  const months = localizedMonth[language];
+  const [cacheDate, setCacheDate] = useState<Date>(
+    getDefaultValue(defaultValueProp || moment(), isJalaali),
+  );
+  const [state, dispatch] = useReducer(
+    reducer,
+    getDefaultValue(defaultValueProp || moment(), isJalaali),
+  );
+
+  useEffect(() => {
+    if (valueProp) {
+      const value = {
+        day: isJalaali ? valueProp.jDate() : valueProp.date(),
+        year: isJalaali ? valueProp.jYear() : valueProp.year(),
+        month: Number(valueProp.format(isJalaali ? "jM" : "M")),
+      };
+      setCacheDate(value);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valueProp]);
+
+  const onDateChange = (payload: Date) => {
+    dispatch({ type: ActionKind.DATE, payload });
+    setCacheDate(payload);
+    const res = dateTransformer({ ...payload });
+    payload.day !== 0 &&
+      onChangeProp?.(
+        res,
+        res.format(
+          formatProp
+            ? typeof formatProp === "function"
+              ? formatProp(res)
+              : formatProp
+            : formatGenerator(isJalaali),
+        ),
+      );
+  };
   const onDaychange = (payload: Date) => {
     dispatch({ type: ActionKind.DAY, payload });
     setCacheDate(payload);
+    payload.day !== 0 && onDayChangeProp?.(payload.day);
   };
   const onMonthchange = (payload: Date) => {
     dispatch({ type: ActionKind.MONTH, payload });
+    onMonthChangeProp?.({
+      value: payload.month,
+      name: months.find((item) => item.id === payload.month)?.name || "",
+    });
   };
   const onYearchange = (payload: Date) => {
     dispatch({ type: ActionKind.YEAR, payload });
+    onYearChangeProp?.(payload.year);
   };
   const onIncreaseYear = (payload: Date) => {
     dispatch({
@@ -63,6 +135,7 @@ export const useDateReducer = (isJalaali: boolean) => {
   return {
     state,
     cacheDate,
+    onDateChange,
     onDaychange,
     onMonthchange,
     onYearchange,

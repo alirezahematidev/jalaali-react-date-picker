@@ -19,6 +19,10 @@ const PanelModeContext = createContext<PanelModeContext>({
   renderCustomPanel: () => null,
   onChangeMode: () => null,
   renderDayLabel: () => null,
+  onDayChange: () => null,
+  onMonthChange: () => null,
+  onYearChange: () => null,
+
   highlightOffDays: {
     customDates: [],
     weekend: true,

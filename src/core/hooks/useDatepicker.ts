@@ -4,7 +4,7 @@ import { localizedDayLabels, localizedMonth } from "../constants";
 import { useDatePickerContext } from "../context";
 
 export const useDatepicker = () => {
-  const { state, locale, ...rest } = useDatePickerContext();
+  const { state, cacheDate, locale, ...rest } = useDatePickerContext();
 
   const language = locale?.language || "fa";
 
@@ -14,16 +14,20 @@ export const useDatepicker = () => {
 
   const dayLabels = localizedDayLabels[language];
 
-  const { days } = generateDays(state.month, state.year, isJalaali);
+  const { days } = generateDays(
+    (cacheDate || state).month,
+    (cacheDate || state).year,
+    isJalaali,
+  );
 
   const goToToday = () => {
     isJalaali
-      ? rest.onDaychange({
+      ? rest.onDateChange({
           day: moment().jDate(),
           year: moment().jYear(),
           month: Number(moment().format("jM")),
         })
-      : rest.onDaychange({
+      : rest.onDateChange({
           day: moment().date(),
           year: moment().year(),
           month: Number(moment().format("M")),
@@ -38,6 +42,7 @@ export const useDatepicker = () => {
     language,
     months,
     dayLabels,
+    cacheDate,
     ...rest,
   };
 };

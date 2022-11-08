@@ -15,6 +15,7 @@ const Days = () => {
     days: metadataDays,
     cacheDate: selected,
     onDaychange,
+    onDateChange,
     dayLabels,
   } = useDatepicker();
 
@@ -42,7 +43,10 @@ const Days = () => {
           <Day
             day={date.day}
             isNotCurrentMonth={isNotCurrentMonth}
-            onPress={() => onDaychange(date)}
+            onPress={() => {
+              onDaychange(date);
+              onDateChange(date);
+            }}
             isHighlight={isEqual(selected, date)}
             isOff={(highlightOffDays?.customDates || [])?.some((d) =>
               isEqual(d, date),
