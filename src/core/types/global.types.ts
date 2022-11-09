@@ -17,12 +17,19 @@ export type MonthNamedValue = {
 export type Month = {
   id: number;
   name: string;
+  isDisabled?: boolean;
+};
+export type Year = {
+  id: number;
+  isDisabled?: boolean;
+  isNotCurrentDecade?: boolean;
 };
 
 export interface DateMetadata extends Date {
   id: string;
   isNotCurrentMonth?: boolean;
   isWeekend?: boolean;
+  isDisabled?: boolean;
 }
 
 export interface Date {
