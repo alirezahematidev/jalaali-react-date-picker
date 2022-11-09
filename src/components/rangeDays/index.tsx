@@ -7,6 +7,7 @@ import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { Fragment } from "react";
 import { Date } from "../../core/types/global.types";
+import { useDays } from "../../core/hooks/useDays";
 
 export interface DaysProps extends HeaderProps {}
 
@@ -16,8 +17,9 @@ const RangeDays = () => {
     onDaychange,
     onDateChange,
     dayLabels,
-    groupedRangeDays,
   } = useDatepicker();
+
+  const { groupedRangeDays } = useDays();
 
   const { onChangeMode, panelRender, dayLabelRender, highlightOffDays } =
     usePanelContext();
