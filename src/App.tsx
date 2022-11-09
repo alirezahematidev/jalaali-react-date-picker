@@ -16,11 +16,14 @@ function App() {
         onDayChange={(day) => console.log({ dayFa: day })}
         onMonthChange={(month) => console.log({ monthFa: month })}
         onYearChange={(year) => console.log({ yearFa: year })}
+        disabledDates={(day) => {
+          return day.isBetween(moment().subtract(5, "day"), moment());
+        }}
       />
 
       {/* <button onClick={() => setDate(moment().add(6, "months"))}>
         add 6 months
-      </button> */}
+      </button>
 
       {/* <InputDatePicker /> */}
 

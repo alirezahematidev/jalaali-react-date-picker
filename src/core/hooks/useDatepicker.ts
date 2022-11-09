@@ -1,56 +1,54 @@
 import moment from "moment-jalaali";
-import { generateDays } from "../../utils";
+import { useCallback, useMemo } from "react";
+import { dateTransformer } from "../../utils";
 import { localizedDayLabels, localizedMonth } from "../constants";
 import { useDatePickerContext } from "../context";
 
 export const useDatepicker = () => {
-  const { state, cacheDate, locale, ...rest } = useDatePickerContext();
+  const {
+    state,
+    cacheDate,
+    locale: { language } = { language: "fa" },
+    onDateChange,
+    disabledDates,
+    ...rest
+  } = useDatePickerContext();
 
-  const language = locale?.language || "fa";
+  const { isJalaali, months, dayLabels } = useMemo(() => {
+    return {
+      isJalaali: language === "fa",
+      months: localizedMonth[language || "fa"],
+      dayLabels: localizedDayLabels[language || "fa"],
+    };
+  }, [language]);
 
-  const isJalaali = language === "fa";
-
-  const months = localizedMonth[language];
-
-  const dayLabels = localizedDayLabels[language];
-
-  const { days } = generateDays(state.month, state.year, isJalaali);
-
-  const { days: nextMonthDays } = generateDays(
-    state.month === 12 ? 1 : state.month + 1,
-    state.month === 12 ? state.year + 1 : state.year,
-    isJalaali,
-  );
-
-  const flattenRangeDays = [...days, ...nextMonthDays];
-
-  const groupedRangeDays = [days, nextMonthDays];
-
-  const goToToday = () => {
-    isJalaali
-      ? rest.onDateChange({
+  const goToToday = useCallback(() => {
+    const today = isJalaali
+      ? {
           day: moment().jDate(),
           year: moment().jYear(),
           month: Number(moment().format("jM")),
-        })
-      : rest.onDateChange({
+        }
+      : {
           day: moment().date(),
           year: moment().year(),
           month: Number(moment().format("M")),
-        });
-  };
+        };
+
+    const todayInMoment = dateTransformer({ ...today });
+    const isTodayDisabled = disabledDates?.(todayInMoment);
+    !isTodayDisabled && onDateChange(today);
+  }, [disabledDates, isJalaali, onDateChange]);
 
   return {
-    days,
     state,
+    onDateChange,
     goToToday,
     isJalaali,
     language,
     months,
     dayLabels,
     cacheDate,
-    flattenRangeDays,
-    groupedRangeDays,
     ...rest,
   };
 };

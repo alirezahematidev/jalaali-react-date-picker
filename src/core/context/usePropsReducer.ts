@@ -13,6 +13,9 @@ export const usePropsReducer = () => {
   const setLocale = (payload?: DatePickerProps["locale"]) => {
     dispatch({ type: PropsActionKind.LOCALE, payload });
   };
+  const setDisabledDates = (payload?: DatePickerProps["disabledDates"]) => {
+    dispatch({ type: PropsActionKind.DISABLEDDATES, payload });
+  };
 
   // const setHighlightDays = (payload?: DatePickerProps["highlightOffDays"]) => {
   //   dispatch({ type: PropsActionKind.HIGHLIGHT_DAYS, payload });
@@ -20,6 +23,7 @@ export const usePropsReducer = () => {
 
   return {
     setLocale,
+    setDisabledDates,
     propsState,
     // setHighlightDays,
   };

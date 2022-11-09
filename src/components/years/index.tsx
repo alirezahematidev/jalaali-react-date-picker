@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { YearsHeader } from "./header";
 import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
+import { useYears } from "../../core/hooks/useYears";
 
 export interface MonthsProps {}
 
@@ -11,8 +12,7 @@ const Years = () => {
   const { isJalaali, onYearchange, state } = useDatepicker();
   const { onChangeMode } = usePanelContext();
   const [offset, setoffset] = useState(0);
-  const { years, lowerDecade, upperDecade } = listOfYears(isJalaali, offset);
-
+  const { years, lowerDecade, upperDecade } = useYears(offset);
   return (
     <>
       <YearsHeader
@@ -28,6 +28,7 @@ const Years = () => {
         {years.map((item) => {
           const isSelected = item.id === state.year;
           const isNotCurrentDecade = item.isNotCurrentDecade;
+          const isDisabled = item.isDisabled;
           return (
             <div
               key={item.id}
@@ -40,6 +41,7 @@ const Years = () => {
                 !isSelected && "year-item-hovered",
                 isSelected && "year-item-selected",
                 isNotCurrentDecade && "year-item-prev",
+                isDisabled && "disabled",
               )}
             >
               <p>{item.id}</p>
