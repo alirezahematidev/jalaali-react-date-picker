@@ -6,7 +6,7 @@ export const useTranslation = () => {
   const { language } = useDatepicker();
 
   function t(key: TranslationKey) {
-    return translations[language][key];
+    return translations[language || "fa"][key];
   }
 
   return { t, language };

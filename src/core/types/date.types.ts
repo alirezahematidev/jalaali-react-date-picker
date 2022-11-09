@@ -79,7 +79,7 @@ export namespace DatePickerTypes {
    * @param {Moment} [current]
    * @returns Boolean | ValueRange
    */
-  export type DisabledDates = (current: Moment) => boolean | DisabledValueRange;
+  export type DisabledDates = (current: Moment) => boolean;
   /**
    * A render callback that allows to customize day node
    *

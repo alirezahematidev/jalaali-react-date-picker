@@ -76,7 +76,7 @@ export const Provider = ({
     // defaultValueProp: props.defaultValue,
   });
 
-  const { setLocale, propsState } = usePropsReducer();
+  const { setLocale, setDisabledDates, propsState } = usePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
@@ -87,6 +87,12 @@ export const Provider = ({
         year: isJalaali ? moment().jYear() : moment().year(),
         month: Number(moment().format(isJalaali ? "jM" : "M")),
       });
+    }
+    if (
+      props.disabledDates?.length &&
+      !isEqual(props.disabledDates, propsState.disabledDates)
+    ) {
+      setDisabledDates(props.disabledDates);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
