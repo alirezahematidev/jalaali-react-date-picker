@@ -2,6 +2,7 @@ import { useState, createContext, useContext } from "react";
 import { DatePickerTypes, PanelProps } from "../../core";
 import { Days } from "../days";
 import { Months } from "../months";
+import { RangeDays } from "../rangeDays";
 import { Years } from "../years";
 
 type Panel = Record<DatePickerTypes.Mode, JSX.Element>;
@@ -13,17 +14,17 @@ interface PanelModeContext extends PanelModeProps {
 }
 
 const PanelModeContext = createContext<PanelModeContext>({
-  headerRender: undefined,
-  panelRender: undefined,
-  dayLabelRender: undefined,
+  headerRender: () => null,
+  panelRender: () => null,
   onChangeMode: () => null,
+  dayLabelRender: () => null,
   highlightOffDays: {
     customDates: [],
     weekend: true,
   },
 });
 
-export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
+export const PanelRangeMode = ({ onModeChange, ...props }: PanelModeProps) => {
   const [mode, setMode] = useState<DatePickerTypes.Mode>("day");
 
   const onChangeMode = (mode: DatePickerTypes.Mode) => {
@@ -32,7 +33,7 @@ export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
   };
 
   const panel: Panel = {
-    day: <Days />,
+    day: <RangeDays />,
     month: <Months />,
     year: <Years />,
   };

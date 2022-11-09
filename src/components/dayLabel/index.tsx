@@ -5,7 +5,7 @@ interface DayLabelProps extends Pick<PanelProps, "dayLabelRender"> {}
 
 export const DayLabel = ({ dayLabelRender }: DayLabelProps) => {
   const { isJalaali, dayLabels } = useDatepicker();
-
+  console.log({ dayLabelRender });
   const node = (
     <div
       className={classNames(
@@ -23,6 +23,7 @@ export const DayLabel = ({ dayLabelRender }: DayLabelProps) => {
   return (
     <div className="day-label-bar">
       {dayLabelRender ? dayLabelRender(dayLabels, node) : node}
+      {/* {node} */}
     </div>
   );
 };

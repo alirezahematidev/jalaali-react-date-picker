@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { DatePickerTypes } from "../types";
+import { DatePickerTypes, DateRangePickerTypes } from "../types";
 
 export interface DatePickerProps {
   value?: DatePickerTypes.Value;
@@ -18,7 +18,10 @@ export interface DatePickerProps {
   highlightOffDays?: DatePickerTypes.HighLightOffDays;
   customColors?: DatePickerTypes.Colors;
 }
-
+export interface DateRangePickerProps {
+  value?: DateRangePickerTypes.RangeValue;
+  onChange?: DateRangePickerTypes.OnChange;
+}
 export interface PanelProps
   extends Pick<
     DatePickerProps,

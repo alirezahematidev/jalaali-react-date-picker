@@ -14,11 +14,17 @@ export const useDatepicker = () => {
 
   const dayLabels = localizedDayLabels[language];
 
-  const { days } = generateDays(
-    (state || cacheDate).month,
-    (state || cacheDate).year,
+  const { days } = generateDays(state.month, state.year, isJalaali);
+
+  const { days: nextMonthDays } = generateDays(
+    state.month === 12 ? 1 : state.month + 1,
+    state.month === 12 ? state.year + 1 : state.year,
     isJalaali,
   );
+
+  const flattenRangeDays = [...days, ...nextMonthDays];
+
+  const groupedRangeDays = [days, nextMonthDays];
 
   const goToToday = () => {
     isJalaali
@@ -43,6 +49,8 @@ export const useDatepicker = () => {
     months,
     dayLabels,
     cacheDate,
+    flattenRangeDays,
+    groupedRangeDays,
     ...rest,
   };
 };

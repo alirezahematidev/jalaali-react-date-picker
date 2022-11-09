@@ -1,15 +1,28 @@
-import { ColorSchema, MonthNamedValue } from "./global.types";
 import { Moment as MomentType } from "moment-jalaali";
+import * as React from "react";
+import { ColorSchema, Date, Language, MonthNamedValue } from "./global.types";
 
-export namespace RangePickerTypes {
+export namespace DateRangePickerTypes {
   /**
    * Default type of date picker
    *
    * @type {Moment}
    */
   export type Moment = MomentType;
+
   /** Return type of month onChange */
-  export type MonthValue = [MonthNamedValue, MonthNamedValue];
+  export type MonthValue = MonthNamedValue;
+
+  export type MonthRangeValue = [MonthValue, MonthValue];
+
+  export type PanelDate = {
+    days: Date[];
+    dayLabels: string[];
+    selected?: [Date, Date];
+  };
+
+  export type Mode = "day" | "month" | "year";
+
   /**
    * Override all default colors
    *
@@ -17,87 +30,76 @@ export namespace RangePickerTypes {
    */
   export type Colors = ColorSchema;
   /**
-   * Type of date value
+   * Type of range date value
    *
-   * @param {Value} [value]
+   * @param {RangeValue} [value]
    */
-  export type Value = [Moment, Moment] | undefined | null;
-  /**
-   * Type of days value
-   *
-   * @param {[number, number]} [DayRange]
-   */
-  export type DayRange = [number, number];
-
-  /**
-   * Type of months value
-   *
-   * @param {[MonthValue, MonthValue]} [MonthRange]
-   */
-  export type MonthRange = [MonthValue, MonthValue];
-
-  /**
-   * Type of months value
-   *
-   * @param {[MonthValue, MonthValue]} [MonthRange]
-   */
-  export type YearRange = [number, number];
-
-  /**
-   * Type of date value
-   *
-   * @param {ValueString} [ValueString]
-   */
-  export type ValueString = [string, string] | undefined | null;
+  export type RangeValue = [
+    Moment | undefined | null,
+    Moment | undefined | null,
+  ];
   /**
    * Type of date default value
    *
-   * @param {DefaultValue} [defaultValue]
+   * @param {RangeValue} [defaultValue]
    */
-  export type DefaultValue = Value;
-  /** Type of range dates */
+  export type DefaultRangeValue = RangeValue;
+  /**
+   * Type of range dates
+   *
+   * @example
+   *   ["2022-11-02T14:40:44.181Z", "2022-11-05T14:40:44.181Z"];
+   */
   export type DisabledValueRange = [Moment | null, Moment?];
   /**
    * Callback that return current value
    *
-   * @param {Moment} [date]
-   * @param {ValueString} [dateString]
+   * @param {RangeValue} [date]
+   * @param {[string, string]} [dateStrings]
    */
-  export type OnChange = (date: Value, dateString: ValueString) => void;
+  export type OnChange = (
+    date: RangeValue,
+    dateStrings: [string, string],
+  ) => void;
   /**
    * Callback that return current day
    *
-   * @param {DayRange} [days]
+   * @param {Moment} [day]
    */
-  export type OnDayChange = (days: DayRange) => void;
+  export type OnDayChange = (days: [number, number]) => void;
   /**
    * Callback that return current month
    *
-   * @param {MonthRange} [months]
+   * @param {Moment} [month]
    */
-  export type OnMonthChange = (months: MonthRange) => void;
+  export type OnMonthChange = (months: [MonthValue, MonthValue]) => void;
   /**
    * Callback that return current year
    *
-   * @param {YearRange} [years]
+   * @param {Moment} [year]
    */
-  export type OnYearChange = (years: YearRange) => Value;
+  export type OnYearChange = (years: [number, number]) => void;
+
+  export type OnModeChange = (mode: Mode) => void;
+
   /**
    * A callback that can determine what dates should be disabled
    *
    * @param {Moment} [current]
    * @returns Boolean | ValueRange
    */
-  export type DisabledDates = (current: Value) => boolean | DisabledValueRange;
+  export type DisabledDates = (
+    dateRange: [Moment, Moment],
+  ) => boolean | DisabledValueRange;
   /**
    * A render callback that allows to customize day node
    *
    * @param {Moment} [date]
-   * @param {ReactNode} [dayNode]
-   * @returns ReactNode
+   * @param {React.ReactNode} [dayNode]
+   * @returns React.ReactNode
    */
   export type DayRender = (
-    date: Value,
+    dateRange: [Moment, Moment],
     dayNode: React.ReactNode,
   ) => React.ReactNode;
   /**
@@ -106,42 +108,72 @@ export namespace RangePickerTypes {
    * @type Moment
    */
   export type OffDays = Moment[];
+
+  export type HighLightOffDays = { weekend?: boolean; customDates?: Date[] };
   /**
-   * A callback that returns today date
+   * Customize localization.
    *
-   * @returns Value
+   * @default { language: "fa", zone: "Iran/Tehran" }
    */
-  export type Today = () => Value;
-  /**
-   * A boolean that convert datepicker to jalaali format
-   *
-   * @default true
-   */
-  export type IsJalaali = boolean;
-  /**
-   * A list of locales that customize language and time zone based on.
-   *
-   * @default ["fa", "en"]
-   */
-  export type Locales = string[];
+
+  export type Locale = {
+    /**
+     * The language applied to picker
+     *
+     * @default "fa"
+     */
+    language?: Language;
+  };
   /**
    * Custom format of return value
    *
    * @see https://momentjs.com/docs
    */
-  export type Format = string | ((value: Moment) => string);
+  export type Format = string | ((values: [Moment, Moment]) => string);
   /**
    * A render callback that add extra node above of default header
    *
-   * @param {Moment} [current]
+   * @param {[Moment | null, Moment | null]} [current]
+   * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderExtraHeader = (current: Moment) => React.ReactNode;
+  export type headerRender = (
+    dateRange: [Moment | null, Moment | null],
+    headerNode: React.ReactNode,
+  ) => React.ReactNode;
   /**
    * A render callback that add custom footer below the panel
    *
-   * @param {Moment} [current]
+   * @param {[Moment | null, Moment | null]} [current]
+   * @param {React.ReactNode} [node]
    * @returns React.ReactNode
    */
-  export type RenderFooter = (current: Moment) => React.ReactNode;
+  export type footerRender = (
+    dateRange: [Moment | null, Moment | null],
+    footerNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * A render callback that add custom panel
+   *
+   * @param {[PanelDate, PanelDate]} [data]
+   * @param {React.ReactNode} [node]
+   * @returns React.ReactNode
+   */
+  export type panelRender = (
+    dateRange: [PanelDate, PanelDate],
+    panelNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * A render callback that add custom panel
+   *
+   * @param {string[]} [labels]
+   * @param {React.ReactNode} [node]
+   * @returns React.ReactNode
+   */
+  export type dayLabelRender = (
+    labels: string[],
+    labelNode: React.ReactNode,
+  ) => React.ReactNode;
 }

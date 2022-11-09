@@ -16,6 +16,7 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
     },
     isJalaali,
   );
+
   const startOfMonthWeekDay = isJalaali
     ? firstDay.weekday()
     : firstDay.isoWeekday();
