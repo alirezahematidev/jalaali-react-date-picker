@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useMemo } from "react";
 import { DatePickerTypes, PanelProps } from "../../core";
 import { Days } from "../days";
 import { Months } from "../months";
@@ -31,11 +31,14 @@ export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
     onModeChange?.(mode);
   };
 
-  const panel: Panel = {
-    day: <Days />,
-    month: <Months />,
-    year: <Years />,
-  };
+  const panel: Panel = useMemo(
+    () => ({
+      day: <Days />,
+      month: <Months />,
+      year: <Years />,
+    }),
+    [],
+  );
 
   return (
     <PanelModeContext.Provider value={{ ...props, onChangeMode }}>
