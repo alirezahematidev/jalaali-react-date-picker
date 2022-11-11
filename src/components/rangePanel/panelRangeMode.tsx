@@ -1,19 +1,18 @@
 import { useState, createContext, useContext } from "react";
-import { DatePickerTypes, PanelProps } from "../../core";
-import { Days } from "../days";
+import { DateRangePickerTypes, RangePanelProps } from "../../core";
 import { Months } from "../months";
 import { RangeDays } from "../rangeDays";
 import { Years } from "../years";
 
-type Panel = Record<DatePickerTypes.Mode, JSX.Element>;
+type Panel = Record<DateRangePickerTypes.Mode, JSX.Element>;
 
-interface PanelModeProps extends Omit<PanelProps, "renderFooter"> {}
+interface RangePanelModeProps extends RangePanelProps {}
 
-interface PanelModeContext extends PanelModeProps {
-  onChangeMode?: (mode: DatePickerTypes.Mode) => void;
+interface RangePanelModeContext extends RangePanelModeProps {
+  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
 }
 
-const PanelModeContext = createContext<PanelModeContext>({
+const RangePanelModeContext = createContext<RangePanelModeContext>({
   headerRender: () => null,
   panelRender: () => null,
   onChangeMode: () => null,
@@ -24,10 +23,13 @@ const PanelModeContext = createContext<PanelModeContext>({
   },
 });
 
-export const PanelRangeMode = ({ onModeChange, ...props }: PanelModeProps) => {
-  const [mode, setMode] = useState<DatePickerTypes.Mode>("day");
+export const RangePanelMode = ({
+  onModeChange,
+  ...props
+}: RangePanelModeProps) => {
+  const [mode, setMode] = useState<DateRangePickerTypes.Mode>("day");
 
-  const onChangeMode = (mode: DatePickerTypes.Mode) => {
+  const onChangeMode = (mode: DateRangePickerTypes.Mode) => {
     setMode(mode);
     onModeChange?.(mode);
   };
@@ -39,10 +41,10 @@ export const PanelRangeMode = ({ onModeChange, ...props }: PanelModeProps) => {
   };
 
   return (
-    <PanelModeContext.Provider value={{ ...props, onChangeMode }}>
+    <RangePanelModeContext.Provider value={{ ...props, onChangeMode }}>
       {panel[mode]}
-    </PanelModeContext.Provider>
+    </RangePanelModeContext.Provider>
   );
 };
 
-export const usePanelContext = () => useContext(PanelModeContext);
+export const useRangePanelContext = () => useContext(RangePanelModeContext);

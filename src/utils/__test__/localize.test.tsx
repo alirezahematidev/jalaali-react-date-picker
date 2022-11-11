@@ -1,13 +1,15 @@
 import { useDatepicker } from "../../core";
 import { gregorianMonths, jalaaliMonths } from "../../core/constants/datasets";
 import { renderHook } from "@testing-library/react";
-import { Provider } from "../../core/context/index";
+import { DateProvider } from "../../core/context";
 
 describe("locaize test", () => {
   const { result } = renderHook(() => useDatepicker(), {
     wrapper({ children }) {
       return (
-        <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        <DateProvider props={{ locale: { language: "fa" } }}>
+          {children}
+        </DateProvider>
       );
     },
   });

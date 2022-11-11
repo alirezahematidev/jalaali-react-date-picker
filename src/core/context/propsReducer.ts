@@ -1,14 +1,21 @@
-import { DatePickerProps } from "../interfaces";
+import { DatePickerProps, RangePickerProps } from "../interfaces";
 
-export type PropsReducerType = Pick<
+export type DatePropsReducerType = Pick<
   DatePickerProps,
+  "locale" | "onChange" | "value" | "disabledDates"
+>;
+
+export type RangePropsReducerType = Pick<
+  RangePickerProps,
   "locale" | "onChange" | "value" | "disabledDates"
 >;
 
 export enum PropsActionKind {
   LOCALE = "LOCALE",
   ONCHANGE = "ONCHANGE",
+  RANGEONCHANGE = "RANGEONCHANGE",
   VALUE = "VALUE",
+  RANGEVALUE = "RANGEVALUE",
   DISABLEDDATES = "DISABLEDDATES",
 }
 
@@ -19,10 +26,10 @@ export interface Action {
 }
 
 // Our reducer function that uses a switch statement to handle our actions
-export function propsReducer(
-  state: PropsReducerType,
+export function datePropsReducer(
+  state: DatePropsReducerType,
   action: Action,
-): PropsReducerType {
+): DatePropsReducerType {
   const { type, payload } = action;
   switch (type) {
     case PropsActionKind.LOCALE:
@@ -45,11 +52,37 @@ export function propsReducer(
         ...state,
         disabledDates: payload,
       };
-    // case PropsActionKind.HIGHLIGHT_DAYS:
-    //   return {
-    //     ...state,
-    //     highlightOffDays: payload,
-    //   };
+    default:
+      return state;
+  }
+}
+
+export function rangePropsReducer(
+  state: RangePropsReducerType,
+  action: Action,
+): RangePropsReducerType {
+  const { type, payload } = action;
+  switch (type) {
+    case PropsActionKind.LOCALE:
+      return {
+        ...state,
+        locale: payload,
+      };
+    case PropsActionKind.RANGEONCHANGE:
+      return {
+        ...state,
+        onChange: payload,
+      };
+    case PropsActionKind.RANGEVALUE:
+      return {
+        ...state,
+        value: payload,
+      };
+    case PropsActionKind.DISABLEDDATES:
+      return {
+        ...state,
+        disabledDates: payload,
+      };
     default:
       return state;
   }

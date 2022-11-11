@@ -1,6 +1,13 @@
 import { Moment as MomentType } from "moment-jalaali";
 import * as React from "react";
-import { ColorSchema, Date, Language, MonthNamedValue } from "./global.types";
+import {
+  ColorSchema,
+  Date,
+  Language,
+  MonthNamedValue,
+  RangeDate,
+  RangeValue as RangeValueType,
+} from "./global.types";
 
 export namespace DateRangePickerTypes {
   /**
@@ -18,7 +25,7 @@ export namespace DateRangePickerTypes {
   export type PanelDate = {
     days: Date[];
     dayLabels: string[];
-    selected?: [Date, Date];
+    selected?: RangeDate;
   };
 
   export type Mode = "day" | "month" | "year";
@@ -34,10 +41,7 @@ export namespace DateRangePickerTypes {
    *
    * @param {RangeValue} [value]
    */
-  export type RangeValue = [
-    Moment | undefined | null,
-    Moment | undefined | null,
-  ];
+  export type RangeValue = RangeValueType;
   /**
    * Type of date default value
    *
@@ -88,9 +92,7 @@ export namespace DateRangePickerTypes {
    * @param {Moment} [current]
    * @returns Boolean | ValueRange
    */
-  export type DisabledDates = (
-    dateRange: [Moment, Moment],
-  ) => boolean | DisabledValueRange;
+  export type DisabledDates = (current: Moment) => boolean;
   /**
    * A render callback that allows to customize day node
    *
@@ -129,7 +131,7 @@ export namespace DateRangePickerTypes {
    *
    * @see https://momentjs.com/docs
    */
-  export type Format = string | ((values: [Moment, Moment]) => string);
+  export type Format = string | ((value: Moment) => string);
   /**
    * A render callback that add extra node above of default header
    *
@@ -140,17 +142,6 @@ export namespace DateRangePickerTypes {
   export type headerRender = (
     dateRange: [Moment | null, Moment | null],
     headerNode: React.ReactNode,
-  ) => React.ReactNode;
-  /**
-   * A render callback that add custom footer below the panel
-   *
-   * @param {[Moment | null, Moment | null]} [current]
-   * @param {React.ReactNode} [node]
-   * @returns React.ReactNode
-   */
-  export type footerRender = (
-    dateRange: [Moment | null, Moment | null],
-    footerNode: React.ReactNode,
   ) => React.ReactNode;
 
   /**

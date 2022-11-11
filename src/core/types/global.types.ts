@@ -1,3 +1,5 @@
+import { Moment } from "moment-jalaali";
+
 export type ColorSchema = {
   textDark?: string;
   textLight?: string;
@@ -37,6 +39,13 @@ export interface Date {
   month: number;
   day: number;
 }
+
+export type RangeDate = {
+  current: Date;
+  next: Date | null;
+};
+
+export type RangeValue = [Moment, Moment];
 
 export type Language = "fa" | "en" | "de" | "fr" | "es";
 

@@ -2,8 +2,8 @@ import "../../styles/index.scss";
 import calendar from "../../assets/icons/calendar_today.svg";
 import classNames from "classnames";
 import { InputDatePickerProps } from "../../core";
-import { Provider } from "../../core/context";
 import React, { useState } from "react";
+import { DateProvider } from "../../core/context";
 
 export const InputDatePicker = ({
   value,
@@ -44,7 +44,7 @@ export const InputDatePicker = ({
   };
 
   return (
-    <Provider
+    <DateProvider
       props={{
         value,
         onChange,
@@ -77,6 +77,6 @@ export const InputDatePicker = ({
           </div>
         )}
       </div>
-    </Provider>
+    </DateProvider>
   );
 };

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { generateDays, listOfYears } from "../../utils";
-import { useDatePickerContext } from "../context";
+import { useDatePickerContext } from "../context/dateProvider";
 
 export const useYears = (offset: number) => {
   const {

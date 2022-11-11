@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { generateDays } from "../../utils";
 import { localizedMonth } from "../constants";
-import { useDatePickerContext } from "../context";
+import { useDatePickerContext } from "../context/dateProvider";
 
 export const useMonths = () => {
   const {

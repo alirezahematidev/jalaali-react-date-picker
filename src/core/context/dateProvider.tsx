@@ -4,11 +4,11 @@ import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
 import { Date } from "../types/global.types";
-import { PropsReducerType } from "./propsReducer";
+import { DatePropsReducerType } from "./propsReducer";
 import { useDateReducer } from "./useDateReducer";
-import { usePropsReducer } from "./usePropsReducer";
+import { useDatePropsReducer } from "./usePropsReducer";
 
-interface ContextType extends PropsReducerType {
+interface ContextType extends DatePropsReducerType {
   state: Date;
   cacheDate?: Date;
   onDateChange: (payload: Date) => void;
@@ -31,10 +31,6 @@ export const DatePickerContext = createContext<ContextType>({
   locale: {
     language: "fa",
   },
-  // highlightOffDays: {
-  //   customDates: [],
-  //   weekend: true,
-  // },
   onDateChange: () => null,
   onDaychange: () => null,
   onMonthchange: () => null,
@@ -45,7 +41,7 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseMonth: () => null,
 });
 
-export const Provider = ({
+export const DateProvider = ({
   children,
   props,
 }: {
@@ -73,10 +69,9 @@ export const Provider = ({
     onChangeProp: props.onChange,
     formatProp: props.format,
     valueProp: props.value,
-    // defaultValueProp: props.defaultValue,
   });
 
-  const { setLocale, setDisabledDates, propsState } = usePropsReducer();
+  const { setLocale, setDisabledDates, propsState } = useDatePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {

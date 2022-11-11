@@ -1,26 +1,24 @@
-import { DatePickerProps } from "../../core";
-import { Provider } from "../../core/context";
+import { RangePickerProps } from "../../core";
+import { RangeProvider } from "../../core/context";
 import RangePanel from "../rangePanel";
 
-export const Range = ({
-  footerRender,
+export const RangePicker = ({
   headerRender,
   dayLabelRender,
   panelRender,
   highlightOffDays,
   customColors,
   ...restProps
-}: DatePickerProps) => {
+}: RangePickerProps) => {
   return (
-    <Provider props={restProps}>
+    <RangeProvider props={restProps}>
       <RangePanel
-        footerRender={footerRender}
         headerRender={headerRender}
         panelRender={panelRender}
         dayLabelRender={dayLabelRender}
         highlightOffDays={highlightOffDays}
         customColors={customColors}
       />
-    </Provider>
+    </RangeProvider>
   );
 };

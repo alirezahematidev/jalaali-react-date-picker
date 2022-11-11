@@ -1,5 +1,5 @@
 import { DatePickerProps } from "../../core";
-import { Provider } from "../../core/context";
+import { DateProvider } from "../../core/context";
 import Panel from "../panel";
 
 export const Picker = ({
@@ -12,7 +12,7 @@ export const Picker = ({
   ...restProps
 }: DatePickerProps) => {
   return (
-    <Provider props={restProps}>
+    <DateProvider props={restProps}>
       <Panel
         footerRender={footerRender}
         headerRender={headerRender}
@@ -21,6 +21,6 @@ export const Picker = ({
         highlightOffDays={highlightOffDays}
         customColors={customColors}
       />
-    </Provider>
+    </DateProvider>
   );
 };
