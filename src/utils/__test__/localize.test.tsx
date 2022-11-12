@@ -7,13 +7,7 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import { Provider } from "../../core/context/index";
-import { shallow } from "enzyme";
-import React, { useState } from "react";
-
-import Adapter from "enzyme-adapter-react-16";
-import { configure } from "enzyme";
-
-configure({ adapter: new Adapter() });
+import { useState } from "react";
 
 const ChangeLanguage = () => {
   const [lang, setLang] = useState("fa");
