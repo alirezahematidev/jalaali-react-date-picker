@@ -2,7 +2,7 @@ import "../../styles/index.scss";
 import moment from "moment-jalaali";
 import { memo } from "react";
 import classNames from "classnames";
-import { PanelProps, useDatepicker } from "../../core";
+import { PanelProps, useDatepicker, useSetColors } from "../../core";
 import { isEqual } from "lodash-es";
 import { PanelMode } from "./panelMode";
 import { Footer } from "../footer";
@@ -11,13 +11,17 @@ moment.loadPersian({ dialect: "persian-modern" });
 
 const Panel = memo(
   ({
-    renderFooter,
-    renderHeader,
-    renderCustomPanel,
+    footerRender,
+    headerRender,
+    panelRender,
     highlightOffDays,
-    renderDayLabel,
+    dayLabelRender,
+    onModeChange,
+    customColors,
   }: PanelProps) => {
     const { isJalaali } = useDatepicker();
+
+    useSetColors(customColors);
 
     return (
       <div
@@ -28,13 +32,14 @@ const Panel = memo(
       >
         <PanelMode
           {...{
-            renderHeader,
-            renderCustomPanel,
-            renderDayLabel,
+            headerRender,
+            panelRender,
+            dayLabelRender,
             highlightOffDays,
+            onModeChange,
           }}
         />
-        <Footer renderFooter={renderFooter} />
+        <Footer footerRender={footerRender} />
       </div>
     );
   },

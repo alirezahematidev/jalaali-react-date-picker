@@ -7,6 +7,7 @@ interface DayProps {
   isDisabled?: boolean;
   isOff?: boolean;
   isNotCurrentMonth?: boolean;
+  isBetweenHighlight?: boolean;
   onPress?: () => void;
 }
 
@@ -17,6 +18,7 @@ const Day = ({
   isWeekend,
   onPress,
   isOff,
+  isBetweenHighlight,
   isNotCurrentMonth,
 }: DayProps) => {
   return (
@@ -28,6 +30,7 @@ const Day = ({
         isDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
+        isBetweenHighlight && "highlight-day",
         isOff && "off-day",
       )}
       onClick={() => {

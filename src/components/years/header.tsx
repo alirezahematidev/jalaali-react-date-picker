@@ -21,7 +21,7 @@ const YearsHeader = ({
 }: HeaderProps) => {
   const { isJalaali, state } = useDatepicker();
 
-  const { renderHeader } = usePanelContext();
+  const { headerRender } = usePanelContext();
 
   const current = state && state.day !== 0 ? state : null;
 
@@ -108,7 +108,7 @@ const YearsHeader = ({
 
   return (
     <div className="panel-header-wrapper">
-      {renderHeader ? renderHeader(current, node) : node}
+      {headerRender ? headerRender(current, node) : node}
     </div>
   );
 };

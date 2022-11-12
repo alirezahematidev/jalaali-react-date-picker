@@ -7,18 +7,21 @@ import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { Fragment } from "react";
 import { Date } from "../../core/types/global.types";
+import { useDays } from "../../core/hooks/useDays";
 
 export interface DaysProps extends HeaderProps {}
 
 const Days = () => {
   const {
-    days: metadataDays,
     cacheDate: selected,
     onDaychange,
+    onDateChange,
     dayLabels,
   } = useDatepicker();
 
-  const { onChangeMode, renderCustomPanel, renderDayLabel, highlightOffDays } =
+  const { days: metadataDays } = useDays();
+
+  const { onChangeMode, panelRender, dayLabelRender, highlightOffDays } =
     usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
@@ -34,23 +37,29 @@ const Days = () => {
 
   const node = (
     <Fragment>
-      {metadataDays.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
-        <div
-          key={`${id}-${date.month}`}
-          className={classNames("day-item-outer")}
-        >
-          <Day
-            day={date.day}
-            isNotCurrentMonth={isNotCurrentMonth}
-            onPress={() => onDaychange(date)}
-            isHighlight={isEqual(selected, date)}
-            isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-              isEqual(d, date),
-            )}
-            isWeekend={canHighlighWeekend ? isWeekend : false}
-          />
-        </div>
-      ))}
+      {metadataDays.map(
+        ({ id, isNotCurrentMonth, isWeekend, isDisabled, ...date }) => (
+          <div
+            key={`${id}-${date.month}`}
+            className={classNames("day-item-outer")}
+          >
+            <Day
+              day={date.day}
+              isNotCurrentMonth={isNotCurrentMonth}
+              onPress={() => {
+                onDaychange(date);
+                onDateChange(date);
+              }}
+              isHighlight={isEqual(selected, date)}
+              isOff={(highlightOffDays?.customDates || [])?.some((d) =>
+                isEqual(d, date),
+              )}
+              isWeekend={canHighlighWeekend ? isWeekend : false}
+              isDisabled={isDisabled}
+            />
+          </div>
+        ),
+      )}
     </Fragment>
   );
 
@@ -60,11 +69,9 @@ const Days = () => {
         onSelectMonthPicker={() => onChangeMode?.("month")}
         onSelectYearPicker={() => onChangeMode?.("year")}
       />
-      <DayLabel renderDayLabel={renderDayLabel} />
+      <DayLabel dayLabelRender={dayLabelRender} />
       <div className="days-body">
-        {renderCustomPanel
-          ? renderCustomPanel({ days, dayLabels, selected }, node)
-          : node}
+        {panelRender ? panelRender({ days, dayLabels, selected }, node) : node}
       </div>
     </Fragment>
   );

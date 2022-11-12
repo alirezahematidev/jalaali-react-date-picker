@@ -1,24 +1,26 @@
 import { DatePickerProps } from "../../core";
-import { Provider } from "../../core/context";
+import { DateProvider } from "../../core/context";
 import Panel from "../panel";
 
 export const Picker = ({
-  renderFooter,
-  renderHeader,
-  renderDayLabel,
-  renderCustomPanel,
+  footerRender,
+  headerRender,
+  dayLabelRender,
+  panelRender,
   highlightOffDays,
+  customColors,
   ...restProps
 }: DatePickerProps) => {
   return (
-    <Provider props={restProps}>
+    <DateProvider props={restProps}>
       <Panel
-        renderFooter={renderFooter}
-        renderHeader={renderHeader}
-        renderCustomPanel={renderCustomPanel}
-        renderDayLabel={renderDayLabel}
+        footerRender={footerRender}
+        headerRender={headerRender}
+        panelRender={panelRender}
+        dayLabelRender={dayLabelRender}
         highlightOffDays={highlightOffDays}
+        customColors={customColors}
       />
-    </Provider>
+    </DateProvider>
   );
 };

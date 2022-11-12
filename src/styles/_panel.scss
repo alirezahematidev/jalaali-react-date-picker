@@ -14,6 +14,45 @@
     }
 }
 
+.panel-range {
+    @include flex-center;
+    width: 600px;
+    height: 312px;
+    max-height: 312px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    overflow: hidden;
+    flex-direction: column;
+    p {
+        margin-block: 0;
+        font-size: 14px;
+    }
+}
+
+.range-day-wrapper {
+    @include flex-center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.range-day-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.range-day-panel-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
 .panel-elevation {
     box-shadow: 0px 0px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
@@ -27,6 +66,18 @@
 .panel-gregorian {
     @include font-family-en;
     @extend .panel;
+    direction: ltr;
+}
+
+.panel-range-jalaali {
+    @include font-family;
+    @extend .panel-range;
+    direction: rtl;
+}
+
+.panel-range-gregorian {
+    @include font-family-en;
+    @extend .panel-range;
     direction: ltr;
 }
 
@@ -64,11 +115,18 @@
     min-height: 40px;
 }
 
+.panel-empty-holder {
+    width: 36px;
+    pointer-events: none;
+    visibility: hidden;
+}
+
 .panel-header-inner {
     @include flex-row(space-between);
     flex: 1;
     margin-inline: 12px;
     max-height: 100%;
+    max-width: 300px;
 }
 
 .panel-date-holder {

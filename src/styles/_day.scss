@@ -15,7 +15,7 @@
 
 .disabled {
     opacity: 0.4;
-    cursor: default !important;
+    cursor: not-allowed !important;
     background-color: var(--background-disabled);
 }
 
@@ -33,5 +33,10 @@
 
 .highlight {
     background-color: var(--highlight);
+    color: var(--text-light);
+}
+
+.highlight-day {
+    background-color: orange;
     color: var(--text-light);
 }

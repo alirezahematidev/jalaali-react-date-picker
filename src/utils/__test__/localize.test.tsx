@@ -6,7 +6,7 @@ import {
   getByTestId,
   fireEvent,
 } from "@testing-library/react";
-import { Provider } from "../../core/context/index";
+import { DateProvider } from "../../core/context/index";
 import { useState } from "react";
 
 const ChangeLanguage = () => {
@@ -39,7 +39,9 @@ describe("locaize test", () => {
   const { result } = renderHook(() => useDatepicker(), {
     wrapper({ children }) {
       return (
-        <Provider props={{ locale: { language: "fa" } }}>{children}</Provider>
+        <DateProvider props={{ locale: { language: "fa" } }}>
+          {children}
+        </DateProvider>
       );
     },
   });

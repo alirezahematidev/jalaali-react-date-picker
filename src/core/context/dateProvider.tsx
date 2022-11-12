@@ -4,13 +4,14 @@ import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { DatePickerProps } from "../interfaces";
 import { Date } from "../types/global.types";
-import { PropsReducerType } from "./propsReducer";
+import { DatePropsReducerType } from "./propsReducer";
 import { useDateReducer } from "./useDateReducer";
-import { usePropsReducer } from "./usePropsReducer";
+import { useDatePropsReducer } from "./usePropsReducer";
 
-interface ContextType extends PropsReducerType {
+interface ContextType extends DatePropsReducerType {
   state: Date;
   cacheDate?: Date;
+  onDateChange: (payload: Date) => void;
   onDaychange: (payload: Date) => void;
   onMonthchange: (payload: Date) => void;
   onYearchange: (payload: Date) => void;
@@ -30,10 +31,7 @@ export const DatePickerContext = createContext<ContextType>({
   locale: {
     language: "fa",
   },
-  // highlightOffDays: {
-  //   customDates: [],
-  //   weekend: true,
-  // },
+  onDateChange: () => null,
   onDaychange: () => null,
   onMonthchange: () => null,
   onYearchange: () => null,
@@ -43,7 +41,7 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseMonth: () => null,
 });
 
-export const Provider = ({
+export const DateProvider = ({
   children,
   props,
 }: {
@@ -55,6 +53,7 @@ export const Provider = ({
   const {
     state,
     onDaychange,
+    onDateChange,
     onMonthchange,
     onYearchange,
     onIncreaseYear,
@@ -62,9 +61,17 @@ export const Provider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
-  } = useDateReducer(language === "fa");
+  } = useDateReducer({
+    language,
+    onDayChangeProp: props?.onDayChange,
+    onMonthChangeProp: props?.onMonthChange,
+    onYearChangeProp: props?.onYearChange,
+    onChangeProp: props.onChange,
+    formatProp: props.format,
+    valueProp: props.value,
+  });
 
-  const { setLocale, propsState } = usePropsReducer();
+  const { setLocale, setDisabledDates, propsState } = useDatePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
@@ -76,6 +83,12 @@ export const Provider = ({
         month: Number(moment().format(isJalaali ? "jM" : "M")),
       });
     }
+    if (
+      props.disabledDates?.length &&
+      !isEqual(props.disabledDates, propsState.disabledDates)
+    ) {
+      setDisabledDates(props.disabledDates);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
@@ -84,6 +97,7 @@ export const Provider = ({
     <DatePickerContext.Provider
       value={{
         state,
+        onDateChange,
         onDaychange,
         onMonthchange,
         onYearchange,

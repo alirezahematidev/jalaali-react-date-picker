@@ -2,13 +2,14 @@ import { useDatepicker } from "../../core";
 import { Header } from "../header";
 import classNames from "classnames";
 import { usePanelContext } from "../panel/panelMode";
+import { useMonths } from "../../core/hooks/useMonths";
 
 export interface MonthsProps {}
 
 const Months = () => {
-  const { onMonthchange, state, isJalaali, months } = useDatepicker();
+  const { onMonthchange, state, isJalaali } = useDatepicker();
   const { onChangeMode } = usePanelContext();
-
+  const { months } = useMonths();
   return (
     <>
       <Header onSelectYearPicker={() => onChangeMode?.("year")} />
@@ -26,6 +27,7 @@ const Months = () => {
                 "month-item",
                 !isSelected && "month-item-hovered",
                 isSelected && "month-item-selected",
+                item.isDisabled && "disabled",
               )}
             >
               <p>{item.name}</p>

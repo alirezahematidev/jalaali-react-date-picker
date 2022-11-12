@@ -1,12 +1,18 @@
 import { getDaysOfJalaaliMonth, getDaysOfGregorianMonth } from ".";
+import { DatePickerTypes } from "../core";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
 import { generatePrevMonthDays } from "./generatePrevMonthDays";
 
-export const generateDays = (month: number, year: number, isJalaali = true) => {
+export const generateDays = (
+  month: number,
+  year: number,
+  isJalaali = true,
+  disabledDates: DatePickerTypes.DisabledDates,
+) => {
   const currentMonthDays = isJalaali
-    ? getDaysOfJalaaliMonth(month, year)
-    : getDaysOfGregorianMonth(month, year);
+    ? getDaysOfJalaaliMonth(month, year, disabledDates)
+    : getDaysOfGregorianMonth(month, year, disabledDates);
 
   const firstDay = dateTransformer(
     {
@@ -16,6 +22,7 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
     },
     isJalaali,
   );
+
   const startOfMonthWeekDay = isJalaali
     ? firstDay.weekday()
     : firstDay.isoWeekday();
@@ -26,6 +33,7 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
       currentMonthWeekDay: startOfMonthWeekDay,
       year,
       isJalaali,
+      disabledDates,
     }),
   );
   currentMonthDays.push(
@@ -34,6 +42,7 @@ export const generateDays = (month: number, year: number, isJalaali = true) => {
       currentMonthWeekDay: 42 - daysOfMonthAfterUnshift,
       year,
       isJalaali,
+      disabledDates,
     }),
   );
 

@@ -1,26 +1,51 @@
 import { useReducer } from "react";
-import { DatePickerProps } from "../interfaces";
-import { PropsActionKind, propsReducer } from "./propsReducer";
+import { DatePickerProps, RangePickerProps } from "../interfaces";
+import {
+  PropsActionKind,
+  datePropsReducer,
+  rangePropsReducer,
+} from "./propsReducer";
 
-export const usePropsReducer = () => {
-  const [propsState, dispatch] = useReducer(propsReducer, {
+export const useDatePropsReducer = () => {
+  const [propsState, dispatch] = useReducer(datePropsReducer, {
     locale: {
       language: "fa",
     },
-    // highlightOffDays: { customDates: [], weekend: true },
   });
 
   const setLocale = (payload?: DatePickerProps["locale"]) => {
     dispatch({ type: PropsActionKind.LOCALE, payload });
   };
-
-  // const setHighlightDays = (payload?: DatePickerProps["highlightOffDays"]) => {
-  //   dispatch({ type: PropsActionKind.HIGHLIGHT_DAYS, payload });
-  // };
+  const setDisabledDates = (payload?: DatePickerProps["disabledDates"]) => {
+    dispatch({ type: PropsActionKind.DISABLEDDATES, payload });
+  };
 
   return {
     setLocale,
+    setDisabledDates,
     propsState,
-    // setHighlightDays,
+  };
+};
+
+export const useRangePropsReducer = () => {
+  const [propsState, dispatch] = useReducer(rangePropsReducer, {
+    locale: {
+      language: "fa",
+    },
+  });
+
+  const setLocale = (payload?: DatePickerProps["locale"]) => {
+    dispatch({ type: PropsActionKind.LOCALE, payload });
+  };
+  const setRangeDisabledDates = (
+    payload?: RangePickerProps["disabledDates"],
+  ) => {
+    dispatch({ type: PropsActionKind.DISABLEDDATES, payload });
+  };
+
+  return {
+    setLocale,
+    setRangeDisabledDates,
+    propsState,
   };
 };

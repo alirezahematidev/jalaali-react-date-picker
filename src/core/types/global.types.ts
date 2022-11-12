@@ -1,3 +1,5 @@
+import { Moment } from "moment-jalaali";
+
 export type ColorSchema = {
   textDark?: string;
   textLight?: string;
@@ -17,12 +19,19 @@ export type MonthNamedValue = {
 export type Month = {
   id: number;
   name: string;
+  isDisabled?: boolean;
+};
+export type Year = {
+  id: number;
+  isDisabled?: boolean;
+  isNotCurrentDecade?: boolean;
 };
 
 export interface DateMetadata extends Date {
   id: string;
   isNotCurrentMonth?: boolean;
   isWeekend?: boolean;
+  isDisabled?: boolean;
 }
 
 export interface Date {
@@ -30,6 +39,13 @@ export interface Date {
   month: number;
   day: number;
 }
+
+export type RangeDate = {
+  current: Date;
+  next: Date | null;
+};
+
+export type RangeValue = [Moment, Moment];
 
 export type Language = "fa" | "en" | "de" | "fr" | "es";
 

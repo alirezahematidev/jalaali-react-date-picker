@@ -1,42 +1,44 @@
-import { useState, createContext, useContext } from "react";
-import { PanelProps } from "../../core";
+import { useState, createContext, useContext, useMemo } from "react";
+import { DatePickerTypes, PanelProps } from "../../core";
 import { Days } from "../days";
 import { Months } from "../months";
 import { Years } from "../years";
 
-type Mode = "day" | "month" | "year";
-
-type Panel = Record<Mode, JSX.Element>;
+type Panel = Record<DatePickerTypes.Mode, JSX.Element>;
 
 interface PanelModeProps extends Omit<PanelProps, "renderFooter"> {}
 
 interface PanelModeContext extends PanelModeProps {
-  onChangeMode?: (mode: Mode) => void;
+  onChangeMode?: (mode: DatePickerTypes.Mode) => void;
 }
 
 const PanelModeContext = createContext<PanelModeContext>({
-  renderHeader: () => null,
-  renderCustomPanel: () => null,
+  headerRender: undefined,
+  panelRender: undefined,
+  dayLabelRender: undefined,
   onChangeMode: () => null,
-  renderDayLabel: () => null,
   highlightOffDays: {
     customDates: [],
     weekend: true,
   },
 });
 
-export const PanelMode = (props: PanelModeProps) => {
-  const [mode, setMode] = useState<Mode>("day");
+export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
+  const [mode, setMode] = useState<DatePickerTypes.Mode>("day");
 
-  const onChangeMode = (mode: Mode) => {
+  const onChangeMode = (mode: DatePickerTypes.Mode) => {
     setMode(mode);
+    onModeChange?.(mode);
   };
 
-  const panel: Panel = {
-    day: <Days />,
-    month: <Months />,
-    year: <Years />,
-  };
+  const panel: Panel = useMemo(
+    () => ({
+      day: <Days />,
+      month: <Months />,
+      year: <Years />,
+    }),
+    [],
+  );
 
   return (
     <PanelModeContext.Provider value={{ ...props, onChangeMode }}>

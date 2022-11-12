@@ -1,8 +1,8 @@
 import { PanelProps, useDatepicker, useTranslation } from "../../core";
 
-interface FooterProps extends Pick<PanelProps, "renderFooter"> {}
+interface FooterProps extends Pick<PanelProps, "footerRender"> {}
 
-export const Footer = ({ renderFooter }: FooterProps) => {
+export const Footer = ({ footerRender }: FooterProps) => {
   const { t } = useTranslation();
   const { goToToday, state } = useDatepicker();
 
@@ -18,7 +18,7 @@ export const Footer = ({ renderFooter }: FooterProps) => {
 
   return (
     <div className="panel-footer-wrapper">
-      {renderFooter ? renderFooter(current, node) : node}
+      {footerRender ? footerRender(current, node) : node}
     </div>
   );
 };

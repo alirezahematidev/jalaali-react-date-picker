@@ -10,7 +10,7 @@ An advanced jalaali date or range picker that supports on all of Javascript fram
 [license-badge]: https://img.shields.io/npm/l/jalaali-react-date-picker
 [license]: https://opensource.org/licenses/MIT
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gbraad)
+[Documentation](https://alirezahematidev.github.io/react-jalaali-date-picker/)
 
 ## Installation
 

@@ -1,6 +1,4 @@
-
 @import "./mixins/mixin";
-
 @font-face {
     font-family: iranyekanblack;
     src: url("../assets/fonts/iranyekanwebblackfanum.woff") format("woff");
@@ -60,24 +58,27 @@
     font-family: IRANSansMedium;
     src: url("../assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
 }
+
 @font-face {
     font-family: RobotoLight;
     src: url("../assets/fonts/Roboto-Light.ttf") format("woff");
 }
+
 @font-face {
     font-family: RobotoRegular;
     src: url("../assets/fonts/Roboto-Regular.ttf") format("woff");
 }
+
 @font-face {
     font-family: RobotoMedium;
     src: url("../assets/fonts/Roboto-Medium.ttf") format("woff");
 }
+
 @font-face {
     font-family: RobotoBold;
     src: url("../assets/fonts/Roboto-Bold.ttf") format("woff");
 }
 
-
 .clickable {
-   @include clickable
+    @include clickable;
 }
