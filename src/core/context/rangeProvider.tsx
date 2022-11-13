@@ -23,8 +23,8 @@ interface ContextType extends RangePropsReducerType {
 
 export const RangePickerContext = createContext<ContextType>({
   rangeState: {
-    current: { day: 0, month: 0, year: 0 },
-    next: null,
+    startDate: { day: 0, month: 0, year: 0 },
+    endDate: null,
   },
   cacheRangeDate: undefined,
   locale: {
@@ -78,12 +78,12 @@ export const RangeProvider = ({
       const isJalaali = language === "fa";
       setLocale(props.locale);
       onRangeDaychange({
-        current: {
+        startDate: {
           day: 0,
           year: isJalaali ? moment().jYear() : moment().year(),
           month: Number(moment().format(isJalaali ? "jM" : "M")),
         },
-        next: {
+        endDate: {
           day: 0,
           year: isJalaali ? moment().jYear() : moment().year(),
           month: Number(

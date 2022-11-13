@@ -25,6 +25,8 @@ function App() {
         add 6 months
       </button> */}
 
+      {/* <Picker locale={{ language: "en" }} /> */}
+      {/* <Picker locale={{ language: "fa" }} /> */}
       <RangePicker locale={{ language: "fa" }} />
     </div>
   );

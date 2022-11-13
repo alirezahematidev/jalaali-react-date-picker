@@ -16,7 +16,7 @@ export const useRangeMonths = () => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
-        rangeState.current.year,
+        rangeState.startDate.year,
         language === "fa",
         disabledDates || (() => false),
       );
@@ -35,7 +35,7 @@ export const useRangeMonths = () => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
-        rangeState.next?.year || rangeState.current.year,
+        rangeState.endDate?.year || rangeState.startDate.year,
         language === "fa",
         disabledDates || (() => false),
       );

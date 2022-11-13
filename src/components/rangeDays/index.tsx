@@ -7,11 +7,11 @@ import { Date } from "../../core/types/global.types";
 import { isEqual } from "lodash-es";
 import { RangeHeader } from "../rangeHeader";
 
-function validateRangeDates(current: Date, next: Date) {
+function validateRangeDates(startDate: Date, endDate: Date) {
   if (
-    next.day <= current.day ||
-    next.month < current.month ||
-    next.year < current.year
+    endDate.day <= startDate.day ||
+    endDate.month < startDate.month ||
+    endDate.year < startDate.year
   ) {
     return false;
   }
@@ -27,7 +27,7 @@ const RangeDays = () => {
     cacheRangeDate: date,
   } = useRangepicker();
 
-  const [current, setCurrent] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
   const { groupedRangeDays } = useRangeDays();
 
@@ -36,19 +36,19 @@ const RangeDays = () => {
 
   const onSelect = useCallback(
     (date: Date) => {
-      if (!current) {
-        return setCurrent(() => date);
+      if (!startDate) {
+        return setStartDate(() => date);
       }
 
-      if (validateRangeDates(current, date)) {
-        onRangeDaychange({ current, next: date });
-        onRangeDateChange({ current, next: date });
+      if (validateRangeDates(startDate, date)) {
+        onRangeDaychange({ startDate, endDate: date });
+        onRangeDateChange({ startDate, endDate: date });
         return;
       }
-      onRangeDaychange({ current: date, next: null });
-      onRangeDateChange({ current: date, next: null });
+      onRangeDaychange({ startDate: date, endDate: null });
+      onRangeDateChange({ startDate: date, endDate: null });
     },
-    [current, onRangeDateChange, onRangeDaychange],
+    [startDate, onRangeDateChange, onRangeDaychange],
   );
 
   // const {} = useMemo(() => {}, []);
@@ -70,7 +70,7 @@ const RangeDays = () => {
             <RangeDayPanel
               key={index}
               days={days}
-              selectedRange={{ current, next: date?.next || null }}
+              selectedRange={{ startDate, endDate: date?.endDate || null }}
               canHighlighWeekend={canHighlighWeekend}
               dayLabelRender={dayLabelRender}
               highlightOffDays={highlightOffDays}

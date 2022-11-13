@@ -16,7 +16,7 @@ export const useRangeYears = (offsets: [number, number]) => {
   const currentYears = useMemo(() => {
     return currentYearObject.years.map((year) => {
       const { days } = generateDays(
-        rangeState.current.month,
+        rangeState.startDate.month,
         year.id,
         language === "fa",
         disabledDates || (() => false),
@@ -35,7 +35,7 @@ export const useRangeYears = (offsets: [number, number]) => {
   const nextYears = useMemo(() => {
     return nextYearObject.years.map((year) => {
       const { days } = generateDays(
-        rangeState.next?.month || rangeState.current.month + 1,
+        rangeState.endDate?.month || rangeState.startDate.month + 1,
         year.id,
         language === "fa",
         disabledDates || (() => false),

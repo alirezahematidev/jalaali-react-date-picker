@@ -26,12 +26,12 @@ interface RangeDateReducerType {
 const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
   if (value && value.length) {
     return {
-      current: {
+      startDate: {
         day: 0,
         year: isJalaali ? value[0].jYear() : value[0].year(),
         month: Number(value[0].format(isJalaali ? "jM" : "M")),
       },
-      next: {
+      endDate: {
         day: 0,
         year: isJalaali ? value[1].jYear() : value[1].year(),
         month: Number(value[1].format(isJalaali ? "jM" : "M")),
@@ -40,12 +40,12 @@ const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
   }
 
   return {
-    current: {
+    startDate: {
       day: 0,
       year: isJalaali ? moment().jYear() : moment().year(),
       month: Number(moment().format(isJalaali ? "jM" : "M")),
     },
-    next: {
+    endDate: {
       day: 0,
       year: isJalaali ? moment().jYear() : moment().year(),
       month: Number(
@@ -81,12 +81,12 @@ export const useRangeReducer = ({
   useEffect(() => {
     if (valueProp && valueProp.length) {
       const values: RangeDate = {
-        current: {
+        startDate: {
           day: isJalaali ? valueProp[0].jDate() : valueProp[0].date(),
           year: isJalaali ? valueProp[0].jYear() : valueProp[0].year(),
           month: Number(valueProp[0].format(isJalaali ? "jM" : "M")),
         },
-        next: {
+        endDate: {
           day: isJalaali ? valueProp[1].jDate() : valueProp[1].date(),
           year: isJalaali ? valueProp[1].jYear() : valueProp[1].year(),
           month: Number(valueProp[1].format(isJalaali ? "jM" : "M")),
@@ -104,11 +104,11 @@ export const useRangeReducer = ({
 
       setCacheRangeDate(payload);
 
-      if (payload.next) {
+      if (payload.endDate) {
         const dates = rangeTransformer({ ...payload });
 
-        payload.current.day !== 0 &&
-          payload.next.day !== 0 &&
+        payload.startDate.day !== 0 &&
+          payload.endDate.day !== 0 &&
           onChangeProp?.(
             dates,
             dates.map((date) =>
@@ -131,12 +131,12 @@ export const useRangeReducer = ({
 
       setCacheRangeDate(payload);
 
-      const { current, next } = payload;
+      const { startDate, endDate } = payload;
 
-      if (next) {
-        current.day !== 0 &&
-          next.day !== 0 &&
-          onDayChangeProp?.([current.day, next.day]);
+      if (endDate) {
+        startDate.day !== 0 &&
+          endDate.day !== 0 &&
+          onDayChangeProp?.([startDate.day, endDate.day]);
       }
     },
     [onDayChangeProp],
@@ -145,17 +145,18 @@ export const useRangeReducer = ({
     (payload: RangeDate) => {
       dispatch({ type: ActionKind.MONTH, payload });
 
-      const { current, next } = payload;
+      const { startDate, endDate } = payload;
 
-      if (next) {
+      if (endDate) {
         onMonthChangeProp?.([
           {
-            value: current.month,
-            name: months.find((item) => item.id === current.month)?.name || "",
+            value: startDate.month,
+            name:
+              months.find((item) => item.id === startDate.month)?.name || "",
           },
           {
-            value: next.month,
-            name: months.find((item) => item.id === next.month)?.name || "",
+            value: endDate.month,
+            name: months.find((item) => item.id === endDate.month)?.name || "",
           },
         ]);
       }
@@ -166,10 +167,10 @@ export const useRangeReducer = ({
     (payload: RangeDate) => {
       dispatch({ type: ActionKind.YEAR, payload });
 
-      const { current, next } = payload;
+      const { startDate, endDate } = payload;
 
-      if (next) {
-        onYearChangeProp?.([current.year, next.year]);
+      if (endDate) {
+        onYearChangeProp?.([startDate.year, endDate.year]);
       }
     },
     [onYearChangeProp],
@@ -179,14 +180,14 @@ export const useRangeReducer = ({
       dispatch({
         type: ActionKind.YEAR_PLUS,
         payload: {
-          current: {
-            ...payload.current,
+          startDate: {
+            ...payload.startDate,
             day:
-              cacheRangeDate?.current?.year === payload.current.year
-                ? cacheRangeDate?.current?.day
+              cacheRangeDate?.endDate?.year === payload.endDate?.year
+                ? cacheRangeDate?.endDate?.day || 0
                 : 0,
           },
-          next: nextCacheDay(payload, cacheRangeDate),
+          endDate: nextCacheDay(payload, cacheRangeDate),
         },
       });
     },
@@ -197,14 +198,14 @@ export const useRangeReducer = ({
       dispatch({
         type: ActionKind.YEAR_MINUS,
         payload: {
-          current: {
-            ...payload.current,
+          startDate: {
+            ...payload.startDate,
             day:
-              cacheRangeDate?.current?.year === payload.current.year
-                ? cacheRangeDate?.current?.day
+              cacheRangeDate?.startDate?.year === payload.startDate.year
+                ? cacheRangeDate?.startDate?.day
                 : 0,
           },
-          next: nextCacheDay(payload, cacheRangeDate),
+          endDate: nextCacheDay(payload, cacheRangeDate),
         },
       });
     },
@@ -215,18 +216,18 @@ export const useRangeReducer = ({
       dispatch({
         type: ActionKind.MONTH_PLUS,
         payload: {
-          current: {
-            ...payload.current,
+          startDate: {
+            ...payload.startDate,
             day:
-              cacheRangeDate?.current?.month === payload.current.month
-                ? cacheRangeDate?.current.day
+              cacheRangeDate?.startDate?.month === payload.startDate.month
+                ? cacheRangeDate?.startDate.day
                 : 0,
             year:
-              payload.current.month === 12
-                ? payload.current.year + 1
-                : payload.current.year,
+              payload.startDate.month === 12
+                ? payload.startDate.year + 1
+                : payload.startDate.year,
           },
-          next: nextCacheMonthIncrease(payload, cacheRangeDate),
+          endDate: nextCacheMonthIncrease(payload, cacheRangeDate),
         },
       });
     },
@@ -237,18 +238,18 @@ export const useRangeReducer = ({
       dispatch({
         type: ActionKind.MONTH_MINUS,
         payload: {
-          current: {
-            ...payload.current,
+          startDate: {
+            ...payload.startDate,
             day:
-              cacheRangeDate?.current?.month === payload.current.month
-                ? cacheRangeDate?.current.day
+              cacheRangeDate?.startDate?.month === payload.startDate.month
+                ? cacheRangeDate?.startDate.day
                 : 0,
             year:
-              payload.current.month === 1
-                ? payload.current.year - 1
-                : payload.current.year,
+              payload.startDate.month === 1
+                ? payload.startDate.year - 1
+                : payload.startDate.year,
           },
-          next: nextCacheMonthDecrease(payload, cacheRangeDate),
+          endDate: nextCacheMonthDecrease(payload, cacheRangeDate),
         },
       });
     },

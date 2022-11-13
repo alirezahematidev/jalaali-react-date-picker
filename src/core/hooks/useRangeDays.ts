@@ -14,8 +14,8 @@ export const useRangeDays = () => {
   const { days } = useMemo(
     () =>
       generateDays(
-        rangeState.current.month,
-        rangeState.current.year,
+        rangeState.startDate.month,
+        rangeState.startDate.year,
         isJalaali,
         disabledDates || (() => false),
       ),
@@ -25,12 +25,8 @@ export const useRangeDays = () => {
   const { days: nextMonthDays } = useMemo(
     () =>
       generateDays(
-        rangeState.next?.month
-          ? rangeState.next?.month === rangeState.current?.month
-            ? rangeState.current?.month + 1
-            : rangeState.next.month
-          : rangeState.current?.month + 1,
-        rangeState.next?.year || rangeState.current.year,
+        rangeState.startDate?.month + 1,
+        rangeState.endDate?.year || rangeState.startDate.year,
         isJalaali,
         disabledDates || (() => false),
       ),

@@ -41,8 +41,8 @@ export interface Date {
 }
 
 export type RangeDate = {
-  current: Date;
-  next: Date | null;
+  startDate: Date;
+  endDate: Date | null;
 };
 
 export type RangeValue = [Moment, Moment];

@@ -24,14 +24,14 @@ const RangeHeader = ({
   const getMonthLabel = useGetMonthLabel();
   const { headerRender } = usePanelContext();
 
-  //   const current = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
+  //   const startDate = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
   const node = (
     <div className="panel-header-rtl">
       <HeaderSide
         isJalaali={isJalaali}
-        yearLabel={String(rangeState.current.year)}
-        monthLabel={getMonthLabel(rangeState.current.month)}
+        yearLabel={String(rangeState.startDate.year)}
+        monthLabel={getMonthLabel(rangeState.startDate.month)}
         onDecreaseMonth={() => onRangeDecreaseMonth(rangeState)}
         onDecreaseYear={() => onRangeDecreaseYear(rangeState)}
         onIncreaseMonth={() => onRangeIncreaseMonth(rangeState)}
@@ -42,8 +42,8 @@ const RangeHeader = ({
       />
       <HeaderSide
         isJalaali={isJalaali}
-        yearLabel={String(rangeState.next?.year)}
-        monthLabel={getMonthLabel(rangeState.next?.month || 0)}
+        yearLabel={String(rangeState.endDate?.year)}
+        monthLabel={getMonthLabel(rangeState.endDate?.month || 0)}
         onDecreaseMonth={() => onRangeDecreaseMonth(rangeState)}
         onDecreaseYear={() => onRangeDecreaseYear(rangeState)}
         onIncreaseMonth={() => onRangeIncreaseMonth(rangeState)}
