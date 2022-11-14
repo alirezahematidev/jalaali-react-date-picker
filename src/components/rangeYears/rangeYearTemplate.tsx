@@ -26,6 +26,8 @@ export const RangeYeartemplate = ({
   const { isJalaali, from, to } = useRangepicker();
   const { type } = useRangeTemplate();
   const year = type === "from" ? from.year : to.year;
+
+  console.log("years", years);
   return (
     <>
       <YearsHeader
@@ -42,7 +44,8 @@ export const RangeYeartemplate = ({
         {years.map((item) => {
           const isSelected = item.id === year;
           const isNotCurrentDecade = item.isNotCurrentDecade;
-          const isDisabled = type === "to" ? item.id < from.year : false;
+          const isDisabled =
+            item.isDisabled || type === "to" ? item.id < from.year : false;
           return (
             <div
               key={item.id}
@@ -54,8 +57,8 @@ export const RangeYeartemplate = ({
               }}
               className={classNames(
                 "year-item",
-                !isSelected && "year-item-hovered",
-                isSelected && "year-item-selected",
+                !isSelected && !isDisabled && "year-item-hovered",
+                isSelected && !isDisabled && "year-item-selected",
                 isNotCurrentDecade && "year-item-prev",
                 isDisabled && "disabled",
               )}

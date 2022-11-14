@@ -36,8 +36,8 @@ export const RangeMonthtemplate = ({
               }}
               className={classNames(
                 "month-item",
-                !isSelected && "month-item-hovered",
-                isSelected && "month-item-selected",
+                !isSelected && !isDisabled && "month-item-hovered",
+                isSelected && !isDisabled && "month-item-selected",
                 isDisabled && "disabled",
               )}
             >
