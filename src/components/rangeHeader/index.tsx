@@ -1,7 +1,7 @@
 import { useGetMonthLabel } from "../../utils/getMonthLabel";
 import { useRangepicker } from "../../core";
-import { usePanelContext } from "../panel/panelMode";
 import { HeaderSide } from "./side";
+import { useRangeTemplate } from "../rangePanel/templateContext";
 
 export interface HeaderProps {
   onSelectMonthPicker?: () => void;
@@ -13,16 +13,18 @@ const RangeHeader = ({
   onSelectYearPicker,
 }: HeaderProps) => {
   const {
-    rangeState,
     onRangeDecreaseYear,
     onRangeDecreaseMonth,
     onRangeIncreaseMonth,
     onRangeIncreaseYear,
     isJalaali,
+    from,
+    to,
   } = useRangepicker();
 
+  const { type } = useRangeTemplate();
+
   const getMonthLabel = useGetMonthLabel();
-  const { headerRender } = usePanelContext();
 
   //   const startDate = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
@@ -30,24 +32,12 @@ const RangeHeader = ({
     <div className="panel-header-rtl">
       <HeaderSide
         isJalaali={isJalaali}
-        yearLabel={String(rangeState.startDate.year)}
-        monthLabel={getMonthLabel(rangeState.startDate.month)}
-        onDecreaseMonth={() => onRangeDecreaseMonth(rangeState)}
-        onDecreaseYear={() => onRangeDecreaseYear(rangeState)}
-        onIncreaseMonth={() => onRangeIncreaseMonth(rangeState)}
-        onIncreaseYear={() => onRangeIncreaseYear(rangeState)}
-        onSelectMonthPicker={onSelectMonthPicker}
-        onSelectYearPicker={onSelectYearPicker}
-        isCurrent
-      />
-      <HeaderSide
-        isJalaali={isJalaali}
-        yearLabel={String(rangeState.endDate?.year)}
-        monthLabel={getMonthLabel(rangeState.endDate?.month || 0)}
-        onDecreaseMonth={() => onRangeDecreaseMonth(rangeState)}
-        onDecreaseYear={() => onRangeDecreaseYear(rangeState)}
-        onIncreaseMonth={() => onRangeIncreaseMonth(rangeState)}
-        onIncreaseYear={() => onRangeIncreaseYear(rangeState)}
+        yearLabel={String(type === "from" ? from.year : to.year)}
+        monthLabel={getMonthLabel(type === "from" ? from.month : to.month || 0)}
+        onDecreaseMonth={() => onRangeDecreaseMonth()}
+        onDecreaseYear={() => onRangeDecreaseYear()}
+        onIncreaseMonth={() => onRangeIncreaseMonth()}
+        onIncreaseYear={() => onRangeIncreaseYear()}
         onSelectMonthPicker={onSelectMonthPicker}
         onSelectYearPicker={onSelectYearPicker}
       />
