@@ -1,55 +1,33 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { HeaderProps } from "../header";
 import { useRangeDays, useRangepicker } from "../../core";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { RangeDayPanel } from "./rangeDayPanel";
-import { Date } from "../../core/types/global.types";
+import { DateMetadata } from "../../core/types/global.types";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { RangeHeader } from "./header";
-
-function validateRangeDates(startDate: Date, endDate: Date) {
-  if (
-    endDate.day <= startDate.day ||
-    endDate.month < startDate.month ||
-    endDate.year < startDate.year
-  ) {
-    return false;
-  }
-  return true;
-}
 
 export interface RangeDaysProps extends HeaderProps {}
 
 const RangeDays = ({}: RangeDaysProps) => {
-  const {
-    onRangeDateChange,
-    onRangeDaychange,
-    cacheRangeDate: date,
-  } = useRangepicker();
-
+  const { onRangeDaychange, cacheRangeDate, disabledDates } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
-
-  const [startDate, setStartDate] = useState<Date | null>(null);
 
   const { days } = useRangeDays(type);
 
   const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const onSelect = useCallback(
-    (date: Date) => {
-      if (!startDate) {
-        return setStartDate(() => date);
-      }
-
-      if (validateRangeDates(startDate, date)) {
-        onRangeDaychange({ startDate, endDate: date });
-        onRangeDateChange({ startDate, endDate: date });
-        return;
-      }
-      onRangeDaychange({ startDate: date, endDate: null });
-      onRangeDateChange({ startDate: date, endDate: null });
+    ({ day, month, year }: DateMetadata) => {
+      // if (validateRangeDates(startDate, date)) {
+      onRangeDaychange({ day, month, year }, !cacheRangeDate?.startDate.day);
+      // onRangeDateChange({ startDate, endDate: date });
+      // return;
+      // }
+      // onRangeDaychange({ startDate: date, endDate: null }, type);
+      // onRangeDateChange({ startDate: date, endDate: null });
     },
-    [startDate, onRangeDateChange, onRangeDaychange],
+    [cacheRangeDate?.startDate.day, onRangeDaychange],
   );
 
   // const {} = useMemo(() => {}, []);
@@ -70,7 +48,10 @@ const RangeDays = ({}: RangeDaysProps) => {
       <div className="range-day-panel">
         <RangeDayPanel
           days={days}
-          selectedRange={{ startDate, endDate: date?.endDate || null }}
+          selectedRange={{
+            startDate: cacheRangeDate?.startDate || null,
+            endDate: cacheRangeDate?.endDate || null,
+          }}
           canHighlighWeekend={canHighlighWeekend}
           dayLabelRender={dayLabelRender}
           highlightOffDays={highlightOffDays}

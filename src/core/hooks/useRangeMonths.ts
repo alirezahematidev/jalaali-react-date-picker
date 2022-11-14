@@ -18,7 +18,7 @@ export const useRangeMonths = (type: "from" | "to") => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
-        rangeState.startDate.year,
+        from.year,
         language === "fa",
         disabledDates || (() => false),
       );
@@ -31,12 +31,12 @@ export const useRangeMonths = (type: "from" | "to") => {
       }
       return month;
     });
-  }, [disabledDates, language, months, rangeState]);
+  }, [disabledDates, from.year, language, months]);
   const toMonths = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
-        rangeState.endDate?.year || rangeState.startDate.year,
+        to.year,
         language === "fa",
         disabledDates || (() => false),
       );
@@ -50,16 +50,7 @@ export const useRangeMonths = (type: "from" | "to") => {
       }
       return month;
     });
-  }, [
-    disabledDates,
-    from.month,
-    from.year,
-    language,
-    months,
-    rangeState.endDate?.year,
-    rangeState.startDate.year,
-    to.year,
-  ]);
+  }, [disabledDates, from.month, from.year, language, months, to.year]);
 
   return {
     months: type === "from" ? fromMonths : toMonths,

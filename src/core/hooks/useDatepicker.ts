@@ -10,6 +10,8 @@ export const useDatepicker = () => {
     cacheDate,
     locale: { language } = { language: "fa" },
     onDateChange,
+    onMonthchange,
+    onYearchange,
     disabledDates,
     ...rest
   } = useDatePickerContext();
@@ -37,8 +39,12 @@ export const useDatepicker = () => {
 
     const todayInMoment = dateTransformer({ ...today });
     const isTodayDisabled = disabledDates?.(todayInMoment);
+    if (isTodayDisabled) {
+      onMonthchange?.({ ...today, day: 0 });
+      onYearchange?.({ ...today, day: 0 });
+    }
     !isTodayDisabled && onDateChange(today);
-  }, [disabledDates, isJalaali, onDateChange]);
+  }, [disabledDates, isJalaali, onDateChange, onMonthchange, onYearchange]);
 
   return {
     state,
@@ -49,6 +55,8 @@ export const useDatepicker = () => {
     months,
     dayLabels,
     cacheDate,
+    onMonthchange,
+    onYearchange,
     ...rest,
   };
 };

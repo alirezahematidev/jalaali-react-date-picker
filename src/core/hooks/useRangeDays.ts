@@ -4,7 +4,6 @@ import { useRangePickerContext } from "../context";
 
 export const useRangeDays = (type: "from" | "to") => {
   const {
-    rangeState,
     disabledDates,
     locale: { language } = { language: "fa" },
     from,

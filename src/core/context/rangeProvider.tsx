@@ -12,7 +12,7 @@ interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
   cacheRangeDate?: RangeDate;
   onRangeDateChange: (payload: RangeDate) => void;
-  onRangeDaychange: (payload: RangeDate) => void;
+  onRangeDaychange: (payload: Date, isStartDate: boolean) => void;
   onRangeMonthchange: (month: number, mode: "from" | "to") => void;
   onRangeYearchange: (year: number, mode: "from" | "to") => void;
   onRangeIncreaseYear: () => void;
@@ -74,6 +74,7 @@ export const RangeProvider = ({
     onChangeProp: props.onChange,
     formatProp: props.format,
     valueProp: props.value,
+    defaultValueProp: props.defaultValue,
   });
 
   const { setLocale, setRangeDisabledDates, propsState } =
@@ -83,22 +84,22 @@ export const RangeProvider = ({
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
       const isJalaali = language === "fa";
       setLocale(props.locale);
-      onRangeDaychange({
-        startDate: {
-          day: 0,
-          year: isJalaali ? moment().jYear() : moment().year(),
-          month: Number(moment().format(isJalaali ? "jM" : "M")),
-        },
-        endDate: {
-          day: 0,
-          year: isJalaali ? moment().jYear() : moment().year(),
-          month: Number(
-            moment()
-              .add(1, "month")
-              .format(isJalaali ? "jM" : "M"),
-          ),
-        },
-      });
+      // onRangeDaychange({
+      //   startDate: {
+      //     day: 0,
+      //     year: isJalaali ? moment().jYear() : moment().year(),
+      //     month: Number(moment().format(isJalaali ? "jM" : "M")),
+      //   },
+      //   endDate: {
+      //     day: 0,
+      //     year: isJalaali ? moment().jYear() : moment().year(),
+      //     month: Number(
+      //       moment()
+      //         .add(1, "month")
+      //         .format(isJalaali ? "jM" : "M"),
+      //     ),
+      //   },
+      // });
     }
     if (
       props.disabledDates?.length &&

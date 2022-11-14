@@ -5,4 +5,5 @@ export * from "./listOfYears";
 export * from "./dateTransformer";
 export * from "./generateDays";
 export * from "./generateNextMonthDays";
+export * from "./momentTransformer";
 export * from "./generatePrevMonthDays";

@@ -2,6 +2,7 @@ import moment, { Moment } from "moment-jalaali";
 import { useState, useReducer, useEffect, useCallback } from "react";
 import { dateTransformer } from "../../utils";
 import { formatGenerator } from "../../utils/formatGenerator";
+import { momentTransformer } from "../../utils/momentTransformer";
 import { localizedMonth } from "../constants";
 import { DatePickerTypes } from "../types";
 import { Date, Language } from "../types/global.types";
@@ -48,11 +49,7 @@ export const useDateReducer = ({
 
   useEffect(() => {
     if (valueProp) {
-      const value = {
-        day: isJalaali ? valueProp.jDate() : valueProp.date(),
-        year: isJalaali ? valueProp.jYear() : valueProp.year(),
-        month: Number(valueProp.format(isJalaali ? "jM" : "M")),
-      };
+      const value = momentTransformer(valueProp, isJalaali);
       setCacheDate(value);
     }
 
