@@ -2,11 +2,13 @@ import { useMemo } from "react";
 import { generateDays } from "../../utils";
 import { useRangePickerContext } from "../context";
 
-export const useRangeDays = () => {
+export const useRangeDays = (type: "from" | "to") => {
   const {
     rangeState,
     disabledDates,
     locale: { language } = { language: "fa" },
+    from,
+    to,
   } = useRangePickerContext();
 
   const isJalaali = useMemo(() => language === "fa", [language]);
@@ -14,26 +16,24 @@ export const useRangeDays = () => {
   const { days } = useMemo(
     () =>
       generateDays(
-        rangeState.startDate.month,
-        rangeState.startDate.year,
+        from.month,
+        from.year,
         isJalaali,
         disabledDates || (() => false),
       ),
-    [disabledDates, isJalaali, rangeState],
+    [disabledDates, isJalaali, from],
   );
 
   const { days: nextMonthDays } = useMemo(
     () =>
       generateDays(
-        rangeState.startDate?.month + 1,
-        rangeState.endDate?.year || rangeState.startDate.year,
+        to.month,
+        to.year,
         isJalaali,
         disabledDates || (() => false),
       ),
-    [disabledDates, isJalaali, rangeState],
+    [disabledDates, isJalaali, to],
   );
-
-  console.log({ nextMonthDays });
 
   const groupedRangeDays = [days, nextMonthDays];
 
@@ -41,7 +41,10 @@ export const useRangeDays = () => {
     ({ day, month, year, isDisabled }) => ({ day, month, year, isDisabled }),
   );
 
+  const res = type === "from" ? days : nextMonthDays;
+
   return {
+    days: res,
     groupedRangeDays,
     flattenRangeDays,
   };

@@ -3,16 +3,18 @@ import { generateDays } from "../../utils";
 import { localizedMonth } from "../constants";
 import { useRangePickerContext } from "../context";
 
-export const useRangeMonths = () => {
+export const useRangeMonths = (type: "from" | "to") => {
   const {
     rangeState,
     locale: { language } = { language: "fa" },
     disabledDates,
+    from,
+    to,
   } = useRangePickerContext();
 
   const months = localizedMonth[language || "fa"];
 
-  const currentMonths = useMemo(() => {
+  const fromMonths = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
@@ -30,8 +32,7 @@ export const useRangeMonths = () => {
       return month;
     });
   }, [disabledDates, language, months, rangeState]);
-
-  const nextMonths = useMemo(() => {
+  const toMonths = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
@@ -42,16 +43,27 @@ export const useRangeMonths = () => {
       if (
         days
           .filter((item) => item.month === month.id)
-          .every((day) => day.isDisabled)
+          .every((day) => day.isDisabled) ||
+        (from.year === to.year && month.id <= from.month)
       ) {
         return { ...month, isDisabled: true };
       }
       return month;
     });
-  }, [disabledDates, language, months, rangeState]);
+  }, [
+    disabledDates,
+    from.month,
+    from.year,
+    language,
+    months,
+    rangeState.endDate?.year,
+    rangeState.startDate.year,
+    to.year,
+  ]);
 
   return {
-    currentMonths,
-    nextMonths,
+    months: type === "from" ? fromMonths : toMonths,
+    fromMonths,
+    toMonths,
   };
 };

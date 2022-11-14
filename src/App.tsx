@@ -27,7 +27,11 @@ function App() {
 
       {/* <Picker locale={{ language: "en" }} /> */}
       {/* <Picker locale={{ language: "fa" }} /> */}
-      <RangePicker locale={{ language: "fa" }} />
+      <RangePicker
+        locale={{ language: "fa" }}
+        onMonthChange={(months) => console.log("onMonthChange", months)}
+        onYearChange={(years) => console.log("onYearChange", years)}
+      />
     </div>
   );
 }

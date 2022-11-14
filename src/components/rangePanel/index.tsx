@@ -14,7 +14,6 @@ const RangePanel = memo(
     panelRender,
     highlightOffDays,
     dayLabelRender,
-    onModeChange,
     customColors,
   }: RangePanelProps) => {
     const { isJalaali } = useDatepicker();
@@ -33,7 +32,6 @@ const RangePanel = memo(
             panelRender,
             dayLabelRender,
             highlightOffDays,
-            onModeChange,
           }}
         />
       </div>

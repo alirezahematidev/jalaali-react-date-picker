@@ -25,7 +25,6 @@ export interface RangePanelProps
     | "headerRender"
     | "highlightOffDays"
     | "dayLabelRender"
-    | "onModeChange"
     | "customColors"
   > {}
 

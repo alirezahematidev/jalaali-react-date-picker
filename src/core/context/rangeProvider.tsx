@@ -3,7 +3,7 @@ import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../hooks";
 import { RangePickerProps } from "../interfaces";
-import { RangeDate } from "../types/global.types";
+import { Date, RangeDate } from "../types/global.types";
 import { RangePropsReducerType } from "./propsReducer";
 import { useRangePropsReducer } from "./usePropsReducer";
 import { useRangeReducer } from "./useRangeReducer";
@@ -13,12 +13,14 @@ interface ContextType extends RangePropsReducerType {
   cacheRangeDate?: RangeDate;
   onRangeDateChange: (payload: RangeDate) => void;
   onRangeDaychange: (payload: RangeDate) => void;
-  onRangeMonthchange: (payload: RangeDate) => void;
-  onRangeYearchange: (payload: RangeDate) => void;
-  onRangeIncreaseYear: (payload: RangeDate) => void;
-  onRangeDecreaseYear: (payload: RangeDate) => void;
-  onRangeIncreaseMonth: (payload: RangeDate) => void;
-  onRangeDecreaseMonth: (payload: RangeDate) => void;
+  onRangeMonthchange: (month: number, mode: "from" | "to") => void;
+  onRangeYearchange: (year: number, mode: "from" | "to") => void;
+  onRangeIncreaseYear: () => void;
+  onRangeDecreaseYear: () => void;
+  onRangeIncreaseMonth: () => void;
+  onRangeDecreaseMonth: () => void;
+  from: Date;
+  to: Date;
 }
 
 export const RangePickerContext = createContext<ContextType>({
@@ -38,6 +40,8 @@ export const RangePickerContext = createContext<ContextType>({
   onRangeDecreaseYear: () => null,
   onRangeIncreaseMonth: () => null,
   onRangeDecreaseMonth: () => null,
+  from: { day: 0, month: 0, year: 0 },
+  to: { day: 0, month: 0, year: 0 },
 });
 
 export const RangeProvider = ({
@@ -60,6 +64,8 @@ export const RangeProvider = ({
     onRangeMonthchange,
     onRangeYearchange,
     rangeState,
+    from,
+    to,
   } = useRangeReducer({
     language,
     onDayChangeProp: props?.onDayChange,
@@ -116,6 +122,8 @@ export const RangeProvider = ({
         onRangeIncreaseYear,
         onRangeMonthchange,
         onRangeYearchange,
+        from,
+        to,
         rangeState,
         ...propsState,
       }}

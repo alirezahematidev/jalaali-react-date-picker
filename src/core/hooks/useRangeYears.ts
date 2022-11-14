@@ -2,21 +2,28 @@ import { useMemo } from "react";
 import { generateDays, listOfYears } from "../../utils";
 import { useRangePickerContext } from "../context";
 
-export const useRangeYears = (offsets: [number, number]) => {
+export const useRangeYears = ({
+  offsets,
+  type,
+}: {
+  type: "from" | "to";
+  offsets: [number, number];
+}) => {
   const {
-    rangeState,
+    from,
+    to,
     locale: { language } = { language: "fa" },
     disabledDates,
   } = useRangePickerContext();
 
-  const currentYearObject = listOfYears(language === "fa", offsets?.[0]);
+  const fromYearObject = listOfYears(language === "fa", offsets?.[0]);
 
-  const nextYearObject = listOfYears(language === "fa", offsets?.[1]);
+  const toYearObject = listOfYears(language === "fa", offsets?.[1]);
 
-  const currentYears = useMemo(() => {
-    return currentYearObject.years.map((year) => {
+  const fromYears = useMemo(() => {
+    return fromYearObject.years.map((year) => {
       const { days } = generateDays(
-        rangeState.startDate.month,
+        from.month,
         year.id,
         language === "fa",
         disabledDates || (() => false),
@@ -30,12 +37,12 @@ export const useRangeYears = (offsets: [number, number]) => {
       }
       return year;
     });
-  }, [disabledDates, language, rangeState, currentYearObject.years]);
+  }, [disabledDates, language, from, fromYearObject.years]);
 
-  const nextYears = useMemo(() => {
-    return nextYearObject.years.map((year) => {
+  const toYears = useMemo(() => {
+    return toYearObject.years.map((year) => {
       const { days } = generateDays(
-        rangeState.endDate?.month || rangeState.startDate.month + 1,
+        to.month,
         year.id,
         language === "fa",
         disabledDates || (() => false),
@@ -49,14 +56,18 @@ export const useRangeYears = (offsets: [number, number]) => {
       }
       return year;
     });
-  }, [disabledDates, nextYearObject.years, language, rangeState]);
-
+  }, [toYearObject.years, to.month, language, disabledDates]);
   return {
-    currentYears,
-    nextYears,
-    startLowerDecade: currentYearObject.lowerDecade,
-    startUpperDecade: currentYearObject.upperDecade,
-    endLowerDecade: nextYearObject.lowerDecade,
-    endUpperDecade: nextYearObject.upperDecade,
+    years: type === "from" ? fromYears : toYears,
+    lowerDecade:
+      type === "from" ? fromYearObject.lowerDecade : toYearObject.lowerDecade,
+    upperDecade:
+      type === "from" ? fromYearObject.upperDecade : toYearObject.upperDecade,
+    fromYears,
+    toYears,
+    startLowerDecade: fromYearObject.lowerDecade,
+    startUpperDecade: fromYearObject.upperDecade,
+    endLowerDecade: toYearObject.lowerDecade,
+    endUpperDecade: toYearObject.upperDecade,
   };
 };
