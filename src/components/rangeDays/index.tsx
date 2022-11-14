@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { HeaderProps } from "../header";
 import { useRangeDays, useRangepicker } from "../../core";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { RangeDayPanel } from "./rangeDayPanel";
 import { Date } from "../../core/types/global.types";
-import { isEqual } from "lodash-es";
 import { RangeHeader } from "../rangeHeader";
+import { useRangeTemplate } from "../rangePanel/templateContext";
 
 function validateRangeDates(startDate: Date, endDate: Date) {
   if (
@@ -18,21 +18,22 @@ function validateRangeDates(startDate: Date, endDate: Date) {
   return true;
 }
 
-export interface DaysProps extends HeaderProps {}
+export interface RangeDaysProps extends HeaderProps {}
 
-const RangeDays = () => {
+const RangeDays = ({}: RangeDaysProps) => {
   const {
     onRangeDateChange,
     onRangeDaychange,
     cacheRangeDate: date,
   } = useRangepicker();
 
+  const { type, onChangeMode } = useRangeTemplate();
+
   const [startDate, setStartDate] = useState<Date | null>(null);
 
-  const { groupedRangeDays } = useRangeDays();
+  const { days } = useRangeDays(type);
 
-  const { onChangeMode, dayLabelRender, highlightOffDays } =
-    useRangePanelContext();
+  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const onSelect = useCallback(
     (date: Date) => {
@@ -62,23 +63,19 @@ const RangeDays = () => {
     <div className="range-day-wrapper">
       <RangeHeader
         onSelectMonthPicker={() => onChangeMode?.("month")}
-        onSelectYearPicker={() => onChangeMode?.("year")}
+        onSelectYearPicker={() => {
+          onChangeMode?.("year");
+        }}
       />
       <div className="range-day-panel">
-        {groupedRangeDays.map((days, index) => {
-          return (
-            <RangeDayPanel
-              key={index}
-              days={days}
-              selectedRange={{ startDate, endDate: date?.endDate || null }}
-              canHighlighWeekend={canHighlighWeekend}
-              dayLabelRender={dayLabelRender}
-              highlightOffDays={highlightOffDays}
-              onChangeMode={onChangeMode}
-              onSelect={onSelect}
-            />
-          );
-        })}
+        <RangeDayPanel
+          days={days}
+          selectedRange={{ startDate, endDate: date?.endDate || null }}
+          canHighlighWeekend={canHighlighWeekend}
+          dayLabelRender={dayLabelRender}
+          highlightOffDays={highlightOffDays}
+          onSelect={onSelect}
+        />
       </div>
     </div>
   );

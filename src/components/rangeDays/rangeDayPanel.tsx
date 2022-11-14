@@ -4,9 +4,9 @@ import { DateRangePickerTypes } from "../../core";
 import { Date, DateMetadata } from "../../core/types/global.types";
 import { DayLabel } from "../dayLabel";
 import Day from "../day";
+import { useRangeTemplate } from "../rangePanel/templateContext";
 
 interface RangeDayPanelProps {
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
   days: DateMetadata[];
   dayLabelRender?: DateRangePickerTypes.dayLabelRender;
   highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
@@ -26,7 +26,6 @@ function isBetweenHighlight(
 ) {
   if (!startDate || !endDate || startDate.day === 0 || endDate?.day === 0)
     return false;
-  console.log({ endDate });
 
   if (startDate.month > endDate.month) return false;
 
