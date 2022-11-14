@@ -27,7 +27,6 @@ export const RangeYeartemplate = ({
   const { type } = useRangeTemplate();
   const year = type === "from" ? from.year : to.year;
 
-  console.log("years", years);
   return (
     <>
       <YearsHeader

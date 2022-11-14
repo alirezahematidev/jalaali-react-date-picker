@@ -27,9 +27,7 @@ export const RangeDayPanel = ({
   canHighlighWeekend,
   selectedRange,
 }: RangeDayPanelProps) => {
-  const { isJalaali } = useRangepicker();
   const today = momentTransformer(moment());
-  console.log("today", today);
   return (
     <div className="range-day-panel-item">
       <DayLabel dayLabelRender={dayLabelRender} />
