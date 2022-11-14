@@ -4,8 +4,8 @@ import { useRangeDays, useRangepicker } from "../../core";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { RangeDayPanel } from "./rangeDayPanel";
 import { Date } from "../../core/types/global.types";
-import { RangeHeader } from "../rangeHeader/header";
 import { useRangeTemplate } from "../rangePanel/templateContext";
+import { RangeHeader } from "./header";
 
 function validateRangeDates(startDate: Date, endDate: Date) {
   if (
