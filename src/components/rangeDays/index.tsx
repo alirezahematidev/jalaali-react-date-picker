@@ -10,7 +10,16 @@ import { RangeHeader } from "./header";
 export interface RangeDaysProps extends HeaderProps {}
 
 const RangeDays = ({}: RangeDaysProps) => {
-  const { onRangeDaychange, cacheRangeDate, disabledDates } = useRangepicker();
+  const {
+    onRangeDaychange,
+    cacheRangeDate,
+    disabledDates,
+    onRangeMonthchange,
+    onRangeIncreaseYear,
+    onRangeDecreaseYear,
+    from,
+    to,
+  } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
 
   const { days } = useRangeDays(type);
@@ -18,16 +27,40 @@ const RangeDays = ({}: RangeDaysProps) => {
   const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const onSelect = useCallback(
-    ({ day, month, year }: DateMetadata) => {
-      // if (validateRangeDates(startDate, date)) {
-      onRangeDaychange({ day, month, year }, !cacheRangeDate?.startDate.day);
-      // onRangeDateChange({ startDate, endDate: date });
-      // return;
-      // }
-      // onRangeDaychange({ startDate: date, endDate: null }, type);
-      // onRangeDateChange({ startDate: date, endDate: null });
+    ({ day, month, year, isNotCurrentMonth }: DateMetadata) => {
+      const isStartDate = !cacheRangeDate?.startDate.day;
+      if (isNotCurrentMonth) {
+        if (cacheRangeDate?.endDate === null) {
+          if (from.month - 1 === 0) {
+            onRangeMonthchange(12, "from");
+            onRangeDecreaseYear();
+          }
+          if (from.month - 1 === month) {
+            onRangeMonthchange(month, "from");
+          }
+          if (to.month + 1 === 13) {
+            isStartDate && onRangeMonthchange(1, "from");
+            onRangeMonthchange(isStartDate ? month + 1 : 2, "to");
+            onRangeIncreaseYear();
+          }
+          if (to.month + 1 === month) {
+            isStartDate && onRangeMonthchange(month, "from");
+            onRangeMonthchange(isStartDate ? month + 1 : month, "to");
+          }
+        }
+      }
+      onRangeDaychange({ day, month, year }, isStartDate);
     },
-    [cacheRangeDate?.startDate.day, onRangeDaychange],
+    [
+      cacheRangeDate?.endDate,
+      cacheRangeDate?.startDate.day,
+      from.month,
+      onRangeDaychange,
+      onRangeDecreaseYear,
+      onRangeIncreaseYear,
+      onRangeMonthchange,
+      to.month,
+    ],
   );
 
   // const {} = useMemo(() => {}, []);

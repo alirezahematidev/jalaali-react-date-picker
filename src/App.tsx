@@ -37,7 +37,9 @@ function App() {
         locale={{ language: "fa" }}
         onMonthChange={(months) => console.log("onMonthChange", months)}
         onYearChange={(years) => console.log("onYearChange", years)}
-        disabledDates={(current) => current.isBefore(moment())}
+        disabledDates={(current) =>
+          current.isBetween(moment().subtract(10, "day"), moment())
+        }
       />
     </div>
   );

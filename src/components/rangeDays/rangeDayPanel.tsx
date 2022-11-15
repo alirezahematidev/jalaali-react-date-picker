@@ -97,7 +97,5 @@ function isBetweenHighlight(
   if (!startDate || !endDate || startDate.day === 0 || endDate?.day === 0)
     return false;
 
-  if (startDate.month > endDate.month) return false;
-
   return checkAfter(startDate, day) && checkBefore(endDate, day);
 }

@@ -1,5 +1,6 @@
 import moment from "moment-jalaali";
 import { useState, useReducer, useEffect, useCallback } from "react";
+import { dateTransformer, momentTransformer } from "../../utils";
 import { formatGenerator } from "../../utils/formatGenerator";
 import { useGetMonthLabel } from "../../utils/getMonthLabel";
 import { rangeTransformer } from "../../utils/rangeTransformer";
@@ -128,10 +129,11 @@ export const useRangeReducer = ({
     (payload: Date, isStartDate: boolean) => {
       if (
         (!isStartDate &&
-          (payload.day <= rangeState.startDate.day ||
-            payload.month < rangeState.startDate.month ||
-            payload.year < rangeState.startDate.year)) ||
-        rangeState.endDate
+          dateTransformer(payload).isBefore(
+            dateTransformer(rangeState.startDate),
+            "day",
+          )) ||
+        (rangeState.startDate && rangeState.endDate)
       ) {
         const res: RangeDate = {
           startDate: payload,
@@ -141,11 +143,11 @@ export const useRangeReducer = ({
         setCacheRangeDate(res);
         return;
       }
-
       const res: RangeDate = {
         startDate: isStartDate ? payload : rangeState.startDate,
         endDate: !isStartDate ? payload : rangeState.endDate,
       };
+
       dispatch({ type: ActionKind.DAY, payload: res });
       setCacheRangeDate(res);
 
