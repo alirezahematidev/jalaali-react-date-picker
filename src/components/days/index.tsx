@@ -8,6 +8,8 @@ import { usePanelContext } from "../panel/panelMode";
 import { Fragment } from "react";
 import { Date } from "../../core/types/global.types";
 import { useDays } from "../../core/hooks/useDays";
+import { momentTransformer } from "../../utils";
+import moment from "moment-jalaali";
 
 export interface DaysProps extends HeaderProps {}
 
@@ -20,6 +22,7 @@ const Days = () => {
   } = useDatepicker();
 
   const { days: metadataDays } = useDays();
+  const today = momentTransformer(moment());
 
   const { onChangeMode, panelRender, dayLabelRender, highlightOffDays } =
     usePanelContext();
@@ -56,6 +59,7 @@ const Days = () => {
               )}
               isWeekend={canHighlighWeekend ? isWeekend : false}
               isDisabled={isDisabled}
+              isToday={isEqual(today, date)}
             />
           </div>
         ),

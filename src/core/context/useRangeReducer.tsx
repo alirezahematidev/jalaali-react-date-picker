@@ -1,15 +1,11 @@
 import moment from "moment-jalaali";
 import { useState, useReducer, useEffect, useCallback } from "react";
+import { dateTransformer, momentTransformer } from "../../utils";
 import { formatGenerator } from "../../utils/formatGenerator";
+import { useGetMonthLabel } from "../../utils/getMonthLabel";
 import { rangeTransformer } from "../../utils/rangeTransformer";
-import { localizedMonth } from "../constants";
 import { DateRangePickerTypes } from "../types";
-import { Language, RangeDate, RangeValue } from "../types/global.types";
-import {
-  nextCacheDay,
-  nextCacheMonthDecrease,
-  nextCacheMonthIncrease,
-} from "./rangeNextDate";
+import { Date, Language, RangeDate, RangeValue } from "../types/global.types";
 import { rangeReducer, ActionKind } from "./rangeReducer";
 
 interface RangeDateReducerType {
@@ -26,34 +22,22 @@ interface RangeDateReducerType {
 const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
   if (value && value.length) {
     return {
-      current: {
+      startDate: {
         day: 0,
         year: isJalaali ? value[0].jYear() : value[0].year(),
         month: Number(value[0].format(isJalaali ? "jM" : "M")),
       },
-      next: {
-        day: 0,
-        year: isJalaali ? value[1].jYear() : value[1].year(),
-        month: Number(value[1].format(isJalaali ? "jM" : "M")),
-      },
+      endDate: null,
     };
   }
 
   return {
-    current: {
+    startDate: {
       day: 0,
       year: isJalaali ? moment().jYear() : moment().year(),
       month: Number(moment().format(isJalaali ? "jM" : "M")),
     },
-    next: {
-      day: 0,
-      year: isJalaali ? moment().jYear() : moment().year(),
-      month: Number(
-        moment()
-          .add(1, "month")
-          .format(isJalaali ? "jM" : "M"),
-      ),
-    },
+    endDate: null,
   };
 };
 
@@ -68,8 +52,24 @@ export const useRangeReducer = ({
   language,
 }: RangeDateReducerType) => {
   const isJalaali = language === "fa";
-  const months = localizedMonth[language];
+  const getMonthLabel = useGetMonthLabel();
 
+  const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>({
+    from: {
+      day: 0,
+      year: isJalaali ? moment().jYear() : moment().year(),
+      month: Number(moment().format(isJalaali ? "jM" : "M")),
+    },
+    to: {
+      day: 0,
+      year: isJalaali ? moment().jYear() : moment().year(),
+      month: Number(
+        moment()
+          .add(1, "month")
+          .format(isJalaali ? "jM" : "M"),
+      ),
+    },
+  });
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
   );
@@ -81,12 +81,12 @@ export const useRangeReducer = ({
   useEffect(() => {
     if (valueProp && valueProp.length) {
       const values: RangeDate = {
-        current: {
+        startDate: {
           day: isJalaali ? valueProp[0].jDate() : valueProp[0].date(),
           year: isJalaali ? valueProp[0].jYear() : valueProp[0].year(),
           month: Number(valueProp[0].format(isJalaali ? "jM" : "M")),
         },
-        next: {
+        endDate: {
           day: isJalaali ? valueProp[1].jDate() : valueProp[1].date(),
           year: isJalaali ? valueProp[1].jYear() : valueProp[1].year(),
           month: Number(valueProp[1].format(isJalaali ? "jM" : "M")),
@@ -104,11 +104,11 @@ export const useRangeReducer = ({
 
       setCacheRangeDate(payload);
 
-      if (payload.next) {
+      if (payload.endDate) {
         const dates = rangeTransformer({ ...payload });
 
-        payload.current.day !== 0 &&
-          payload.next.day !== 0 &&
+        payload.startDate.day !== 0 &&
+          payload.endDate.day !== 0 &&
           onChangeProp?.(
             dates,
             dates.map((date) =>
@@ -126,134 +126,218 @@ export const useRangeReducer = ({
     [formatProp, isJalaali, onChangeProp],
   );
   const onRangeDaychange = useCallback(
-    (payload: RangeDate) => {
-      dispatch({ type: ActionKind.DAY, payload });
+    (payload: Date, isStartDate: boolean) => {
+      if (
+        (!isStartDate &&
+          dateTransformer(payload).isBefore(
+            dateTransformer(rangeState.startDate),
+            "day",
+          )) ||
+        (rangeState.startDate && rangeState.endDate)
+      ) {
+        const res: RangeDate = {
+          startDate: payload,
+          endDate: null,
+        };
+        dispatch({ type: ActionKind.DAY, payload: res });
+        setCacheRangeDate(res);
+        return;
+      }
+      const res: RangeDate = {
+        startDate: isStartDate ? payload : rangeState.startDate,
+        endDate: !isStartDate ? payload : rangeState.endDate,
+      };
 
-      setCacheRangeDate(payload);
+      dispatch({ type: ActionKind.DAY, payload: res });
+      setCacheRangeDate(res);
 
-      const { current, next } = payload;
-
-      if (next) {
-        current.day !== 0 &&
-          next.day !== 0 &&
-          onDayChangeProp?.([current.day, next.day]);
+      if (res) {
+        res.startDate.day !== 0 &&
+          res.endDate !== null &&
+          res?.endDate?.day !== 0 &&
+          onDayChangeProp?.([res.startDate.day, res.endDate.day]);
       }
     },
-    [onDayChangeProp],
+    [onDayChangeProp, rangeState],
   );
+
   const onRangeMonthchange = useCallback(
-    (payload: RangeDate) => {
-      dispatch({ type: ActionKind.MONTH, payload });
+    (month: number, mode: "from" | "to") => {
+      setFromAndTo(({ from, to }) => {
+        const updatedFrom = {
+          ...from,
+          ...(mode === "from" && { month }),
+        };
 
-      const { current, next } = payload;
-
-      if (next) {
-        onMonthChangeProp?.([
-          {
-            value: current.month,
-            name: months.find((item) => item.id === current.month)?.name || "",
-          },
-          {
-            value: next.month,
-            name: months.find((item) => item.id === next.month)?.name || "",
-          },
-        ]);
-      }
+        const isToNextYear = to.year > from.year;
+        const updatedTo = {
+          ...to,
+          ...(mode === "to"
+            ? { month }
+            : {
+                month: isToNextYear
+                  ? to.month
+                  : month === 12
+                  ? 1
+                  : to.month <= month
+                  ? month + 1
+                  : to.month,
+              }),
+          year: isToNextYear
+            ? to.year
+            : month === 12 && mode === "from"
+            ? to.year + 1
+            : to.year,
+        };
+        return {
+          from: updatedFrom,
+          to: updatedTo,
+        };
+      });
     },
-    [months, onMonthChangeProp],
+    [],
   );
   const onRangeYearchange = useCallback(
-    (payload: RangeDate) => {
-      dispatch({ type: ActionKind.YEAR, payload });
-
-      const { current, next } = payload;
-
-      if (next) {
-        onYearChangeProp?.([current.year, next.year]);
-      }
+    (year: number, mode: "from" | "to") => {
+      setFromAndTo(({ from, to }) => {
+        const updatedFrom: Date = {
+          ...from,
+          ...(mode === "from" && { year }),
+        };
+        const updatedTo: Date = {
+          ...to,
+          ...(mode === "to"
+            ? { year }
+            : { year: to.year < year ? year : to.year }),
+        };
+        onYearChangeProp?.([updatedFrom.year, updatedTo.year]);
+        return {
+          from: updatedFrom,
+          to: updatedTo,
+        };
+      });
     },
     [onYearChangeProp],
   );
-  const onRangeIncreaseYear = useCallback(
-    (payload: RangeDate) => {
-      dispatch({
-        type: ActionKind.YEAR_PLUS,
-        payload: {
-          current: {
-            ...payload.current,
-            day:
-              cacheRangeDate?.current?.year === payload.current.year
-                ? cacheRangeDate?.current?.day
-                : 0,
-          },
-          next: nextCacheDay(payload, cacheRangeDate),
-        },
-      });
-    },
-    [cacheRangeDate],
-  );
-  const onRangeDecreaseYear = useCallback(
-    (payload: RangeDate) => {
-      dispatch({
-        type: ActionKind.YEAR_MINUS,
-        payload: {
-          current: {
-            ...payload.current,
-            day:
-              cacheRangeDate?.current?.year === payload.current.year
-                ? cacheRangeDate?.current?.day
-                : 0,
-          },
-          next: nextCacheDay(payload, cacheRangeDate),
-        },
-      });
-    },
-    [cacheRangeDate],
-  );
-  const onRangeIncreaseMonth = useCallback(
-    (payload: RangeDate) => {
-      dispatch({
-        type: ActionKind.MONTH_PLUS,
-        payload: {
-          current: {
-            ...payload.current,
-            day:
-              cacheRangeDate?.current?.month === payload.current.month
-                ? cacheRangeDate?.current.day
-                : 0,
-            year:
-              payload.current.month === 12
-                ? payload.current.year + 1
-                : payload.current.year,
-          },
-          next: nextCacheMonthIncrease(payload, cacheRangeDate),
-        },
-      });
-    },
-    [cacheRangeDate],
-  );
-  const onRangeDecreaseMonth = useCallback(
-    (payload: RangeDate) => {
-      dispatch({
-        type: ActionKind.MONTH_MINUS,
-        payload: {
-          current: {
-            ...payload.current,
-            day:
-              cacheRangeDate?.current?.month === payload.current.month
-                ? cacheRangeDate?.current.day
-                : 0,
-            year:
-              payload.current.month === 1
-                ? payload.current.year - 1
-                : payload.current.year,
-          },
-          next: nextCacheMonthDecrease(payload, cacheRangeDate),
-        },
-      });
-    },
-    [cacheRangeDate],
-  );
+  const onRangeIncreaseYear = useCallback(() => {
+    setFromAndTo(({ from, to }) => {
+      const updatedFrom: Date = {
+        ...from,
+        year: from.year + 1,
+      };
+      const updatedTo: Date = {
+        ...to,
+        year: to.year + 1,
+      };
+      onYearChangeProp?.([updatedFrom.year, updatedTo.year]);
+
+      return {
+        from: updatedFrom,
+        to: updatedTo,
+      };
+    });
+  }, [onYearChangeProp]);
+  const onRangeDecreaseYear = useCallback(() => {
+    setFromAndTo(({ from, to }) => {
+      const updatedFrom: Date = {
+        ...from,
+        year: from.year - 1,
+      };
+      const updatedTo: Date = {
+        ...to,
+        year: to.year - 1,
+      };
+      onYearChangeProp?.([updatedFrom.year, updatedTo.year]);
+
+      return {
+        from: updatedFrom,
+        to: updatedTo,
+      };
+    });
+  }, [onYearChangeProp]);
+  const onRangeIncreaseMonth = useCallback(() => {
+    setFromAndTo(({ from, to }) => {
+      if (to.month === 12) {
+        const updatedFrom: Date = {
+          ...from,
+          month: from.month === 11 ? 12 : from.month + 1,
+        };
+        const updatedTo: Date = {
+          ...to,
+          month: 1,
+          year: to.year + 1,
+        };
+        onMonthChangeProp?.([
+          { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
+          { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+        ]);
+        return {
+          from: updatedFrom,
+          to: updatedTo,
+        };
+      }
+
+      const updatedFrom: Date = {
+        ...from,
+        month: from.month + 1 === 13 ? 1 : from.month + 1,
+        year: from.month + 1 === 13 ? from.year + 1 : from.year,
+      };
+      const updatedTo: Date = {
+        ...to,
+        month: to.month + 1,
+      };
+
+      onMonthChangeProp?.([
+        { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
+        { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+      ]);
+      return {
+        from: updatedFrom,
+        to: updatedTo,
+      };
+    });
+  }, [getMonthLabel, onMonthChangeProp]);
+  const onRangeDecreaseMonth = useCallback(() => {
+    setFromAndTo(({ from, to }) => {
+      if (from.month === 1) {
+        const updatedFrom: Date = {
+          ...from,
+          month: 12,
+          year: from.year - 1,
+        };
+        const updatedTo: Date = {
+          ...from,
+          month: to.month - 1,
+        };
+        onMonthChangeProp?.([
+          { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
+          { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+        ]);
+        return {
+          from: updatedFrom,
+          to: updatedTo,
+        };
+      }
+      const updatedFrom = {
+        ...from,
+        month: from.month - 1,
+      };
+      const updatedTo = {
+        ...to,
+        month: to.month - 1 === 0 ? 12 : to.month - 1,
+        year: to.month - 1 === 0 ? to.year - 1 : to.year,
+      };
+
+      onMonthChangeProp?.([
+        { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
+        { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+      ]);
+      return {
+        from: updatedFrom,
+        to: updatedTo,
+      };
+    });
+  }, [getMonthLabel, onMonthChangeProp]);
 
   return {
     rangeState,
@@ -266,5 +350,7 @@ export const useRangeReducer = ({
     onRangeDecreaseYear,
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
+    from: fromAndTo.from,
+    to: fromAndTo.to,
   };
 };

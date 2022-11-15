@@ -28,76 +28,76 @@ export interface Action {
 // Our reducer function that uses a switch statement to handle our actions
 export function rangeReducer(state: RangeDate, action: Action): RangeDate {
   const { type, payload } = action;
-  const { current, next } = payload;
+  const { startDate, endDate } = payload;
 
   switch (type) {
     case ActionKind.DATE:
       return {
-        current: {
-          day: current.day,
-          month: current.month,
-          year: current.year,
+        startDate: {
+          day: startDate.day,
+          month: startDate.month,
+          year: startDate.year,
         },
-        next: nextDate(next, state),
+        endDate: nextDate(endDate, state),
       };
     case ActionKind.DAY:
       return {
-        current: {
-          ...state.current,
-          day: current.day,
-          month: current.month,
-          year: current.year,
+        startDate: {
+          ...state.startDate,
+          day: startDate.day,
+          month: startDate.month,
+          year: startDate.year,
         },
-        next: nextDate(next, state),
+        endDate: nextDate(endDate, state),
       };
     case ActionKind.MONTH:
       return {
-        current: { ...state.current, month: current.month, day: 0 },
-        next: nextMonth(next, state),
+        startDate: { ...state.startDate, month: startDate.month, day: 0 },
+        endDate: nextMonth(endDate, state),
       };
     case ActionKind.MONTH_MINUS:
       return {
-        current: {
-          ...state.current,
-          month: current.month - 1 === 0 ? 12 : current.month - 1,
+        startDate: {
+          ...state.startDate,
           day: 0,
-          year: current.year,
+          month: startDate.month - 1 === 0 ? 12 : startDate.month - 1,
+          year: startDate.year,
         },
-        next: nextMonthDecrease(next, state),
+        endDate: nextMonthDecrease(endDate, state),
       };
     case ActionKind.MONTH_PLUS:
       return {
-        current: {
-          ...state.current,
-          month: current.month + 1 === 13 ? 1 : current.month + 1,
+        startDate: {
+          ...state.startDate,
           day: 0,
-          year: current.year,
+          month: startDate.month + 1 === 13 ? 1 : startDate.month + 1,
+          year: startDate.year,
         },
-        next: nextMonthIncrease(next, state),
+        endDate: nextMonthIncrease(endDate, state),
       };
     case ActionKind.YEAR:
       return {
-        current: {
-          ...state.current,
-          year: current.year,
+        startDate: {
+          ...state.startDate,
+          year: startDate.year,
         },
-        next: nextYear(next, state),
+        endDate: nextYear(endDate, state),
       };
     case ActionKind.YEAR_MINUS:
       return {
-        current: {
-          ...state.current,
-          year: current.year - 1,
+        startDate: {
+          ...state.startDate,
+          year: startDate.year - 1,
         },
-        next: nextYearDecrease(next, state),
+        endDate: nextYearDecrease(endDate, state),
       };
     case ActionKind.YEAR_PLUS:
       return {
-        current: {
-          ...state.current,
-          year: current.year + 1,
+        startDate: {
+          ...state.startDate,
+          year: startDate.year + 1,
         },
-        next: nextYearIncrease(next, state),
+        endDate: nextYearIncrease(endDate, state),
       };
     default:
       return state;

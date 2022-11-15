@@ -1,66 +1,22 @@
 import classNames from "classnames";
 import { isEqual } from "lodash-es";
-import { DateRangePickerTypes } from "../../core";
+import { DateRangePickerTypes, useRangepicker } from "../../core";
 import { Date, DateMetadata } from "../../core/types/global.types";
 import { DayLabel } from "../dayLabel";
 import Day from "../day";
+import { dateTransformer, momentTransformer } from "../../utils";
+import moment from "moment-jalaali";
 
 interface RangeDayPanelProps {
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
   days: DateMetadata[];
   dayLabelRender?: DateRangePickerTypes.dayLabelRender;
   highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
   canHighlighWeekend?: boolean;
   selectedRange: {
-    current: Date | null;
-    next: Date | null;
+    startDate: Date | null;
+    endDate: Date | null;
   };
-  onSelect: (date: Date) => void;
-}
-
-function isBetweenHighlight(
-  days: DateMetadata[],
-  date: Date,
-  current: Date | null,
-  next: Date | null,
-) {
-  if (!current || !next || current.day === 0 || next?.day === 0) return false;
-  console.log({ next });
-
-  if (current.month > next.month) return false;
-
-  if (current.month === next.month) {
-    if (
-      date.day < next.day &&
-      date.day > current.day &&
-      date.month === current.month
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  if (current.month < next.month) {
-    const currentMonthDays = days?.filter(
-      ({ isNotCurrentMonth }) => !isNotCurrentMonth,
-    );
-    if (currentMonthDays[0].month === current.month) {
-      if (
-        date.day > current.day &&
-        date.day <= currentMonthDays[currentMonthDays.length - 1].day
-      ) {
-        return true;
-      }
-      return false;
-    } else if (currentMonthDays[0].month === next.month) {
-      if (date.day >= currentMonthDays[0].day && date.day < next.day) {
-        return true;
-      }
-      return false;
-    }
-    return false;
-  }
-  return false;
+  onSelect: (date: DateMetadata) => void;
 }
 
 export const RangeDayPanel = ({
@@ -71,39 +27,75 @@ export const RangeDayPanel = ({
   canHighlighWeekend,
   selectedRange,
 }: RangeDayPanelProps) => {
+  const today = momentTransformer(moment());
   return (
     <div className="range-day-panel-item">
       <DayLabel dayLabelRender={dayLabelRender} />
       <div className="days-body">
-        {days.map(({ id, isNotCurrentMonth, isWeekend, ...date }) => (
-          <div
-            key={`${id}-${date.month}`}
-            className={classNames("day-item-outer")}
-          >
-            <Day
-              day={date.day}
-              isNotCurrentMonth={isNotCurrentMonth}
-              onPress={() => onSelect(date)}
-              isBetweenHighlight={isBetweenHighlight(
-                days,
-                date,
-                selectedRange.current,
-                selectedRange.next,
-              )}
-              isHighlight={
-                selectedRange.current && !isNotCurrentMonth
-                  ? isEqual(selectedRange.current, date) ||
-                    isEqual(selectedRange.next, date)
-                  : false
-              }
-              isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-                isEqual(d, date),
-              )}
-              isWeekend={canHighlighWeekend ? isWeekend : false}
-            />
-          </div>
-        ))}
+        {days.map((day) => {
+          const { id, isNotCurrentMonth, isWeekend, isDisabled, ...date } = day;
+          return (
+            <div
+              key={`${id}-${day.month}`}
+              className={classNames("day-item-outer")}
+            >
+              <Day
+                day={day.day}
+                isDisabled={isDisabled}
+                isNotCurrentMonth={isNotCurrentMonth}
+                onPress={() => onSelect(day)}
+                isBetweenHighlight={
+                  isBetweenHighlight(
+                    day,
+                    selectedRange.startDate,
+                    selectedRange.endDate,
+                  ) && !isNotCurrentMonth
+                }
+                isHighlight={
+                  selectedRange.startDate && !isNotCurrentMonth
+                    ? checkDates(selectedRange.startDate, day) ||
+                      checkDates(selectedRange.endDate, day)
+                    : false
+                }
+                isOff={(highlightOffDays?.customDates || [])?.some((d) =>
+                  isEqual(d, day),
+                )}
+                isWeekend={canHighlighWeekend ? isWeekend : false}
+                isToday={isEqual(today, date)}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
+
+function checkDates(a: Date | null, b: DateMetadata) {
+  if (!a) {
+    return false;
+  }
+  return a.year === b.year && a.month === b.month && a.day === b.day;
+}
+
+const checkAfter = (start: Date, current: Date) => {
+  return dateTransformer({ ...current }).isSameOrAfter(
+    dateTransformer({ ...start }),
+  );
+};
+const checkBefore = (end: Date, current: Date) => {
+  return dateTransformer({ ...current }).isSameOrBefore(
+    dateTransformer({ ...end }),
+  );
+};
+
+function isBetweenHighlight(
+  day: Date,
+  startDate: Date | null,
+  endDate: Date | null,
+) {
+  if (!startDate || !endDate || startDate.day === 0 || endDate?.day === 0)
+    return false;
+
+  return checkAfter(startDate, day) && checkBefore(endDate, day);
+}

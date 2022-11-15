@@ -4,7 +4,7 @@ function nextDate(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       day: date.day,
       month: date.month,
       year: date.year,
@@ -18,7 +18,7 @@ function nextMonth(date: Date | null, state: RangeDate): Date | null {
 
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       month: date.month,
       day: 0,
     };
@@ -30,7 +30,7 @@ function nextMonthDecrease(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       month: date.month - 1 === 0 ? 12 : date.month - 1,
       year: date.year,
       day: 0,
@@ -43,7 +43,7 @@ function nextMonthIncrease(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       month: date.month + 1 === 13 ? 1 : date.month + 1,
       day: 0,
       year: date.year,
@@ -56,7 +56,7 @@ function nextYear(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       year: date.year,
     };
   }
@@ -67,7 +67,7 @@ function nextYearDecrease(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       year: date.year - 1,
     };
   }
@@ -78,7 +78,7 @@ function nextYearIncrease(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };
   if (date) {
     return {
-      ...(state.next ? state.next : nextDefault),
+      ...(state.endDate ? state.endDate : nextDefault),
       year: date.year + 1,
     };
   }
@@ -86,10 +86,13 @@ function nextYearIncrease(date: Date | null, state: RangeDate): Date | null {
 }
 
 function nextCacheDay(payload: RangeDate, cache: RangeDate): Date | null {
-  if (payload.next) {
+  if (payload.endDate) {
     return {
-      ...payload.next,
-      day: cache?.next?.year === payload?.next.year ? cache?.next?.day : 0,
+      ...payload.endDate,
+      day:
+        cache?.endDate?.year === payload?.endDate.year
+          ? cache?.endDate?.day
+          : 0,
     };
   }
 
@@ -100,12 +103,17 @@ function nextCacheMonthIncrease(
   payload: RangeDate,
   cache: RangeDate,
 ): Date | null {
-  if (payload.next) {
+  if (payload.endDate) {
     return {
-      ...payload.next,
-      day: cache?.next?.month === payload.next.month ? cache?.next.day : 0,
+      ...payload.endDate,
+      day:
+        cache?.endDate?.month === payload.endDate.month
+          ? cache?.endDate.day
+          : 0,
       year:
-        payload.next.month === 12 ? payload.next.year + 1 : payload.next.year,
+        payload.endDate.month === 12
+          ? payload.endDate.year + 1
+          : payload.endDate.year,
     };
   }
 
@@ -116,12 +124,17 @@ function nextCacheMonthDecrease(
   payload: RangeDate,
   cache: RangeDate,
 ): Date | null {
-  if (payload.next) {
+  if (payload.endDate) {
     return {
-      ...payload.next,
-      day: cache?.next?.month === payload.next.month ? cache?.next.day : 0,
+      ...payload.endDate,
+      day:
+        cache?.endDate?.month === payload.endDate.month
+          ? cache?.endDate.day
+          : 0,
       year:
-        payload.next.month === 1 ? payload.next.year - 1 : payload.next.year,
+        payload.endDate.month === 1
+          ? payload.endDate.year - 1
+          : payload.endDate.year,
     };
   }
 

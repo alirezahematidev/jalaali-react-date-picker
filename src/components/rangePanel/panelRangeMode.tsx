@@ -1,8 +1,6 @@
-import { useState, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 import { DateRangePickerTypes, RangePanelProps } from "../../core";
-import { Months } from "../months";
-import { RangeDays } from "../rangeDays";
-import { Years } from "../years";
+import { RangePanelTemplate } from "./panelTemplate";
 
 type Panel = Record<DateRangePickerTypes.Mode, JSX.Element>;
 
@@ -23,26 +21,11 @@ const RangePanelModeContext = createContext<RangePanelModeContext>({
   },
 });
 
-export const RangePanelMode = ({
-  onModeChange,
-  ...props
-}: RangePanelModeProps) => {
-  const [mode, setMode] = useState<DateRangePickerTypes.Mode>("day");
-
-  const onChangeMode = (mode: DateRangePickerTypes.Mode) => {
-    setMode(mode);
-    onModeChange?.(mode);
-  };
-
-  const panel: Panel = {
-    day: <RangeDays />,
-    month: <Months />,
-    year: <Years />,
-  };
-
+export const RangePanelMode = ({ ...props }: RangePanelModeProps) => {
   return (
-    <RangePanelModeContext.Provider value={{ ...props, onChangeMode }}>
-      {panel[mode]}
+    <RangePanelModeContext.Provider value={{ ...props }}>
+      <RangePanelTemplate type="from" />
+      <RangePanelTemplate type="to" />
     </RangePanelModeContext.Provider>
   );
 };

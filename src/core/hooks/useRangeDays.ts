@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import { generateDays } from "../../utils";
 import { useRangePickerContext } from "../context";
 
-export const useRangeDays = () => {
+export const useRangeDays = (type: "from" | "to") => {
   const {
-    rangeState,
     disabledDates,
     locale: { language } = { language: "fa" },
+    from,
+    to,
   } = useRangePickerContext();
 
   const isJalaali = useMemo(() => language === "fa", [language]);
@@ -14,30 +15,24 @@ export const useRangeDays = () => {
   const { days } = useMemo(
     () =>
       generateDays(
-        rangeState.current.month,
-        rangeState.current.year,
+        from.month,
+        from.year,
         isJalaali,
         disabledDates || (() => false),
       ),
-    [disabledDates, isJalaali, rangeState],
+    [disabledDates, isJalaali, from],
   );
 
   const { days: nextMonthDays } = useMemo(
     () =>
       generateDays(
-        rangeState.next?.month
-          ? rangeState.next?.month === rangeState.current?.month
-            ? rangeState.current?.month + 1
-            : rangeState.next.month
-          : rangeState.current?.month + 1,
-        rangeState.next?.year || rangeState.current.year,
+        to.month,
+        to.year,
         isJalaali,
         disabledDates || (() => false),
       ),
-    [disabledDates, isJalaali, rangeState],
+    [disabledDates, isJalaali, to],
   );
-
-  console.log({ nextMonthDays });
 
   const groupedRangeDays = [days, nextMonthDays];
 
@@ -45,7 +40,10 @@ export const useRangeDays = () => {
     ({ day, month, year, isDisabled }) => ({ day, month, year, isDisabled }),
   );
 
+  const res = type === "from" ? days : nextMonthDays;
+
   return {
+    days: res,
     groupedRangeDays,
     flattenRangeDays,
   };

@@ -33,13 +33,15 @@ const Years = () => {
             <div
               key={item.id}
               onClick={() => {
-                onYearchange({ ...state, year: item.id });
-                onChangeMode?.("month");
+                if (!isDisabled) {
+                  onYearchange({ ...state, year: item.id });
+                  onChangeMode?.("month");
+                }
               }}
               className={classNames(
                 "year-item",
-                !isSelected && "year-item-hovered",
-                isSelected && "year-item-selected",
+                !isSelected && !isDisabled && "year-item-hovered",
+                isSelected && !isDisabled && "year-item-selected",
                 isNotCurrentDecade && "year-item-prev",
                 isDisabled && "disabled",
               )}

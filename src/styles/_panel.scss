@@ -22,11 +22,15 @@
     background-color: #ffffff;
     border-radius: 2px;
     overflow: hidden;
-    flex-direction: column;
     p {
         margin-block: 0;
         font-size: 14px;
     }
+}
+.panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .range-day-wrapper {

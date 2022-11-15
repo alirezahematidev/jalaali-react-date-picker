@@ -1,54 +1,66 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback } from "react";
 import { HeaderProps } from "../header";
 import { useRangeDays, useRangepicker } from "../../core";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { RangeDayPanel } from "./rangeDayPanel";
-import { Date } from "../../core/types/global.types";
-import { isEqual } from "lodash-es";
-import { RangeHeader } from "../rangeHeader";
+import { DateMetadata } from "../../core/types/global.types";
+import { useRangeTemplate } from "../rangePanel/templateContext";
+import { RangeHeader } from "./header";
 
-function validateRangeDates(current: Date, next: Date) {
-  if (
-    next.day <= current.day ||
-    next.month < current.month ||
-    next.year < current.year
-  ) {
-    return false;
-  }
-  return true;
-}
+export interface RangeDaysProps extends HeaderProps {}
 
-export interface DaysProps extends HeaderProps {}
-
-const RangeDays = () => {
+const RangeDays = ({}: RangeDaysProps) => {
   const {
-    onRangeDateChange,
     onRangeDaychange,
-    cacheRangeDate: date,
+    cacheRangeDate,
+    disabledDates,
+    onRangeMonthchange,
+    onRangeIncreaseYear,
+    onRangeDecreaseYear,
+    from,
+    to,
   } = useRangepicker();
+  const { type, onChangeMode } = useRangeTemplate();
 
-  const [current, setCurrent] = useState<Date | null>(null);
+  const { days } = useRangeDays(type);
 
-  const { groupedRangeDays } = useRangeDays();
-
-  const { onChangeMode, dayLabelRender, highlightOffDays } =
-    useRangePanelContext();
+  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const onSelect = useCallback(
-    (date: Date) => {
-      if (!current) {
-        return setCurrent(() => date);
+    ({ day, month, year, isNotCurrentMonth }: DateMetadata) => {
+      const isStartDate = !cacheRangeDate?.startDate.day;
+      if (isNotCurrentMonth) {
+        if (cacheRangeDate?.endDate === null) {
+          if (from.month - 1 === 0) {
+            onRangeMonthchange(12, "from");
+            onRangeDecreaseYear();
+          }
+          if (from.month - 1 === month) {
+            onRangeMonthchange(month, "from");
+          }
+          if (to.month + 1 === 13) {
+            isStartDate && onRangeMonthchange(1, "from");
+            onRangeMonthchange(isStartDate ? month + 1 : 2, "to");
+            onRangeIncreaseYear();
+          }
+          if (to.month + 1 === month) {
+            isStartDate && onRangeMonthchange(month, "from");
+            onRangeMonthchange(isStartDate ? month + 1 : month, "to");
+          }
+        }
       }
-
-      if (validateRangeDates(current, date)) {
-        onRangeDaychange({ current, next: date });
-        onRangeDateChange({ current, next: date });
-        return;
-      }
-      onRangeDaychange({ current: date, next: null });
-      onRangeDateChange({ current: date, next: null });
+      onRangeDaychange({ day, month, year }, isStartDate);
     },
-    [current, onRangeDateChange, onRangeDaychange],
+    [
+      cacheRangeDate?.endDate,
+      cacheRangeDate?.startDate.day,
+      from.month,
+      onRangeDaychange,
+      onRangeDecreaseYear,
+      onRangeIncreaseYear,
+      onRangeMonthchange,
+      to.month,
+    ],
   );
 
   // const {} = useMemo(() => {}, []);
@@ -62,23 +74,22 @@ const RangeDays = () => {
     <div className="range-day-wrapper">
       <RangeHeader
         onSelectMonthPicker={() => onChangeMode?.("month")}
-        onSelectYearPicker={() => onChangeMode?.("year")}
+        onSelectYearPicker={() => {
+          onChangeMode?.("year");
+        }}
       />
       <div className="range-day-panel">
-        {groupedRangeDays.map((days, index) => {
-          return (
-            <RangeDayPanel
-              key={index}
-              days={days}
-              selectedRange={{ current, next: date?.next || null }}
-              canHighlighWeekend={canHighlighWeekend}
-              dayLabelRender={dayLabelRender}
-              highlightOffDays={highlightOffDays}
-              onChangeMode={onChangeMode}
-              onSelect={onSelect}
-            />
-          );
-        })}
+        <RangeDayPanel
+          days={days}
+          selectedRange={{
+            startDate: cacheRangeDate?.startDate || null,
+            endDate: cacheRangeDate?.endDate || null,
+          }}
+          canHighlighWeekend={canHighlighWeekend}
+          dayLabelRender={dayLabelRender}
+          highlightOffDays={highlightOffDays}
+          onSelect={onSelect}
+        />
       </div>
     </div>
   );

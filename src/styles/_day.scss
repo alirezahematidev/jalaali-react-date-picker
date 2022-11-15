@@ -31,12 +31,17 @@
     color: var(--text-negative);
 }
 
+.highlight-day {
+    background-color: orange;
+    color: var(--text-light);
+}
+
 .highlight {
     background-color: var(--highlight);
     color: var(--text-light);
 }
 
-.highlight-day {
-    background-color: orange;
-    color: var(--text-light);
+.today {
+    border:1px dotted var(--highlight);
+    border-radius: 2px;
 }

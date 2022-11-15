@@ -16,18 +16,21 @@ const Months = () => {
       <div className={isJalaali ? "months-body-rtl" : "months-body-ltr"}>
         {months.map((item) => {
           const isSelected = item.id === state.month;
+          const isDisabled = item.isDisabled;
           return (
             <div
               onClick={() => {
-                onMonthchange({ ...state, month: item.id });
-                onChangeMode?.("day");
+                if (!isDisabled) {
+                  onMonthchange({ ...state, month: item.id });
+                  onChangeMode?.("day");
+                }
               }}
               key={item.id}
               className={classNames(
                 "month-item",
-                !isSelected && "month-item-hovered",
-                isSelected && "month-item-selected",
-                item.isDisabled && "disabled",
+                !isSelected && !isDisabled && "month-item-hovered",
+                isSelected && !isDisabled && "month-item-selected",
+                isDisabled && "disabled",
               )}
             >
               <p>{item.name}</p>

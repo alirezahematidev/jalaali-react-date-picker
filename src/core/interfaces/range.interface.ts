@@ -3,6 +3,7 @@ import { DateRangePickerTypes } from "../types";
 
 export interface RangePickerProps {
   value?: DateRangePickerTypes.RangeValue;
+  defaultValue?: DateRangePickerTypes.RangeValue;
   onChange?: DateRangePickerTypes.OnChange;
   onDayChange?: DateRangePickerTypes.OnDayChange;
   onMonthChange?: DateRangePickerTypes.OnMonthChange;
@@ -25,7 +26,6 @@ export interface RangePanelProps
     | "headerRender"
     | "highlightOffDays"
     | "dayLabelRender"
-    | "onModeChange"
     | "customColors"
   > {}
 

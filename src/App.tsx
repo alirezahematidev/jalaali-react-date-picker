@@ -25,7 +25,22 @@ function App() {
         add 6 months
       </button> */}
 
-      <RangePicker locale={{ language: "fa" }} />
+      {/* <Picker locale={{ language: "en" }} /> */}
+      {/* <Picker locale={{ language: "fa" }} /> */}
+      <Picker
+        locale={{ language: "fa" }}
+        onMonthChange={(months) => console.log("onMonthChange", months)}
+        onYearChange={(years) => console.log("onYearChange", years)}
+        // disabledDates={(current) => current.isBefore(moment())}
+      />
+      <RangePicker
+        locale={{ language: "fa" }}
+        onMonthChange={(months) => console.log("onMonthChange", months)}
+        onYearChange={(years) => console.log("onYearChange", years)}
+        disabledDates={(current) =>
+          current.isBetween(moment().subtract(10, "day"), moment())
+        }
+      />
     </div>
   );
 }
