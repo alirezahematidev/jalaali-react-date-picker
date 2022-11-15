@@ -48,7 +48,7 @@
     "start": "react-scripts start",
     "eject": "react-scripts eject",
     "build": "rimraf dist && tsc -b",
-    "test": "yarn build && cross-env TZ=UTC react-app-rewired test --silent --detectOpenHandles",
+    "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
     "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
