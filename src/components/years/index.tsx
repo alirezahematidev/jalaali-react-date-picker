@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useDatepicker } from "../../core";
-import { useYears } from "../../core/hooks/date/useYears";
+import { useDatepicker, useYears } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { YearsHeader } from "./header";
 

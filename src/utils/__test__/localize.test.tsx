@@ -5,9 +5,8 @@ import {
   renderHook,
 } from "@testing-library/react";
 import { useState } from "react";
-import { useDatepicker } from "../../core";
+import { DateProvider, useDatepicker } from "../../core";
 import { gregorianMonths, jalaaliMonths } from "../../core/constants/datasets";
-import { DateProvider } from "../../core/context/index";
 
 const ChangeLanguage = () => {
   const [lang, setLang] = useState("fa");

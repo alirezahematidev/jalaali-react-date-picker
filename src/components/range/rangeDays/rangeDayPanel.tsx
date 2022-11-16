@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
-import { DateRangePickerTypes } from "../../../core";
-import { Date, DateMetadata } from "../../../core/types/global.types";
+import { Date, DateMetadata, DateRangePickerTypes } from "../../../core";
 import { dateTransformer, momentTransformer } from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";

@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 import calendar from "../../assets/icons/calendar_today.svg";
-import { InputDatePickerProps } from "../../core";
-import { DateProvider } from "../../core/context";
+import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
 
 export const InputDatePicker = ({

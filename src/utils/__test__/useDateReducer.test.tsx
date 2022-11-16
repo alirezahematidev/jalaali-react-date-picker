@@ -1,6 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import { DateProvider } from "../../core/context";
-import { useDateReducer } from "../../core/context/date/useDateReducer";
+import { DateProvider, useDateReducer } from "../../core";
 
 describe("onDaychange", () => {
   test("test useReducer", async () => {

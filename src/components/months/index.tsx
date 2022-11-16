@@ -1,6 +1,5 @@
 import classNames from "classnames";
-import { useDatepicker } from "../../core";
-import { useMonths } from "../../core/hooks/date/useMonths";
+import { useDatepicker, useMonths } from "../../core";
 import { Header } from "../header";
 import { usePanelContext } from "../panel/panelMode";
 

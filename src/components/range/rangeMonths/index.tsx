@@ -1,5 +1,4 @@
-import { useRangepicker } from "../../../core";
-import { useRangeMonths } from "../../../core/hooks/range/useRangeMonths";
+import { useRangeMonths, useRangepicker } from "../../../core";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { RangeMonthtemplate } from "./rangeMonthTemplate";
 

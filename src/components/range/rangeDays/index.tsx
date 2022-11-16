@@ -1,7 +1,6 @@
 import moment, { Moment } from "moment-jalaali";
 import { useCallback } from "react";
-import { useRangeDays, useRangepicker } from "../../../core";
-import { DateMetadata } from "../../../core/types/global.types";
+import { DateMetadata, useRangeDays, useRangepicker } from "../../../core";
 import { dateTransformer, momentTransformer } from "../../../utils";
 import { HeaderProps } from "../../header";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";

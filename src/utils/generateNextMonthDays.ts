@@ -1,5 +1,4 @@
-import { DatePickerTypes } from "../core";
-import { DateMetadata } from "../core/types/global.types";
+import { DateMetadata, DatePickerTypes } from "../core";
 import {
   getDaysOfGregorianMonth,
   getDaysOfJalaaliMonth,

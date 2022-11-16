@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
-import { useRangepicker } from "../../../core";
-import { useRangeYears } from "../../../core/hooks/range/useRangeYears";
+import { useRangepicker, useRangeYears } from "../../../core";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { RangeYeartemplate } from "./rangeYearTemplate";
 
