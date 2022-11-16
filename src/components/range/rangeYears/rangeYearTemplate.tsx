@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { DateRangePickerTypes, useRangepicker } from "../../core";
-import { Year } from "../../core/types/global.types";
+import { DateRangePickerTypes, useRangepicker } from "../../../core";
+import { Year } from "../../../core/types/global.types";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { YearsHeader } from "./header";
 

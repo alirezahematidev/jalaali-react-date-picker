@@ -1,8 +1,8 @@
-import "../../styles/index.scss";
+import "../../../styles/index.scss";
 import moment from "moment-jalaali";
 import { memo } from "react";
 import classNames from "classnames";
-import { RangePanelProps, useDatepicker, useSetColors } from "../../core";
+import { RangePanelProps, useDatepicker, useSetColors } from "../../../core";
 import { isEqual } from "lodash-es";
 import { RangePanelMode } from "./panelRangeMode";
 

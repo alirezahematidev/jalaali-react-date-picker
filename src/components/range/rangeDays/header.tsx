@@ -1,5 +1,5 @@
-import { useGetMonthLabel } from "../../utils/getMonthLabel";
-import { useRangepicker } from "../../core";
+import { useGetMonthLabel } from "../../../utils/getMonthLabel";
+import { useRangepicker } from "../../../core";
 import { HeaderSide } from "./side";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 

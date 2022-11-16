@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DateRangePickerTypes } from "../../core";
+import { DateRangePickerTypes } from "../../../core";
 import { RangeDays } from "../rangeDays";
 import { RangeMonths } from "../rangeMonths";
 import { RangeYears } from "../rangeYears";

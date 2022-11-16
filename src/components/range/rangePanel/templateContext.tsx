@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { DateRangePickerTypes } from "../../core";
+import { DateRangePickerTypes } from "../../../core";
 
 interface RangeTemplateContextType {
   type: "from" | "to";

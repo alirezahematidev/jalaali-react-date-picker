@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { DateRangePickerTypes, RangePanelProps } from "../../core";
+import { DateRangePickerTypes, RangePanelProps } from "../../../core";
 import { RangePanelTemplate } from "./panelTemplate";
 
 type Panel = Record<DateRangePickerTypes.Mode, JSX.Element>;
