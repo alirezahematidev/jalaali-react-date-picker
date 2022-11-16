@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Picker } from "./components";
 import { InputDatePicker } from "./components/dateInput";
 import { RangePicker } from "./components/range";
+import { RangeInput } from "./components/rangeInput";
 
 function App() {
   const [date, setDate] = useState<Moment>();
@@ -33,14 +34,17 @@ function App() {
         onYearChange={(years) => console.log("onYearChange", years)}
         // disabledDates={(current) => current.isBefore(moment())}
       />
-      <RangePicker
-        locale={{ language: "fa" }}
-        onMonthChange={(months) => console.log("onMonthChange", months)}
-        onYearChange={(years) => console.log("onYearChange", years)}
-        disabledDates={(current) =>
-          current.isBetween(moment().subtract(10, "day"), moment())
-        }
-      />
+      <div>
+        <RangePicker
+          locale={{ language: "fa" }}
+          onMonthChange={(months) => console.log("onMonthChange", months)}
+          onYearChange={(years) => console.log("onYearChange", years)}
+          disabledDates={(current) =>
+            current.isBetween(moment().subtract(10, "day"), moment())
+          }
+        />
+        <RangeInput />
+      </div>
     </div>
   );
 }

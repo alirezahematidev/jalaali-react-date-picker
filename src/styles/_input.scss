@@ -1,52 +1,117 @@
 @import "./mixins/mixin";
 .picker-input-wrapper {
-    margin: 0;
-    padding: 0;
-    height: 34px;
-    width: 400px;
-    max-width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.23);
-    overflow: hidden;
-    border-radius: 2px;
-    padding-inline: 6px;
-    @include flex-row;
-    &:hover {
-        border-color: var(--highlight);
-    }
+  margin: 0;
+  padding: 0;
+  height: 34px;
+  width: 400px;
+  max-width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  overflow: hidden;
+  border-radius: 2px;
+  padding-inline: 6px;
+  @include flex-row;
+  &:hover {
+    border-color: var(--highlight);
+  }
+}
+
+.range_input_wrapper {
+  border: 1px solid gray;
+  border-radius: 4px;
+  height: 20px;
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+  &:hover {
+    border: 2px solid rgb(131, 129, 125);
+  }
+}
+
+.range_input_from {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 18px;
+  border: none;
+  &:hover {
+    border: none !important;
+    background-color: green;
+  }
+  &:focus-visible {
+    border: none !important;
+    background-color: red;
+    box-shadow: none;
+  }
+  &:focus {
+    border: none !important;
+    background-color: blue;
+    box-shadow: none;
+  }
+}
+.range_input_to {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 18px;
+  border: none;
+  &:hover {
+    border: none !important;
+    background-color: green;
+  }
+  &:focus-visible {
+    border: none !important;
+    background-color: red;
+    box-shadow: none;
+  }
+  &:focus {
+    border: none !important;
+    background-color: blue;
+    box-shadow: none;
+  }
 }
 
 .picker-input {
-    border: none;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    font-size: 14px;
-    @include font-family;
-    color: var(--text-dark);
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  @include font-family;
+  color: var(--text-dark);
 }
 
 .calendar-icon {
-    width: 20px;
-    height: 20px;
-    @include flex-center;
-    cursor: pointer;
-    filter: invert(0.4);
-    &:hover {
-        filter: invert(0.3);
-    }
+  width: 20px;
+  height: 20px;
+  @include flex-center;
+  cursor: pointer;
+  filter: invert(0.4);
+  &:hover {
+    filter: invert(0.3);
+  }
+}
+.range-icon {
+  width: 20px;
+  height: 20px;
+  @include flex-center;
+  cursor: pointer;
+  filter: invert(0.4);
+  &:hover {
+    filter: invert(0.3);
+  }
 }
 
 .clear-icon {
-    width: 16px;
-    height: 16px;
-    @include flex-center;
-    cursor: pointer;
-    filter: invert(0.7);
-    &:hover {
-        filter: invert(0.4);
-    }
+  width: 16px;
+  height: 16px;
+  @include flex-center;
+  cursor: pointer;
+  filter: invert(0.7);
+  &:hover {
+    filter: invert(0.4);
+  }
 }
 
 .rtl {
-    direction: rtl;
+  direction: rtl;
 }
