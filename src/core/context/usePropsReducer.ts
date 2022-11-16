@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import { DatePickerProps, RangePickerProps } from "../interfaces";
 import {
-  PropsActionKind,
   datePropsReducer,
+  PropsActionKind,
   rangePropsReducer,
 } from "./propsReducer";
 

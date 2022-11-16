@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { listOfYears } from "../../utils";
 import classNames from "classnames";
-import { YearsHeader } from "./header";
+import { useState } from "react";
 import { useDatepicker } from "../../core";
-import { usePanelContext } from "../panel/panelMode";
 import { useYears } from "../../core/hooks/date/useYears";
+import { usePanelContext } from "../panel/panelMode";
+import { YearsHeader } from "./header";
 
 export interface MonthsProps {}
 

@@ -1,47 +1,47 @@
 @import "./mixins/mixin";
 .day {
-    @include flex-center;
-    @include day-box(true);
-    @include clickable;
-    transition: background-color 100ms ease;
-    position: relative;
+  @include flex-center;
+  @include day-box(true);
+  @include clickable;
+  transition: background-color 100ms ease;
+  position: relative;
 }
 
 .hovered {
-    &:hover {
-        background-color: var(--background-hovered);
-    }
+  &:hover {
+    background-color: var(--background-hovered);
+  }
 }
 
 .disabled {
-    opacity: 0.4;
-    cursor: not-allowed !important;
-    background-color: var(--background-disabled);
+  opacity: 0.4;
+  cursor: not-allowed !important;
+  background-color: var(--background-disabled);
 }
 
 .not-current {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
 .weekend-day {
-    color: var(--text-negative);
+  color: var(--text-negative);
 }
 
 .off-day {
-    color: var(--text-negative);
+  color: var(--text-negative);
 }
 
 .highlight-day {
-    background-color: orange;
-    color: var(--text-light);
+  background-color: orange;
+  color: var(--text-light);
 }
 
 .highlight {
-    background-color: var(--highlight);
-    color: var(--text-light);
+  background-color: var(--highlight);
+  color: var(--text-light);
 }
 
 .today {
-    border:1px dotted var(--highlight);
-    border-radius: 2px;
+  border: 1px dotted var(--highlight);
+  border-radius: 2px;
 }

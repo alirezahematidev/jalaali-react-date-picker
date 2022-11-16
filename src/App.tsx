@@ -1,7 +1,6 @@
 import moment, { Moment } from "moment-jalaali";
 import { useState } from "react";
 import { Picker } from "./components";
-import { InputDatePicker } from "./components/dateInput";
 import { RangePicker } from "./components/range";
 
 function App() {

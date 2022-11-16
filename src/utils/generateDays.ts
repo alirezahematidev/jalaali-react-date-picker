@@ -1,4 +1,4 @@
-import { getDaysOfJalaaliMonth, getDaysOfGregorianMonth } from ".";
+import { getDaysOfGregorianMonth, getDaysOfJalaaliMonth } from ".";
 import { DatePickerTypes } from "../core";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";

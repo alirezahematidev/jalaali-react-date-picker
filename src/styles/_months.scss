@@ -1,38 +1,38 @@
 .months-body {
-    display: grid;
-    height: 100%;
-    max-width: 300px;
-    place-items: center;
-    grid-template-columns: repeat(3, minmax(100px, 100px));
-    grid-template-rows: auto;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
 }
 
 .months-body-rtl {
-    @extend .months-body;
-    direction: rtl;
+  @extend .months-body;
+  direction: rtl;
 }
 
 .months-body-ltr {
-    @extend .months-body;
-    direction: ltr;
+  @extend .months-body;
+  direction: ltr;
 }
 
 .month-item {
-    padding-block: 4px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: background-color 100ms ease;
-    min-width: 80px;
-    @include flex-center;
+  padding-block: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 100ms ease;
+  min-width: 80px;
+  @include flex-center;
 }
 
 .month-item-hovered {
-    &:hover {
-        background-color: var(--background-hovered);
-    }
+  &:hover {
+    background-color: var(--background-hovered);
+  }
 }
 
 .month-item-selected {
-    background-color: var(--highlight);
-    color: var(--text-light);
+  background-color: var(--highlight);
+  color: var(--text-light);
 }

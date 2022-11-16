@@ -1,7 +1,7 @@
-import { useGetMonthLabel } from "../../../utils/getMonthLabel";
 import { useRangepicker } from "../../../core";
-import { HeaderSide } from "./side";
+import { useGetMonthLabel } from "../../../utils/getMonthLabel";
 import { useRangeTemplate } from "../rangePanel/templateContext";
+import { HeaderSide } from "./side";
 
 export interface HeaderProps {
   onSelectMonthPicker?: () => void;

@@ -1,10 +1,10 @@
 import moment from "moment-jalaali";
-import { useState, useReducer, useEffect, useCallback } from "react";
-import { dateTransformer } from "../../../utils";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import {
+  dateTransformer,
   formatGenerator,
-  useGetMonthLabel,
   rangeTransformer,
+  useGetMonthLabel,
 } from "../../../utils";
 import { DateRangePickerTypes } from "../../types";
 import {
@@ -13,7 +13,7 @@ import {
   RangeDate,
   RangeValue,
 } from "../../types/global.types";
-import { rangeReducer, ActionKind } from "./rangeReducer";
+import { ActionKind, rangeReducer } from "./rangeReducer";
 
 interface RangeDateReducerType {
   formatProp?: DateRangePickerTypes.Format;

@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { DatePickerTypes, DateRangePickerTypes } from "../types";
+import { DatePickerTypes } from "../types";
 
 export interface DatePickerProps {
   value?: DatePickerTypes.Value;

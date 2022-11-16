@@ -1,35 +1,35 @@
 @import "./mixins/mixin";
 .center {
-    @include flex-row;
-    @include flex-center;
+  @include flex-row;
+  @include flex-center;
 }
 
 .iconItem {
-    @include clickable;
-    width: 18px;
-    height: 18px;
-    filter: opacity(0.5);
-    &:hover {
-        filter: opacity(1);
-    }
+  @include clickable;
+  width: 18px;
+  height: 18px;
+  filter: opacity(0.5);
+  &:hover {
+    filter: opacity(1);
+  }
 }
 
 .panel-header-item-text {
-    color: var(--text-dark);
-    &:hover {
-        color: var(--highlight);
-    }
+  color: var(--text-dark);
+  &:hover {
+    color: var(--highlight);
+  }
 }
 
 .panel-header-year-picker {
-    @include flex-center;
-    p {
-        color: var(--text-dark);
-        &:hover {
-            color: var(--highlight);
-        }
+  @include flex-center;
+  p {
+    color: var(--text-dark);
+    &:hover {
+      color: var(--highlight);
     }
-    span {
-        margin-inline: 4px;
-    }
+  }
+  span {
+    margin-inline: 4px;
+  }
 }

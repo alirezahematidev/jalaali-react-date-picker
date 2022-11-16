@@ -1,9 +1,9 @@
-import "../../../styles/index.scss";
+import classNames from "classnames";
+import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { memo } from "react";
-import classNames from "classnames";
 import { RangePanelProps, useDatepicker, useSetColors } from "../../../core";
-import { isEqual } from "lodash-es";
+import "../../../styles/index.scss";
 import { RangePanelMode } from "./panelRangeMode";
 
 moment.loadPersian({ dialect: "persian-modern" });

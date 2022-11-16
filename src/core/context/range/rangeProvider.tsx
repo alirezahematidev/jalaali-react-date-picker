@@ -1,5 +1,4 @@
 import { isEqual } from "lodash-es";
-import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
 import { useDeepCompareEffect } from "../../hooks";
 import { RangePickerProps } from "../../interfaces";

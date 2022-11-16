@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { DateProvider } from "../../core/context";
 import { useDateReducer } from "../../core/context/date/useDateReducer";
 

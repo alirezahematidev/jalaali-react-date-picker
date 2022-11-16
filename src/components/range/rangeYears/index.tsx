@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { DateRangePickerTypes, useRangepicker } from "../../../core";
+import { useRangepicker } from "../../../core";
 import { useRangeYears } from "../../../core/hooks/range/useRangeYears";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { RangeYeartemplate } from "./rangeYearTemplate";

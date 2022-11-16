@@ -5,8 +5,8 @@ import { useDeepCompareEffect } from "../../hooks";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
 import { DatePropsReducerType } from "../propsReducer";
-import { useDateReducer } from "./useDateReducer";
 import { useDatePropsReducer } from "../usePropsReducer";
+import { useDateReducer } from "./useDateReducer";
 
 interface ContextType extends DatePropsReducerType {
   state: Date;
