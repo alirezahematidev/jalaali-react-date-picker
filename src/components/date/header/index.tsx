@@ -1,10 +1,10 @@
-import LeftIcon from "../../assets/icons/chevron_left.svg";
-import RightIcon from "../../assets/icons/chevron_right.svg";
-import LeftIconDouble from "../../assets/icons/keyboard_double_arrow_left.svg";
-import RightIconDouble from "../../assets/icons/keyboard_double_arrow_right.svg";
+import LeftIcon from "../../../assets/icons/chevron_left.svg";
+import RightIcon from "../../../assets/icons/chevron_right.svg";
+import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
+import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
 
-import { useDatepicker } from "../../core";
-import { useGetMonthLabel } from "../../utils/getMonthLabel";
+import { useDatepicker } from "../../../core";
+import { useGetMonthLabel } from "../../../utils/getMonthLabel";
 import { usePanelContext } from "../panel/panelMode";
 
 export interface HeaderProps {

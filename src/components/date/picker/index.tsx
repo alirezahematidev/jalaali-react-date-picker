@@ -1,4 +1,4 @@
-import { DatePickerProps, DateProvider } from "../../core";
+import { DatePickerProps, DateProvider } from "../../../core";
 import Panel from "../panel";
 
 export const Picker = ({

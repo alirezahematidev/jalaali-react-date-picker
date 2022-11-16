@@ -2,7 +2,7 @@ import classNames from "classnames";
 import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
 import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
 import { useDatepicker } from "../../../core";
-import { usePanelContext } from "../../panel/panelMode";
+import { usePanelContext } from "../../date/panel/panelMode";
 
 export interface HeaderProps {
   lowerDecade: number;

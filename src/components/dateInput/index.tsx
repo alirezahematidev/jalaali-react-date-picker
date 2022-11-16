@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
-import calendar from "../../assets/icons/calendar_today.svg";
+import calendar from "../../../assets/icons/calendar_today.svg";
 import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
 

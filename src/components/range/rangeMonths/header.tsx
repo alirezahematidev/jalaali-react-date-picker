@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useDatepicker, useRangepicker } from "../../../core";
 import { useGetMonthLabel } from "../../../utils";
-import { usePanelContext } from "../../panel/panelMode";
+import { usePanelContext } from "../../date/panel/panelMode";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 
 export interface HeaderProps {}

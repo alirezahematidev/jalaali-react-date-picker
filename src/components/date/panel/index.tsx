@@ -2,9 +2,9 @@ import classNames from "classnames";
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { memo } from "react";
-import { PanelProps, useDatepicker, useSetColors } from "../../core";
-import "../../styles/index.scss";
-import { Footer } from "../footer";
+import { PanelProps, useDatepicker, useSetColors } from "../../../core";
+import "../../../styles/index.scss";
+import { Footer } from "../../footer";
 import { PanelMode } from "./panelMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
