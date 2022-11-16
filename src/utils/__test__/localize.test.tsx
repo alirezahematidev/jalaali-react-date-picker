@@ -1,7 +1,39 @@
 import { useDatepicker } from "../../core";
 import { gregorianMonths, jalaaliMonths } from "../../core/constants/datasets";
-import { renderHook } from "@testing-library/react";
-import { DateProvider } from "../../core/context";
+import {
+  renderHook,
+  render,
+  getByTestId,
+  fireEvent,
+} from "@testing-library/react";
+import { DateProvider } from "../../core/context/index";
+import { useState } from "react";
+
+const ChangeLanguage = () => {
+  const [lang, setLang] = useState("fa");
+
+  const handleChangeLanguage = () => setLang("en");
+
+  return (
+    <div className="App">
+      <p data-testid="language">{lang}</p>
+
+      <button data-testid="onButton" onClick={handleChangeLanguage}>
+        click
+      </button>
+    </div>
+  );
+};
+
+describe("change language ", () => {
+  test("click test", () => {
+    const { container } = render(<ChangeLanguage />);
+    const language = getByTestId(container, "language");
+    const onButton = getByTestId(container, "onButton");
+    fireEvent.click(onButton);
+    expect(language.textContent).toBe("en");
+  });
+});
 
 describe("locaize test", () => {
   const { result } = renderHook(() => useDatepicker(), {
