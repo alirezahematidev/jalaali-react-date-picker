@@ -2,12 +2,12 @@ import { DatePickerProps, RangePickerProps } from "../interfaces";
 
 export type DatePropsReducerType = Pick<
   DatePickerProps,
-  "locale" | "onChange" | "value" | "disabledDates"
+  "locale" | "onChange" | "value" | "disabledDates" | "format"
 >;
 
 export type RangePropsReducerType = Pick<
   RangePickerProps,
-  "locale" | "onChange" | "value" | "disabledDates"
+  "locale" | "onChange" | "value" | "disabledDates" | "format"
 >;
 
 export enum PropsActionKind {
@@ -17,6 +17,7 @@ export enum PropsActionKind {
   VALUE = "VALUE",
   RANGEVALUE = "RANGEVALUE",
   DISABLEDDATES = "DISABLEDDATES",
+  FORMAT = "FORMAT",
 }
 
 export interface Action {
@@ -51,6 +52,11 @@ export function datePropsReducer(
       return {
         ...state,
         disabledDates: payload,
+      };
+    case PropsActionKind.FORMAT:
+      return {
+        ...state,
+        format: payload,
       };
     default:
       return state;

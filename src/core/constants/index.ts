@@ -1,11 +1,11 @@
 import { LocalizedDayLabel, LocalizedMonth } from "../types/global.types";
 import {
-  gregorianMonths,
-  jalaaliMonths,
   gregorianDayLabels,
+  gregorianMonths,
   jalaaliDayLabels,
+  jalaaliMonths,
 } from "./datasets";
-import { en, fa, de, fr, es, Translation } from "./translations";
+import { de, en, es, fa, fr, Translation } from "./translations";
 
 const localizedMonth: LocalizedMonth = {
   fa: jalaaliMonths,

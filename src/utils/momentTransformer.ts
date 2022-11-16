@@ -1,5 +1,5 @@
 import { Moment } from "moment-jalaali";
-import { Date } from "../core/types/global.types";
+import { Date } from "../core";
 
 export const momentTransformer = (moment: Moment, isJalaali = true): Date => {
   const date: Date = {

@@ -1,6 +1,6 @@
-import { useDatepicker } from "./index";
 import { translations } from "../constants";
 import { TranslationKey } from "../constants/translations";
+import { useDatepicker } from "./index";
 
 export const useTranslation = () => {
   const { language } = useDatepicker();

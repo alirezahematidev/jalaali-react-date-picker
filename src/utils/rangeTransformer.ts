@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment-jalaali";
-import { RangeDate, RangeValue } from "../core/types/global.types";
+import { RangeDate, RangeValue } from "../core";
 
 export const rangeTransformer = (
   data: RangeDate,

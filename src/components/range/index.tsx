@@ -1,6 +1,5 @@
-import { RangePickerProps } from "../../core";
-import { RangeProvider } from "../../core/context";
-import RangePanel from "../rangePanel";
+import { RangePickerProps, RangeProvider } from "../../core";
+import RangePanel from "./rangePanel";
 
 export const RangePicker = ({
   headerRender,

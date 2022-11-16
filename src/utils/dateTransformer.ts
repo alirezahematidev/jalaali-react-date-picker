@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment-jalaali";
-import { Date } from "../core/types/global.types";
+import { Date } from "../core";
 
 export const dateTransformer = (
   data: Date,

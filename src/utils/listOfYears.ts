@@ -1,5 +1,5 @@
 import moment from "moment-jalaali";
-import { Year } from "../core/types/global.types";
+import { Year } from "../core";
 
 export const listOfYears = (isJalaali = true, offset = 0) => {
   const dateRanges = (rule: number, sum = 0) =>
