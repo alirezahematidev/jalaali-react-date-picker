@@ -25,5 +25,4 @@ type TranslationKey = keyof typeof fa;
 type Translation = Record<Language, Record<TranslationKey, string>>;
 
 export type { TranslationKey, Translation };
-
 export { fa, en, fr, de, es };

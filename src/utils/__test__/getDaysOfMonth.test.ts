@@ -1,4 +1,3 @@
-import { DateMetadata } from "../../core/types/global.types";
 import {
   getDaysOfGregorianMonth,
   getDaysOfJalaaliMonth,

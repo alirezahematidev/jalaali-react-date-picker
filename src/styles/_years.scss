@@ -1,41 +1,41 @@
 .years-body {
-    display: grid;
-    height: 100%;
-    max-width: 300px;
-    place-items: center;
-    grid-template-columns: repeat(3, minmax(100px, 100px));
-    grid-template-rows: auto;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
 }
 
 .years-body-rtl {
-    @extend .years-body;
-    direction: rtl;
+  @extend .years-body;
+  direction: rtl;
 }
 
 .years-body-ltr {
-    @extend .years-body;
-    direction: ltr;
+  @extend .years-body;
+  direction: ltr;
 }
 
 .year-item {
-    padding-block: 4px;
-    border-radius: 2px;
-    min-width: 54px;
-    cursor: pointer;
-    @include flex-center;
+  padding-block: 4px;
+  border-radius: 2px;
+  min-width: 54px;
+  cursor: pointer;
+  @include flex-center;
 }
 
 .year-item-hovered {
-    &:hover {
-        background-color: var(--background-hovered);
-    }
+  &:hover {
+    background-color: var(--background-hovered);
+  }
 }
 
 .year-item-selected {
-    background-color: var(--highlight);
-    color: var(--text-light);
+  background-color: var(--highlight);
+  color: var(--text-light);
 }
 
 .year-item-prev {
-    opacity: 0.4;
+  opacity: 0.4;
 }

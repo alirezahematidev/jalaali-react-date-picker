@@ -1,6 +1,5 @@
 import moment from "moment-jalaali";
-import { DatePickerTypes } from "../core";
-import { DateMetadata } from "../core/types/global.types";
+import { DateMetadata, DatePickerTypes } from "../core";
 
 export const dayModelGenerator = (
   count: number,
