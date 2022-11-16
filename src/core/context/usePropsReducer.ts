@@ -19,10 +19,14 @@ export const useDatePropsReducer = () => {
   const setDisabledDates = (payload?: DatePickerProps["disabledDates"]) => {
     dispatch({ type: PropsActionKind.DISABLEDDATES, payload });
   };
+  const setFormat = (payload?: DatePickerProps["format"]) => {
+    dispatch({ type: PropsActionKind.FORMAT, payload });
+  };
 
   return {
     setLocale,
     setDisabledDates,
+    setFormat,
     propsState,
   };
 };
@@ -42,10 +46,13 @@ export const useRangePropsReducer = () => {
   ) => {
     dispatch({ type: PropsActionKind.DISABLEDDATES, payload });
   };
-
+  const setFormat = (payload?: DatePickerProps["format"]) => {
+    dispatch({ type: PropsActionKind.FORMAT, payload });
+  };
   return {
     setLocale,
     setRangeDisabledDates,
+    setFormat,
     propsState,
   };
 };

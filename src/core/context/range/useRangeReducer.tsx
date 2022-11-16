@@ -122,7 +122,7 @@ export const useRangeReducer = ({
               date.format(
                 formatProp
                   ? typeof formatProp === "function"
-                    ? formatProp(date)
+                    ? formatProp(dates)
                     : formatProp
                   : formatGenerator(isJalaali),
               ),

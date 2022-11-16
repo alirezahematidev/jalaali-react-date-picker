@@ -1,5 +1,6 @@
 import { isEqual } from "lodash-es";
 import { createContext, useContext } from "react";
+import { formatGenerator, rangeTransformer } from "../../../utils";
 import { useDeepCompareEffect } from "../../hooks";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate } from "../../types/global.types";
@@ -76,13 +77,22 @@ export const RangeProvider = ({
     defaultValueProp: props.defaultValue,
   });
 
-  const { setLocale, setRangeDisabledDates, propsState } =
+  const { setLocale, setRangeDisabledDates, propsState, setFormat } =
     useRangePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
-      const isJalaali = language === "fa";
       setLocale(props.locale);
+
+      if (props.format !== propsState.format) {
+        const format = props.format
+          ? typeof props.format === "function"
+            ? props.format(rangeTransformer(cacheRangeDate))
+            : props.format
+          : formatGenerator(language === "fa");
+        setFormat(format);
+      }
+
       // onRangeDaychange({
       //   startDate: {
       //     day: 0,

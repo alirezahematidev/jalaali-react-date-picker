@@ -131,7 +131,7 @@ export namespace DateRangePickerTypes {
    *
    * @see https://momentjs.com/docs
    */
-  export type Format = string | ((value: Moment) => string);
+  export type Format = string | ((value: RangeValue) => string);
   /**
    * A render callback that add extra node above of default header
    *

@@ -1,6 +1,7 @@
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
+import { dateTransformer, formatGenerator } from "../../../utils";
 import { useDeepCompareEffect } from "../../hooks";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
@@ -71,7 +72,8 @@ export const DateProvider = ({
     valueProp: props.value,
   });
 
-  const { setLocale, setDisabledDates, propsState } = useDatePropsReducer();
+  const { setLocale, setFormat, setDisabledDates, propsState } =
+    useDatePropsReducer();
 
   useDeepCompareEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
@@ -88,6 +90,14 @@ export const DateProvider = ({
       !isEqual(props.disabledDates, propsState.disabledDates)
     ) {
       setDisabledDates(props.disabledDates);
+    }
+    if (props.format !== propsState.format) {
+      const format = props.format
+        ? typeof props.format === "function"
+          ? props.format(dateTransformer(cacheDate))
+          : props.format
+        : formatGenerator(language === "fa");
+      setFormat(format);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,6 +116,7 @@ export const DateProvider = ({
         onIncreaseMonth,
         onDecreaseMonth,
         cacheDate,
+        format: propsState.format,
         ...propsState,
       }}
     >
