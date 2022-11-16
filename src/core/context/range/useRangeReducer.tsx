@@ -13,7 +13,7 @@ import {
   RangeDate,
   RangeValue,
 } from "../../types/global.types";
-import { ActionKind, rangeReducer } from "./rangeReducer";
+import { RangeActionKind, rangeReducer } from "./rangeReducer";
 
 interface RangeDateReducerType {
   formatProp?: DateRangePickerTypes.Format;
@@ -107,7 +107,7 @@ export const useRangeReducer = ({
 
   const onRangeDateChange = useCallback(
     (payload: RangeDate) => {
-      dispatch({ type: ActionKind.DATE, payload });
+      dispatch({ type: RangeActionKind.DATE, payload });
 
       setCacheRangeDate(payload);
 
@@ -146,7 +146,7 @@ export const useRangeReducer = ({
           startDate: payload,
           endDate: null,
         };
-        dispatch({ type: ActionKind.DAY, payload: res });
+        dispatch({ type: RangeActionKind.DAY, payload: res });
         setCacheRangeDate(res);
         return;
       }
@@ -155,7 +155,7 @@ export const useRangeReducer = ({
         endDate: !isStartDate ? payload : rangeState.endDate,
       };
 
-      dispatch({ type: ActionKind.DAY, payload: res });
+      dispatch({ type: RangeActionKind.DAY, payload: res });
       setCacheRangeDate(res);
 
       if (res) {

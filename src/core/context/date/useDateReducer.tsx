@@ -8,7 +8,7 @@ import {
 import { localizedMonth } from "../../constants";
 import { DatePickerTypes } from "../../types";
 import { Date, Language } from "../../types/global.types";
-import { ActionKind, reducer } from "./dateReducer";
+import { DateActionKind, reducer } from "./dateReducer";
 
 interface DateReducerType {
   formatProp?: DatePickerTypes.Format;
@@ -60,7 +60,7 @@ export const useDateReducer = ({
 
   const onDateChange = useCallback(
     (payload: Date) => {
-      dispatch({ type: ActionKind.DATE, payload });
+      dispatch({ type: DateActionKind.DATE, payload });
       setCacheDate(payload);
       const res = dateTransformer({ ...payload });
       payload.day !== 0 &&
@@ -79,7 +79,7 @@ export const useDateReducer = ({
   );
   const onDaychange = useCallback(
     (payload: Date) => {
-      dispatch({ type: ActionKind.DAY, payload });
+      dispatch({ type: DateActionKind.DAY, payload });
       setCacheDate(payload);
       payload.day !== 0 && onDayChangeProp?.(payload.day);
     },
@@ -87,7 +87,7 @@ export const useDateReducer = ({
   );
   const onMonthchange = useCallback(
     (payload: Date) => {
-      dispatch({ type: ActionKind.MONTH, payload });
+      dispatch({ type: DateActionKind.MONTH, payload });
       onMonthChangeProp?.({
         value: payload.month,
         name: months.find((item) => item.id === payload.month)?.name || "",
@@ -97,7 +97,7 @@ export const useDateReducer = ({
   );
   const onYearchange = useCallback(
     (payload: Date) => {
-      dispatch({ type: ActionKind.YEAR, payload });
+      dispatch({ type: DateActionKind.YEAR, payload });
       onYearChangeProp?.(payload.year);
     },
     [onYearChangeProp],
@@ -105,7 +105,7 @@ export const useDateReducer = ({
   const onIncreaseYear = useCallback(
     (payload: Date) => {
       dispatch({
-        type: ActionKind.YEAR_PLUS,
+        type: DateActionKind.YEAR_PLUS,
         payload: {
           ...payload,
           day: cacheDate?.year === payload.year ? cacheDate.day : 0,
@@ -117,7 +117,7 @@ export const useDateReducer = ({
   const onDecreaseYear = useCallback(
     (payload: Date) => {
       dispatch({
-        type: ActionKind.YEAR_MINUS,
+        type: DateActionKind.YEAR_MINUS,
         payload: {
           ...payload,
           day: cacheDate?.year === payload.year ? cacheDate.day : 0,
@@ -129,7 +129,7 @@ export const useDateReducer = ({
   const onIncreaseMonth = useCallback(
     (payload: Date) => {
       dispatch({
-        type: ActionKind.MONTH_PLUS,
+        type: DateActionKind.MONTH_PLUS,
         payload: {
           ...payload,
           day: cacheDate?.month === payload.month ? cacheDate.day : 0,
@@ -142,7 +142,7 @@ export const useDateReducer = ({
   const onDecreaseMonth = useCallback(
     (payload: Date) => {
       dispatch({
-        type: ActionKind.MONTH_MINUS,
+        type: DateActionKind.MONTH_MINUS,
         payload: {
           ...payload,
           day: cacheDate?.month === payload.month ? cacheDate.day : 0,

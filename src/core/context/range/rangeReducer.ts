@@ -9,7 +9,7 @@ import {
   nextYearIncrease,
 } from "./rangeNextDate";
 
-export enum ActionKind {
+export enum RangeActionKind {
   DATE = "DATE",
   DAY = "DAY",
   MONTH = "MONTH",
@@ -20,18 +20,18 @@ export enum ActionKind {
   YEAR_MINUS = "YEAR_MINUS",
 }
 
-export interface Action {
-  type: ActionKind;
+export interface RangeAction {
+  type: RangeActionKind;
   payload: RangeDate;
 }
 
 // Our reducer function that uses a switch statement to handle our actions
-export function rangeReducer(state: RangeDate, action: Action): RangeDate {
+export function rangeReducer(state: RangeDate, action: RangeAction): RangeDate {
   const { type, payload } = action;
   const { startDate, endDate } = payload;
 
   switch (type) {
-    case ActionKind.DATE:
+    case RangeActionKind.DATE:
       return {
         startDate: {
           day: startDate.day,
@@ -40,7 +40,7 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextDate(endDate, state),
       };
-    case ActionKind.DAY:
+    case RangeActionKind.DAY:
       return {
         startDate: {
           ...state.startDate,
@@ -50,12 +50,12 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextDate(endDate, state),
       };
-    case ActionKind.MONTH:
+    case RangeActionKind.MONTH:
       return {
         startDate: { ...state.startDate, month: startDate.month, day: 0 },
         endDate: nextMonth(endDate, state),
       };
-    case ActionKind.MONTH_MINUS:
+    case RangeActionKind.MONTH_MINUS:
       return {
         startDate: {
           ...state.startDate,
@@ -65,7 +65,7 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextMonthDecrease(endDate, state),
       };
-    case ActionKind.MONTH_PLUS:
+    case RangeActionKind.MONTH_PLUS:
       return {
         startDate: {
           ...state.startDate,
@@ -75,7 +75,7 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextMonthIncrease(endDate, state),
       };
-    case ActionKind.YEAR:
+    case RangeActionKind.YEAR:
       return {
         startDate: {
           ...state.startDate,
@@ -83,7 +83,7 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextYear(endDate, state),
       };
-    case ActionKind.YEAR_MINUS:
+    case RangeActionKind.YEAR_MINUS:
       return {
         startDate: {
           ...state.startDate,
@@ -91,7 +91,7 @@ export function rangeReducer(state: RangeDate, action: Action): RangeDate {
         },
         endDate: nextYearDecrease(endDate, state),
       };
-    case ActionKind.YEAR_PLUS:
+    case RangeActionKind.YEAR_PLUS:
       return {
         startDate: {
           ...state.startDate,
