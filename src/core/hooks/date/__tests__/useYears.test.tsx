@@ -24,7 +24,7 @@ describe("useYears", () => {
       result: {
         current: { years },
       },
-    } = renderHook(() => useYears(10), { wrapper });
+    } = renderHook(() => useYears(0), { wrapper });
 
     const {
       result: {

@@ -29,6 +29,7 @@ function App() {
         locale={{ language: "fa" }}
         onMonthChange={(months) => console.log("onMonthChange", months)}
         onYearChange={(years) => console.log("onYearChange", years)}
+        onChange={(value, str) => console.log("str", str)}
         // disabledDates={(current) => current.isBefore(moment())}
       />
       {/* <RangePicker
