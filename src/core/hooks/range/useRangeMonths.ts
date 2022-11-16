@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { generateDays } from "../../utils";
-import { localizedMonth } from "../constants";
-import { useRangePickerContext } from "../context";
+import { generateDays } from "../../../utils";
+import { localizedMonth } from "../../constants";
+import { useRangePickerContext } from "../../context";
 
 export const useRangeMonths = (type: "from" | "to") => {
   const {

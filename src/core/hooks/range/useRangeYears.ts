@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { generateDays, listOfYears } from "../../utils";
-import { useRangePickerContext } from "../context";
+import { generateDays, listOfYears } from "../../../utils";
+import { useRangePickerContext } from "../../context";
 
 export const useRangeYears = ({
   offsets,

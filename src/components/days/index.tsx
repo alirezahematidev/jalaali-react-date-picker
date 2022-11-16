@@ -7,7 +7,7 @@ import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { Fragment } from "react";
 import { Date } from "../../core/types/global.types";
-import { useDays } from "../../core/hooks/useDays";
+import { useDays } from "../../core/hooks/date/useDays";
 import { momentTransformer } from "../../utils";
 import moment from "moment-jalaali";
 

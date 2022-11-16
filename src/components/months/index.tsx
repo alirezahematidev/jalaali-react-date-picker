@@ -2,7 +2,7 @@ import { useDatepicker } from "../../core";
 import { Header } from "../header";
 import classNames from "classnames";
 import { usePanelContext } from "../panel/panelMode";
-import { useMonths } from "../../core/hooks/useMonths";
+import { useMonths } from "../../core/hooks/date/useMonths";
 
 export interface MonthsProps {}
 

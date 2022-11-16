@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { YearsHeader } from "./header";
 import { useDatepicker } from "../../core";
 import { usePanelContext } from "../panel/panelMode";
-import { useYears } from "../../core/hooks/useYears";
+import { useYears } from "../../core/hooks/date/useYears";
 
 export interface MonthsProps {}
 
