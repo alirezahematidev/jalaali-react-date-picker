@@ -21,7 +21,6 @@ const RangeDays = ({}: RangeDaysProps) => {
     onRangeDecreaseYear,
     from,
     to,
-    isJalaali,
   } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
 
@@ -31,7 +30,9 @@ const RangeDays = ({}: RangeDaysProps) => {
 
   const onSelect = useCallback(
     ({ day, month, year, isNotCurrentMonth }: DateMetadata) => {
-      const isStartDate = !cacheRangeDate?.startDate.day;
+      const isStartDate =
+        !cacheRangeDate?.startDate.day ||
+        (!!cacheRangeDate.startDate && !!cacheRangeDate.endDate);
       if (!isStartDate) {
         const selectedRange = getRange(
           dateTransformer(cacheRangeDate.startDate),
