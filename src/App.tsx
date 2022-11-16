@@ -1,7 +1,6 @@
-import moment, { Moment } from "moment-jalaali";
+import { Moment } from "moment-jalaali";
 import { useState } from "react";
-import { Picker } from "./components";
-import { RangePicker } from "./components/range";
+import { DatePicker } from "./components";
 
 function App() {
   const [date, setDate] = useState<Moment>();
@@ -24,22 +23,18 @@ function App() {
         add 6 months
       </button> */}
 
-      {/* <Picker locale={{ language: "en" }} /> */}
+      <DatePicker locale={{ language: "en" }} />
       {/* <Picker locale={{ language: "fa" }} /> */}
-      <Picker
+      {/* <Picker
         locale={{ language: "fa" }}
         onMonthChange={(months) => console.log("onMonthChange", months)}
         onYearChange={(years) => console.log("onYearChange", years)}
-        // disabledDates={(current) => current.isBefore(moment())}
-      />
-      <RangePicker
+      /> */}
+      {/* <RangePicker
         locale={{ language: "fa" }}
         onMonthChange={(months) => console.log("onMonthChange", months)}
         onYearChange={(years) => console.log("onYearChange", years)}
-        disabledDates={(current) =>
-          current.isBetween(moment().subtract(10, "day"), moment())
-        }
-      />
+      /> */}
     </div>
   );
 }
