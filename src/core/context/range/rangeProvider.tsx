@@ -1,11 +1,11 @@
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
-import { useDeepCompareEffect } from "../hooks";
-import { RangePickerProps } from "../interfaces";
-import { Date, RangeDate } from "../types/global.types";
-import { RangePropsReducerType } from "./propsReducer";
-import { useRangePropsReducer } from "./usePropsReducer";
+import { useDeepCompareEffect } from "../../hooks";
+import { RangePickerProps } from "../../interfaces";
+import { Date, RangeDate } from "../../types/global.types";
+import { RangePropsReducerType } from "../propsReducer";
+import { useRangePropsReducer } from "../usePropsReducer";
 import { useRangeReducer } from "./useRangeReducer";
 
 interface ContextType extends RangePropsReducerType {

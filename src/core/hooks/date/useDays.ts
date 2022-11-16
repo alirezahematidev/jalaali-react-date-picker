@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { generateDays } from "../../../utils";
-import { useDatePickerContext } from "../../context/dateProvider";
+import { useDatePickerContext } from "../../context/date/dateProvider";
 
 export const useDays = () => {
   const {

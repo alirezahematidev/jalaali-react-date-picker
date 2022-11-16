@@ -1,4 +1,4 @@
-import { Date, RangeDate } from "../types/global.types";
+import { Date, RangeDate } from "../../types/global.types";
 
 function nextDate(date: Date | null, state: RangeDate): Date | null {
   const nextDefault = { day: 0, month: 0, year: 0 };

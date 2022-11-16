@@ -1,12 +1,12 @@
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { createContext, useContext } from "react";
-import { useDeepCompareEffect } from "../hooks";
-import { DatePickerProps } from "../interfaces";
-import { Date } from "../types/global.types";
-import { DatePropsReducerType } from "./propsReducer";
+import { useDeepCompareEffect } from "../../hooks";
+import { DatePickerProps } from "../../interfaces";
+import { Date } from "../../types/global.types";
+import { DatePropsReducerType } from "../propsReducer";
 import { useDateReducer } from "./useDateReducer";
-import { useDatePropsReducer } from "./usePropsReducer";
+import { useDatePropsReducer } from "../usePropsReducer";
 
 interface ContextType extends DatePropsReducerType {
   state: Date;

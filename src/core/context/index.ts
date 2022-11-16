@@ -1,2 +1,2 @@
-export * from "./dateProvider";
-export * from "./rangeProvider";
+export * from "./date/dateProvider";
+export * from "./range/rangeProvider";

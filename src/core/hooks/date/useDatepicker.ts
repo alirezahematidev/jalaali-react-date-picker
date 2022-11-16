@@ -2,7 +2,7 @@ import moment from "moment-jalaali";
 import { useCallback, useMemo } from "react";
 import { dateTransformer } from "../../../utils";
 import { localizedDayLabels, localizedMonth } from "../../constants";
-import { useDatePickerContext } from "../../context/dateProvider";
+import { useDatePickerContext } from "../../context/date/dateProvider";
 
 export const useDatepicker = () => {
   const {

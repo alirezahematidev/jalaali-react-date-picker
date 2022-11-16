@@ -1,4 +1,4 @@
-import { Date } from "../types/global.types";
+import { Date } from "../../types/global.types";
 
 export enum ActionKind {
   DATE = "DATE",

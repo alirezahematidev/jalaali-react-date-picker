@@ -1,4 +1,4 @@
-import { RangeDate } from "../types/global.types";
+import { RangeDate } from "../../types/global.types";
 import {
   nextDate,
   nextMonth,
