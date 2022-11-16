@@ -4,7 +4,7 @@ import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg
 import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
 
 import { useDatepicker } from "../../../core";
-import { useGetMonthLabel } from "../../../utils/getMonthLabel";
+import { getMonthLabels } from "../../../utils";
 import { usePanelContext } from "../panel/panelMode";
 
 export interface HeaderProps {
@@ -25,7 +25,6 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
 
   const selectedDate = state || cacheDate;
 
-  const getMonthLabel = useGetMonthLabel();
   const { headerRender } = usePanelContext();
 
   const current = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
@@ -66,7 +65,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
             onClick={onSelectMonthPicker}
           >
             <p className="panel-header-item-text">
-              {getMonthLabel(selectedDate.month)}
+              {getMonthLabels(selectedDate.month, isJalaali)}
             </p>
           </div>
           <div

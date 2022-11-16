@@ -1,5 +1,5 @@
 import { useRangepicker } from "../../../core";
-import { useGetMonthLabel } from "../../../utils";
+import { getMonthLabels } from "../../../utils";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { HeaderSide } from "./side";
 
@@ -24,8 +24,6 @@ const RangeHeader = ({
 
   const { type } = useRangeTemplate();
 
-  const getMonthLabel = useGetMonthLabel();
-
   //   const startDate = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
   const node = (
@@ -33,7 +31,10 @@ const RangeHeader = ({
       <HeaderSide
         isJalaali={isJalaali}
         yearLabel={String(type === "from" ? from.year : to.year)}
-        monthLabel={getMonthLabel(type === "from" ? from.month : to.month || 0)}
+        monthLabel={getMonthLabels(
+          type === "from" ? from.month : to.month || 0,
+          isJalaali,
+        )}
         onDecreaseMonth={() => onRangeDecreaseMonth()}
         onDecreaseYear={() => onRangeDecreaseYear()}
         onIncreaseMonth={() => onRangeIncreaseMonth()}
