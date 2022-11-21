@@ -2,6 +2,7 @@ import { renderHook } from "@testing-library/react";
 import moment from "moment-jalaali";
 import { ReactNode } from "react";
 import { RangeProvider, useRangeDays } from "../../..";
+import { dateTransformer } from "../../../../utils";
 
 function wrapper({ children }: { children: ReactNode }) {
   return (
@@ -19,17 +20,29 @@ function wrapper({ children }: { children: ReactNode }) {
 }
 
 describe("useRangeDays from", () => {
-  test("test useRangeDays", async () => {
-    const {
-      result: {
-        current: { days },
-      },
-    } = renderHook(() => useRangeDays("from"), { wrapper });
-
+  const {
+    result: {
+      current: { days },
+    },
+  } = renderHook(() => useRangeDays("from"), { wrapper });
+  it("days should have length of 42", () => {
     expect(days).toHaveLength(42);
+  });
+  it("checks not current month", () => {
     expect(
       days.some(({ isNotCurrentMonth }) => isNotCurrentMonth),
     ).toBeTruthy();
+  });
+
+  it("checks for disabled dates", () => {
+    const item = days.find(({ isDisabled }) => isDisabled);
+    if (!item) return;
+    const res = dateTransformer({
+      day: item.day,
+      month: item.month,
+      year: item.year,
+    }).isBefore(moment(), "day");
+    expect(res).toBeTruthy();
   });
 });
 describe("useRangeDays to", () => {
