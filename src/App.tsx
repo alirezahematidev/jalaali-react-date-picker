@@ -1,4 +1,4 @@
-import moment, { Moment } from "moment-jalaali";
+import moment, { Moment } from "moment";
 import { useState } from "react";
 import { RangePicker } from "./components/range";
 
@@ -28,6 +28,7 @@ function App() {
         disabledDates={(current) => {
           return current.isBefore(moment());
         }}
+        format="jMM/jDD/jYYYY"
       />
       <RangePicker locale={{ language: "en" }} />
       {/* <Picker locale={{ language: "fa" }} /> */}
