@@ -1,16 +1,25 @@
 import classNames from "classnames";
-import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
-import { memo } from "react";
-import { PanelProps, useDatepicker, useSetColors } from "../../../core";
+import { ForwardedRef, forwardRef, Ref } from "react";
+import {
+  PanelProps as Props,
+  useDatepicker,
+  useSetColors,
+} from "../../../core";
 import "../../../styles/index.scss";
 import { Footer } from "../../footer";
 import { PanelMode } from "./panelMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
 
-const Panel = memo(
-  ({
+interface PanelProps extends Props {
+  ref?: Ref<HTMLDivElement>;
+}
+
+type PanelComponent = typeof Panel;
+
+const Panel = (
+  {
     footerRender,
     headerRender,
     panelRender,
@@ -18,32 +27,37 @@ const Panel = memo(
     dayLabelRender,
     onModeChange,
     customColors,
-  }: PanelProps) => {
-    const { isJalaali } = useDatepicker();
+  }: PanelProps,
+  ref: ForwardedRef<HTMLDivElement>,
+) => {
+  const { isJalaali } = useDatepicker();
 
-    useSetColors(customColors);
+  useSetColors(customColors);
 
-    return (
-      <div
-        className={classNames(
-          isJalaali ? "panel-jalaali" : "panel-gregorian",
-          "panel-elevation",
-        )}
-      >
-        <PanelMode
-          {...{
-            headerRender,
-            panelRender,
-            dayLabelRender,
-            highlightOffDays,
-            onModeChange,
-          }}
-        />
-        <Footer footerRender={footerRender} />
-      </div>
-    );
-  },
-  isEqual,
-);
+  return (
+    <div
+      ref={ref}
+      className={classNames(
+        isJalaali ? "panel-jalaali" : "panel-gregorian",
+        "panel-elevation",
+      )}
+    >
+      <PanelMode
+        {...{
+          headerRender,
+          panelRender,
+          dayLabelRender,
+          highlightOffDays,
+          onModeChange,
+        }}
+      />
+      <Footer footerRender={footerRender} />
+    </div>
+  );
+};
 
-export default Panel;
+const PanelWithRef = forwardRef<HTMLDivElement, PanelProps>(
+  Panel,
+) as PanelComponent;
+
+export default PanelWithRef;
