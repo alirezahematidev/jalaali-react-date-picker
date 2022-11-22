@@ -152,7 +152,6 @@ export const useDateReducer = ({
     },
     [cacheDate.day, cacheDate?.month],
   );
-
   return {
     state,
     cacheDate,

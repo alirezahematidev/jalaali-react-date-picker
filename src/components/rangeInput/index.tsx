@@ -1,28 +1,32 @@
 import classNames from "classnames";
-import React from "react";
+import { useRef } from "react";
 import arrowForward from "../../assets/icons/arrow_forward.svg";
 
-import {
-  InputRangePickerProps,
-  RangePickerProps,
-  useRangepicker,
-} from "../../core";
-import { RangeProvider } from "../../core/context";
+import { InputRangePickerProps, useRangepicker } from "../../core";
+import { RangeProvider } from "../../core/context/range";
+import { dateTransformer } from "../../utils";
+import { useLayout } from "./useLayout";
 
 const RangeInput = ({
-  defaultValue,
   disabledDates,
-  format,
-
   locale,
   onChange,
   onDayChange,
   onMonthChange,
   onYearChange,
   value,
+  prefixIcon,
+  suffixIcon,
   ...rest
 }: InputRangePickerProps) => {
-  const { value: v } = useRangepicker();
+  const ref = useRef<HTMLDivElement>(null);
+
+  const layout = useLayout(ref);
+
+  console.log({ layout });
+
+  const { rangeState, format } = useRangepicker();
+
   return (
     <RangeProvider
       props={{
@@ -36,12 +40,22 @@ const RangeInput = ({
         onYearChange,
       }}
     >
-      <div className={classNames("range_input_wrapper")}>
-        <input className={classNames("range_input_from")} {...rest} />
+      <div ref={ref} className={classNames("range_input_wrapper")}>
+        <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
+          {prefixIcon && prefixIcon}
+          <input
+            value={dateTransformer(rangeState.startDate).format(format || "")}
+            className={classNames("input")}
+            {...rest}
+          />
+        </div>
         <div className="range-icon">
           <img src={arrowForward} alt="calendar" width={20} height={20} />
         </div>
-        <input className={classNames("range_input_to")} {...rest} />
+        <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
+          {suffixIcon && suffixIcon}
+          <input className={classNames("input")} {...rest} />
+        </div>
       </div>
     </RangeProvider>
   );

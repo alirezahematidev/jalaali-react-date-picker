@@ -1,7 +1,6 @@
 import { isEqual } from "lodash-es";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { formatGenerator, rangeTransformer } from "../../../utils";
-import { useDeepCompareEffect } from "../../hooks";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate } from "../../types/global.types";
 import { RangePropsReducerType } from "../propsReducer";
@@ -80,35 +79,20 @@ export const RangeProvider = ({
   const { setLocale, setRangeDisabledDates, propsState, setFormat } =
     useRangePropsReducer();
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
       setLocale(props.locale);
-
-      if (props.format !== propsState.format) {
-        const format = props.format
-          ? typeof props.format === "function"
-            ? props.format(rangeTransformer(cacheRangeDate))
-            : props.format
-          : formatGenerator(language === "fa");
-        setFormat(format);
-      }
-
-      // onRangeDaychange({
-      //   startDate: {
-      //     day: 0,
-      //     year: isJalaali ? moment().jYear() : moment().year(),
-      //     month: Number(moment().format(isJalaali ? "jM" : "M")),
-      //   },
-      //   endDate: {
-      //     day: 0,
-      //     year: isJalaali ? moment().jYear() : moment().year(),
-      //     month: Number(
-      //       moment()
-      //         .add(1, "month")
-      //         .format(isJalaali ? "jM" : "M"),
-      //     ),
-      //   },
-      // });
+    }
+    if (
+      props.format !== propsState.format ||
+      (props.format === undefined && propsState.format === undefined)
+    ) {
+      const format = props.format
+        ? typeof props.format === "function"
+          ? props.format(rangeTransformer(cacheRangeDate))
+          : props.format
+        : formatGenerator(language === "fa");
+      setFormat(format);
     }
     if (
       props.disabledDates?.length &&

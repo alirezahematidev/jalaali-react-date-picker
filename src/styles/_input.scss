@@ -15,15 +15,53 @@
   }
 }
 
+.slider {
+  &::before {
+    content: "";
+    position: absolute;
+    transition: all 300ms ease;
+    width: 100%;
+    border-bottom: 2 solid blue;
+    bottom: -2px;
+  }
+}
+
 .range_input_wrapper {
-  border: 1px solid gray;
-  border-radius: 4px;
-  height: 20px;
-  padding: 4px;
   display: flex;
   flex-direction: row;
-  &:hover {
-    border: 2px solid rgb(131, 129, 125);
+  align-items: center;
+  border: 1px solid gray;
+  position: relative;
+  border-radius: 4px;
+  padding: 4px;
+  &:focus {
+    box-shadow: none;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    border-bottom: none;
+    bottom: -2px;
+    left: 50%;
+  }
+}
+
+.input {
+  all: unset;
+  height: 34;
+  border: unset !important;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding-inline: 8px;
+  &:focus {
+    box-shadow: none;
+    border: unset !important;
+  }
+  &:focus-visible {
+    box-shadow: none;
+    border: unset !important;
   }
 }
 
@@ -32,20 +70,17 @@
   flex: 1;
   width: 100%;
   height: 18px;
-  border: none;
+  border: none !important;
   &:hover {
     border: none !important;
-    background-color: green;
   }
   &:focus-visible {
     border: none !important;
-    background-color: red;
-    box-shadow: none;
+    box-shadow: none !important;
   }
   &:focus {
     border: none !important;
-    background-color: blue;
-    box-shadow: none;
+    box-shadow: none !important;
   }
 }
 .range_input_to {
@@ -53,19 +88,16 @@
   flex: 1;
   width: 100%;
   height: 18px;
-  border: none;
+  border: none !important;
   &:hover {
     border: none !important;
-    background-color: green;
   }
   &:focus-visible {
     border: none !important;
-    background-color: red;
     box-shadow: none;
   }
   &:focus {
     border: none !important;
-    background-color: blue;
     box-shadow: none;
   }
 }

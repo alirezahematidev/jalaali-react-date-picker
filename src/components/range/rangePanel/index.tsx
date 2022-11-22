@@ -1,43 +1,58 @@
 import classNames from "classnames";
-import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
-import { memo } from "react";
-import { RangePanelProps, useDatepicker, useSetColors } from "../../../core";
+import { ForwardedRef, forwardRef, Ref } from "react";
+import {
+  RangePanelProps as Props,
+  useDatepicker,
+  useSetColors,
+} from "../../../core";
 import "../../../styles/index.scss";
 import { RangePanelMode } from "./panelRangeMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
 
-const RangePanel = memo(
-  ({
+interface RangePanelProps extends Props {
+  ref?: Ref<HTMLDivElement>;
+}
+
+type RangePanelComponent = typeof RangePanel;
+
+const RangePanel = (
+  {
     headerRender,
     panelRender,
     highlightOffDays,
     dayLabelRender,
     customColors,
-  }: RangePanelProps) => {
-    const { isJalaali } = useDatepicker();
+  }: RangePanelProps,
+  ref: ForwardedRef<HTMLDivElement>,
+) => {
+  const { isJalaali } = useDatepicker();
 
-    useSetColors(customColors);
-    return (
-      <div
-        className={classNames(
-          isJalaali ? "panel-range-jalaali" : "panel-range-gregorian",
-          "panel-elevation",
-        )}
-      >
-        <RangePanelMode
-          {...{
-            headerRender,
-            panelRender,
-            dayLabelRender,
-            highlightOffDays,
-          }}
-        />
-      </div>
-    );
-  },
-  isEqual,
-);
+  useSetColors(customColors);
 
-export default RangePanel;
+  return (
+    <div
+      ref={ref}
+      className={classNames(
+        isJalaali ? "panel-range-jalaali" : "panel-range-gregorian",
+        "panel-elevation",
+      )}
+    >
+      <RangePanelMode
+        {...{
+          headerRender,
+          panelRender,
+          dayLabelRender,
+          highlightOffDays,
+        }}
+      />
+    </div>
+  );
+};
+
+const RangePanelWithRef = forwardRef<HTMLDivElement, RangePanelProps>(
+  RangePanel,
+) as RangePanelComponent;
+
+export default RangePanelWithRef;
