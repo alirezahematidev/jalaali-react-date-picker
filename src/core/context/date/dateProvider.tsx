@@ -96,7 +96,7 @@ export const DateProvider = ({
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(dateTransformer(cacheDate))
+          ? props.format(dateTransformer(cacheDate, language === "fa"))
           : props.format
         : formatGenerator(language === "fa");
       setFormat(format);

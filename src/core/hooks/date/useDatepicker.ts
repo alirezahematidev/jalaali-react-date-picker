@@ -37,7 +37,7 @@ export const useDatepicker = () => {
           month: Number(moment().format("M")),
         };
 
-    const todayInMoment = dateTransformer({ ...today });
+    const todayInMoment = dateTransformer({ ...today }, isJalaali);
     const isTodayDisabled = disabledDates?.(todayInMoment);
     if (isTodayDisabled) {
       onMonthchange?.({ ...today, day: 0 });

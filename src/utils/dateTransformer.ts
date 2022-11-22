@@ -4,7 +4,7 @@ import { Date } from "../core";
 
 export const dateTransformer = (
   data: Date,
-  isJalaali = true,
+  isJalaali: boolean,
 ): moment.Moment => {
   const { day, month, year } = data;
   if (day < 1 || month < 1 || year < 1) {

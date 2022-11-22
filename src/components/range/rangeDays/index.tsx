@@ -19,6 +19,7 @@ const RangeDays = ({}: RangeDaysProps) => {
     onRangeDecreaseYear,
     from,
     to,
+    isJalaali,
   } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
 
@@ -33,13 +34,16 @@ const RangeDays = ({}: RangeDaysProps) => {
         (!!cacheRangeDate.startDate && !!cacheRangeDate.endDate);
       if (!isStartDate) {
         const selectedRange = getRange(
-          dateTransformer(cacheRangeDate.startDate),
-          dateTransformer({ day, month, year }),
+          dateTransformer(cacheRangeDate.startDate, isJalaali),
+          dateTransformer({ day, month, year }, isJalaali),
         );
+
+        console.log("selectedRange", selectedRange);
         const firstDisabledIndex = selectedRange.findIndex((item) =>
           disabledDates?.(item),
         );
         if (firstDisabledIndex !== -1) {
+          console.log("sag", selectedRange);
           return onRangeDaychange(
             momentTransformer(selectedRange[firstDisabledIndex - 1]),
             false,
@@ -73,6 +77,7 @@ const RangeDays = ({}: RangeDaysProps) => {
       cacheRangeDate?.startDate,
       disabledDates,
       from.month,
+      isJalaali,
       onRangeDaychange,
       onRangeDecreaseYear,
       onRangeIncreaseYear,
