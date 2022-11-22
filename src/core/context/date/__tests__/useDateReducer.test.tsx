@@ -1,16 +1,23 @@
 import { act, renderHook } from "@testing-library/react";
-import { DateProvider, useDateReducer } from "../../core";
+import { ReactNode } from "react";
+import { DateProvider, useDateReducer } from "../../..";
+
+function wrapper({ children }: { children: ReactNode }) {
+  return (
+    <DateProvider
+      props={{
+        locale: { language: "fa" },
+      }}
+    >
+      {children}
+    </DateProvider>
+  );
+}
 
 describe("onDaychange", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onDaychange({ day: 5, month: 7, year: 1401 }));
 
@@ -25,13 +32,7 @@ describe("onDaychange", () => {
 describe("onDecreaseMonth", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onDecreaseMonth({ day: 0, month: 8, year: 1401 }));
     expect(result.current.state).toStrictEqual({
@@ -45,13 +46,7 @@ describe("onDecreaseMonth", () => {
 describe("onIncreaseMonth", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onIncreaseMonth({ day: 0, month: 4, year: 1401 })),
       expect(result.current.state).toStrictEqual({
@@ -64,13 +59,7 @@ describe("onIncreaseMonth", () => {
 describe("onYearchange", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onYearchange({ day: 0, month: 0, year: 1401 }));
 
@@ -84,13 +73,7 @@ describe("onYearchange", () => {
 describe("onMonthchange", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onMonthchange({ day: 0, month: 8, year: 1401 }));
 
@@ -104,13 +87,7 @@ describe("onMonthchange", () => {
 describe("onIncreaseYear", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onIncreaseYear({ day: 1, month: 7, year: 1401 }));
     expect(result.current.state).toStrictEqual({
@@ -123,13 +100,7 @@ describe("onIncreaseYear", () => {
 describe("onDecreaseYear", () => {
   test("test useReducer", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
-      wrapper({ children }) {
-        return (
-          <DateProvider props={{ locale: { language: "fa" } }}>
-            {children}
-          </DateProvider>
-        );
-      },
+      wrapper,
     });
     act(() => result.current.onDecreaseYear({ day: 1, month: 9, year: 1401 }));
     expect(result.current.state).toStrictEqual({

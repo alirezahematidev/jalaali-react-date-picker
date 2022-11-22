@@ -89,6 +89,11 @@ export function rangePropsReducer(
         ...state,
         disabledDates: payload,
       };
+    case PropsActionKind.FORMAT:
+      return {
+        ...state,
+        format: payload,
+      };
     default:
       return state;
   }
