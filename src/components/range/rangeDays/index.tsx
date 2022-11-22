@@ -38,12 +38,10 @@ const RangeDays = ({}: RangeDaysProps) => {
           dateTransformer({ day, month, year }, isJalaali),
         );
 
-        console.log("selectedRange", selectedRange);
         const firstDisabledIndex = selectedRange.findIndex((item) =>
           disabledDates?.(item),
         );
         if (firstDisabledIndex !== -1) {
-          console.log("sag", selectedRange);
           return onRangeDaychange(
             momentTransformer(selectedRange[firstDisabledIndex - 1]),
             false,

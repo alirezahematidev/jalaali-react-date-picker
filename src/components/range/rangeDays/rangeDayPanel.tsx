@@ -32,10 +32,14 @@ export const RangeDayPanel = ({
   selectedRange,
 }: RangeDayPanelProps) => {
   const today = momentTransformer(moment());
-  const { isJalaali } = useRangepicker();
+  const { isJalaali, dayLabels } = useRangepicker();
   return (
     <div className="range-day-panel-item">
-      <DayLabel dayLabelRender={dayLabelRender} />
+      <DayLabel
+        dayLabelRender={dayLabelRender}
+        dayLabels={dayLabels}
+        isJalaali={isJalaali}
+      />
       <div className="days-body">
         {days.map((day) => {
           const { id, isNotCurrentMonth, isWeekend, isDisabled, ...date } = day;
