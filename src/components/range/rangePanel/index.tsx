@@ -44,6 +44,7 @@ const RangePanel = (
           panelRender,
           dayLabelRender,
           highlightOffDays,
+          customColors,
         }}
       />
     </div>

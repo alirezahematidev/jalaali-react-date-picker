@@ -31,6 +31,7 @@ function App() {
         format="jMM/jDD/jYYYY"
       /> */}
       <RangePicker locale={{ language: "en" }} />
+      <RangePicker locale={{ language: "fa" }} />
       {/* <Picker locale={{ language: "fa" }} /> */}
       {/* <Picker
         locale={{ language: "fa" }}
