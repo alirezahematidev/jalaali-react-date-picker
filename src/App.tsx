@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 import { useState } from "react";
-import { RangePicker } from "./components/range";
+import { DatePicker } from "./components";
 
 function App() {
   const [date, setDate] = useState<Moment>();
@@ -30,8 +30,8 @@ function App() {
         }}
         format="jMM/jDD/jYYYY"
       /> */}
-      <RangePicker locale={{ language: "en" }} />
-      <RangePicker locale={{ language: "fa" }} />
+      <DatePicker locale={{ language: "en" }} />
+      <DatePicker locale={{ language: "fa" }} />
       {/* <Picker locale={{ language: "fa" }} /> */}
       {/* <Picker
         locale={{ language: "fa" }}
