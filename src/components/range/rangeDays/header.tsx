@@ -27,7 +27,7 @@ const RangeHeader = ({
   //   const startDate = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
   const node = (
-    <div className="panel-header-rtl">
+    <div className={isJalaali ? "panel-header-rtl" : "panel-header-ltr"}>
       <HeaderSide
         isJalaali={isJalaali}
         yearLabel={String(type === "from" ? from.year : to.year)}
