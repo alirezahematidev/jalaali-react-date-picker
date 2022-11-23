@@ -1,10 +1,16 @@
 import classNames from "classnames";
-import { PanelProps, useDatepicker } from "../../core";
+import { PanelProps } from "../../core";
 
-interface DayLabelProps extends Pick<PanelProps, "dayLabelRender"> {}
+interface DayLabelProps extends Pick<PanelProps, "dayLabelRender"> {
+  dayLabels: string[];
+  isJalaali: boolean;
+}
 
-export const DayLabel = ({ dayLabelRender }: DayLabelProps) => {
-  const { isJalaali, dayLabels } = useDatepicker();
+export const DayLabel = ({
+  dayLabelRender,
+  dayLabels,
+  isJalaali,
+}: DayLabelProps) => {
   const node = (
     <div
       className={classNames(

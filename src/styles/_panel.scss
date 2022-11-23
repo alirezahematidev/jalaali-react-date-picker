@@ -133,6 +133,14 @@
   max-height: 100%;
   max-width: 300px;
 }
+.panel-header-inner-rtl {
+  @extend .panel-header-inner;
+  direction: rtl;
+}
+.panel-header-inner-ltr {
+  @extend .panel-header-inner;
+  direction: ltr;
+}
 
 .panel-date-holder {
   @include flex-row;

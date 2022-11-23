@@ -3,8 +3,8 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 import {
   dateTransformer,
   formatGenerator,
+  getMonthLabels,
   rangeTransformer,
-  useGetMonthLabel,
 } from "../../../utils";
 import { DateRangePickerTypes } from "../../types";
 import {
@@ -59,7 +59,6 @@ export const useRangeReducer = ({
   language,
 }: RangeDateReducerType) => {
   const isJalaali = language === "fa";
-  const getMonthLabel = useGetMonthLabel();
 
   const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>({
     from: {
@@ -136,8 +135,8 @@ export const useRangeReducer = ({
     (payload: Date, isStartDate: boolean) => {
       if (
         (!isStartDate &&
-          dateTransformer(payload).isBefore(
-            dateTransformer(rangeState.startDate),
+          dateTransformer(payload, isJalaali).isBefore(
+            dateTransformer(rangeState.startDate, isJalaali),
             "day",
           )) ||
         (rangeState.startDate && rangeState.endDate)
@@ -165,7 +164,7 @@ export const useRangeReducer = ({
           onDayChangeProp?.([res.startDate.day, res.endDate.day]);
       }
     },
-    [onDayChangeProp, rangeState],
+    [onDayChangeProp, rangeState, isJalaali],
   );
 
   const onRangeMonthchange = useCallback(
@@ -275,8 +274,14 @@ export const useRangeReducer = ({
           year: to.year + 1,
         };
         onMonthChangeProp?.([
-          { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
-          { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+          {
+            name: getMonthLabels(updatedFrom.month, isJalaali),
+            value: updatedFrom.month,
+          },
+          {
+            name: getMonthLabels(updatedTo.month, isJalaali),
+            value: updatedTo.month,
+          },
         ]);
         return {
           from: updatedFrom,
@@ -295,15 +300,21 @@ export const useRangeReducer = ({
       };
 
       onMonthChangeProp?.([
-        { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
-        { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+        {
+          name: getMonthLabels(updatedFrom.month, isJalaali),
+          value: updatedFrom.month,
+        },
+        {
+          name: getMonthLabels(updatedTo.month, isJalaali),
+          value: updatedTo.month,
+        },
       ]);
       return {
         from: updatedFrom,
         to: updatedTo,
       };
     });
-  }, [getMonthLabel, onMonthChangeProp]);
+  }, [isJalaali, onMonthChangeProp]);
   const onRangeDecreaseMonth = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       if (from.month === 1) {
@@ -317,8 +328,14 @@ export const useRangeReducer = ({
           month: to.month - 1,
         };
         onMonthChangeProp?.([
-          { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
-          { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+          {
+            name: getMonthLabels(updatedFrom.month, isJalaali),
+            value: updatedFrom.month,
+          },
+          {
+            name: getMonthLabels(updatedTo.month, isJalaali),
+            value: updatedTo.month,
+          },
         ]);
         return {
           from: updatedFrom,
@@ -336,15 +353,21 @@ export const useRangeReducer = ({
       };
 
       onMonthChangeProp?.([
-        { name: getMonthLabel(updatedFrom.month), value: updatedFrom.month },
-        { name: getMonthLabel(updatedTo.month), value: updatedTo.month },
+        {
+          name: getMonthLabels(updatedFrom.month, isJalaali),
+          value: updatedFrom.month,
+        },
+        {
+          name: getMonthLabels(updatedTo.month, isJalaali),
+          value: updatedTo.month,
+        },
       ]);
       return {
         from: updatedFrom,
         to: updatedTo,
       };
     });
-  }, [getMonthLabel, onMonthChangeProp]);
+  }, [isJalaali, onMonthChangeProp]);
 
   return {
     rangeState,

@@ -1,8 +1,7 @@
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { dateTransformer, formatGenerator } from "../../../utils";
-import { useDeepCompareEffect } from "../../hooks";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
 import { DatePropsReducerType } from "../propsReducer";
@@ -75,7 +74,7 @@ export const DateProvider = ({
   const { setLocale, setFormat, setDisabledDates, propsState } =
     useDatePropsReducer();
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
       const isJalaali = language === "fa";
       setLocale(props.locale);
@@ -91,10 +90,13 @@ export const DateProvider = ({
     ) {
       setDisabledDates(props.disabledDates);
     }
-    if (props.format !== propsState.format) {
+    if (
+      props.format !== propsState.format ||
+      (props.format === undefined && propsState.format === undefined)
+    ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(dateTransformer(cacheDate))
+          ? props.format(dateTransformer(cacheDate, language === "fa"))
           : props.format
         : formatGenerator(language === "fa");
       setFormat(format);

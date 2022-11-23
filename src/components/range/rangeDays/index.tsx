@@ -19,6 +19,7 @@ const RangeDays = ({}: RangeDaysProps) => {
     onRangeDecreaseYear,
     from,
     to,
+    isJalaali,
   } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
 
@@ -33,9 +34,10 @@ const RangeDays = ({}: RangeDaysProps) => {
         (!!cacheRangeDate.startDate && !!cacheRangeDate.endDate);
       if (!isStartDate) {
         const selectedRange = getRange(
-          dateTransformer(cacheRangeDate.startDate),
-          dateTransformer({ day, month, year }),
+          dateTransformer(cacheRangeDate.startDate, isJalaali),
+          dateTransformer({ day, month, year }, isJalaali),
         );
+
         const firstDisabledIndex = selectedRange.findIndex((item) =>
           disabledDates?.(item),
         );
@@ -73,6 +75,7 @@ const RangeDays = ({}: RangeDaysProps) => {
       cacheRangeDate?.startDate,
       disabledDates,
       from.month,
+      isJalaali,
       onRangeDaychange,
       onRangeDecreaseYear,
       onRangeIncreaseYear,
@@ -116,8 +119,6 @@ const RangeDays = ({}: RangeDaysProps) => {
 export { RangeDays };
 
 function getRange(startDate: Moment, endDate: Moment) {
-  console.log("startDate.toISOString", startDate.toISOString());
-  console.log("endDate.toISOString", endDate.toISOString());
   const diff = endDate.diff(startDate, "days");
   const range = [];
   for (let i = 0; i < diff; i++) {

@@ -1,21 +1,18 @@
 import classNames from "classnames";
-import { useDatepicker, useRangepicker } from "../../../core";
-import { useGetMonthLabel } from "../../../utils";
-import { usePanelContext } from "../../date/panel/panelMode";
+import { useRangepicker } from "../../../core";
+import { getMonthLabels } from "../../../utils";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 
 export interface HeaderProps {}
 
 const MonthsHeader = ({}: HeaderProps) => {
-  const { isJalaali, state } = useDatepicker();
+  const { isJalaali, rangeState } = useRangepicker();
   const { onChangeMode, type } = useRangeTemplate();
   const { from, to } = useRangepicker();
   const { year, month } = type === "from" ? from : to;
-  const getMonthLabels = useGetMonthLabel();
 
-  const { headerRender } = usePanelContext();
-
-  const current = state && state.day !== 0 ? state : null;
+  const current =
+    rangeState && rangeState.startDate.day !== 0 ? rangeState : null;
 
   const node = (
     <div className="panel-header-rtl">
@@ -35,7 +32,7 @@ const MonthsHeader = ({}: HeaderProps) => {
                 {year}
               </p>
               <span>{"-"}</span>
-              <p className="clickable">{getMonthLabels(month)}</p>
+              <p className="clickable">{getMonthLabels(month, isJalaali)}</p>
             </div>
           </div>
         </div>
@@ -46,7 +43,8 @@ const MonthsHeader = ({}: HeaderProps) => {
 
   return (
     <div className="panel-header-wrapper">
-      {headerRender ? headerRender(current, node) : node}
+      {node}
+      {/* {headerRender ? headerRender(current, node) : node} */}
     </div>
   );
 };

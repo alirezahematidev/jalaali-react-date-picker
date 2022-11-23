@@ -16,7 +16,7 @@ export const useDatepicker = () => {
     ...rest
   } = useDatePickerContext();
 
-  const { isJalaali, months, dayLabels } = useMemo(() => {
+  const { isJalaali, dayLabels } = useMemo(() => {
     return {
       isJalaali: language === "fa",
       months: localizedMonth[language || "fa"],
@@ -37,7 +37,7 @@ export const useDatepicker = () => {
           month: Number(moment().format("M")),
         };
 
-    const todayInMoment = dateTransformer({ ...today });
+    const todayInMoment = dateTransformer({ ...today }, isJalaali);
     const isTodayDisabled = disabledDates?.(todayInMoment);
     if (isTodayDisabled) {
       onMonthchange?.({ ...today, day: 0 });
@@ -52,7 +52,6 @@ export const useDatepicker = () => {
     goToToday,
     isJalaali,
     language,
-    months,
     dayLabels,
     cacheDate,
     onMonthchange,

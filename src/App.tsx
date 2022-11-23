@@ -1,4 +1,4 @@
-import { Moment } from "moment-jalaali";
+import { Moment } from "moment";
 import { useState } from "react";
 import { DatePicker } from "./components";
 
@@ -23,7 +23,15 @@ function App() {
         add 6 months
       </button> */}
 
+      {/* <RangePicker
+        locale={{ language: "fa" }}
+        disabledDates={(current) => {
+          return current.isBefore(moment());
+        }}
+        format="jMM/jDD/jYYYY"
+      /> */}
       <DatePicker locale={{ language: "en" }} />
+      <DatePicker locale={{ language: "fa" }} />
       {/* <Picker locale={{ language: "fa" }} /> */}
       {/* <Picker
         locale={{ language: "fa" }}

@@ -1,13 +1,6 @@
-import { useCallback } from "react";
-import { useDatepicker } from "../core";
+import { gregorianMonths, jalaaliMonths } from "../core/constants/datasets";
 
-export const useGetMonthLabel = () => {
-  const { months } = useDatepicker();
-  const getMonthLabels = useCallback(
-    (month: number) => {
-      return months.find((item) => item.id === month)?.name || "";
-    },
-    [months],
-  );
-  return getMonthLabels;
+export const getMonthLabels = (month: number, isJalaali = true) => {
+  const months = isJalaali ? jalaaliMonths : gregorianMonths;
+  return months.find((item) => item.id === month)?.name || "";
 };

@@ -3,7 +3,7 @@ import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
 import {
   RangePanelProps as Props,
-  useDatepicker,
+  useRangepicker,
   useSetColors,
 } from "../../../core";
 import "../../../styles/index.scss";
@@ -27,8 +27,7 @@ const RangePanel = (
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
-  const { isJalaali } = useDatepicker();
-
+  const { isJalaali } = useRangepicker();
   useSetColors(customColors);
 
   return (
@@ -45,6 +44,7 @@ const RangePanel = (
           panelRender,
           dayLabelRender,
           highlightOffDays,
+          customColors,
         }}
       />
     </div>

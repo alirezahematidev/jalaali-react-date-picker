@@ -19,6 +19,7 @@ const RangePanelModeContext = createContext<RangePanelModeContext>({
     customDates: [],
     weekend: true,
   },
+  customColors: undefined,
 });
 
 export const RangePanelMode = ({ ...props }: RangePanelModeProps) => {
