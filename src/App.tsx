@@ -1,12 +1,23 @@
 import { Moment } from "moment";
 import { useState } from "react";
 import { DatePicker } from "./components";
+import { Select } from "./components/popup";
+import "./styles/index.scss";
 
 function App() {
   const [date, setDate] = useState<Moment>();
 
   return (
-    <div style={{ flexDirection: "row", display: "flex", gap: 16 }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        background: "#ccc",
+        padding: 500,
+        paddingTop: 1000,
+        paddingLeft: 1000,
+      }}
+    >
       {/* <Picker
         locale={{ language: "fa" }}
         value={date}
@@ -30,8 +41,21 @@ function App() {
         }}
         format="jMM/jDD/jYYYY"
       /> */}
-      <DatePicker locale={{ language: "en" }} />
-      <DatePicker locale={{ language: "fa" }} />
+      {/* <DatePicker locale={{ language: "en" }} /> */}
+      {/* <DatePicker locale={{ language: "fa" }} /> */}
+      <Select>
+        <input
+          style={{
+            width: 400,
+            height: 30,
+            outline: "none",
+            background: "none",
+            appearance: "none",
+            padding: 0,
+            border: " 1px solid #444",
+          }}
+        />
+      </Select>
       {/* <Picker locale={{ language: "fa" }} /> */}
       {/* <Picker
         locale={{ language: "fa" }}
