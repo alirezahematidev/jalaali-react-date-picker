@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useEffect, useState } from "react";
+import { MutableRefObject, useCallback } from "react";
 import { useWindowSize } from "./useWindowSize";
 
 type ReverseConfig = {

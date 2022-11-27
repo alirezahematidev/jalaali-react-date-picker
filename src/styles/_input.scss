@@ -15,17 +15,6 @@
   }
 }
 
-.slider {
-  &::before {
-    content: "";
-    position: absolute;
-    transition: all 300ms ease;
-    width: 100%;
-    border-bottom: 2 solid blue;
-    bottom: -2px;
-  }
-}
-
 .range_input_wrapper {
   display: flex;
   flex-direction: row;
@@ -34,6 +23,9 @@
   position: relative;
   border-radius: 4px;
   padding: 4px;
+  &:hover {
+    border-color: var(--highlight);
+  }
   &:focus {
     box-shadow: none;
   }
@@ -47,14 +39,34 @@
   }
 }
 
-.input {
+.input_fa {
   all: unset;
   height: 34;
   border: unset !important;
   display: flex;
-  flex: 1;
   width: 100%;
   padding-inline: 8px;
+  text-align: right;
+  @include font-family();
+
+  &:focus {
+    box-shadow: none;
+    border: unset !important;
+  }
+  &:focus-visible {
+    box-shadow: none;
+    border: unset !important;
+  }
+}
+.input_en {
+  all: unset;
+  height: 34;
+  border: unset !important;
+  display: flex;
+  width: 100%;
+  padding-inline: 8px;
+  text-align: left;
+  @include font-family-en();
   &:focus {
     box-shadow: none;
     border: unset !important;

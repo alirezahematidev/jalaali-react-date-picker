@@ -1,12 +1,12 @@
 import { Moment } from "moment";
 import { useState } from "react";
-import { DatePicker } from "./components";
 import { Select } from "./components/popup";
+import { RangeInput } from "./components/rangeInput";
 import "./styles/index.scss";
 
 function App() {
-  const [date, setDate] = useState<Moment>();
-
+  const [date, setDate] = useState<[Moment, Moment]>();
+  console.log("date", date);
   return (
     <div
       style={{
@@ -15,7 +15,7 @@ function App() {
         background: "#ccc",
         padding: 500,
         paddingTop: 1000,
-        paddingLeft: 1000,
+        // paddingLeft: 1000,
       }}
     >
       {/* <Picker
@@ -35,6 +35,8 @@ function App() {
       </button> */}
 
       {/* <RangePicker
+      {/* 
+      <RangePicker
         locale={{ language: "fa" }}
         disabledDates={(current) => {
           return current.isBefore(moment());
@@ -44,42 +46,8 @@ function App() {
       {/* <DatePicker locale={{ language: "en" }} /> */}
       {/* <DatePicker locale={{ language: "fa" }} /> */}
       <Select>
-        <input
-          style={{
-            width: 400,
-            height: 30,
-            outline: "none",
-            background: "none",
-            appearance: "none",
-            padding: 0,
-            border: " 1px solid #444",
-          }}
-        />
+        <RangeInput value={date} onChange={(date) => setDate(date)} />
       </Select>
-      {/* <Picker locale={{ language: "fa" }} /> */}
-      {/* <Picker
-        locale={{ language: "fa" }}
-        onMonthChange={(months) => console.log("onMonthChange", months)}
-        onYearChange={(years) => console.log("onYearChange", years)}
-        // disabledDates={(current) => current.isBefore(moment())}
-      />
-      <div>
-        <RangePicker
-          locale={{ language: "fa" }}
-          onMonthChange={(months) => console.log("onMonthChange", months)}
-          onYearChange={(years) => console.log("onYearChange", years)}
-          disabledDates={(current) =>
-            current.isBetween(moment().subtract(10, "day"), moment())
-          }
-        />
-        <RangeInput />
-      </div>
-      /> */}
-      {/* <RangePicker
-        locale={{ language: "fa" }}
-        onMonthChange={(months) => console.log("onMonthChange", months)}
-        onYearChange={(years) => console.log("onYearChange", years)}
-      /> */}
     </div>
   );
 }

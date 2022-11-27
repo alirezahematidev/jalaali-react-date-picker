@@ -1,64 +1,90 @@
 import classNames from "classnames";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import arrowBack from "../../assets/icons/arrow_back.svg";
 import arrowForward from "../../assets/icons/arrow_forward.svg";
 
-import { InputRangePickerProps, useRangepicker } from "../../core";
-import { RangeProvider } from "../../core/context/range";
+import {
+  InputRangePickerProps,
+  RangeProvider,
+  useRangepicker,
+} from "../../core";
 import { dateTransformer } from "../../utils";
-import { useLayout } from "./useLayout";
 
 const RangeInput = ({
-  disabledDates,
-  locale,
-  onChange,
-  onDayChange,
-  onMonthChange,
-  onYearChange,
-  value,
   prefixIcon,
   suffixIcon,
-  ...rest
+  ...props
 }: InputRangePickerProps) => {
+  const [open, setopen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const layout = useLayout(ref);
-
-  console.log({ layout });
-
-  const { rangeState, format } = useRangepicker();
+  const { rangeState, format, isJalaali } = useRangepicker();
 
   return (
-    <RangeProvider
-      props={{
-        value,
-        disabledDates,
-        format,
-        locale,
-        onChange,
-        onDayChange,
-        onMonthChange,
-        onYearChange,
-      }}
-    >
+    <>
       <div ref={ref} className={classNames("range_input_wrapper")}>
         <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
           {prefixIcon && prefixIcon}
           <input
-            value={dateTransformer(rangeState.startDate).format(format || "")}
-            className={classNames("input")}
-            {...rest}
+            value={
+              rangeState.endDate
+                ? dateTransformer(rangeState.endDate, isJalaali).format(
+                    format || "",
+                  )
+                : ""
+            }
+            className={classNames(isJalaali ? "input_fa" : "input_en")}
+            // onClick={() => setopen(true)}
+            // onBlur={() => setopen(false)}
           />
         </div>
         <div className="range-icon">
-          <img src={arrowForward} alt="calendar" width={20} height={20} />
+          <img
+            src={isJalaali ? arrowBack : arrowForward}
+            alt="calendar"
+            width={20}
+            height={20}
+          />
         </div>
         <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
           {suffixIcon && suffixIcon}
-          <input className={classNames("input")} {...rest} />
+          <input
+            value={
+              rangeState.startDate.day
+                ? dateTransformer(rangeState.startDate, isJalaali).format(
+                    format || "",
+                  )
+                : ""
+            }
+            className={classNames(isJalaali ? "input_fa" : "input_en")}
+            // onClick={() => setopen(true)}
+            // onBlur={() => setopen(false)}
+          />
         </div>
       </div>
-    </RangeProvider>
+      {/* <button onClick={() => setopen(false)}>close</button> */}
+    </>
   );
 };
 
-export { RangeInput };
+export { Provider as RangeInput };
+
+const Provider = (props: InputRangePickerProps) => {
+  return (
+    <RangeProvider
+      props={{
+        value: props.value,
+        defaultValue: props.defaultValue,
+        onChange: props.onChange,
+        onDayChange: props.onDayChange,
+        onMonthChange: props.onMonthChange,
+        onYearChange: props.onYearChange,
+        format: props.format,
+        locale: props.locale,
+        disabledDates: props.disabledDates,
+      }}
+    >
+      <RangeInput {...props} />
+    </RangeProvider>
+  );
+};

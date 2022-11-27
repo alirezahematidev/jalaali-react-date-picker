@@ -77,7 +77,9 @@ export const Select = ({
             bottom:
               dir === "vertical" ? (!config().reverse ? "unset" : 36) : "unset",
           }}
-        ></div>
+        >
+          <DatePicker />
+        </div>
       )}
     </div>
   );
