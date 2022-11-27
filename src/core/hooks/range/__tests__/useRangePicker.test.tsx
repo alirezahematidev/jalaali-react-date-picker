@@ -11,7 +11,6 @@ function wrapper({ children }: { children: ReactNode }) {
         disabledDates: (current) => {
           return current.isBefore(moment());
         },
-        format: "jDD/jMM/jYYYY",
       }}
     >
       {children}
@@ -26,8 +25,5 @@ describe("useRangepicker", () => {
 
   it("checks for jalaali", () => {
     expect(result.current.isJalaali).toBeTruthy();
-  });
-  it("checks for jalaali", () => {
-    expect(result.current.format).toBe("jDD/jMM/jYYYY");
   });
 });

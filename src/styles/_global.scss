@@ -1,84 +1,96 @@
 @import "./mixins/mixin";
 @font-face {
-  font-family: iranyekanblack;
-  src: url("../assets/fonts/iranyekanwebblackfanum.woff") format("woff");
+    font-family: iranyekanblack;
+    src: url("../assets/fonts/iranyekanwebblackfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanbold;
-  src: url("../assets/fonts/iranyekanwebboldfanum.woff") format("woff");
+    font-family: iranyekanbold;
+    src: url("../assets/fonts/iranyekanwebboldfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanextrablack;
-  src: url("../assets/fonts/iranyekanwebextrablackfanum.woff") format("woff");
+    font-family: iranyekanextrablack;
+    src: url("../assets/fonts/iranyekanwebextrablackfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanextrabold;
-  src: url("../assets/fonts/iranyekanwebextraboldfanum.woff") format("woff");
+    font-family: iranyekanextrabold;
+    src: url("../assets/fonts/iranyekanwebextraboldfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanlight;
-  src: url("../assets/fonts/iranyekanweblightfanum.woff") format("woff");
+    font-family: iranyekanlight;
+    src: url("../assets/fonts/iranyekanweblightfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanmedium;
-  src: url("../assets/fonts/iranyekanwebmediumfanum.woff") format("woff");
+    font-family: iranyekanmedium;
+    src: url("../assets/fonts/iranyekanwebmediumfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanregular;
-  src: url("../assets/fonts/iranyekanwebregularfanum.woff") format("woff");
+    font-family: iranyekanregular;
+    src: url("../assets/fonts/iranyekanwebregularfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: iranyekanthin;
-  src: url("../assets/fonts/iranyekanwebthinfanum.woff") format("woff");
+    font-family: iranyekanthin;
+    src: url("../assets/fonts/iranyekanwebthinfanum.woff") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansRegular;
-  src: url("../assets/fonts/IRANSansFaNum.ttf") format("woff");
+    font-family: IRANSansRegular;
+    src: url("../assets/fonts/IRANSansFaNum.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansBold;
-  src: url("../assets/fonts/IRANSansFaNum_Bold.ttf") format("woff");
+    font-family: IRANSansBold;
+    src: url("../assets/fonts/IRANSansFaNum_Bold.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansLight;
-  src: url("../assets/fonts/IRANSansFaNum_Light.ttf") format("woff");
+    font-family: IRANSansLight;
+    src: url("../assets/fonts/IRANSansFaNum_Light.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansMedium;
-  src: url("../assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
+    font-family: IRANSansMedium;
+    src: url("../assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoLight;
-  src: url("../assets/fonts/Roboto-Light.ttf") format("woff");
+    font-family: RobotoLight;
+    src: url("../assets/fonts/Roboto-Light.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoRegular;
-  src: url("../assets/fonts/Roboto-Regular.ttf") format("woff");
+    font-family: RobotoRegular;
+    src: url("../assets/fonts/Roboto-Regular.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoMedium;
-  src: url("../assets/fonts/Roboto-Medium.ttf") format("woff");
+    font-family: RobotoMedium;
+    src: url("../assets/fonts/Roboto-Medium.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoBold;
-  src: url("../assets/fonts/Roboto-Bold.ttf") format("woff");
+    font-family: RobotoBold;
+    src: url("../assets/fonts/Roboto-Bold.ttf") format("woff");
 }
 
 .clickable {
-  @include clickable;
+    @include clickable;
+}
+
+body,
+html {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    height: 100%;
 }

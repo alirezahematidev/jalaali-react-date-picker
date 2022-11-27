@@ -56,17 +56,17 @@ export function reducer(state: Date, action: DateAction): Date {
       };
     case DateActionKind.YEAR:
       return {
-        ...state,
+        ...payload,
         year: payload.year,
       };
     case DateActionKind.YEAR_MINUS:
       return {
-        ...state,
+        ...payload,
         year: payload.year - 1,
       };
     case DateActionKind.YEAR_PLUS:
       return {
-        ...state,
+        ...payload,
         year: payload.year + 1,
       };
     default:

@@ -62,7 +62,7 @@ export const useDateReducer = ({
     (payload: Date) => {
       dispatch({ type: DateActionKind.DATE, payload });
       setCacheDate(payload);
-      const res = dateTransformer({ ...payload });
+      const res = dateTransformer({ ...payload }, isJalaali);
       payload.day !== 0 &&
         onChangeProp?.(
           res,

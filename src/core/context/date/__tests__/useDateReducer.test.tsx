@@ -15,7 +15,7 @@ function wrapper({ children }: { children: ReactNode }) {
 }
 
 describe("onDaychange", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 1", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
@@ -44,7 +44,7 @@ describe("onDecreaseMonth", () => {
 });
 
 describe("onIncreaseMonth", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 2", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
@@ -57,11 +57,11 @@ describe("onIncreaseMonth", () => {
   });
 });
 describe("onYearchange", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 3", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
-    act(() => result.current.onYearchange({ day: 0, month: 0, year: 1401 }));
+    act(() => result.current.onYearchange({ day: 0, month: 8, year: 1401 }));
 
     expect(result.current.state).toStrictEqual({
       day: 0,
@@ -71,7 +71,7 @@ describe("onYearchange", () => {
   });
 });
 describe("onMonthchange", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 4", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
@@ -85,27 +85,27 @@ describe("onMonthchange", () => {
   });
 });
 describe("onIncreaseYear", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 5", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
-    act(() => result.current.onIncreaseYear({ day: 1, month: 7, year: 1401 }));
+    act(() => result.current.onIncreaseYear({ day: 1, month: 9, year: 1401 }));
     expect(result.current.state).toStrictEqual({
       day: 0,
-      month: 8,
+      month: 9,
       year: 1402,
     });
   });
 });
 describe("onDecreaseYear", () => {
-  test("test useReducer", async () => {
+  test("test useReducer 6", async () => {
     const { result } = renderHook(() => useDateReducer({ language: "fa" }), {
       wrapper,
     });
-    act(() => result.current.onDecreaseYear({ day: 1, month: 9, year: 1401 }));
+    act(() => result.current.onDecreaseYear({ day: 1, month: 4, year: 1401 }));
     expect(result.current.state).toStrictEqual({
       day: 0,
-      month: 8,
+      month: 4,
       year: 1400,
     });
   });

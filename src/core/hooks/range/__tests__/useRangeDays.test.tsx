@@ -37,11 +37,14 @@ describe("useRangeDays from", () => {
   it("checks for disabled dates", () => {
     const item = days.find(({ isDisabled }) => isDisabled);
     if (!item) return;
-    const res = dateTransformer({
-      day: item.day,
-      month: item.month,
-      year: item.year,
-    }).isBefore(moment(), "day");
+    const res = dateTransformer(
+      {
+        day: item.day,
+        month: item.month,
+        year: item.year,
+      },
+      true,
+    ).isBefore(moment(), "day");
     expect(res).toBeTruthy();
   });
 });

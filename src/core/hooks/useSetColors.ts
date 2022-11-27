@@ -1,6 +1,6 @@
+import { useLayoutEffect } from "react";
 import { camelToKebab } from "../../utils/camelToKebab";
 import { ColorSchema } from "../types/global.types";
-import { useDeepCompareEffect } from "./useDeepCompareEffect";
 
 const properties: (keyof ColorSchema)[] = [
   "background",
@@ -14,7 +14,7 @@ const properties: (keyof ColorSchema)[] = [
 ];
 
 export const useSetColors = (colors?: ColorSchema) => {
-  useDeepCompareEffect(() => {
+  useLayoutEffect(() => {
     if (!document) return;
 
     const root = document.documentElement;

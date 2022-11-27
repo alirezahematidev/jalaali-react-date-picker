@@ -135,8 +135,8 @@ export const useRangeReducer = ({
     (payload: Date, isStartDate: boolean) => {
       if (
         (!isStartDate &&
-          dateTransformer(payload).isBefore(
-            dateTransformer(rangeState.startDate),
+          dateTransformer(payload, isJalaali).isBefore(
+            dateTransformer(rangeState.startDate, isJalaali),
             "day",
           )) ||
         (rangeState.startDate && rangeState.endDate)
@@ -164,7 +164,7 @@ export const useRangeReducer = ({
           onDayChangeProp?.([res.startDate.day, res.endDate.day]);
       }
     },
-    [onDayChangeProp, rangeState],
+    [onDayChangeProp, rangeState, isJalaali],
   );
 
   const onRangeMonthchange = useCallback(

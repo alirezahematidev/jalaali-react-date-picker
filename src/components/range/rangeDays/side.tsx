@@ -32,22 +32,21 @@ const HeaderSide = ({
     <div className="panel-header-inner">
       {type === "from" ? (
         <div className="center">
-          <div
-            className="iconItem"
-            onClick={() => (isJalaali ? onDecreaseYear() : onIncreaseYear())}
-          >
+          <div className="iconItem" onClick={onDecreaseYear}>
             <img
               width={18}
               height={18}
-              src={RightIconDouble}
+              src={isJalaali ? RightIconDouble : LeftIconDouble}
               alt="RightIconDouble"
             />
           </div>
-          <div
-            className="iconItem"
-            onClick={() => (isJalaali ? onDecreaseMonth() : onIncreaseMonth())}
-          >
-            <img width={18} height={18} src={RightIcon} alt="RightIcon" />
+          <div className="iconItem" onClick={onDecreaseMonth}>
+            <img
+              width={18}
+              height={18}
+              src={isJalaali ? RightIcon : LeftIcon}
+              alt="RightIcon"
+            />
           </div>
         </div>
       ) : (
@@ -69,21 +68,20 @@ const HeaderSide = ({
       </div>
       {type === "to" ? (
         <div className="center">
-          <div
-            className="iconItem"
-            onClick={() => (isJalaali ? onIncreaseMonth() : onDecreaseMonth())}
-          >
-            <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
+          <div className="iconItem" onClick={onIncreaseMonth}>
+            <img
+              width={18}
+              height={18}
+              src={isJalaali ? LeftIcon : RightIcon}
+              alt="LeftIcon"
+            />
           </div>
-          <div
-            className="iconItem"
-            onClick={() => (isJalaali ? onIncreaseYear() : onDecreaseYear())}
-          >
+          <div className="iconItem" onClick={onIncreaseYear}>
             <img
               width={18}
               height={18}
               alt="LeftIconDouble"
-              src={LeftIconDouble}
+              src={isJalaali ? LeftIconDouble : RightIconDouble}
             />
           </div>
         </div>

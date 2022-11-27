@@ -17,6 +17,7 @@ const Days = () => {
     onDaychange,
     onDateChange,
     dayLabels,
+    isJalaali,
   } = useDatepicker();
 
   const { days: metadataDays } = useDays();
@@ -71,7 +72,11 @@ const Days = () => {
         onSelectMonthPicker={() => onChangeMode?.("month")}
         onSelectYearPicker={() => onChangeMode?.("year")}
       />
-      <DayLabel dayLabelRender={dayLabelRender} />
+      <DayLabel
+        dayLabelRender={dayLabelRender}
+        dayLabels={dayLabels}
+        isJalaali={isJalaali}
+      />
       <div className="days-body">
         {panelRender ? panelRender({ days, dayLabels, selected }, node) : node}
       </div>
