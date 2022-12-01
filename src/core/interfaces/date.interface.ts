@@ -61,6 +61,6 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
   wrapperStyle?: CSSProperties;
   prefixIcon?: React.ReactNode;
   suffixIcon?: React.ReactNode;
-  placement?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+  placement?: "top" | "bottom" | "right" | "left";
   onOpenChange?: (open: boolean) => void;
 }

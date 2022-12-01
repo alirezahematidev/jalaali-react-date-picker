@@ -1,7 +1,8 @@
 import { Moment } from "moment";
 import { useState } from "react";
 import { DatePicker } from "./components";
-import { Select } from "./components/popup";
+import { InputDatePicker } from "./components/dateInput";
+import { Popup } from "./components/popup";
 import "./styles/index.scss";
 
 function App() {
@@ -12,10 +13,8 @@ function App() {
       style={{
         width: "100%",
         height: "100%",
-        background: "#ccc",
         padding: 500,
         paddingTop: 1000,
-        paddingLeft: 1000,
       }}
     >
       {/* <Picker
@@ -43,19 +42,7 @@ function App() {
       /> */}
       {/* <DatePicker locale={{ language: "en" }} /> */}
       {/* <DatePicker locale={{ language: "fa" }} /> */}
-      <Select>
-        <input
-          style={{
-            width: 400,
-            height: 30,
-            outline: "none",
-            background: "none",
-            appearance: "none",
-            padding: 0,
-            border: " 1px solid #444",
-          }}
-        />
-      </Select>
+      <InputDatePicker />
       {/* <Picker locale={{ language: "fa" }} /> */}
       {/* <Picker
         locale={{ language: "fa" }}

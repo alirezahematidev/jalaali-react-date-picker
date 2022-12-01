@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import { useState } from "react";
-import calendar from "../../../assets/icons/calendar_today.svg";
+import calendar from "../../assets/icons/calendar.svg";
 import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
+import { Popup } from "../popup";
 
 export const InputDatePicker = ({
   value,
@@ -19,7 +20,7 @@ export const InputDatePicker = ({
   disabled,
   suffixIcon,
   prefixIcon,
-  placement,
+  placement = "bottom",
   className,
   wrapperClassName,
   wrapperStyle,
@@ -28,18 +29,23 @@ export const InputDatePicker = ({
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale?.language || "fa") === "fa";
 
-  const onFocus = () => {
+  const toggle = () => {
     if (disabled) return;
 
-    setIsOpen(true);
-    onOpenChange?.(true);
+    setIsOpen((prev) => !prev);
+    onOpenChange?.(isOpen === undefined ? false : isOpen);
+    return true;
+  };
+
+  const close = () => {
+    setIsOpen(false);
+    onOpenChange?.(false);
   };
 
   const onBlur = () => {
     if (disabled) return;
 
-    setIsOpen(false);
-    onOpenChange?.(false);
+    close();
   };
 
   return (
@@ -53,29 +59,40 @@ export const InputDatePicker = ({
         disabledDates,
         locale,
         onDayChange,
+        ...pickerProps,
       }}
     >
-      <div
-        className={classNames(
-          "picker-input-wrapper",
-          isRtl && "rtl",
-          wrapperClassName,
-        )}
-        style={wrapperStyle}
-      >
-        {prefixIcon && prefixIcon}
-        <input
-          {...rest}
-          className={classNames("picker-input", isRtl && "rtl", className)}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-        {suffixIcon || (
-          <div className="calendar-icon">
-            <img src={calendar} alt="calendar" width={20} height={20} />
+      {(inputProps) => (
+        <Popup
+          placement={placement}
+          isOpen={isOpen}
+          close={close}
+          toggle={toggle}
+        >
+          <div
+            className={classNames(
+              "picker-input-wrapper",
+              isRtl && "rtl",
+              wrapperClassName,
+            )}
+            style={wrapperStyle}
+          >
+            {prefixIcon && prefixIcon}
+            <input
+              {...rest}
+              {...inputProps}
+              className={classNames("picker-input", isRtl && "rtl", className)}
+              onBlur={onBlur}
+              readOnly
+            />
+            {suffixIcon || (
+              <div className="calendar-icon">
+                <img src={calendar} alt="calendar" width={20} height={20} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </Popup>
+      )}
     </DateProvider>
   );
 };

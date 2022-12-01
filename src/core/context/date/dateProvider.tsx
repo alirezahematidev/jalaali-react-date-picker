@@ -8,6 +8,10 @@ import { DatePropsReducerType } from "../propsReducer";
 import { useDatePropsReducer } from "../usePropsReducer";
 import { useDateReducer } from "./useDateReducer";
 
+interface DateInputProps {
+  value: string;
+}
+
 interface ContextType extends DatePropsReducerType {
   state: Date;
   cacheDate?: Date;
@@ -41,13 +45,12 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseMonth: () => null,
 });
 
-export const DateProvider = ({
-  children,
-  props,
-}: {
-  children: React.ReactNode;
+interface DateProviderProps {
   props: DatePickerProps;
-}) => {
+  children: React.ReactNode | ((props: DateInputProps) => React.ReactNode);
+}
+
+export const DateProvider = ({ children, props }: DateProviderProps) => {
   const language = props ? props.locale?.language || "fa" : "fa";
 
   const {
@@ -61,6 +64,7 @@ export const DateProvider = ({
     onIncreaseMonth,
     onDecreaseMonth,
     cacheDate,
+    inputProps,
   } = useDateReducer({
     language,
     onDayChangeProp: props?.onDayChange,
@@ -122,7 +126,7 @@ export const DateProvider = ({
         ...propsState,
       }}
     >
-      {children}
+      {typeof children === "function" ? children(inputProps) : children}
     </DatePickerContext.Provider>
   );
 };

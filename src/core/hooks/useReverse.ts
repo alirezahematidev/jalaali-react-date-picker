@@ -1,25 +1,30 @@
-import { MutableRefObject, useCallback, useEffect, useState } from "react";
+import { MutableRefObject, useCallback, useRef } from "react";
+import { Placement } from "../../components/popup";
 import { useWindowSize } from "./useWindowSize";
 
 type ReverseConfig = {
   element: MutableRefObject<HTMLDivElement | null>;
   max: [number, number];
-  prevent: boolean;
-  dir: "vertical" | "horizontal";
+  placement: Placement;
 };
 
 type Config = {
-  reverse: boolean;
+  vReverse: boolean;
+  hReverse: boolean;
   destroy: boolean;
 };
 
-const DEFAULT_CONFIG: Config = { reverse: false, destroy: true };
+const DEFAULT_CONFIG: Config = {
+  vReverse: false,
+  hReverse: false,
+  destroy: true,
+};
 
-export const useReverse = ({ element, max, prevent, dir }: ReverseConfig) => {
+export const useReverse = ({ element, max, placement }: ReverseConfig) => {
   const { height, width } = useWindowSize();
 
   const config = useCallback(() => {
-    if (!element.current || prevent) return DEFAULT_CONFIG;
+    if (!element.current) return DEFAULT_CONFIG;
 
     const node = element.current;
 
@@ -31,24 +36,25 @@ export const useReverse = ({ element, max, prevent, dir }: ReverseConfig) => {
       const t = bounds.top;
       const l = bounds.left;
 
-      if (dir === "vertical") {
-        const reverse = height - (h + t) < max[0];
+      if (placement === "bottom" || placement === "top") {
+        const vReverse = height - (h + t) < max[0];
 
-        if (t < max[0] && reverse) {
-          return { destroy: false, reverse: false };
+        if (t < max[0] && vReverse) {
+          return { destroy: false, vReverse: false };
         }
-        return { destroy: true, reverse };
+        return { destroy: true, vReverse };
       }
-      const reverse = l < max[1];
+      const hReverse = l < max[1];
 
-      if (reverse && width - (l + w) < max[1]) {
-        return { destroy: false, reverse: false };
+      if (hReverse && width - (l + w) < max[1]) {
+        return { destroy: false, hReverse: false };
       }
-      return { destroy: true, reverse };
+      return { destroy: true, hReverse };
     }
 
     return DEFAULT_CONFIG;
-  }, [dir, element, height, max, prevent, width]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [element, height, max, width]);
 
   return config;
 };
