@@ -42,12 +42,6 @@ export const InputDatePicker = ({
     onOpenChange?.(false);
   };
 
-  const onBlur = () => {
-    if (disabled) return;
-
-    close();
-  };
-
   return (
     <DateProvider
       props={{
@@ -59,7 +53,6 @@ export const InputDatePicker = ({
         disabledDates,
         locale,
         onDayChange,
-        ...pickerProps,
       }}
     >
       {(inputProps) => (
@@ -68,6 +61,7 @@ export const InputDatePicker = ({
           isOpen={isOpen}
           close={close}
           toggle={toggle}
+          panelProps={pickerProps}
         >
           <div
             className={classNames(
@@ -82,7 +76,6 @@ export const InputDatePicker = ({
               {...rest}
               {...inputProps}
               className={classNames("picker-input", isRtl && "rtl", className)}
-              onBlur={onBlur}
               readOnly
             />
             {suffixIcon || (

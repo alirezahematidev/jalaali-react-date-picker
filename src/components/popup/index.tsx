@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { ReactNode, useRef, useState } from "react";
+import { PanelProps } from "../../core";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { useDestroy } from "../../core/hooks/useDestroy";
 import { useReverse } from "../../core/hooks/useReverse";
@@ -11,6 +12,7 @@ interface PopupProps {
   children: ReactNode;
   placement?: Placement;
   isOpen?: boolean;
+  panelProps?: PanelProps;
   close: () => void;
   toggle: () => boolean | undefined;
 }
@@ -21,6 +23,7 @@ export const Popup = ({
   close,
   toggle,
   isOpen,
+  panelProps,
 }: PopupProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +117,7 @@ export const Popup = ({
               : "unset",
           }}
         >
-          <Panel />
+          <Panel {...panelProps} />
         </div>
       )}
     </div>
