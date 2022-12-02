@@ -1,5 +1,5 @@
 import moment from "moment-jalaali";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
   dateTransformer,
   formatGenerator,
@@ -84,6 +84,33 @@ export const useRangeReducer = ({
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
+  const formattedDates = useCallback(
+    (dates: RangeValue) => {
+      return dates.map((date) =>
+        date.format(
+          formatProp
+            ? typeof formatProp === "function"
+              ? formatProp(dates)
+              : formatProp
+            : formatGenerator(isJalaali),
+        ),
+      ) as [string, string];
+    },
+    [formatProp, isJalaali],
+  );
+
+  const inputRangeProps = useMemo(() => {
+    const values = (
+      rangeState.startDate.day !== 0 &&
+      rangeState.endDate !== null &&
+      rangeState.endDate?.day !== 0
+        ? formattedDates(rangeTransformer(rangeState, isJalaali))
+        : ["", ""]
+    ) as [string, string];
+
+    return { values };
+  }, [formattedDates, isJalaali, rangeState]);
+
   useEffect(() => {
     if (valueProp && valueProp.length) {
       const values: RangeDate = {
@@ -115,21 +142,10 @@ export const useRangeReducer = ({
 
         payload.startDate.day !== 0 &&
           payload.endDate.day !== 0 &&
-          onChangeProp?.(
-            dates,
-            dates.map((date) =>
-              date.format(
-                formatProp
-                  ? typeof formatProp === "function"
-                    ? formatProp(dates)
-                    : formatProp
-                  : formatGenerator(isJalaali),
-              ),
-            ) as [string, string],
-          );
+          onChangeProp?.(dates, formattedDates(dates));
       }
     },
-    [formatProp, isJalaali, onChangeProp],
+    [formattedDates, onChangeProp],
   );
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {
@@ -380,6 +396,7 @@ export const useRangeReducer = ({
     onRangeDecreaseYear,
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
+    inputRangeProps,
     from: fromAndTo.from,
     to: fromAndTo.to,
   };

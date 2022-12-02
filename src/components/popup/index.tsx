@@ -1,10 +1,8 @@
 import classNames from "classnames";
 import React, { ReactNode, useRef, useState } from "react";
-import { PanelProps } from "../../core";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { useDestroy } from "../../core/hooks/useDestroy";
 import { useReverse } from "../../core/hooks/useReverse";
-import Panel from "../date/panel";
 
 export type Placement = "bottom" | "top" | "right" | "left";
 
@@ -12,7 +10,8 @@ interface PopupProps {
   children: ReactNode;
   placement?: Placement;
   isOpen?: boolean;
-  panelProps?: PanelProps;
+  panel: ReactNode;
+  mode: "date" | "range";
   close: () => void;
   toggle: () => boolean | undefined;
 }
@@ -23,7 +22,8 @@ export const Popup = ({
   close,
   toggle,
   isOpen,
-  panelProps,
+  panel,
+  mode,
 }: PopupProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,7 @@ export const Popup = ({
 
   const config = useReverse({
     element: ref,
-    max: [352, 300],
+    max: [mode === "date" ? 352 : 312, mode === "date" ? 300 : 600],
     placement,
   });
 
@@ -90,6 +90,9 @@ export const Popup = ({
             isOpen
               ? classNames(
                   "popover-panel-open",
+                  mode === "date"
+                    ? "popover-panel-date"
+                    : "popover-panel-range",
                   a().below ? "open-vert-bottom" : "open-vert-top",
                 )
               : classNames(
@@ -99,16 +102,24 @@ export const Popup = ({
           }
           ref={panelRef}
           style={{
-            width: 300,
-            height: 352,
+            width: mode === "date" ? 300 : 600,
+            height: mode === "date" ? 352 : 312,
             overflow: "hidden",
             margin: 0,
             padding: 0,
             background: "#fff",
             position: "absolute",
             boxShadow: "0px 0px 4px rgba(0,0,0,.2)",
-            left: a().isVertical ? "unset" : config().hReverse ? "unset" : -306,
-            right: a().isVertical ? 0 : !config().hReverse ? "unset" : -306,
+            left: a().isVertical
+              ? "unset"
+              : config().hReverse
+              ? "unset"
+              : -(mode === "date" ? 306 : 606),
+            right: a().isVertical
+              ? 0
+              : !config().hReverse
+              ? "unset"
+              : -(mode === "date" ? 306 : 606),
             top: a().isVertical ? (config().vReverse ? "unset" : 40) : 0,
             bottom: a().isVertical
               ? !config().vReverse
@@ -117,7 +128,7 @@ export const Popup = ({
               : "unset",
           }}
         >
-          <Panel {...panelProps} />
+          {panel}
         </div>
       )}
     </div>

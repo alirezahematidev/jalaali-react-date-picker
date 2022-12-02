@@ -1,5 +1,5 @@
 import { isEqual } from "lodash-es";
-import { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { formatGenerator, rangeTransformer } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate } from "../../types/global.types";
@@ -7,6 +7,9 @@ import { RangePropsReducerType } from "../propsReducer";
 import { useRangePropsReducer } from "../usePropsReducer";
 import { useRangeReducer } from "./useRangeReducer";
 
+interface RangeInputProps {
+  values: [string, string];
+}
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
   cacheRangeDate?: RangeDate;
@@ -43,13 +46,12 @@ export const RangePickerContext = createContext<ContextType>({
   to: { day: 0, month: 0, year: 0 },
 });
 
-export const RangeProvider = ({
-  children,
-  props,
-}: {
-  children: React.ReactNode;
+interface RangeProviderProps {
+  children: React.ReactNode | ((props: RangeInputProps) => React.ReactNode);
   props: RangePickerProps;
-}) => {
+}
+
+export const RangeProvider = ({ children, props }: RangeProviderProps) => {
   const language = props ? props.locale?.language || "fa" : "fa";
 
   const {
@@ -65,6 +67,7 @@ export const RangeProvider = ({
     rangeState,
     from,
     to,
+    inputRangeProps,
   } = useRangeReducer({
     language,
     onDayChangeProp: props?.onDayChange,
@@ -122,7 +125,7 @@ export const RangeProvider = ({
         ...propsState,
       }}
     >
-      {children}
+      {typeof children === "function" ? children(inputRangeProps) : children}
     </RangePickerContext.Provider>
   );
 };

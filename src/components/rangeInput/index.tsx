@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import { useState } from "react";
 import calendar from "../../assets/icons/calendar.svg";
-import { DateProvider, InputDatePickerProps } from "../../core";
+import { InputRangePickerProps, RangeProvider } from "../../core";
 import "../../styles/index.scss";
-import Panel from "../date/panel";
 import { Popup } from "../popup";
+import RangePanel from "../range/rangePanel";
 
-export const InputDatePicker = ({
+export const InputRangePicker = ({
   value,
   onChange,
   onDayChange,
@@ -17,7 +17,7 @@ export const InputDatePicker = ({
   disabledDates,
   open,
   onOpenChange,
-  pickerProps,
+  rangeProps,
   disabled,
   suffixIcon,
   prefixIcon,
@@ -26,7 +26,7 @@ export const InputDatePicker = ({
   wrapperClassName,
   wrapperStyle,
   ...rest
-}: InputDatePickerProps) => {
+}: InputRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale?.language || "fa") === "fa";
 
@@ -44,7 +44,7 @@ export const InputDatePicker = ({
   };
 
   return (
-    <DateProvider
+    <RangeProvider
       props={{
         value,
         onChange,
@@ -56,15 +56,15 @@ export const InputDatePicker = ({
         onDayChange,
       }}
     >
-      {(inputProps) => (
+      {({ values }) => (
         <Popup
-          key="date-popup"
-          mode="date"
+          key="range-popup"
+          mode="range"
           placement={placement}
           isOpen={isOpen}
           close={close}
           toggle={toggle}
-          panel={<Panel {...pickerProps} />}
+          panel={<RangePanel {...rangeProps} />}
         >
           <div
             className={classNames(
@@ -75,12 +75,19 @@ export const InputDatePicker = ({
             style={wrapperStyle}
           >
             {prefixIcon && prefixIcon}
-            <input
-              {...rest}
-              {...inputProps}
-              className={classNames("picker-input", isRtl && "rtl", className)}
-              readOnly
-            />
+            {values.map((value, index) => (
+              <input
+                key={index}
+                {...rest}
+                value={value}
+                className={classNames(
+                  "picker-input",
+                  isRtl && "rtl",
+                  className,
+                )}
+                readOnly
+              />
+            ))}
             {suffixIcon || (
               <div className="calendar-icon">
                 <img src={calendar} alt="calendar" width={20} height={20} />
@@ -89,6 +96,6 @@ export const InputDatePicker = ({
           </div>
         </Popup>
       )}
-    </DateProvider>
+    </RangeProvider>
   );
 };

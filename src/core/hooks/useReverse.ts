@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useRef } from "react";
+import { MutableRefObject, useCallback } from "react";
 import { Placement } from "../../components/popup";
 import { useWindowSize } from "./useWindowSize";
 
