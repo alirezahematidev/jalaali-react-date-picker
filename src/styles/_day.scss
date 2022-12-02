@@ -3,7 +3,6 @@
   @include flex-center;
   @include day-box(true);
   @include clickable;
-  transition: background-color 100ms ease;
   position: relative;
 }
 
