@@ -9,6 +9,7 @@ interface DayProps {
   isNotCurrentMonth?: boolean;
   isBetweenHighlight?: boolean;
   isToday?: boolean;
+  isNeighborsDisabled?: boolean;
   onPress?: () => void;
 }
 
@@ -22,12 +23,13 @@ const Day = ({
   isBetweenHighlight,
   isNotCurrentMonth,
   isToday,
+  isNeighborsDisabled,
 }: DayProps) => {
   return (
     <div
       className={classnames(
         "day",
-        isDisabled && "disabled",
+        isDisabled && !isNeighborsDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
         isBetweenHighlight && "highlight-day",
