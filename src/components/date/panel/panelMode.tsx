@@ -6,7 +6,9 @@ import { Years } from "../years";
 
 type Panel = Record<DatePickerTypes.Mode, JSX.Element>;
 
-interface PanelModeProps extends Omit<PanelProps, "renderFooter"> {}
+interface PanelModeProps extends Omit<PanelProps, "renderFooter"> {
+  toggle?: () => void;
+}
 
 interface PanelModeContext extends PanelModeProps {
   onChangeMode?: (mode: DatePickerTypes.Mode) => void;
@@ -17,13 +19,18 @@ const PanelModeContext = createContext<PanelModeContext>({
   panelRender: undefined,
   dayLabelRender: undefined,
   onChangeMode: () => null,
+  toggle: () => null,
   highlightOffDays: {
     customDates: [],
     weekend: true,
   },
 });
 
-export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
+export const PanelMode = ({
+  toggle,
+  onModeChange,
+  ...props
+}: PanelModeProps) => {
   const [mode, setMode] = useState<DatePickerTypes.Mode>("day");
 
   const onChangeMode = (mode: DatePickerTypes.Mode) => {
@@ -41,7 +48,7 @@ export const PanelMode = ({ onModeChange, ...props }: PanelModeProps) => {
   );
 
   return (
-    <PanelModeContext.Provider value={{ ...props, onChangeMode }}>
+    <PanelModeContext.Provider value={{ ...props, onChangeMode, toggle }}>
       {panel[mode]}
     </PanelModeContext.Provider>
   );

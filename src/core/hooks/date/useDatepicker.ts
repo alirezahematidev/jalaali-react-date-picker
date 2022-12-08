@@ -13,7 +13,7 @@ export const useDatepicker = () => {
     onMonthchange,
     onYearchange,
     disabledDates,
-
+    onEmptyInputValue,
     ...rest
   } = useDatePickerContext();
 
@@ -40,12 +40,22 @@ export const useDatepicker = () => {
 
     const todayInMoment = dateTransformer({ ...today }, isJalaali);
     const isTodayDisabled = disabledDates?.(todayInMoment);
+
+    onEmptyInputValue();
+
     if (isTodayDisabled) {
       onMonthchange?.({ ...today, day: 0 });
       onYearchange?.({ ...today, day: 0 });
     }
     !isTodayDisabled && onDateChange(today);
-  }, [disabledDates, isJalaali, onDateChange, onMonthchange, onYearchange]);
+  }, [
+    disabledDates,
+    isJalaali,
+    onEmptyInputValue,
+    onDateChange,
+    onMonthchange,
+    onYearchange,
+  ]);
 
   return {
     state,

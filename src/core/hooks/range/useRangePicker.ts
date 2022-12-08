@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { localizedDayLabels, localizedMonth } from "../../constants";
-import { useRangePickerContext } from "../../context";
+import { useRangePickerContext } from "../../context/range";
 
 export const useRangepicker = () => {
   const {
