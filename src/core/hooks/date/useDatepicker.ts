@@ -13,6 +13,7 @@ export const useDatepicker = () => {
     onMonthchange,
     onYearchange,
     disabledDates,
+
     ...rest
   } = useDatePickerContext();
 

@@ -16,6 +16,7 @@ const Days = () => {
     cacheDate: selected,
     onDaychange,
     onDateChange,
+    changePlaceholder,
     dayLabels,
     isJalaali,
   } = useDatepicker();
@@ -76,6 +77,8 @@ const Days = () => {
           <div
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
+            onMouseEnter={() => changePlaceholder(date)}
+            onMouseLeave={() => changePlaceholder(null)}
           >
             <div
               className={classNames(

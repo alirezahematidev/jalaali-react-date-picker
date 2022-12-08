@@ -11,6 +11,8 @@ interface DayProps {
   isToday?: boolean;
   isNeighborsDisabled?: boolean;
   onPress?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const Day = ({
@@ -23,6 +25,8 @@ const Day = ({
   isBetweenHighlight,
   isNotCurrentMonth,
   isToday,
+  onMouseEnter,
+  onMouseLeave,
   isNeighborsDisabled,
 }: DayProps) => {
   return (
@@ -42,6 +46,8 @@ const Day = ({
         if (isDisabled) return;
         onPress?.();
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <span>{day}</span>
     </div>

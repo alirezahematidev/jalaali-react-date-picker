@@ -1,11 +1,7 @@
-import { Moment } from "moment";
-import { useState } from "react";
 import { DatePicker } from "./components";
 import "./styles/index.scss";
 
 function App() {
-  const [date, setDate] = useState<Moment>();
-
   return (
     <div
       style={{
