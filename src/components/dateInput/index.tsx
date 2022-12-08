@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { useState } from "react";
 import calendar from "../../assets/icons/calendar.svg";
+import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
-import Panel from "../date/panel";
 import { Popup } from "../popup";
 
 export const InputDatePicker = ({
@@ -78,7 +78,11 @@ export const InputDatePicker = ({
             <input
               {...rest}
               {...inputProps}
-              className={classNames("picker-input", isRtl && "rtl", className)}
+              className={classNames(
+                isRtl ? "picker-input-fa" : "picker-input-en",
+                isRtl && "rtl",
+                className,
+              )}
               readOnly
             />
             {suffixIcon || (

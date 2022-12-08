@@ -1,11 +1,8 @@
-import { Moment } from "moment";
-import { useState } from "react";
+import { InputDatePicker } from "./components/dateInput";
 import { InputRangePicker } from "./components/rangeInput";
 import "./styles/index.scss";
 
 function App() {
-  const [date, setDate] = useState<Moment>();
-
   return (
     <div
       style={{
@@ -14,6 +11,7 @@ function App() {
         padding: 500,
       }}
     >
+      <InputDatePicker />
       <InputRangePicker />
     </div>
   );

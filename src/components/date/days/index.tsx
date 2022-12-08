@@ -16,6 +16,7 @@ const Days = () => {
     cacheDate: selected,
     onDaychange,
     onDateChange,
+    changePlaceholder,
     dayLabels,
     isJalaali,
   } = useDatepicker();
@@ -59,6 +60,8 @@ const Days = () => {
               isWeekend={canHighlighWeekend ? isWeekend : false}
               isDisabled={isDisabled}
               isToday={isEqual(today, date)}
+              onMouseEnter={() => changePlaceholder(date)}
+              onMouseLeave={() => changePlaceholder(null)}
             />
           </div>
         ),

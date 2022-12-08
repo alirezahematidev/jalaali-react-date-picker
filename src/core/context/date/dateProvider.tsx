@@ -10,6 +10,7 @@ import { useDateReducer } from "./useDateReducer";
 
 interface DateInputProps {
   value: string;
+  placeholder?: string;
 }
 
 interface ContextType extends DatePropsReducerType {
@@ -23,6 +24,7 @@ interface ContextType extends DatePropsReducerType {
   onDecreaseYear: (payload: Date) => void;
   onIncreaseMonth: (payload: Date) => void;
   onDecreaseMonth: (payload: Date) => void;
+  changePlaceholder: (payload: Date | null) => void;
 }
 
 export const DatePickerContext = createContext<ContextType>({
@@ -35,6 +37,7 @@ export const DatePickerContext = createContext<ContextType>({
   locale: {
     language: "fa",
   },
+  changePlaceholder: () => null,
   onDateChange: () => null,
   onDaychange: () => null,
   onMonthchange: () => null,
@@ -63,6 +66,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onDecreaseYear,
     onIncreaseMonth,
     onDecreaseMonth,
+    changePlaceholder,
     cacheDate,
     inputProps,
   } = useDateReducer({
@@ -121,6 +125,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         onDecreaseYear,
         onIncreaseMonth,
         onDecreaseMonth,
+        changePlaceholder,
         cacheDate,
         format: propsState.format,
         ...propsState,

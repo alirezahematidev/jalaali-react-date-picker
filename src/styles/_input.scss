@@ -8,20 +8,28 @@
   border: 1px solid rgba(0, 0, 0, 0.23);
   overflow: hidden;
   border-radius: 2px;
-  padding-inline: 6px;
   @include flex-row;
   &:hover {
     border-color: var(--highlight);
   }
 }
 
-.picker-input {
+.picker-input-fa {
   border: none;
   outline: none;
   width: 100%;
   height: 100%;
   font-size: 14px;
   @include font-family;
+  color: var(--text-dark);
+}
+.picker-input-en {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  @include font-family-en;
   color: var(--text-dark);
 }
 

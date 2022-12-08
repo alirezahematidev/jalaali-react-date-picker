@@ -48,6 +48,7 @@ export const useDateReducer = ({
     reducer,
     getDefaultValue(defaultValueProp || moment(), isJalaali),
   );
+  const [placeholder, setPlaceholder] = useState<string>("");
 
   const formattedValue = useCallback(
     (value: Moment) => {
@@ -62,7 +63,21 @@ export const useDateReducer = ({
     [formatProp, isJalaali],
   );
 
-  const inputProps = useMemo(() => {
+  const changePlaceholder = useCallback(
+    (date: Date | null) => {
+      if (!date) {
+        return setPlaceholder("");
+      }
+
+      const formattedInputValue = formattedValue(
+        dateTransformer(date, isJalaali),
+      );
+      setPlaceholder(formattedInputValue);
+    },
+    [formattedValue, isJalaali],
+  );
+
+  const _inputProps = useMemo(() => {
     const value =
       state && state.day !== 0
         ? formattedValue(dateTransformer(state, isJalaali))
@@ -175,6 +190,10 @@ export const useDateReducer = ({
     onDecreaseYear,
     onIncreaseMonth,
     onDecreaseMonth,
-    inputProps,
+    changePlaceholder,
+    inputProps: {
+      ..._inputProps,
+      placeholder,
+    },
   };
 };
