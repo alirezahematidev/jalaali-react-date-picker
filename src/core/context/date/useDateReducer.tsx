@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment-jalaali";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
   dateTransformer,
   formatGenerator,
@@ -48,6 +48,43 @@ export const useDateReducer = ({
     reducer,
     getDefaultValue(defaultValueProp || moment(), isJalaali),
   );
+  const [placeholder, setPlaceholder] = useState<string>("");
+
+  const formattedValue = useCallback(
+    (value: Moment) => {
+      return value.format(
+        formatProp
+          ? typeof formatProp === "function"
+            ? formatProp(value)
+            : formatProp
+          : formatGenerator(isJalaali),
+      );
+    },
+    [formatProp, isJalaali],
+  );
+
+  const changePlaceholder = useCallback(
+    (date: Date | null) => {
+      if (!date) {
+        return setPlaceholder("");
+      }
+
+      const formattedInputValue = formattedValue(
+        dateTransformer(date, isJalaali),
+      );
+      setPlaceholder(formattedInputValue);
+    },
+    [formattedValue, isJalaali],
+  );
+
+  const _inputProps = useMemo(() => {
+    const value =
+      state && state.day !== 0
+        ? formattedValue(dateTransformer(state, isJalaali))
+        : "";
+
+    return { value };
+  }, [formattedValue, isJalaali, state]);
 
   useEffect(() => {
     if (valueProp) {
@@ -63,19 +100,9 @@ export const useDateReducer = ({
       dispatch({ type: DateActionKind.DATE, payload });
       setCacheDate(payload);
       const res = dateTransformer({ ...payload }, isJalaali);
-      payload.day !== 0 &&
-        onChangeProp?.(
-          res,
-          res.format(
-            formatProp
-              ? typeof formatProp === "function"
-                ? formatProp(res)
-                : formatProp
-              : formatGenerator(isJalaali),
-          ),
-        );
+      payload.day !== 0 && onChangeProp?.(res, formattedValue(res));
     },
-    [formatProp, isJalaali, onChangeProp],
+    [isJalaali, onChangeProp, formattedValue],
   );
   const onDaychange = useCallback(
     (payload: Date) => {
@@ -163,5 +190,10 @@ export const useDateReducer = ({
     onDecreaseYear,
     onIncreaseMonth,
     onDecreaseMonth,
+    changePlaceholder,
+    inputProps: {
+      ..._inputProps,
+      placeholder,
+    },
   };
 };

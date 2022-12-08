@@ -1,40 +1,54 @@
 @keyframes open {
-    from {
-        opacity: 0;
-        transform: scale(0.5, 0.5);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.95, 0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
 }
 
 @keyframes close {
-    from {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-    to {
-        transform: scale(0.95, 0.95);
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0.95, 0.95);
+    opacity: 0;
+  }
 }
 
 .popover-panel-open {
-    animation-name: open;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-duration: 200ms;
-    transform-origin: top right;
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: 352px;
-    max-width: 300px;
+  animation-name: open;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-duration: 200ms;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .popover-panel-close {
-    animation-name: close;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-duration: 170ms;
-    transform-origin: top right;
-    transition: all 170ms cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
+  animation-name: close;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-duration: 170ms;
+  transition: all 170ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.popover-panel-date {
+  max-height: 352px;
+  max-width: 300px;
+}
+
+.popover-panel-range {
+  max-height: 312px;
+  max-width: 600px;
+}
+
+.open-vert-top {
+  transform-origin: bottom right;
+}
+
+.open-vert-bottom {
+  transform-origin: top right;
 }

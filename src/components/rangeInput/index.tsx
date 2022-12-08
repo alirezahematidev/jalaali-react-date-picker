@@ -1,90 +1,101 @@
 import classNames from "classnames";
-import { useRef, useState } from "react";
-import arrowBack from "../../assets/icons/arrow_back.svg";
-import arrowForward from "../../assets/icons/arrow_forward.svg";
+import { useState } from "react";
+import calendar from "../../assets/icons/calendar.svg";
+import { InputRangePickerProps, RangeProvider } from "../../core";
+import "../../styles/index.scss";
+import { Popup } from "../popup";
+import RangePanel from "../range/rangePanel";
 
-import {
-  InputRangePickerProps,
-  RangeProvider,
-  useRangepicker,
-} from "../../core";
-import { dateTransformer } from "../../utils";
-
-const RangeInput = ({
-  prefixIcon,
+export const InputRangePicker = ({
+  value,
+  onChange,
+  onDayChange,
+  onMonthChange,
+  onYearChange,
+  format,
+  locale,
+  disabledDates,
+  open,
+  onOpenChange,
+  rangeProps,
+  disabled,
   suffixIcon,
-  ...props
+  prefixIcon,
+  placement = "bottom",
+  className,
+  wrapperClassName,
+  wrapperStyle,
+  ...rest
 }: InputRangePickerProps) => {
-  const [open, setopen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+  const isRtl = (locale?.language || "fa") === "fa";
 
-  const { rangeState, format, isJalaali } = useRangepicker();
+  const toggle = () => {
+    if (disabled) return;
 
-  return (
-    <>
-      <div ref={ref} className={classNames("range_input_wrapper")}>
-        <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
-          {prefixIcon && prefixIcon}
-          <input
-            value={
-              rangeState.endDate
-                ? dateTransformer(rangeState.endDate, isJalaali).format(
-                    format || "",
-                  )
-                : ""
-            }
-            className={classNames(isJalaali ? "input_fa" : "input_en")}
-            // onClick={() => setopen(true)}
-            // onBlur={() => setopen(false)}
-          />
-        </div>
-        <div className="range-icon">
-          <img
-            src={isJalaali ? arrowBack : arrowForward}
-            alt="calendar"
-            width={20}
-            height={20}
-          />
-        </div>
-        <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
-          {suffixIcon && suffixIcon}
-          <input
-            value={
-              rangeState.startDate.day
-                ? dateTransformer(rangeState.startDate, isJalaali).format(
-                    format || "",
-                  )
-                : ""
-            }
-            className={classNames(isJalaali ? "input_fa" : "input_en")}
-            // onClick={() => setopen(true)}
-            // onBlur={() => setopen(false)}
-          />
-        </div>
-      </div>
-      {/* <button onClick={() => setopen(false)}>close</button> */}
-    </>
-  );
-};
+    setIsOpen((prev) => !prev);
+    onOpenChange?.(isOpen === undefined ? false : isOpen);
+    return true;
+  };
 
-export { Provider as RangeInput };
+  const close = () => {
+    setIsOpen(false);
+    onOpenChange?.(false);
+  };
 
-const Provider = (props: InputRangePickerProps) => {
   return (
     <RangeProvider
       props={{
-        value: props.value,
-        defaultValue: props.defaultValue,
-        onChange: props.onChange,
-        onDayChange: props.onDayChange,
-        onMonthChange: props.onMonthChange,
-        onYearChange: props.onYearChange,
-        format: props.format,
-        locale: props.locale,
-        disabledDates: props.disabledDates,
+        value,
+        onChange,
+        onMonthChange,
+        onYearChange,
+        format,
+        disabledDates,
+        locale,
+        onDayChange,
       }}
     >
-      <RangeInput {...props} />
+      {({ values }) => (
+        <Popup
+          key="range-popup"
+          mode="range"
+          placement={placement}
+          isOpen={isOpen}
+          close={close}
+          toggle={toggle}
+          panel={<RangePanel {...rangeProps} />}
+        >
+          <div
+            className={classNames(
+              "picker-input-wrapper",
+              isRtl && "rtl",
+              wrapperClassName,
+            )}
+            style={wrapperStyle}
+          >
+            {prefixIcon && prefixIcon}
+            {values.map((value, index) => (
+              <input
+                key={index}
+                {...rest}
+                value={value}
+                className={classNames(
+                  "picker-input",
+                  isRtl && "rtl",
+                  className,
+                )}
+                readOnly
+              />
+            ))}
+            {suffixIcon || (
+              <div className="calendar-icon">
+                <img src={calendar} alt="calendar" width={20} height={20} />
+              </div>
+            )}
+          </div>
+        </Popup>
+      )}
     </RangeProvider>
   );
 };

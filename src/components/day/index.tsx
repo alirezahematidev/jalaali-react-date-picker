@@ -9,7 +9,10 @@ interface DayProps {
   isNotCurrentMonth?: boolean;
   isBetweenHighlight?: boolean;
   isToday?: boolean;
+  isNeighborsDisabled?: boolean;
   onPress?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const Day = ({
@@ -22,12 +25,15 @@ const Day = ({
   isBetweenHighlight,
   isNotCurrentMonth,
   isToday,
+  onMouseEnter,
+  onMouseLeave,
+  isNeighborsDisabled,
 }: DayProps) => {
   return (
     <div
       className={classnames(
         "day",
-        isDisabled && "disabled",
+        isDisabled && !isNeighborsDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
         isBetweenHighlight && "highlight-day",
@@ -40,6 +46,8 @@ const Day = ({
         if (isDisabled) return;
         onPress?.();
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <span>{day}</span>
     </div>

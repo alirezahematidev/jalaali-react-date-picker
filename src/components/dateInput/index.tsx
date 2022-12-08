@@ -1,8 +1,10 @@
 import classNames from "classnames";
 import { useState } from "react";
-import calendar from "../../../assets/icons/calendar_today.svg";
+import calendar from "../../assets/icons/calendar.svg";
+import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
+import { Popup } from "../popup";
 
 export const InputDatePicker = ({
   value,
@@ -19,7 +21,7 @@ export const InputDatePicker = ({
   disabled,
   suffixIcon,
   prefixIcon,
-  placement,
+  placement = "bottom",
   className,
   wrapperClassName,
   wrapperStyle,
@@ -28,16 +30,15 @@ export const InputDatePicker = ({
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale?.language || "fa") === "fa";
 
-  const onFocus = () => {
+  const toggle = () => {
     if (disabled) return;
 
-    setIsOpen(true);
-    onOpenChange?.(true);
+    setIsOpen((prev) => !prev);
+    onOpenChange?.(isOpen === undefined ? false : isOpen);
+    return true;
   };
 
-  const onBlur = () => {
-    if (disabled) return;
-
+  const close = () => {
     setIsOpen(false);
     onOpenChange?.(false);
   };
@@ -55,27 +56,43 @@ export const InputDatePicker = ({
         onDayChange,
       }}
     >
-      <div
-        className={classNames(
-          "picker-input-wrapper",
-          isRtl && "rtl",
-          wrapperClassName,
-        )}
-        style={wrapperStyle}
-      >
-        {prefixIcon && prefixIcon}
-        <input
-          {...rest}
-          className={classNames("picker-input", isRtl && "rtl", className)}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-        {suffixIcon || (
-          <div className="calendar-icon">
-            <img src={calendar} alt="calendar" width={20} height={20} />
+      {(inputProps) => (
+        <Popup
+          key="date-popup"
+          mode="date"
+          placement={placement}
+          isOpen={isOpen}
+          close={close}
+          toggle={toggle}
+          panel={<Panel {...pickerProps} />}
+        >
+          <div
+            className={classNames(
+              "picker-input-wrapper",
+              isRtl && "rtl",
+              wrapperClassName,
+            )}
+            style={wrapperStyle}
+          >
+            {prefixIcon && prefixIcon}
+            <input
+              {...rest}
+              {...inputProps}
+              className={classNames(
+                isRtl ? "picker-input-fa" : "picker-input-en",
+                isRtl && "rtl",
+                className,
+              )}
+              readOnly
+            />
+            {suffixIcon || (
+              <div className="calendar-icon">
+                <img src={calendar} alt="calendar" width={20} height={20} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </Popup>
+      )}
     </DateProvider>
   );
 };
