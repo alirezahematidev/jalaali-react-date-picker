@@ -1,5 +1,6 @@
 import { useRangepicker } from "../../../core";
 import { getMonthLabels } from "../../../utils";
+import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { HeaderSide } from "./side";
 
@@ -20,11 +21,12 @@ const RangeHeader = ({
     isJalaali,
     from,
     to,
+    rangeDateString,
   } = useRangepicker();
 
   const { type } = useRangeTemplate();
 
-  //   const startDate = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
+  const { headerRender } = useRangePanelContext();
 
   const node = (
     <div className={isJalaali ? "panel-header-rtl" : "panel-header-ltr"}>
@@ -45,7 +47,11 @@ const RangeHeader = ({
     </div>
   );
 
-  return <div className="panel-header-wrapper">{node}</div>;
+  return (
+    <div className="panel-header-wrapper">
+      {headerRender ? headerRender(rangeDateString, node) : node}
+    </div>
+  );
 };
 
 export { RangeHeader };

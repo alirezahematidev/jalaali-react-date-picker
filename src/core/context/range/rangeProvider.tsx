@@ -2,7 +2,7 @@ import { isEqual } from "lodash-es";
 import React, { createContext, useContext, useEffect } from "react";
 import { formatGenerator, rangeTransformer } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
-import { Date, RangeDate } from "../../types/global.types";
+import { Date, RangeDate, RangeValue } from "../../types/global.types";
 import { RangePropsReducerType } from "../propsReducer";
 import { useRangePropsReducer } from "../usePropsReducer";
 import { useRangeReducer } from "./useRangeReducer";
@@ -13,6 +13,7 @@ interface RangeInputProps {
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
   cacheRangeDate?: RangeDate;
+  rangeDateString: RangeValue | null;
   onRangeDateChange: (payload: RangeDate) => void;
   onRangeDaychange: (payload: Date, isStartDate: boolean) => void;
   onRangeMonthchange: (month: number, mode: "from" | "to") => void;
@@ -34,6 +35,7 @@ export const RangePickerContext = createContext<ContextType>({
   locale: {
     language: "fa",
   },
+  rangeDateString: null,
   onRangeDateChange: () => null,
   onRangeDaychange: () => null,
   onRangeMonthchange: () => null,
@@ -68,6 +70,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     from,
     to,
     inputRangeProps,
+    rangeDateString,
   } = useRangeReducer({
     language,
     onDayChangeProp: props?.onDayChange,
@@ -122,6 +125,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
         from,
         to,
         rangeState,
+        rangeDateString,
         ...propsState,
       }}
     >

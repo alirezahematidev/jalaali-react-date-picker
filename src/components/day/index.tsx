@@ -2,14 +2,16 @@ import classnames from "classnames";
 
 interface DayProps {
   day: number;
+  startDay?: number;
+  endDay?: number;
   isHighlight?: boolean;
   isWeekend?: boolean;
   isDisabled?: boolean;
   isOff?: boolean;
   isNotCurrentMonth?: boolean;
-  isBetweenHighlight?: boolean;
   isToday?: boolean;
   isNeighborsDisabled?: boolean;
+  mode?: "date" | "range";
   onPress?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -22,12 +24,14 @@ const Day = ({
   isWeekend,
   onPress,
   isOff,
-  isBetweenHighlight,
   isNotCurrentMonth,
   isToday,
   onMouseEnter,
   onMouseLeave,
   isNeighborsDisabled,
+  mode,
+  endDay,
+  startDay,
 }: DayProps) => {
   return (
     <div
@@ -36,11 +40,19 @@ const Day = ({
         isDisabled && !isNeighborsDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
-        isBetweenHighlight && "highlight-day",
         isOff && "off-day",
         isHighlight && "highlight",
         !isHighlight && !isDisabled && "hovered",
         isToday && "today",
+        mode === "range" &&
+          isHighlight &&
+          day === startDay &&
+          "start-tail-highlight",
+
+        mode === "range" &&
+          isHighlight &&
+          day === endDay &&
+          "end-tail-highlight",
       )}
       onClick={() => {
         if (isDisabled) return;

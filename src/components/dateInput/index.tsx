@@ -67,6 +67,7 @@ export const InputDatePicker = ({
           panel={<Panel {...pickerProps} />}
         >
           <div
+            aria-label="datepicker"
             className={classNames(
               "picker-input-wrapper",
               isRtl && "rtl",
