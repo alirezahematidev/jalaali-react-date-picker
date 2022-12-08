@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DateRangePickerTypes, useRangepicker } from "../../../core";
+import { DateRangePickerTypes } from "../../../core";
 import { RangeDays } from "../rangeDays";
 import { RangeMonths } from "../rangeMonths";
 import { RangeYears } from "../rangeYears";
@@ -13,7 +13,6 @@ type Panel = Record<DateRangePickerTypes.Mode, JSX.Element>;
 
 const RangePanelTemplate = ({ type }: RangePanelTemplateProps) => {
   const [mode, setMode] = useState<DateRangePickerTypes.Mode>("day");
-  const { from } = useRangepicker();
 
   const onChangeMode = (mode: DateRangePickerTypes.Mode) => {
     setMode(mode);

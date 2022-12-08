@@ -11,10 +11,10 @@ export interface DatePickerProps {
   locale?: DatePickerTypes.Locale;
   disabledDates?: DatePickerTypes.DisabledDates;
   onModeChange?: DatePickerTypes.OnModeChange;
-  panelRender?: DatePickerTypes.panelRender;
-  footerRender?: DatePickerTypes.footerRender;
-  headerRender?: DatePickerTypes.headerRender;
-  dayLabelRender?: DatePickerTypes.dayLabelRender;
+  panelRender?: DatePickerTypes.PanelRender;
+  footerRender?: DatePickerTypes.FooterRender;
+  headerRender?: DatePickerTypes.HeaderRender;
+  dayLabelRender?: DatePickerTypes.DayLabelRender;
   highlightOffDays?: DatePickerTypes.HighLightOffDays;
   customColors?: DatePickerTypes.Colors;
 }

@@ -69,6 +69,7 @@ export const InputDatePicker = ({
         >
           <div
             dir={isRtl ? "rtl" : "ltr"}
+            aria-label="datepicker"
             className={classNames(
               "picker-input-wrapper",
               isRtl && "rtl",

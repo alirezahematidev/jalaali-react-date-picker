@@ -93,6 +93,7 @@ const Days = () => {
             >
               <Day
                 day={date.day}
+                mode="date"
                 isNeighborsDisabled={isNeighborsDisabled}
                 isNotCurrentMonth={isNotCurrentMonth}
                 onPress={() => {

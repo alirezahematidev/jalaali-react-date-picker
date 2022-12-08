@@ -3,13 +3,9 @@ import * as React from "react";
 import { ColorSchema, Date, Language, MonthNamedValue } from "./global.types";
 
 export namespace DatePickerTypes {
-  /**
-   * Default type of date picker
-   *
-   * @type {Moment}
-   */
+  /** @type `Moment` */
   export type Moment = MomentType;
-  /** Return type of month onChange */
+  /** Return type of `onMonthChange` */
   export type MonthValue = MonthNamedValue;
 
   export type PanelDate = {
@@ -20,148 +16,127 @@ export namespace DatePickerTypes {
 
   export type Mode = "day" | "month" | "year";
 
-  /**
-   * Override all default colors
-   *
-   * @param {Colors} [colors]
-   */
+  /** The `customColors` object that can be used to overrides the default colors */
   export type Colors = ColorSchema;
-  /**
-   * Type of date value
-   *
-   * @param {Moment} [value]
-   */
+
+  /** @param `value` */
   export type Value = Moment | undefined | null;
-  /**
-   * Type of date default value
-   *
-   * @param {DefaultValue} [defaultValue]
-   */
+
+  /** @param `value` */
   export type DefaultValue = Value;
+
   /**
-   * Type of range dates
+   * The `onChange` method can be executed when date changes.
    *
-   * @example
-   *   ["2022-11-02T14:40:44.181Z", "2022-11-05T14:40:44.181Z"];
-   */
-  export type DisabledValueRange = [Moment | null, Moment?];
-  /**
-   * Callback that return current value
-   *
-   * @param {Moment} [date]
-   * @param {string} [dateString]
+   * @param `date`
+   * @param `dateStrings`
    */
   export type OnChange = (date: Value, dateString: string) => void;
+
   /**
-   * Callback that return current day
+   * The `onDayChange` method can be executed when day changes.
    *
-   * @param {Moment} [day]
+   * @param `day`
    */
   export type OnDayChange = (day: number) => void;
   /**
-   * Callback that return current month
+   * The `onMonthChange` method can be executed when month changes.
    *
-   * @param {Moment} [month]
+   * @param `month`
    */
   export type OnMonthChange = (month: MonthValue) => void;
   /**
-   * Callback that return current year
+   * The `onYearChange` method can be executed when year changes.
    *
-   * @param {Moment} [year]
+   * @param `year`
    */
   export type OnYearChange = (year: number) => void;
 
+  /**
+   * The `onModeChange` method can be called when panel mode changes.
+   *
+   * @param `mode`
+   */
   export type OnModeChange = (mode: Mode) => void;
 
   /**
-   * A callback that can determine what dates should be disabled
+   * The `disableDates` method that can determine what dates should be disabled
    *
-   * @param {Moment} [current]
-   * @returns Boolean | ValueRange
+   * @param `current`
+   * @returns `boolean`
    */
   export type DisabledDates = (current: Moment) => boolean;
+
   /**
-   * A render callback that allows to customize day node
+   * The `dayRender` callback used to render custom node for day component.
    *
-   * @param {Moment} [date]
-   * @param {React.ReactNode} [dayNode]
-   * @returns React.ReactNode
+   * @param `dateRange` `dayNode`
+   * @returns `React.ReactNode`
    */
   export type DayRender = (
     date: Moment,
     dayNode: React.ReactNode,
   ) => React.ReactNode;
-  /**
-   * List of custom off days
-   *
-   * @type Moment
-   */
-  export type OffDays = Moment[];
 
+  /**
+   * The `highlightOffDays` object that can be used to determines what dates
+   * should be off. if `weekend` set to `true`, its turn weekend days to off,
+   * also if pass `customDates` as array, the passed dates turn into off.
+   */
   export type HighLightOffDays = { weekend?: boolean; customDates?: Date[] };
-  /**
-   * Customize localization.
-   *
-   * @default { language: "fa", zone: "Iran/Tehran" }
-   */
 
+  /** The `locale` object that can be configures the language of datepicker. */
   export type Locale = {
-    /**
-     * The language applied to picker
-     *
-     * @default "fa"
-     */
     language?: Language;
   };
+
   /**
-   * Custom format of return value
+   * `format` turns the selected date into the formatted string value.
    *
    * @see https://momentjs.com/docs
    */
   export type Format = string | ((value: Moment) => string);
+
   /**
-   * A render callback that add extra node above of default header
+   * The `headerRender` callback used to render custom node for header component.
    *
-   * @param {Moment} [current]
-   * @param {React.ReactNode} [node]
-   * @returns React.ReactNode
+   * @param `current` `headerNode`
+   * @returns `React.ReactNode`
    */
-  export type headerRender = (
+  export type HeaderRender = (
     current: Date | null,
     headerNode: React.ReactNode,
   ) => React.ReactNode;
+
   /**
-   * A render callback that add custom footer below the panel
+   * The `footerRender` callback used to render custom node for footer component.
    *
-   * @param {Moment} [current]
-   * @param {React.ReactNode} [node]
-   * @returns React.ReactNode
+   * @param `current` `footerNode`
+   * @returns `React.ReactNode`
    */
-  export type footerRender = (
+  export type FooterRender = (
     current: Date | null,
     footerNode: React.ReactNode,
   ) => React.ReactNode;
 
   /**
-   * A render callback that add custom panel
+   * The `panelRender` callback used to render custom node for panel component.
    *
-   * @param {PanelDate} [data]
-   * @param {React.ReactNode} [node]
-   * @returns React.ReactNode
+   * @param `data` `panelNode`
+   * @returns `React.ReactNode`
    */
-  export type panelRender = (
+  export type PanelRender = (
     data: PanelDate,
     panelNode: React.ReactNode,
   ) => React.ReactNode;
 
   /**
-   * A render callback that add custom panel
+   * The `dayLabelRender` callback used to render custom node for day labels component.
    *
-   * @param {string[]} [labels]
-   * @param {React.ReactNode} [node]
-   * @returns React.ReactNode
+   * @param `labels` `labelNode`
+   * @returns `React.ReactNode`
    */
-  export type dayLabelRender = (
+  export type DayLabelRender = (
     labels: string[],
     labelNode: React.ReactNode,
   ) => React.ReactNode;

@@ -99,17 +99,24 @@ export const useRangeReducer = ({
     [formatProp, isJalaali],
   );
 
-  const inputRangeProps = useMemo(() => {
-    const values = (
+  const { rangeDateString } = useMemo(() => {
+    const rangeDateString =
       rangeState.startDate.day !== 0 &&
       rangeState.endDate !== null &&
       rangeState.endDate?.day !== 0
-        ? formattedDates(rangeTransformer(rangeState, isJalaali))
-        : ["", ""]
+        ? rangeTransformer(rangeState, isJalaali)
+        : null;
+
+    return { rangeDateString };
+  }, [isJalaali, rangeState]);
+
+  const { values } = useMemo(() => {
+    const values = (
+      rangeDateString ? formattedDates(rangeDateString) : ["", ""]
     ) as [string, string];
 
     return { values };
-  }, [formattedDates, isJalaali, rangeState]);
+  }, [formattedDates, rangeDateString]);
 
   useEffect(() => {
     if (valueProp && valueProp.length) {
@@ -396,7 +403,10 @@ export const useRangeReducer = ({
     onRangeDecreaseYear,
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
-    inputRangeProps,
+    rangeDateString,
+    inputRangeProps: {
+      values,
+    },
     from: fromAndTo.from,
     to: fromAndTo.to,
   };

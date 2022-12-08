@@ -12,9 +12,9 @@ export interface RangePickerProps {
   locale?: DateRangePickerTypes.Locale;
   disabledDates?: DateRangePickerTypes.DisabledDates;
   onModeChange?: DateRangePickerTypes.OnModeChange;
-  panelRender?: DateRangePickerTypes.panelRender;
-  headerRender?: DateRangePickerTypes.headerRender;
-  dayLabelRender?: DateRangePickerTypes.dayLabelRender;
+  panelRender?: DateRangePickerTypes.PanelRender;
+  headerRender?: DateRangePickerTypes.HeaderRender;
+  dayLabelRender?: DateRangePickerTypes.DayLabelRender;
   highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
   customColors?: DateRangePickerTypes.Colors;
 }
