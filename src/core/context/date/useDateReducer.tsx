@@ -49,6 +49,7 @@ export const useDateReducer = ({
     getDefaultValue(defaultValueProp || moment(), isJalaali),
   );
   const [placeholder, setPlaceholder] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const formattedValue = useCallback(
     (value: Moment) => {
@@ -63,6 +64,10 @@ export const useDateReducer = ({
     [formatProp, isJalaali],
   );
 
+  const onEmptyInputValue = () => {
+    setInputValue("");
+  };
+
   const changePlaceholder = useCallback(
     (date: Date | null) => {
       if (!date) {
@@ -76,15 +81,6 @@ export const useDateReducer = ({
     },
     [formattedValue, isJalaali],
   );
-
-  const _inputProps = useMemo(() => {
-    const value =
-      state && state.day !== 0
-        ? formattedValue(dateTransformer(state, isJalaali))
-        : "";
-
-    return { value };
-  }, [formattedValue, isJalaali, state]);
 
   useEffect(() => {
     if (valueProp) {
@@ -109,6 +105,7 @@ export const useDateReducer = ({
       dispatch({ type: DateActionKind.DAY, payload });
       setCacheDate(payload);
       payload.day !== 0 && onDayChangeProp?.(payload.day);
+      payload.day !== 0 && onEmptyInputValue();
     },
     [onDayChangeProp],
   );
@@ -127,6 +124,7 @@ export const useDateReducer = ({
       dispatch({ type: DateActionKind.YEAR, payload });
       onYearChangeProp?.(payload.year);
     },
+
     [onYearChangeProp],
   );
   const onIncreaseYear = useCallback(
@@ -179,6 +177,28 @@ export const useDateReducer = ({
     },
     [cacheDate.day, cacheDate?.month],
   );
+
+  const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const userData = e.target.value;
+    setInputValue(userData);
+
+    const momentValue = moment(userData);
+
+    if (momentValue.isValid()) {
+      onDateChange(momentTransformer(momentValue, isJalaali));
+      onMonthchange(momentTransformer(momentValue, isJalaali));
+    }
+  };
+
+  const { dateValue } = useMemo(() => {
+    const dateValue =
+      state && state.day !== 0
+        ? formattedValue(dateTransformer(state, isJalaali))
+        : "";
+
+    return { dateValue };
+  }, [formattedValue, isJalaali, state]);
+
   return {
     state,
     cacheDate,
@@ -191,9 +211,11 @@ export const useDateReducer = ({
     onIncreaseMonth,
     onDecreaseMonth,
     changePlaceholder,
+    onEmptyInputValue,
     inputProps: {
-      ..._inputProps,
+      value: inputValue || dateValue,
       placeholder,
+      onChangeInputValue,
     },
   };
 };

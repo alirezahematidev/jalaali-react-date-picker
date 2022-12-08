@@ -7,120 +7,23 @@
   max-width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.23);
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 4px;
   @include flex-row;
   &:hover {
     border-color: var(--highlight);
   }
 }
 
-.range_input_wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid gray;
-  position: relative;
-  border-radius: 4px;
-  padding: 4px;
-  &:hover {
-    border-color: var(--highlight);
-  }
-  &:focus {
-    box-shadow: none;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    width: 0px;
-    border-bottom: none;
-    bottom: -2px;
-    left: 50%;
-  }
-}
-
-.input_fa {
-  all: unset;
-  height: 34;
-  border: unset !important;
-  display: flex;
-  width: 100%;
-  padding-inline: 8px;
-  text-align: right;
-  @include font-family();
-
-  &:focus {
-    box-shadow: none;
-    border: unset !important;
-  }
-  &:focus-visible {
-    box-shadow: none;
-    border: unset !important;
-  }
-}
-.input_en {
-  all: unset;
-  height: 34;
-  border: unset !important;
-  display: flex;
-  width: 100%;
-  padding-inline: 8px;
-  text-align: left;
-  @include font-family-en();
-  &:focus {
-    box-shadow: none;
-    border: unset !important;
-  }
-  &:focus-visible {
-    box-shadow: none;
-    border: unset !important;
-  }
-}
-
-.range_input_from {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  height: 18px;
-  border: none !important;
-  &:hover {
-    border: none !important;
-  }
-  &:focus-visible {
-    border: none !important;
-    box-shadow: none !important;
-  }
-  &:focus {
-    border: none !important;
-    box-shadow: none !important;
-  }
-}
-.range_input_to {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  height: 18px;
-  border: none !important;
-  &:hover {
-    border: none !important;
-  }
-  &:focus-visible {
-    border: none !important;
-    box-shadow: none;
-  }
-  &:focus {
-    border: none !important;
-    box-shadow: none;
-  }
-}
-
-.picker-input {
+.picker-input-fa {
   border: none;
   outline: none;
   width: 100%;
   height: 100%;
   font-size: 14px;
+  padding-inline: 4px;
   @include font-family;
   color: var(--text-dark);
+  direction: rtl;
 }
 .picker-input-en {
   border: none;
@@ -128,34 +31,28 @@
   width: 100%;
   height: 100%;
   font-size: 14px;
+  padding-inline: 4px;
   @include font-family-en;
   color: var(--text-dark);
+  direction: ltr;
 }
 
 .calendar-icon {
   width: 20px;
   height: 20px;
+  padding-inline: 4px;
   @include flex-center;
   cursor: pointer;
   filter: invert(0.4);
   &:hover {
-    filter: invert(0.3);
-  }
-}
-.range-icon {
-  width: 20px;
-  height: 20px;
-  @include flex-center;
-  cursor: pointer;
-  filter: invert(0.4);
-  &:hover {
-    filter: invert(0.3);
+    filter: invert(0.4);
   }
 }
 
 .clear-icon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  padding-inline: 4px;
   @include flex-center;
   cursor: pointer;
   filter: invert(0.7);

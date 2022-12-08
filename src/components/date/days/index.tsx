@@ -24,8 +24,13 @@ const Days = () => {
   const { days: metadataDays } = useDays();
   const today = momentTransformer(moment());
 
-  const { onChangeMode, panelRender, dayLabelRender, highlightOffDays } =
-    usePanelContext();
+  const {
+    onChangeMode,
+    panelRender,
+    dayLabelRender,
+    highlightOffDays,
+    toggle,
+  } = usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
     day,
@@ -93,6 +98,7 @@ const Days = () => {
                 onPress={() => {
                   onDaychange(date);
                   onDateChange(date);
+                  toggle?.();
                 }}
                 isHighlight={isEqual(selected, date)}
                 isOff={(highlightOffDays?.customDates || [])?.some((d) =>

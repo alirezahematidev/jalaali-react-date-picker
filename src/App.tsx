@@ -1,4 +1,4 @@
-import { DatePicker } from "./components";
+import { InputDatePicker } from "./components/dateInput";
 import "./styles/index.scss";
 
 function App() {
@@ -9,7 +9,11 @@ function App() {
         padding: 50,
       }}
     >
-      <DatePicker />
+      <InputDatePicker
+        locale={{
+          language: "fa",
+        }}
+      />
     </div>
   );
 }
