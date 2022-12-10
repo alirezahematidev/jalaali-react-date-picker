@@ -3,7 +3,6 @@ import React, { ReactNode, useRef, useState } from "react";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { useDestroy } from "../../core/hooks/useDestroy";
 import { useReverse } from "../../core/hooks/useReverse";
-import { DatePicker } from "../date/picker";
 
 export type Placement = "bottom" | "top" | "right" | "left";
 
@@ -131,7 +130,6 @@ export const Popup = ({
           }}
         >
           {panel}
-          <DatePicker />
         </div>
       )}
     </div>

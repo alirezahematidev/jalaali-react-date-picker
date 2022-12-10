@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { useState } from "react";
-import calendar from "../../assets/icons/calendar.svg";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps } from "../../core";
 import "../../styles/index.scss";
 import { Popup } from "../popup";
+import { Suffix } from "../suffix";
 
 export const InputDatePicker = ({
   value,
@@ -42,6 +42,7 @@ export const InputDatePicker = ({
     setIsOpen(false);
     onOpenChange?.(false);
   };
+  const [clearIconVisible, setClearIconVisible] = useState(false);
 
   return (
     <DateProvider
@@ -64,9 +65,10 @@ export const InputDatePicker = ({
           isOpen={isOpen}
           close={close}
           toggle={toggle}
-          panel={<Panel {...pickerProps} />}
+          panel={<Panel toggle={toggle} {...pickerProps} />}
         >
           <div
+            dir={isRtl ? "rtl" : "ltr"}
             aria-label="datepicker"
             className={classNames(
               "picker-input-wrapper",
@@ -74,6 +76,8 @@ export const InputDatePicker = ({
               wrapperClassName,
             )}
             style={wrapperStyle}
+            onMouseEnter={() => inputProps.value && setClearIconVisible(true)}
+            onMouseLeave={() => setClearIconVisible(false)}
           >
             {prefixIcon && prefixIcon}
             <input
@@ -84,13 +88,13 @@ export const InputDatePicker = ({
                 isRtl && "rtl",
                 className,
               )}
-              readOnly
+              onChange={inputProps.onChangeInputValue}
             />
-            {suffixIcon || (
-              <div className="calendar-icon">
-                <img src={calendar} alt="calendar" width={20} height={20} />
-              </div>
-            )}
+            <Suffix
+              suffixIcon={suffixIcon}
+              clearable={clearIconVisible}
+              onClear={() => console.log("clear")}
+            />
           </div>
         </Popup>
       )}

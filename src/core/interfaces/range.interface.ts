@@ -34,6 +34,7 @@ interface PickerProps extends RangePanelProps {}
 interface RangePickerPickable
   extends Pick<
     RangePickerProps,
+    | "defaultValue"
     | "value"
     | "onChange"
     | "onDayChange"

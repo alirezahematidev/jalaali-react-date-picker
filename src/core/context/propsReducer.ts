@@ -7,7 +7,7 @@ export type DatePropsReducerType = Pick<
 
 export type RangePropsReducerType = Pick<
   RangePickerProps,
-  "locale" | "onChange" | "value" | "disabledDates"
+  "locale" | "onChange" | "value" | "disabledDates" | "format"
 > & { format?: string };
 
 export enum PropsActionKind {

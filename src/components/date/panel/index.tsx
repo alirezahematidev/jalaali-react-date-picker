@@ -14,6 +14,7 @@ moment.loadPersian({ dialect: "persian-modern" });
 
 interface PanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
+  toggle?: () => void;
 }
 
 type PanelComponent = typeof Panel;
@@ -27,6 +28,7 @@ const Panel = (
     dayLabelRender,
     onModeChange,
     customColors,
+    toggle,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -49,6 +51,7 @@ const Panel = (
           dayLabelRender,
           highlightOffDays,
           onModeChange,
+          toggle,
         }}
       />
       <Footer footerRender={footerRender} />
