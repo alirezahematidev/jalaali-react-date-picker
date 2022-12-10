@@ -15,6 +15,7 @@ const RangePicker = (
     panelRender,
     highlightOffDays,
     customColors,
+    onModeChange,
     ...restProps
   }: RangePickerProps,
   pickerRef: ForwardedRef<HTMLDivElement>,
@@ -28,6 +29,7 @@ const RangePicker = (
         dayLabelRender={dayLabelRender}
         highlightOffDays={highlightOffDays}
         customColors={customColors}
+        onModeChange={onModeChange}
       />
     </RangeProvider>
   );

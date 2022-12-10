@@ -1,5 +1,4 @@
 import { DatePicker } from "./components";
-import { RangePicker } from "./components/range";
 import "./styles/index.scss";
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
       }}
     >
       <DatePicker />
-      <RangePicker />
     </div>
   );
 }

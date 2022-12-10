@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { DatePickerTypes } from "../types";
 
 export interface DatePickerProps {
@@ -17,6 +17,10 @@ export interface DatePickerProps {
   dayLabelRender?: DatePickerTypes.DayLabelRender;
   highlightOffDays?: DatePickerTypes.HighLightOffDays;
   customColors?: DatePickerTypes.Colors;
+  nextIcon?: React.ReactNode;
+  prevIcon?: React.ReactNode;
+  superNextIcon?: React.ReactNode;
+  superPrevIcon?: React.ReactNode;
 }
 
 export interface PanelProps

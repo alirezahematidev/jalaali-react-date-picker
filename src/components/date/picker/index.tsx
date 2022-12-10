@@ -16,6 +16,11 @@ const DatePicker = (
     panelRender,
     highlightOffDays,
     customColors,
+    onModeChange,
+    nextIcon,
+    prevIcon,
+    superNextIcon,
+    superPrevIcon,
     ...restProps
   }: DatePickerProps,
   pickerRef: ForwardedRef<HTMLDivElement>,
@@ -30,6 +35,8 @@ const DatePicker = (
         dayLabelRender={dayLabelRender}
         highlightOffDays={highlightOffDays}
         customColors={customColors}
+        onModeChange={onModeChange}
+        navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}
       />
     </DateProvider>
   );

@@ -24,6 +24,7 @@
   transition: background-color 100ms ease;
   min-width: 80px;
   @include flex-center;
+  color: var(--text-dark);
 }
 
 .month-item-hovered {

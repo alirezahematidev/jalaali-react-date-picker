@@ -17,6 +17,10 @@ export interface RangePickerProps {
   dayLabelRender?: DateRangePickerTypes.DayLabelRender;
   highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
   customColors?: DateRangePickerTypes.Colors;
+  nextIcon?: React.ReactNode | (() => React.ReactNode);
+  prevIcon?: React.ReactNode | (() => React.ReactNode);
+  superNextIcon?: React.ReactNode | (() => React.ReactNode);
+  superPrevIcon?: React.ReactNode | (() => React.ReactNode);
 }
 
 export interface RangePanelProps
@@ -27,6 +31,7 @@ export interface RangePanelProps
     | "highlightOffDays"
     | "dayLabelRender"
     | "customColors"
+    | "onModeChange"
   > {}
 
 interface PickerProps extends RangePanelProps {}

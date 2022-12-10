@@ -1,21 +1,14 @@
 import classNames from "classnames";
 import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
-import {
-  Date,
-  DateMetadata,
-  DateRangePickerTypes,
-  useRangepicker,
-} from "../../../core";
+import { Date, DateMetadata, useRangepicker } from "../../../core";
 import { dateTransformer, momentTransformer } from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";
+import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 
 interface RangeDayPanelProps {
   days: DateMetadata[];
-  dayLabelRender?: DateRangePickerTypes.DayLabelRender;
-  highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
-  canHighlighWeekend?: boolean;
   selectedRange: {
     startDate: Date | null;
     endDate: Date | null;
@@ -25,14 +18,13 @@ interface RangeDayPanelProps {
 
 export const RangeDayPanel = ({
   days,
-  dayLabelRender,
-  highlightOffDays,
   onSelect,
-  canHighlighWeekend,
   selectedRange,
 }: RangeDayPanelProps) => {
   const today = momentTransformer(moment());
   const { isJalaali, dayLabels } = useRangepicker();
+
+  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const extendDays = days.map((day) => {
     if (day.isDisabled) {
@@ -58,6 +50,11 @@ export const RangeDayPanel = ({
       isNeighborsDisabled: false,
     };
   });
+
+  const canHighlighWeekend =
+    highlightOffDays && highlightOffDays.weekend !== undefined
+      ? highlightOffDays.weekend
+      : true;
 
   return (
     <div className="range-day-panel-item">
@@ -111,7 +108,7 @@ export const RangeDayPanel = ({
                       : false
                   }
                   isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-                    isEqual(d, day),
+                    isEqual(d, date),
                   )}
                   isWeekend={canHighlighWeekend ? isWeekend : false}
                   isToday={isEqual(today, date)}

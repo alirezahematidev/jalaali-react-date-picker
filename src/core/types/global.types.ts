@@ -4,11 +4,13 @@ export type ColorSchema = {
   textDark?: string;
   textLight?: string;
   highlight?: string;
-  textDisabled?: string;
+  highlightFade?: string;
   background?: string;
   backgroundDisabled?: string;
   backgroundHovered?: string;
-  light?: string;
+  border?: string;
+  textNegative?: string;
+  dayLabelBackground?: string;
 };
 
 export type MonthNamedValue = {
@@ -52,3 +54,10 @@ export type Language = "fa" | "en" | "de" | "fr" | "es";
 export type LocalizedMonth = Record<Language, Month[]>;
 
 export type LocalizedDayLabel = Record<Language, string[]>;
+
+export type NavigationIcon = {
+  nextIcon?: React.ReactNode;
+  prevIcon?: React.ReactNode;
+  superNextIcon?: React.ReactNode;
+  superPrevIcon?: React.ReactNode;
+};

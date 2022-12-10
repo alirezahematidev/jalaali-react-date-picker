@@ -2,6 +2,7 @@ import classNames from "classnames";
 import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
 import {
+  NavigationIcon,
   PanelProps as Props,
   useDatepicker,
   useSetColors,
@@ -15,6 +16,7 @@ moment.loadPersian({ dialect: "persian-modern" });
 interface PanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
   toggle?: () => void;
+  navigationIcons?: NavigationIcon;
 }
 
 type PanelComponent = typeof Panel;
@@ -29,6 +31,7 @@ const Panel = (
     onModeChange,
     customColors,
     toggle,
+    navigationIcons,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -52,6 +55,7 @@ const Panel = (
           highlightOffDays,
           onModeChange,
           toggle,
+          navigationIcons,
         }}
       />
       <Footer footerRender={footerRender} />

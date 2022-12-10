@@ -25,7 +25,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
 
   const selectedDate = state || cacheDate;
 
-  const { headerRender } = usePanelContext();
+  const { headerRender, navigationIcons } = usePanelContext();
 
   const current = selectedDate && selectedDate.day !== 0 ? selectedDate : null;
 
@@ -41,12 +41,14 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseYear(selectedDate)
             }
           >
-            <img
-              width={18}
-              height={18}
-              src={RightIconDouble}
-              alt="RightIconDouble"
-            />
+            {navigationIcons?.superPrevIcon || (
+              <img
+                width={18}
+                height={18}
+                src={RightIconDouble}
+                alt="RightIconDouble"
+              />
+            )}
           </div>
           <div
             className="iconItem"
@@ -56,7 +58,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseMonth(selectedDate)
             }
           >
-            <img width={18} height={18} src={RightIcon} alt="RightIcon" />
+            {navigationIcons?.prevIcon || (
+              <img width={18} height={18} src={RightIcon} alt="RightIcon" />
+            )}
           </div>
         </div>
         <div className="panel-date-holder-item-ltr">
@@ -84,7 +88,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseMonth(selectedDate)
             }
           >
-            <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
+            {navigationIcons?.nextIcon || (
+              <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
+            )}
           </div>
           <div
             className="iconItem"
@@ -94,12 +100,14 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseYear(selectedDate)
             }
           >
-            <img
-              width={18}
-              height={18}
-              alt="LeftIconDouble"
-              src={LeftIconDouble}
-            />
+            {navigationIcons?.superNextIcon || (
+              <img
+                width={18}
+                height={18}
+                alt="LeftIconDouble"
+                src={LeftIconDouble}
+              />
+            )}
           </div>
         </div>
       </div>

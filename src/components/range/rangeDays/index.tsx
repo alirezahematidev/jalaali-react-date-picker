@@ -2,7 +2,6 @@ import moment, { Moment } from "moment-jalaali";
 import { useCallback } from "react";
 import { DateMetadata, useRangeDays, useRangepicker } from "../../../core";
 import { dateTransformer, momentTransformer } from "../../../utils";
-import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { HeaderProps, RangeHeader } from "./header";
 import { RangeDayPanel } from "./rangeDayPanel";
@@ -24,8 +23,6 @@ const RangeDays = ({}: RangeDaysProps) => {
   const { type, onChangeMode } = useRangeTemplate();
 
   const { days } = useRangeDays(type);
-
-  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const onSelect = useCallback(
     ({ day, month, year, isNotCurrentMonth }: DateMetadata) => {
@@ -86,11 +83,6 @@ const RangeDays = ({}: RangeDaysProps) => {
 
   // const {} = useMemo(() => {}, []);
 
-  const canHighlighWeekend =
-    highlightOffDays && highlightOffDays.weekend !== undefined
-      ? highlightOffDays.weekend
-      : true;
-
   return (
     <div className="range-day-wrapper">
       <RangeHeader
@@ -106,9 +98,6 @@ const RangeDays = ({}: RangeDaysProps) => {
             startDate: cacheRangeDate?.startDate || null,
             endDate: cacheRangeDate?.endDate || null,
           }}
-          canHighlighWeekend={canHighlighWeekend}
-          dayLabelRender={dayLabelRender}
-          highlightOffDays={highlightOffDays}
           onSelect={onSelect}
         />
       </div>

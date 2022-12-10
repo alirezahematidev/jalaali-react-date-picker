@@ -6,7 +6,6 @@ export const dateTransformer = (
   data: Date,
   isJalaali: boolean,
 ): moment.Moment => {
-  console.log({ data });
   const { day, month, year } = data;
   if (day < 1 || month < 1 || year < 1) {
     throw new Error("entered inputs are not valid");

@@ -23,6 +23,7 @@
   min-width: 54px;
   cursor: pointer;
   @include flex-center;
+  color: var(--text-dark);
 }
 
 .year-item-hovered {

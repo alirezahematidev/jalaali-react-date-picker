@@ -4,7 +4,7 @@
   width: 300px;
   height: 352px;
   max-height: 352px;
-  background-color: #ffffff;
+  background-color: var(--background);
   border-radius: 2px;
   overflow: hidden;
   flex-direction: column;
@@ -19,7 +19,7 @@
   width: 600px;
   height: 312px;
   max-height: 312px;
-  background-color: #ffffff;
+  background-color: var(--background);
   border-radius: 2px;
   overflow: hidden;
   p {
@@ -68,31 +68,36 @@
   @include font-family;
   @extend .panel;
   direction: rtl;
+  // background-color: var(--background);
 }
 
 .panel-gregorian {
   @include font-family-en;
   @extend .panel;
   direction: ltr;
+  background-color: var(--background);
 }
 
 .panel-range-jalaali {
   @include font-family;
   @extend .panel-range;
   direction: rtl;
+  background-color: var(--background);
 }
 
 .panel-range-gregorian {
   @include font-family-en;
   @extend .panel-range;
   direction: ltr;
+  background-color: var(--background);
 }
 
 .panel-header {
   @include widget;
   @include flex-row;
   overflow: hidden;
-  border-bottom: 1px solid var(--light);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
 }
 
 .panel-header-rtl {
@@ -180,12 +185,14 @@
   // row-gap: 8px;
   // column-gap: 4px;
   overflow: hidden;
+  background-color: var(--background);
 }
 
 .panel-footer {
   @include widget;
   @include flex-row;
-  border-top: 1px solid var(--light);
+  border-top: 1px solid var(--border);
+  background-color: var(--background);
 }
 
 .panel-footer-rtl {
@@ -212,7 +219,7 @@
   width: 100%;
   min-height: 28px;
   @include flex-row(space-between);
-  background-color: #555;
+  background-color: var(--day-label-background);
   border-radius: 2px;
   padding-inline: 6px;
 }
@@ -239,6 +246,7 @@
 
 .today-text {
   transition: color 100ms ease;
+  color: var(--text-dark);
   &:hover {
     color: var(--highlight);
   }
@@ -308,7 +316,7 @@
   background-color: var(--background-disabled);
 }
 .highlight-day {
-  background-color: var(--highlight-light);
+  background-color: var(--highlight-fade);
   color: var(--text-dark);
 }
 
@@ -319,7 +327,7 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: var(--highlight-light);
+  background: var(--highlight-fade);
   border: none;
   outline: none;
 }
@@ -331,40 +339,40 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: var(--highlight-light);
+  background: var(--highlight-fade);
   border: none;
   outline: none;
 }
-.hovering::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 2px);
-  top: 0;
-  left: 0;
-  border-block: 1px solid red;
-  pointer-events: none;
-}
+// .hovering::before {
+//   content: "";
+//   position: absolute;
+//   width: 100%;
+//   height: calc(100% - 2px);
+//   top: 0;
+//   left: 0;
+//   border-block: 1px solid red;
+//   pointer-events: none;
+// }
 
-.last-hovering::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 2px);
-  top: 0;
-  left: 0;
-  border: 1px solid red;
-  border-inline-start: none;
-  pointer-events: none;
-}
+// .last-hovering::after {
+//   content: "";
+//   position: absolute;
+//   width: 100%;
+//   height: calc(100% - 2px);
+//   top: 0;
+//   left: 0;
+//   border: 1px solid red;
+//   border-inline-start: none;
+//   pointer-events: none;
+// }
 
-.last-hovering::before {
-  content: "";
-  position: absolute;
-  width: 4px;
-  height: calc(100% - 2px);
-  top: 0;
-  right: -4px;
-  pointer-events: none;
-  border-block: 1px solid red;
-}
+// .last-hovering::before {
+//   content: "";
+//   position: absolute;
+//   width: 4px;
+//   height: calc(100% - 2px);
+//   top: 0;
+//   right: -4px;
+//   pointer-events: none;
+//   border-block: 1px solid red;
+// }

@@ -47,6 +47,7 @@ const Day = ({
         mode === "range" &&
           isHighlight &&
           day === startDay &&
+          endDay &&
           "start-tail-highlight",
 
         mode === "range" &&
