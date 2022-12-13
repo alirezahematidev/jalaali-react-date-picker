@@ -1,6 +1,6 @@
-import { PanelProps, useDatepicker, useTranslation } from "../../core";
+import { PickerProps, useDatepicker, useTranslation } from "../../core";
 
-interface FooterProps extends Pick<PanelProps, "footerRender"> {}
+interface FooterProps extends Pick<PickerProps, "footerRender"> {}
 
 export const Footer = ({ footerRender }: FooterProps) => {
   const { t } = useTranslation();

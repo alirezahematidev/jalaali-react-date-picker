@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-import { DateRangePickerTypes, RangePanelProps } from "../../../core";
+import { DateRangePickerTypes, RangeProps } from "../../../core";
 import { RangePanelTemplate } from "./panelTemplate";
 
-interface RangePanelModeProps extends RangePanelProps {}
+interface RangePanelModeProps extends RangeProps {}
 
 interface RangePanelModeContext extends RangePanelModeProps {
   onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;

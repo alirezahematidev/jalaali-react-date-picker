@@ -147,8 +147,6 @@ export const useRangeReducer = ({
       if (payload.endDate) {
         const dates = rangeTransformer({ ...payload });
 
-        console.log("onChange call");
-
         payload.startDate.day !== 0 &&
           payload.endDate.day !== 0 &&
           onChangeProp?.(dates, formattedDates(dates));
@@ -181,8 +179,6 @@ export const useRangeReducer = ({
 
       dispatch({ type: RangeActionKind.DAY, payload: res });
       setCacheRangeDate(res);
-
-      console.log("onChange call");
 
       if (res) {
         res.startDate.day !== 0 &&

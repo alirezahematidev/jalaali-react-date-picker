@@ -1,4 +1,4 @@
-import { DatePicker } from "./components";
+import { InputDatePicker } from "./components/dateInput";
 import "./styles/index.scss";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         display: "flex",
       }}
     >
-      <DatePicker />
+      <InputDatePicker />
     </div>
   );
 }

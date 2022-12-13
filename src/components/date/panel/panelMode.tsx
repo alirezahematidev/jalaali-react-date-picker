@@ -1,12 +1,12 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { DatePickerTypes, NavigationIcon, PanelProps } from "../../../core";
+import { DatePickerTypes, NavigationIcon, PickerProps } from "../../../core";
 import { Days } from "../days";
 import { Months } from "../months";
 import { Years } from "../years";
 
 type Panel = Record<DatePickerTypes.Mode, JSX.Element>;
 
-interface PanelModeProps extends Omit<PanelProps, "renderFooter"> {
+interface PanelModeProps extends Omit<PickerProps, "renderFooter"> {
   toggle?: () => void;
   navigationIcons?: NavigationIcon;
 }

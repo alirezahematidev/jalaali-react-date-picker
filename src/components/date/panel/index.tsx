@@ -3,7 +3,7 @@ import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
 import {
   NavigationIcon,
-  PanelProps as Props,
+  PickerProps as Props,
   useDatepicker,
   useSetColors,
 } from "../../../core";

@@ -23,7 +23,7 @@ export interface RangePickerProps {
   superPrevIcon?: React.ReactNode | (() => React.ReactNode);
 }
 
-export interface RangePanelProps
+interface RangePanelProps
   extends Pick<
     RangePickerProps,
     | "panelRender"
@@ -34,7 +34,7 @@ export interface RangePanelProps
     | "onModeChange"
   > {}
 
-interface PickerProps extends RangePanelProps {}
+export interface RangeProps extends RangePanelProps {}
 
 interface RangePickerPickable
   extends Pick<
@@ -58,7 +58,7 @@ type InputBuiltInProps = Omit<
 type InputRangePickerPickable = InputBuiltInProps & RangePickerPickable;
 
 export interface InputRangePickerProps extends InputRangePickerPickable {
-  rangeProps?: PickerProps;
+  rangeProps?: RangeProps;
   open?: boolean;
   disabled?: boolean;
   wrapperClassName?: string;

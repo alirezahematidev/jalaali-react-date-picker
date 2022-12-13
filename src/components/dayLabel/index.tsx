@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { PanelProps } from "../../core";
+import { PickerProps } from "../../core";
 
-interface DayLabelProps extends Pick<PanelProps, "dayLabelRender"> {
+interface DayLabelProps extends Pick<PickerProps, "dayLabelRender"> {
   dayLabels: string[];
   isJalaali: boolean;
 }

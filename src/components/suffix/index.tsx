@@ -14,7 +14,10 @@ const Suffix = ({ clearable, suffixIcon, onClear }: SuffixProps) => {
       {(clearable && (
         <img
           className="clear-icon"
-          onClick={onClear}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClear?.();
+          }}
           src={clear}
           alt="clear"
           width={20}

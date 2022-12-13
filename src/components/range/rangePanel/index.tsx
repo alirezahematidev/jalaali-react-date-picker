@@ -2,7 +2,7 @@ import classNames from "classnames";
 import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
 import {
-  RangePanelProps as Props,
+  RangeProps as Props,
   useRangepicker,
   useSetColors,
 } from "../../../core";

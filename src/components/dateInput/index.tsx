@@ -57,7 +57,7 @@ export const InputDatePicker = ({
         onDayChange,
       }}
     >
-      {(inputProps) => (
+      {({ onChangeInputValue, onEmptyInputValue, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -88,12 +88,12 @@ export const InputDatePicker = ({
                 isRtl && "rtl",
                 className,
               )}
-              onChange={inputProps.onChangeInputValue}
+              onChange={onChangeInputValue}
             />
             <Suffix
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
-              onClear={() => console.log("clear")}
+              onClear={() => onEmptyInputValue()}
             />
           </div>
         </Popup>

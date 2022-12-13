@@ -65,7 +65,10 @@ export const useDateReducer = ({
   );
 
   const onEmptyInputValue = () => {
+    dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
+    setCacheDate((c) => ({ ...c, day: 0 }));
     setInputValue("");
+    setPlaceholder("");
   };
 
   const changePlaceholder = useCallback(
@@ -105,7 +108,7 @@ export const useDateReducer = ({
       dispatch({ type: DateActionKind.DAY, payload });
       setCacheDate(payload);
       payload.day !== 0 && onDayChangeProp?.(payload.day);
-      payload.day !== 0 && onEmptyInputValue();
+      payload.day !== 0 && setInputValue("");
     },
     [onDayChangeProp],
   );
@@ -216,6 +219,7 @@ export const useDateReducer = ({
       value: inputValue || dateValue,
       placeholder,
       onChangeInputValue,
+      onEmptyInputValue,
     },
   };
 };

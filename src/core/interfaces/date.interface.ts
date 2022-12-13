@@ -23,7 +23,7 @@ export interface DatePickerProps {
   superPrevIcon?: React.ReactNode;
 }
 
-export interface PanelProps
+interface PanelProps
   extends Pick<
     DatePickerProps,
     | "panelRender"
@@ -35,7 +35,7 @@ export interface PanelProps
     | "customColors"
   > {}
 
-interface PickerProps extends PanelProps {}
+export interface PickerProps extends PanelProps {}
 
 interface DatePickerPickable
   extends Pick<
