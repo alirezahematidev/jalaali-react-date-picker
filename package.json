@@ -2,7 +2,7 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "private": false,
   "keywords": [
@@ -37,12 +37,12 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "moment-jalaali": "^0.9.6",
+    "moment-timezone": "^0.5.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0",
-    "moment-timezone": "^0.5.38"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,6 +60,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/lodash-es": "^4.17.6",
     "@types/moment-jalaali": "^0.7.5",
+    "@types/moment-timezone": "^0.5.30",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "classnames": "^2.3.2",
@@ -80,8 +81,7 @@
     "prettier-plugin-organize-imports": "^3.2.0",
     "react-app-rewired": "^2.2.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.56.0",
-    "@types/moment-timezone": "^0.5.30"
+    "sass": "^1.56.0"
   },
   "eslintConfig": {
     "extends": [
