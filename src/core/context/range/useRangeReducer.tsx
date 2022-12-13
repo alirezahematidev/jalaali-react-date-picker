@@ -185,9 +185,16 @@ export const useRangeReducer = ({
           res.endDate !== null &&
           res?.endDate?.day !== 0 &&
           onDayChangeProp?.([res.startDate.day, res.endDate.day]);
+        onRangeDateChange?.(res);
       }
     },
-    [onDayChangeProp, rangeState, isJalaali],
+    [
+      isJalaali,
+      rangeState.startDate,
+      rangeState.endDate,
+      onDayChangeProp,
+      onRangeDateChange,
+    ],
   );
 
   const onRangeMonthchange = useCallback(
@@ -218,13 +225,23 @@ export const useRangeReducer = ({
             ? to.year + 1
             : to.year,
         };
+        onMonthChangeProp?.([
+          {
+            name: getMonthLabels(updatedFrom.month, isJalaali),
+            value: updatedFrom.month,
+          },
+          {
+            name: getMonthLabels(updatedTo.month, isJalaali),
+            value: updatedTo.month,
+          },
+        ]);
         return {
           from: updatedFrom,
           to: updatedTo,
         };
       });
     },
-    [],
+    [isJalaali, onMonthChangeProp],
   );
   const onRangeYearchange = useCallback(
     (year: number, mode: "from" | "to") => {
