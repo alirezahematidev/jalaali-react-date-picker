@@ -2,7 +2,7 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.0.96",
+  "version": "0.0.97",
   "license": "MIT",
   "sideEffects": false,
   "private": false,
@@ -54,7 +54,7 @@
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
     "compile": "tsc -b",
-    "copy-styles":"Xcopy .\\src\\styles .\\dist\\styles /E/I"
+    "copy-styles": "Xcopy .\\src\\styles .\\dist\\styles /E/I"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",
