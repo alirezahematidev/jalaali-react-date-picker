@@ -6,7 +6,6 @@ import {
   useRangepicker,
   useSetColors,
 } from "../../../core";
-import "../../../styles/index.css";
 import { RangePanelMode } from "./panelRangeMode";
 
 moment.loadPersian({ dialect: "persian-modern" });

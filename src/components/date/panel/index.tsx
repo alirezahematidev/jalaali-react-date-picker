@@ -7,7 +7,6 @@ import {
   useDatepicker,
   useSetColors,
 } from "../../../core";
-import "../../../styles/index.css";
 import { Footer } from "../../footer";
 import { PanelMode } from "./panelMode";
 

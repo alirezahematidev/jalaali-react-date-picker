@@ -2,7 +2,6 @@ import classNames from "classnames";
 import { useState } from "react";
 import calendar from "../../assets/icons/calendar.svg";
 import { InputRangePickerProps, RangeProvider } from "../../core";
-import "../../styles/index.css";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
 
