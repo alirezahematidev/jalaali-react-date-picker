@@ -27,7 +27,7 @@ module.exports = {
 
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
-      type: "asset/resource",
+      use: ["url-loader?limit=100000"],
     });
 
     return config;

@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noEmit": false,
+    "noEmit": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
     "skipLibCheck": true,
@@ -22,9 +22,9 @@
     "declarationMap": true,
     "downlevelIteration": true,
     "checkJs": false,
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "outDir": "dist",
+    "rootDir": "src"
   },
-  "include": ["src", "src/custom.d.ts", "src/**/*"],
+  "include": ["src", "src/custom.d.ts"],
   "exclude": ["node_modules", "./node_modules", "./node_modules/*"]
 }
