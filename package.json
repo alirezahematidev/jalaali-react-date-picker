@@ -2,7 +2,7 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.0.93",
+  "version": "0.0.99",
   "license": "MIT",
   "sideEffects": false,
   "private": false,
@@ -18,7 +18,6 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "style": "src/core/styles/index.css",
   "files": [
     "dist",
     "src",
@@ -49,12 +48,14 @@
   "scripts": {
     "start": "react-scripts start",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && tsc -b",
+    "build": "rimraf dist && tsc -b ",
     "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
-    "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn publish",
+    "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-assets yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
-    "compile": "tsc -b"
+    "compile": "tsc -b",
+    "copy-styles": "Xcopy .\\src\\styles .\\dist\\styles /E/I",
+    "copy-assets": "Xcopy .\\src\\assets .\\dist\\assets /E/I"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",

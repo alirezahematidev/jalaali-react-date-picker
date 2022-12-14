@@ -81,6 +81,7 @@ export const Popup = ({
       style={{
         position: "relative",
         display: "inline-block",
+        zIndex: 9999999,
       }}
     >
       <div onClick={open}>{children}</div>

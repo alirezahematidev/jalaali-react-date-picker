@@ -8,7 +8,6 @@ import {
   InputRangePickerProps,
   RangePickerProps,
 } from "./core";
-import "./core/styles/index.css";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById("root") as HTMLElement,
