@@ -48,9 +48,9 @@
   "scripts": {
     "start": "react-scripts start",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && tsc -b && yarn copy-styles && yarn copy-assets",
+    "build": "rimraf dist && tsc -b ",
     "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
-    "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn publish",
+    "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-assets yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
     "compile": "tsc -b",
