@@ -48,12 +48,13 @@
   "scripts": {
     "start": "react-scripts start",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && tsc -b",
+    "build": "rimraf dist && tsc -b && yarn copy-styles",
     "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
     "release": " yarn test -- --watchAll=false && yarn lint && yarn build && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
-    "compile": "tsc -b"
+    "compile": "tsc -b",
+    "copy-styles":"Xcopy .\\src\\styles .\\dist\\styles /E/I"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",
