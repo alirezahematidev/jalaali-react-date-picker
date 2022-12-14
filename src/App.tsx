@@ -1,6 +1,4 @@
 import { InputDatePicker } from "./components/dateInput";
-import { RangePicker } from "./components/range";
-import "./core/styles/index.css";
 
 function App() {
   return (
@@ -13,7 +11,6 @@ function App() {
       }}
     >
       <InputDatePicker />
-      <RangePicker locale={{ language: "en" }} />
     </div>
   );
 }

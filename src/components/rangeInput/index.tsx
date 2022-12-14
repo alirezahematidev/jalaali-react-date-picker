@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { InputRangePickerProps, RangeProvider } from "../../core";
-import "../../core/styles/index.css";
 import { Icon } from "../icon";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
