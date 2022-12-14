@@ -2,8 +2,9 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
+  "sideEffects": false,
   "private": false,
   "keywords": [
     "date-picker",
@@ -17,6 +18,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "style": "src/core/styles/index.css",
   "files": [
     "dist",
     "src",
