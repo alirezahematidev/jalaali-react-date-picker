@@ -1,10 +1,6 @@
-import LeftIcon from "../../../assets/icons/chevron_left.svg";
-import RightIcon from "../../../assets/icons/chevron_right.svg";
-import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
-import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
-
 import { useDatepicker } from "../../../core";
 import { getMonthLabels } from "../../../utils";
+import { Icon } from "../../icon";
 import { usePanelContext } from "../panel/panelMode";
 
 export interface HeaderProps {
@@ -41,14 +37,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseYear(selectedDate)
             }
           >
-            {navigationIcons?.superPrevIcon || (
-              <img
-                width={18}
-                height={18}
-                src={RightIconDouble}
-                alt="RightIconDouble"
-              />
-            )}
+            {navigationIcons?.superPrevIcon || <Icon.DoubleChevronRight />}
           </div>
           <div
             className="iconItem"
@@ -58,9 +47,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseMonth(selectedDate)
             }
           >
-            {navigationIcons?.prevIcon || (
-              <img width={18} height={18} src={RightIcon} alt="RightIcon" />
-            )}
+            {navigationIcons?.prevIcon || <Icon.ChevronRight />}
           </div>
         </div>
         <div className="panel-date-holder-item-ltr">
@@ -88,9 +75,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseMonth(selectedDate)
             }
           >
-            {navigationIcons?.nextIcon || (
-              <img width={18} height={18} src={LeftIcon} alt="LeftIcon" />
-            )}
+            {navigationIcons?.nextIcon || <Icon.ChevronLeft />}
           </div>
           <div
             className="iconItem"
@@ -100,14 +85,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseYear(selectedDate)
             }
           >
-            {navigationIcons?.superNextIcon || (
-              <img
-                width={18}
-                height={18}
-                alt="LeftIconDouble"
-                src={LeftIconDouble}
-              />
-            )}
+            {navigationIcons?.superNextIcon || <Icon.DoubleChevronLeft />}
           </div>
         </div>
       </div>

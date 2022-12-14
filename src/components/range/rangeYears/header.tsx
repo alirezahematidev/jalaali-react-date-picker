@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
-import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
 import { useDatepicker } from "../../../core";
 import { usePanelContext } from "../../date/panel/panelMode";
+import { Icon } from "../../icon";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -30,17 +29,11 @@ const YearsHeader = ({
       <div className="panel-header-inner">
         <div className="center">
           <div
-            className="iconItem"
             onClick={() =>
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
           >
-            <img
-              width={18}
-              height={18}
-              alt="RightIconDouble"
-              src={RightIconDouble}
-            />
+            <Icon.DoubleChevronRight />
           </div>
         </div>
         <div className="panel-date-holder">
@@ -89,17 +82,11 @@ const YearsHeader = ({
         </div>
         <div className="center">
           <div
-            className="iconItem"
             onClick={() =>
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >
-            <img
-              width={18}
-              height={18}
-              alt="LeftIconDouble"
-              src={LeftIconDouble}
-            />
+            <Icon.DoubleChevronLeft />
           </div>
         </div>
       </div>

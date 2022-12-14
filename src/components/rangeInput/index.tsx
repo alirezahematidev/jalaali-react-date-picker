@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { useState } from "react";
-import calendar from "../../assets/icons/calendar.svg";
 import { InputRangePickerProps, RangeProvider } from "../../core";
 import "../../core/styles/index.css";
+import { Icon } from "../icon";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
 
@@ -90,7 +90,7 @@ export const InputRangePicker = ({
             ))}
             {suffixIcon || (
               <div className="calendar-icon">
-                <img src={calendar} alt="calendar" width={20} height={20} />
+                <Icon.Calendar />
               </div>
             )}
           </div>

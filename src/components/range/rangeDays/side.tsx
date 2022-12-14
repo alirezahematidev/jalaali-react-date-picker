@@ -1,7 +1,4 @@
-import LeftIcon from "../../../assets/icons/chevron_left.svg";
-import RightIcon from "../../../assets/icons/chevron_right.svg";
-import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
-import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
+import { Icon } from "../../icon";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 
 interface HeaderSideProps {
@@ -32,21 +29,15 @@ const HeaderSide = ({
     <div className="panel-header-inner">
       {type === "from" ? (
         <div className="center">
-          <div className="iconItem" onClick={onDecreaseYear}>
-            <img
-              width={18}
-              height={18}
-              src={isJalaali ? RightIconDouble : LeftIconDouble}
-              alt="RightIconDouble"
-            />
+          <div onClick={onDecreaseYear}>
+            {isJalaali ? (
+              <Icon.DoubleChevronRight />
+            ) : (
+              <Icon.DoubleChevronLeft />
+            )}
           </div>
-          <div className="iconItem" onClick={onDecreaseMonth}>
-            <img
-              width={18}
-              height={18}
-              src={isJalaali ? RightIcon : LeftIcon}
-              alt="RightIcon"
-            />
+          <div onClick={onDecreaseMonth}>
+            {isJalaali ? <Icon.ChevronRight /> : <Icon.ChevronLeft />}
           </div>
         </div>
       ) : (
@@ -68,21 +59,15 @@ const HeaderSide = ({
       </div>
       {type === "to" ? (
         <div className="center">
-          <div className="iconItem" onClick={onIncreaseMonth}>
-            <img
-              width={18}
-              height={18}
-              src={isJalaali ? LeftIcon : RightIcon}
-              alt="LeftIcon"
-            />
+          <div onClick={onIncreaseMonth}>
+            {isJalaali ? <Icon.ChevronLeft /> : <Icon.ChevronRight />}
           </div>
-          <div className="iconItem" onClick={onIncreaseYear}>
-            <img
-              width={18}
-              height={18}
-              alt="LeftIconDouble"
-              src={isJalaali ? LeftIconDouble : RightIconDouble}
-            />
+          <div onClick={onIncreaseYear}>
+            {isJalaali ? (
+              <Icon.DoubleChevronLeft />
+            ) : (
+              <Icon.DoubleChevronRight />
+            )}
           </div>
         </div>
       ) : (

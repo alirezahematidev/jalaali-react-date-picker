@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import calendar from "../../assets/icons/calendar.svg";
-import clear from "../../assets/icons/clear.svg";
+import { Icon } from "../icon";
 
 interface SuffixProps {
   suffixIcon?: ReactNode;
@@ -12,23 +11,14 @@ const Suffix = ({ clearable, suffixIcon, onClear }: SuffixProps) => {
   return (
     <div>
       {(clearable && (
-        <img
-          className="clear-icon"
+        <Icon.Clear
           onClick={(e) => {
             e.stopPropagation();
             onClear?.();
           }}
-          src={clear}
-          alt="clear"
-          width={20}
-          height={20}
         />
       )) ||
-        suffixIcon || (
-          <div className="calendar-icon">
-            <img src={calendar} alt="calendar" width={20} height={20} />
-          </div>
-        )}
+        suffixIcon || <Icon.Calendar />}
     </div>
   );
 };

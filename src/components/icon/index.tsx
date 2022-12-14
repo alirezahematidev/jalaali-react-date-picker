@@ -1,77 +1,98 @@
+import { MouseEvent } from "react";
+
 interface IconProps {
   size?: number;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 const Icon = () => null;
 
-const Forward = ({ size = 18 }: IconProps) => {
+const Forward = ({ size = 20, onClick }: IconProps) => {
   return (
-    <div className="icon icon-forward" style={{ width: size, height: size }} />
+    <div
+      className="icon icon-forward"
+      onClick={onClick}
+      style={{ width: size, height: size, fontSize: size }}
+    />
   );
 };
 
-const Calendar = ({ size = 18 }: IconProps) => {
+const Calendar = ({ size = 20, onClick }: IconProps) => {
   return (
-    <div className="icon icon-calendar" style={{ width: size, height: size }} />
+    <div
+      className="icon icon-calendar"
+      onClick={onClick}
+      style={{ width: size, height: size, fontSize: size }}
+    />
   );
 };
 
-const CalendarToday = ({ size = 18 }: IconProps) => {
+const CalendarToday = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-calendar-today"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };
 
-const ChevronLeft = ({ size = 18 }: IconProps) => {
+const ChevronLeft = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-chevron-left"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };
 
-const ChevronRight = ({ size = 18 }: IconProps) => {
+const ChevronRight = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-chevron-right"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };
 
-const Clear = ({ size = 18 }: IconProps) => {
+const Clear = ({ size = 20, onClick }: IconProps) => {
   return (
-    <div className="icon icon-clear" style={{ width: size, height: size }} />
+    <div
+      className="icon icon-clear"
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
+    />
   );
 };
 
-const DoubleChevronLeft = ({ size = 18 }: IconProps) => {
+const DoubleChevronLeft = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-keyboard_double_arrow_left"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };
 
-const DoubleChevronRight = ({ size = 18 }: IconProps) => {
+const DoubleChevronRight = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-keyboard_double_arrow_right"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };
 
-const Back = ({ size = 18 }: IconProps) => {
+const Back = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
       className="icon icon-arrow_back"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
     />
   );
 };

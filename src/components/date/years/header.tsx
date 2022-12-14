@@ -1,7 +1,6 @@
 import classNames from "classnames";
-import LeftIconDouble from "../../../assets/icons/keyboard_double_arrow_left.svg";
-import RightIconDouble from "../../../assets/icons/keyboard_double_arrow_right.svg";
 import { useDatepicker } from "../../../core";
+import { Icon } from "../../icon";
 import { usePanelContext } from "../panel/panelMode";
 
 export interface HeaderProps {
@@ -35,12 +34,7 @@ const YearsHeader = ({
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
           >
-            <img
-              width={18}
-              height={18}
-              alt="RightIconDouble"
-              src={RightIconDouble}
-            />
+            <Icon.DoubleChevronRight />
           </div>
         </div>
         <div className="panel-date-holder">
@@ -94,12 +88,7 @@ const YearsHeader = ({
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >
-            <img
-              width={18}
-              height={18}
-              alt="LeftIconDouble"
-              src={LeftIconDouble}
-            />
+            <Icon.DoubleChevronLeft />
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ module.exports = {
   },
 
   jest: function (config) {
-    config.testPathIgnorePatterns = [".*/dist/.*"];
+    config.testPathIgnorePatterns = [".*/dist/.*", "dist"];
 
     config.transformIgnorePatterns = ["/node_modules/"];
 
