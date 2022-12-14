@@ -51,6 +51,79 @@
   src: url("../../assets/fonts/Roboto-Bold.ttf") format("woff");
 }
 
+@font-face {
+  font-family: IcomoonWOFF;
+  src: url("../../assets/fonts/icomoon/icomoon.woff") format("woff");
+}
+@font-face {
+  font-family: IcomoonTTF;
+  src: url("../../assets/fonts/icomoon/icomoon.ttf") format("truetype");
+}
+@font-face {
+  font-family: IcomoonSVG;
+  src: url("../../assets/fonts/icomoon/icomoon.svg") format("svg");
+}
+@font-face {
+  font-family: IcomoonEOT;
+  src: url("../../assets/fonts/icomoon/icomoon.eot") format("eot");
+}
+
+.icon {
+  font-weight: normal;
+  font-family: icomoon !important;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  color: var(--text-dark);
+  opacity: 0.8;
+  cursor: pointer;
+}
+.icon:hover {
+  opacity: 1;
+}
+
+.icon-forward::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e908";
+}
+
+.icon-calendar::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e901";
+}
+
+.icon-calendar-today::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e902";
+}
+.icon-chevron-left::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e903";
+}
+.icon-chevron-right::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e904";
+}
+.icon-clear::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e905";
+}
+
+.icon-keyboard_double_arrow_left::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e906";
+}
+
+.icon-keyboard_double_arrow_right::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e907";
+}
+
+.icon-arrow_back::before {
+  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+  content: "\e908";
+}
+
 .clickable {
   cursor: pointer;
 }
