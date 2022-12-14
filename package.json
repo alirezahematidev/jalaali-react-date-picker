@@ -2,8 +2,9 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.0.4",
+  "version": "0.0.93",
   "license": "MIT",
+  "sideEffects": false,
   "private": false,
   "keywords": [
     "date-picker",
@@ -17,6 +18,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "style": "src/core/styles/index.css",
   "files": [
     "dist",
     "src",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",
+    "@svgr/webpack": "^6.5.1",
     "@types/enzyme": "^3.10.12",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/lodash-es": "^4.17.6",
@@ -67,6 +70,7 @@
     "commitlint": "^17.0.3",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.7.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^8.4.1",
@@ -81,7 +85,7 @@
     "prettier-plugin-organize-imports": "^3.2.0",
     "react-app-rewired": "^2.2.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.56.0"
+    "style-loader": "^3.3.1"
   },
   "eslintConfig": {
     "extends": [

@@ -8,12 +8,22 @@
 }
 
 .years-body-rtl {
-  @extend .years-body;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
   direction: rtl;
 }
 
 .years-body-ltr {
-  @extend .years-body;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
   direction: ltr;
 }
 
@@ -22,14 +32,14 @@
   border-radius: 2px;
   min-width: 54px;
   cursor: pointer;
-  @include flex-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--text-dark);
 }
 
-.year-item-hovered {
-  &:hover {
-    background-color: var(--background-hovered);
-  }
+.year-item-hovered:hover {
+  background-color: var(--background-hovered);
 }
 
 .year-item-selected {
