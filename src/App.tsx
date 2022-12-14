@@ -1,5 +1,5 @@
 import { InputDatePicker } from "./components/dateInput";
-import "./core/styles/index.css";
+import "./styles/index.css";
 
 function App() {
   return (

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps } from "../../core";
-import "../../core/styles/index.css";
+import "../../styles/index.css";
 import { Popup } from "../popup";
 import { Suffix } from "../suffix";
 
