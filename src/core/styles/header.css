@@ -1,0 +1,44 @@
+.center {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.iconItem {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  filter: opacity(0.5);
+}
+
+.iconItem:hover {
+  filter: opacity(1);
+}
+
+.panel-header-item-text {
+  color: var(--text-dark);
+}
+
+.panel-header-item-text:hover {
+  color: var(--highlight);
+}
+
+.panel-header-year-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-header-year-picker p {
+  color: var(--text-dark);
+}
+
+.panel-header-year-picker span {
+  margin-inline: 4px;
+  color: var(--text-dark);
+}
+
+.panel-header-year-picker p:hover {
+  color: var(--highlight);
+}

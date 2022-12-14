@@ -8,12 +8,22 @@
 }
 
 .months-body-rtl {
-  @extend .months-body;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
   direction: rtl;
 }
 
 .months-body-ltr {
-  @extend .months-body;
+  display: grid;
+  height: 100%;
+  max-width: 300px;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(100px, 100px));
+  grid-template-rows: auto;
   direction: ltr;
 }
 
@@ -23,14 +33,14 @@
   cursor: pointer;
   transition: background-color 100ms ease;
   min-width: 80px;
-  @include flex-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--text-dark);
 }
 
-.month-item-hovered {
-  &:hover {
-    background-color: var(--background-hovered);
-  }
+.month-item-hovered:hover {
+  background-color: var(--background-hovered);
 }
 
 .month-item-selected {

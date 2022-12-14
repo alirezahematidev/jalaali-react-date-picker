@@ -1,15 +1,20 @@
-@import "./mixins/mixin";
 .day {
-  @include flex-center;
-  @include day-box(true);
-  @include clickable;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  cursor: pointer;
+  color: var(--text-dark);
 }
 
-.hovered:not(.disabled) {
-  &:hover {
-    background-color: var(--background-hovered);
-  }
+.hovered:not(.disabled):hover {
+  background-color: var(--background-hovered);
 }
 
 .not-current {
