@@ -55,7 +55,6 @@
     "format": "prettier --write .",
     "compile": "tsc -b",
     "copy-styles": "Xcopy .\\src\\styles .\\dist\\styles /E/I",
-    "copy-assets": "Xcopy .\\src\\assets .\\dist\\assets /E/I",
     "copy-custom": "Xcopy .\\src\\custom.d.ts .\\dist /E/I"
   },
   "devDependencies": {

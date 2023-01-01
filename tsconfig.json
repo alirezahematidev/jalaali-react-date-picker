@@ -13,7 +13,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noEmit": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
     "skipLibCheck": true,
