@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { Date, DateMetadata, useRangepicker } from "../../../core";
-import { dateTransformer, momentTransformer } from "../../../utils";
+import { dateTransformer, isEqual, momentTransformer } from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";

@@ -1,6 +1,5 @@
-import { isEqual } from "lodash-es";
 import React, { createContext, useContext, useEffect } from "react";
-import { formatGenerator, rangeTransformer } from "../../../utils";
+import { formatGenerator, isEqual, rangeTransformer } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate, RangeValue } from "../../types/global.types";
 import { RangePropsReducerType } from "../propsReducer";

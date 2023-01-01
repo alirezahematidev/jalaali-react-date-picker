@@ -1,7 +1,6 @@
-import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { createContext, useContext, useEffect } from "react";
-import { dateTransformer, formatGenerator } from "../../../utils";
+import { dateTransformer, formatGenerator, isEqual } from "../../../utils";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
 import { DatePropsReducerType } from "../propsReducer";
