@@ -38,12 +38,13 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "moment-jalaali": "^0.9.6",
-    "moment-timezone": "^0.5.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "lodash-es": "^4.17.21",
+    "classnames": "^2.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -67,7 +68,6 @@
     "@types/moment-timezone": "^0.5.30",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "classnames": "^2.3.2",
     "commitlint": "^17.0.3",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
@@ -80,7 +80,6 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-webpack-plugin": "^3.2.0",
     "lerna": "^6.0.1",
-    "lodash-es": "^4.17.21",
     "prettier": "^2.7.1",
     "prettier-plugin-jsdoc": "^0.3.38",
     "prettier-plugin-organize-imports": "^3.2.0",
