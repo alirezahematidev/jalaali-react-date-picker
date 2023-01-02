@@ -43,9 +43,7 @@ export const RangePickerContext = createContext<ContextType>({
     endDate: null,
   },
   cacheRangeDate: undefined,
-  locale: {
-    language: "fa",
-  },
+  locale: "fa",
   rangeDateString: null,
   onRangeDateChange: () => null,
   onRangeDaychange: () => null,
@@ -66,7 +64,7 @@ interface RangeProviderProps {
 }
 
 export const RangeProvider = ({ children, props }: RangeProviderProps) => {
-  const language = props ? props.locale?.language || "fa" : "fa";
+  const language = props ? props.locale || "fa" : "fa";
   const { setLocale, setRangeDisabledDates, propsState, setFormat } =
     useRangePropsReducer();
   const {
@@ -108,7 +106,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
         ? typeof props.format === "function"
           ? props.format(rangeTransformer(cacheRangeDate))
           : props.format
-        : formatGenerator(language === "fa");
+        : formatGenerator(props.locale === "fa");
       setFormat(format);
     }
     if (

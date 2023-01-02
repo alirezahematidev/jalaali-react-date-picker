@@ -20,10 +20,11 @@ const RangePanel = (
   {
     headerRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     dayLabelRender,
     customColors,
     onModeChange,
+    weekend,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -43,9 +44,10 @@ const RangePanel = (
           headerRender,
           panelRender,
           dayLabelRender,
-          highlightOffDays,
+          highlightDays,
           customColors,
           onModeChange,
+          weekend,
         }}
       />
     </div>

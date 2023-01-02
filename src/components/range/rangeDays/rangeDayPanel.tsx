@@ -22,7 +22,7 @@ export const RangeDayPanel = ({
 }: RangeDayPanelProps) => {
   const today = momentTransformer(moment());
   const { isJalaali, dayLabels, changePlaceholder } = useRangepicker();
-  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
+  const { dayLabelRender, highlightDays, weekend } = useRangePanelContext();
 
   const extendDays = days.map((day) => {
     if (day.isDisabled) {
@@ -49,10 +49,7 @@ export const RangeDayPanel = ({
     };
   });
 
-  const canHighlighWeekend =
-    highlightOffDays && highlightOffDays.weekend !== undefined
-      ? highlightOffDays.weekend
-      : true;
+  const canHighlighWeekend = weekend !== undefined ? weekend : true;
 
   return (
     <div className="range-day-panel-item">
@@ -101,15 +98,19 @@ export const RangeDayPanel = ({
                   isNeighborsDisabled={isNeighborsDisabled}
                   isNotCurrentMonth={isNotCurrentMonth}
                   onPress={() => onSelect(day)}
-                  isHighlight={
+                  isSelected={
                     selectedRange.startDate && !isNotCurrentMonth
                       ? checkDates(selectedRange.startDate, day) ||
                         checkDates(selectedRange.endDate, day)
                       : false
                   }
-                  isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-                    isEqual(d, date),
-                  )}
+                  isHighlight={
+                    typeof highlightDays === "function"
+                      ? highlightDays(dateTransformer(date, isJalaali))
+                      : (highlightDays || [])?.some((d) =>
+                          d.isSame(dateTransformer(date, isJalaali), "day"),
+                        )
+                  }
                   isWeekend={canHighlighWeekend ? isWeekend : false}
                   isToday={isEqual(today, date)}
                 />

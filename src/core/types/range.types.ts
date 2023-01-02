@@ -90,16 +90,15 @@ export namespace DateRangePickerTypes {
   ) => React.ReactNode;
 
   /**
-   * The `highlightOffDays` object that can be used to determines what dates
-   * should be off. if `weekend` set to `true`, its turn weekend days to off,
-   * also if pass `customDates` as array, the passed dates turn into off.
+   * The `highlightDays` object that can be used to determines what dates should
+   * be off. if `weekend` set to `true`, its turn weekend days to off, also if
+   * pass `customDates` as array, the passed dates turn into off.
    */
-  export type HighLightOffDays = { weekend?: boolean; customDates?: Date[] };
+  export type HighlightDays = Moment[] | ((date: Moment) => boolean);
+  export type Weekend = boolean;
 
   /** The `locale` object that can be configures the language of datepicker. */
-  export type Locale = {
-    language?: Language;
-  };
+  export type Locale = Language;
   /**
    * `format` turns the selected date into the formatted string value.
    *

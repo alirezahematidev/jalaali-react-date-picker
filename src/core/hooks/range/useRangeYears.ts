@@ -12,20 +12,20 @@ export const useRangeYears = ({
   const {
     from,
     to,
-    locale: { language } = { language: "fa" },
+    locale: locale = "fa",
     disabledDates,
   } = useRangePickerContext();
 
-  const fromYearObject = listOfYears(language === "fa", offsets?.[0]);
+  const fromYearObject = listOfYears(locale === "fa", offsets?.[0]);
 
-  const toYearObject = listOfYears(language === "fa", offsets?.[1]);
+  const toYearObject = listOfYears(locale === "fa", offsets?.[1]);
 
   const fromYears = useMemo(() => {
     return fromYearObject.years.map((year) => {
       const { days } = generateDays(
         from.month,
         year.id,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -37,14 +37,14 @@ export const useRangeYears = ({
       }
       return year;
     });
-  }, [disabledDates, language, from, fromYearObject.years]);
+  }, [disabledDates, locale, from, fromYearObject.years]);
 
   const toYears = useMemo(() => {
     return toYearObject.years.map((year) => {
       const { days } = generateDays(
         to.month,
         year.id,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -56,7 +56,7 @@ export const useRangeYears = ({
       }
       return year;
     });
-  }, [toYearObject.years, to.month, language, disabledDates]);
+  }, [toYearObject.years, to.month, locale, disabledDates]);
   return {
     years: type === "from" ? fromYears : toYears,
     lowerDecade:

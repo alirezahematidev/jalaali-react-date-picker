@@ -14,13 +14,14 @@ const DatePicker = (
     headerRender,
     dayLabelRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     customColors,
     onModeChange,
     nextIcon,
     prevIcon,
     superNextIcon,
     superPrevIcon,
+    weekend,
     ...restProps
   }: DatePickerProps,
   pickerRef: ForwardedRef<HTMLDivElement>,
@@ -33,7 +34,8 @@ const DatePicker = (
         headerRender={headerRender}
         panelRender={panelRender}
         dayLabelRender={dayLabelRender}
-        highlightOffDays={highlightOffDays}
+        highlightDays={highlightDays}
+        weekend={weekend}
         customColors={customColors}
         onModeChange={onModeChange}
         navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}

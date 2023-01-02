@@ -24,10 +24,11 @@ export const InputRangePicker = ({
   className,
   wrapperClassName,
   wrapperStyle,
+  defaultValue,
   ...rest
 }: InputRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
-  const isRtl = (locale?.language || "fa") === "fa";
+  const isRtl = (locale || "fa") === "fa";
 
   const toggle = () => {
     if (disabled) return;
@@ -52,6 +53,7 @@ export const InputRangePicker = ({
         disabledDates,
         locale,
         onDayChange,
+        defaultValue,
       }}
     >
       {({ values, onChangeInputRange, placeholderFrom, placeholderTo }) => (

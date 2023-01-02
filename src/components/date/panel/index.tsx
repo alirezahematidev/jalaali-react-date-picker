@@ -25,12 +25,13 @@ const Panel = (
     footerRender,
     headerRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     dayLabelRender,
     onModeChange,
     customColors,
     toggle,
     navigationIcons,
+    weekend,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -51,10 +52,11 @@ const Panel = (
           headerRender,
           panelRender,
           dayLabelRender,
-          highlightOffDays,
+          highlightDays,
           onModeChange,
           toggle,
           navigationIcons,
+          weekend,
         }}
       />
       <Footer footerRender={footerRender} />

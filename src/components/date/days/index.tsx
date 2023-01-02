@@ -2,7 +2,7 @@ import classNames from "classnames";
 import moment from "moment-jalaali";
 import { Fragment } from "react";
 import { Date, useDatepicker, useDays } from "../../../core";
-import { isEqual, momentTransformer } from "../../../utils";
+import { dateTransformer, isEqual, momentTransformer } from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";
 import { Header, HeaderProps } from "../header";
@@ -27,8 +27,9 @@ const Days = () => {
     onChangeMode,
     panelRender,
     dayLabelRender,
-    highlightOffDays,
+    highlightDays,
     toggle,
+    weekend,
   } = usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
@@ -37,10 +38,7 @@ const Days = () => {
     year,
   }));
 
-  const canHighlighWeekend =
-    highlightOffDays && highlightOffDays.weekend !== undefined
-      ? highlightOffDays.weekend
-      : true;
+  const canHighlighWeekend = weekend !== undefined ? weekend : true;
 
   const extendMetadataDays = metadataDays.map((metadata) => {
     if (metadata.isDisabled) {
@@ -100,10 +98,14 @@ const Days = () => {
                   onDateChange(date);
                   toggle?.();
                 }}
-                isHighlight={isEqual(selected, date)}
-                isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-                  isEqual(d, date),
-                )}
+                isSelected={isEqual(selected, date)}
+                isHighlight={
+                  typeof highlightDays === "function"
+                    ? highlightDays(dateTransformer(date, isJalaali))
+                    : (highlightDays || [])?.some((d) =>
+                        d.isSame(dateTransformer(date, isJalaali), "day"),
+                      )
+                }
                 isWeekend={canHighlighWeekend ? isWeekend : false}
                 isDisabled={isDisabled}
                 isToday={isEqual(today, date)}

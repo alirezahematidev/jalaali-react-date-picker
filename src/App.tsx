@@ -1,6 +1,12 @@
+import moment, { Moment } from "moment-jalaali";
+import { useState } from "react";
 import { InputRangePicker } from "./components/rangeInput";
 
 function App() {
+  const [date, setdate] = useState<[Moment, Moment]>([
+    moment().add(1, "day"),
+    moment().add(5, "day"),
+  ]);
   return (
     <div
       style={{
@@ -16,7 +22,22 @@ function App() {
         // alignItems: "flex-start",
       }}
     >
-      <InputRangePicker placement="right" />
+      <InputRangePicker
+        onChange={(value) => {
+          console.log("value", value);
+          value && setdate(value);
+        }}
+        defaultValue={[moment(), moment().add(2, "day")]}
+        locale={"fa"}
+        weekend={true}
+        value={date}
+      />
+
+      {/* <DatePicker
+        onChange={(value) => {
+          console.log("value", value);
+        }}
+      /> */}
       {/* <InputRangePicker placement="right" /> */}
     </div>
   );

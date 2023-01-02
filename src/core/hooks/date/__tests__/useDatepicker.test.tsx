@@ -8,7 +8,7 @@ function wrapper({ children }: { children: ReactNode }) {
   return (
     <DateProvider
       props={{
-        locale: { language: "fa" },
+        locale: "fa",
       }}
     >
       {children}

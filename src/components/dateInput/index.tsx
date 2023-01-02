@@ -24,10 +24,11 @@ export const InputDatePicker = ({
   className,
   wrapperClassName,
   wrapperStyle,
+  defaultValue,
   ...rest
 }: InputDatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
-  const isRtl = (locale?.language || "fa") === "fa";
+  const isRtl = (locale || "fa") === "fa";
 
   const toggle = () => {
     if (disabled) return;
@@ -54,6 +55,7 @@ export const InputDatePicker = ({
         disabledDates,
         locale,
         onDayChange,
+        defaultValue,
       }}
     >
       {({ onChangeInputValue, onEmptyInputValue, ...inputProps }) => (

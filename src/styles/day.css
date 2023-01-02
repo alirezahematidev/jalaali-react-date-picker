@@ -21,20 +21,20 @@
   opacity: 0.4;
 }
 
-.weekend-day {
-  color: var(--text-negative);
-}
 
 .off-day {
-  color: var(--text-negative);
+  color: var(--highlight);
+}
+.weekend-day {
+  color: var(--weekend);
 }
 
 .highlight {
-  background-color: var(--highlight);
+  background-color: var(--primary);
   color: var(--text-light);
 }
 
 .today {
-  border: 1px dotted var(--highlight);
+  border: 1px dotted var(--primary);
   border-radius: 2px;
 }

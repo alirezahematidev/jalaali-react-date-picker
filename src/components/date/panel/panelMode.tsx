@@ -22,10 +22,8 @@ const PanelModeContext = createContext<PanelModeContext>({
   onChangeMode: () => null,
   toggle: () => null,
   navigationIcons: undefined,
-  highlightOffDays: {
-    customDates: [],
-    weekend: true,
-  },
+  highlightDays: undefined,
+  weekend: true,
 });
 
 export const PanelMode = ({

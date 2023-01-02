@@ -14,7 +14,7 @@
 }
 
 .picker-input-wrapper:hover {
-  border-color: var(--highlight);
+  border-color: var(--primary);
 }
 
 .picker-input-fa {

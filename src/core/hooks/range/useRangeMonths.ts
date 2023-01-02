@@ -6,20 +6,20 @@ import { useRangePickerContext } from "../../context";
 export const useRangeMonths = (type: "from" | "to") => {
   const {
     rangeState,
-    locale: { language } = { language: "fa" },
+    locale = "fa",
     disabledDates,
     from,
     to,
   } = useRangePickerContext();
 
-  const months = localizedMonth[language || "fa"];
+  const months = localizedMonth[locale || "fa"];
 
   const fromMonths = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
         from.year,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -31,13 +31,13 @@ export const useRangeMonths = (type: "from" | "to") => {
       }
       return month;
     });
-  }, [disabledDates, from.year, language, months]);
+  }, [disabledDates, from.year, locale, months]);
   const toMonths = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
         to.year,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -50,7 +50,7 @@ export const useRangeMonths = (type: "from" | "to") => {
       }
       return month;
     });
-  }, [disabledDates, from.month, from.year, language, months, to.year]);
+  }, [disabledDates, from.month, from.year, locale, months, to.year]);
 
   return {
     months: type === "from" ? fromMonths : toMonths,

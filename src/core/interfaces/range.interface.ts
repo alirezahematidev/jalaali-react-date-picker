@@ -15,7 +15,8 @@ export interface RangePickerProps {
   panelRender?: DateRangePickerTypes.PanelRender;
   headerRender?: DateRangePickerTypes.HeaderRender;
   dayLabelRender?: DateRangePickerTypes.DayLabelRender;
-  highlightOffDays?: DateRangePickerTypes.HighLightOffDays;
+  highlightDays?: DateRangePickerTypes.HighlightDays;
+  weekend?: DateRangePickerTypes.Weekend;
   customColors?: DateRangePickerTypes.Colors;
   nextIcon?: React.ReactNode | (() => React.ReactNode);
   prevIcon?: React.ReactNode | (() => React.ReactNode);
@@ -28,10 +29,11 @@ interface RangePanelProps
     RangePickerProps,
     | "panelRender"
     | "headerRender"
-    | "highlightOffDays"
+    | "highlightDays"
     | "dayLabelRender"
     | "customColors"
     | "onModeChange"
+    | "weekend"
   > {}
 
 export interface RangeProps extends RangePanelProps {}
@@ -48,11 +50,12 @@ interface RangePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
+    | "weekend"
   > {}
 
 type InputBuiltInProps = Omit<
   React.HtmlHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange"
+  "value" | "onChange" | "defaultValue"
 >;
 
 type InputRangePickerPickable = InputBuiltInProps & RangePickerPickable;

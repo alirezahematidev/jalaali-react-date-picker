@@ -8,7 +8,7 @@ function wrapper({ children }: { children: ReactNode }) {
   return (
     <RangeProvider
       props={{
-        locale: { language: "fa" },
+        locale: "fa",
         disabledDates: (current) => {
           return current.isBefore(moment());
         },

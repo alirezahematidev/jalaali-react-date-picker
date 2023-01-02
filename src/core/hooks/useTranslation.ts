@@ -3,11 +3,11 @@ import { TranslationKey } from "../constants/translations";
 import { useDatepicker } from "./index";
 
 export const useTranslation = () => {
-  const { language } = useDatepicker();
+  const { locale } = useDatepicker();
 
   function t(key: TranslationKey) {
-    return translations[language || "fa"][key];
+    return translations[locale || "fa"][key];
   }
 
-  return { t, language };
+  return { t, locale };
 };

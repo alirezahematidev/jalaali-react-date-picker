@@ -6,13 +6,15 @@ const properties: (keyof ColorSchema)[] = [
   "background",
   "backgroundDisabled",
   "backgroundHovered",
-  "highlight",
+  "primary",
   "border",
   "textDark",
-  "highlightFade",
+  "primaryFade",
   "textLight",
   "textNegative",
   "dayLabelBackground",
+  "highlight",
+  "weekend",
 ];
 
 export const useSetColors = (colors?: ColorSchema) => {

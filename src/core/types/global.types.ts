@@ -3,14 +3,16 @@ import { Moment } from "moment-jalaali";
 export type ColorSchema = {
   textDark?: string;
   textLight?: string;
-  highlight?: string;
-  highlightFade?: string;
+  primary?: string;
+  primaryFade?: string;
   background?: string;
   backgroundDisabled?: string;
   backgroundHovered?: string;
   border?: string;
   textNegative?: string;
   dayLabelBackground?: string;
+  highlight?: string;
+  weekend?: string;
 };
 
 export type MonthNamedValue = {
@@ -49,7 +51,7 @@ export type RangeDate = {
 
 export type RangeValue = [Moment, Moment];
 
-export type Language = "fa" | "en" | "de" | "fr" | "es";
+export type Language = "fa" | "en";
 
 export type LocalizedMonth = Record<Language, Month[]>;
 

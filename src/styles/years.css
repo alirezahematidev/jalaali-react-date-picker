@@ -43,7 +43,7 @@
 }
 
 .year-item-selected {
-  background-color: var(--highlight);
+  background-color: var(--primary);
   color: var(--text-light);
 }
 

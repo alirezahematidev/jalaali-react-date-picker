@@ -1,4 +1,4 @@
-import moment from "moment-jalaali";
+import moment, { Moment } from "moment-jalaali";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
   dateTransformer,
@@ -93,9 +93,11 @@ export const useRangeReducer = ({
   const [placeholderTo, setPlaceholderTo] = useState("");
 
   const formattedDates = useCallback(
-    (dates: RangeValue) => {
+    (dates: [Moment, Moment | null]) => {
       return dates.map((date) =>
-        date.format(formatProp ? formatProp : formatGenerator(isJalaali)),
+        date
+          ? date.format(formatProp ? formatProp : formatGenerator(isJalaali))
+          : "",
       ) as [string, string];
     },
     [formatProp, isJalaali],
@@ -127,10 +129,47 @@ export const useRangeReducer = ({
         },
       };
       setCacheRangeDate(values);
+      const inputRangeVal = formattedDates([
+        dateTransformer(values.startDate, isJalaali),
+        values.endDate ? dateTransformer(values.endDate, isJalaali) : null,
+      ]);
+      setRangeInputValue(inputRangeVal);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueProp]);
+  useEffect(() => {
+    if (defaultValueProp && !valueProp) {
+      const values: RangeDate = {
+        startDate: {
+          day: isJalaali
+            ? defaultValueProp[0].jDate()
+            : defaultValueProp[0].date(),
+          year: isJalaali
+            ? defaultValueProp[0].jYear()
+            : defaultValueProp[0].year(),
+          month: Number(defaultValueProp[0].format(isJalaali ? "jM" : "M")),
+        },
+        endDate: {
+          day: isJalaali
+            ? defaultValueProp[1].jDate()
+            : defaultValueProp[1].date(),
+          year: isJalaali
+            ? defaultValueProp[1].jYear()
+            : defaultValueProp[1].year(),
+          month: Number(defaultValueProp[1].format(isJalaali ? "jM" : "M")),
+        },
+      };
+      setCacheRangeDate(values);
+      const inputRangeVal = formattedDates([
+        dateTransformer(values.startDate, isJalaali),
+        values.endDate ? dateTransformer(values.endDate, isJalaali) : null,
+      ]);
+      setRangeInputValue(inputRangeVal);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValueProp, valueProp]);
 
   const onRangeDateChange = useCallback(
     (payload: RangeDate) => {

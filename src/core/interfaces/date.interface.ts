@@ -3,6 +3,7 @@ import { DatePickerTypes } from "../types";
 
 export interface DatePickerProps {
   value?: DatePickerTypes.Value;
+  defaultValue?: DatePickerTypes.Value;
   onChange?: DatePickerTypes.OnChange;
   onDayChange?: DatePickerTypes.OnDayChange;
   onMonthChange?: DatePickerTypes.OnMonthChange;
@@ -15,7 +16,8 @@ export interface DatePickerProps {
   footerRender?: DatePickerTypes.FooterRender;
   headerRender?: DatePickerTypes.HeaderRender;
   dayLabelRender?: DatePickerTypes.DayLabelRender;
-  highlightOffDays?: DatePickerTypes.HighLightOffDays;
+  highlightDays?: DatePickerTypes.HighlightDays;
+  weekend?: DatePickerTypes.Weekend;
   customColors?: DatePickerTypes.Colors;
   nextIcon?: React.ReactNode;
   prevIcon?: React.ReactNode;
@@ -29,10 +31,12 @@ interface PanelProps
     | "panelRender"
     | "footerRender"
     | "headerRender"
-    | "highlightOffDays"
+    | "highlightDays"
     | "dayLabelRender"
     | "onModeChange"
     | "customColors"
+    | "weekend"
+    | "defaultValue"
   > {}
 
 export interface PickerProps extends PanelProps {}
@@ -48,11 +52,13 @@ interface DatePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
+    | "weekend"
+    | "defaultValue"
   > {}
 
 type InputBuiltInProps = Omit<
   React.HtmlHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange"
+  "value" | "onChange" | "defaultValue"
 >;
 
 type InputDatePickerPickable = InputBuiltInProps & DatePickerPickable;

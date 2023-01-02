@@ -3,14 +3,10 @@ import { generateDays, listOfYears } from "../../../utils";
 import { useDatePickerContext } from "../../context/date/dateProvider";
 
 export const useYears = (offset: number) => {
-  const {
-    state,
-    locale: { language } = { language: "fa" },
-    disabledDates,
-  } = useDatePickerContext();
+  const { state, locale = "fa", disabledDates } = useDatePickerContext();
 
   const { years, lowerDecade, upperDecade } = listOfYears(
-    language === "fa",
+    locale === "fa",
     offset,
   );
 
@@ -19,7 +15,7 @@ export const useYears = (offset: number) => {
       const { days } = generateDays(
         state.month,
         year.id,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -31,7 +27,7 @@ export const useYears = (offset: number) => {
       }
       return year;
     });
-  }, [disabledDates, language, state.month, years]);
+  }, [disabledDates, locale, state.month, years]);
 
   return {
     years: res,

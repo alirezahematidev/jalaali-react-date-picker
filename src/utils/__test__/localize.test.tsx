@@ -37,15 +37,11 @@ describe("change language ", () => {
 describe("locaize test", () => {
   const { result } = renderHook(() => useDatepicker(), {
     wrapper({ children }) {
-      return (
-        <DateProvider props={{ locale: { language: "fa" } }}>
-          {children}
-        </DateProvider>
-      );
+      return <DateProvider props={{ locale: "fa" }}>{children}</DateProvider>;
     },
   });
 
-  const isJalaali = result.current.language === "fa";
+  const isJalaali = result.current.locale === "fa";
 
   it("isJalali test", () => {
     const english = gregorianMonths;

@@ -83,10 +83,20 @@ export const useDateReducer = ({
     if (valueProp) {
       const value = momentTransformer(valueProp, isJalaali);
       setCacheDate(value);
+      setInputValue(formattedValue(valueProp));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueProp]);
+  useEffect(() => {
+    if (defaultValueProp && !valueProp) {
+      const value = momentTransformer(defaultValueProp, isJalaali);
+      setCacheDate(value);
+      setInputValue(formattedValue(defaultValueProp));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValueProp, valueProp]);
 
   const onDateChange = useCallback(
     (payload: Date) => {

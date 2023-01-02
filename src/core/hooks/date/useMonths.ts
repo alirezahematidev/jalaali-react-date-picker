@@ -4,20 +4,16 @@ import { localizedMonth } from "../../constants";
 import { useDatePickerContext } from "../../context/date/dateProvider";
 
 export const useMonths = () => {
-  const {
-    state,
-    locale: { language } = { language: "fa" },
-    disabledDates,
-  } = useDatePickerContext();
+  const { state, locale = "fa", disabledDates } = useDatePickerContext();
 
-  const months = localizedMonth[language || "fa"];
+  const months = localizedMonth[locale || "fa"];
 
   const res = useMemo(() => {
     return months.map((month) => {
       const { days } = generateDays(
         month.id,
         state.year,
-        language === "fa",
+        locale === "fa",
         disabledDates || (() => false),
       );
       if (
@@ -29,7 +25,7 @@ export const useMonths = () => {
       }
       return month;
     });
-  }, [disabledDates, language, months, state.year]);
+  }, [disabledDates, locale, months, state.year]);
 
   return {
     months: res,
