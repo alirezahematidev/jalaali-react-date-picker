@@ -52,3 +52,10 @@
 .open-vert-bottom {
   transform-origin: top right;
 }
+.open-horz-left {
+  transform-origin: top right;
+}
+
+.open-horz-right {
+  transform-origin: top left;
+}

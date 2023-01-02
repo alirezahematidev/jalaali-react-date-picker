@@ -5,12 +5,16 @@ function App() {
     <div
       style={{
         direction: "rtl",
-        padding: 50,
+        // padding: 50,
+        marginTop: 450,
         gap: 20,
         display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
       }}
     >
-      <InputDatePicker />
+      <InputDatePicker placement="top" />
+      {/* <InputRangePicker placement="right" /> */}
     </div>
   );
 }
