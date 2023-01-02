@@ -31,7 +31,7 @@ describe("useRangeYears", () => {
     const { result } = renderHook(() => useRangePickerContext(), {
       wrapper,
     });
-    expect(result.current.locale?.language).toBe("fa");
+    expect(result.current.locale).toBe("fa");
   });
   it("checks for from and to months", () => {
     const { result } = renderHook(() => useRangePickerContext(), {
