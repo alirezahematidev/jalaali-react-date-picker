@@ -108,6 +108,7 @@
     "dist/*"
   ],
   "peerDependencies": {
-    "moment-jalaali": ">= 0.9.6"
+    "moment-jalaali": ">= 0.9.6",
+    "@types/moment-jalaali":">= 0.7.5"
   }
 }
