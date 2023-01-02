@@ -58,7 +58,8 @@ interface DateProviderProps {
 
 export const DateProvider = ({ children, props }: DateProviderProps) => {
   const language = props ? props.locale?.language || "fa" : "fa";
-
+  const { setLocale, setFormat, setDisabledDates, propsState } =
+    useDatePropsReducer();
   const {
     state,
     onDaychange,
@@ -79,12 +80,9 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onMonthChangeProp: props?.onMonthChange,
     onYearChangeProp: props?.onYearChange,
     onChangeProp: props.onChange,
-    formatProp: props.format,
+    formatProp: propsState.format,
     valueProp: props.value,
   });
-
-  const { setLocale, setFormat, setDisabledDates, propsState } =
-    useDatePropsReducer();
 
   useEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {

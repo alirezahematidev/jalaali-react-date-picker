@@ -11,7 +11,7 @@ import { Date, Language } from "../../types/global.types";
 import { DateActionKind, reducer } from "./dateReducer";
 
 interface DateReducerType {
-  formatProp?: DatePickerTypes.Format;
+  formatProp?: string;
   onChangeProp?: DatePickerTypes.OnChange;
   valueProp?: DatePickerTypes.Value;
   defaultValueProp?: DatePickerTypes.Value;
@@ -53,13 +53,7 @@ export const useDateReducer = ({
 
   const formattedValue = useCallback(
     (value: Moment) => {
-      return value.format(
-        formatProp
-          ? typeof formatProp === "function"
-            ? formatProp(value)
-            : formatProp
-          : formatGenerator(isJalaali),
-      );
+      return value.format(formatProp ? formatProp : formatGenerator(isJalaali));
     },
     [formatProp, isJalaali],
   );
@@ -183,13 +177,14 @@ export const useDateReducer = ({
 
   const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userData = e.target.value;
-    setInputValue(userData);
 
-    const momentValue = moment(userData);
-
+    const momentValue = moment(userData, formatProp, true);
     if (momentValue.isValid()) {
+      setInputValue(userData);
       onDateChange(momentTransformer(momentValue, isJalaali));
       onMonthchange(momentTransformer(momentValue, isJalaali));
+    } else {
+      setInputValue(dateTransformer(cacheDate, isJalaali).format(formatProp));
     }
   };
 
