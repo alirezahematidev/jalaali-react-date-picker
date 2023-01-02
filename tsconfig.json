@@ -21,9 +21,15 @@
     "declarationMap": true,
     "downlevelIteration": true,
     "checkJs": false,
-    "outDir": "dist",
-    "rootDir": "src"
+    "outDir": "lib",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@utils/*": ["./src/utils/*"],
+      "@core/*": ["./src/core/*"],
+      "@components/*": ["./src/components/*"]
+    }
   },
-  "include": ["src", "src/custom.d.ts"],
+  "include": ["src", "picker-env.d.ts", "src/custom.d.ts"],
   "exclude": ["node_modules", "./node_modules", "./node_modules/*"]
 }

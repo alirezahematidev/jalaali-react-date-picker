@@ -5,7 +5,7 @@ const resolvePath = (relativePath) => path.resolve(__dirname, relativePath);
 
 const excludes = `node_modules/(.*)`;
 
-const includes = [resolvePath("./src/core/styles/index.css")];
+const includes = [resolvePath("./src/styles/index.css")];
 
 module.exports = {
   webpack: (config) => {
@@ -34,16 +34,12 @@ module.exports = {
   },
 
   jest: function (config) {
-    config.testPathIgnorePatterns = [".*/dist/.*", "dist"];
+    config.testPathIgnorePatterns = [".*/lib/.*", "lib"];
 
     config.transformIgnorePatterns = ["/node_modules/"];
 
     config.moduleNameMapper = {
       ...config.moduleNameMapper,
-      "^lodash-es$": "lodash",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
     };
 
     return config;

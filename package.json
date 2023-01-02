@@ -9,19 +9,17 @@
   "keywords": [
     "date-picker",
     "react",
-    "react native",
     "jalaali"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "dist",
+    "lib",
     "src",
-    "__mocks__",
     "!.husky",
     "!public"
   ],
@@ -47,16 +45,16 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node scripts/dev-scripts.js && react-scripts start",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && tsc -b ",
+    "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b ",
     "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
     "release": " yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
     "compile": "tsc -b",
-    "copy-styles": "Xcopy .\\src\\styles .\\dist\\styles /E/I",
-    "copy-custom": "Xcopy .\\src\\custom.d.ts .\\dist /E/I"
+    "copy-styles": "Xcopy .\\src\\styles .\\lib\\styles /E/I",
+    "copy-custom": "Xcopy .\\src\\custom.d.ts .\\lib /E/I"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",
@@ -104,7 +102,7 @@
     ]
   },
   "eslintIgnore": [
-    "dist/*"
+    "lib/*"
   ],
   "peerDependencies": {
     "@types/moment-jalaali": ">= 0.7.5",
