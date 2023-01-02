@@ -39,6 +39,7 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
     const bounds = node.getBoundingClientRect();
 
     if (bounds) {
+      console.log("sagg");
       const gap = 8;
       const h = bounds.height;
       const w = bounds.width;
@@ -64,6 +65,7 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
           : placement === "right"
           ? width - (l + w) <= popupWidth
           : false;
+      console.log("shouldHorizontalReverse", shouldHorizontalReverse);
 
       const { animationClassName } = generateAnimation({
         placement,
@@ -99,8 +101,8 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
                 ? -(h + gap)
                 : -(popupHeight + gap)
               : undefined,
-          right: shouldHorizontalReverse ? undefined : 0,
-          left: shouldHorizontalReverse ? 0 : undefined,
+          left: l < width / 2 || shouldHorizontalReverse ? 0 : undefined,
+          right: l < width / 2 || shouldHorizontalReverse ? undefined : 0,
           animationClassName,
         };
       }
