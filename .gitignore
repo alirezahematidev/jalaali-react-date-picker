@@ -34,3 +34,4 @@ debug.log
 build
 tsconfig.tsbuildinfo
 dist
+picker-env.d.ts

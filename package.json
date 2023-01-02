@@ -21,7 +21,6 @@
   "files": [
     "dist",
     "src",
-    "__mocks__",
     "!.husky",
     "!public"
   ],
