@@ -41,7 +41,6 @@ export const InputRangePicker = ({
     setIsOpen(false);
     onOpenChange?.(false);
   };
-
   return (
     <RangeProvider
       props={{
@@ -55,7 +54,7 @@ export const InputRangePicker = ({
         onDayChange,
       }}
     >
-      {({ values }) => (
+      {({ values, onChangeInputRange, placeholderFrom, placeholderTo }) => (
         <Popup
           key="range-popup"
           mode="range"
@@ -74,19 +73,20 @@ export const InputRangePicker = ({
             style={wrapperStyle}
           >
             {prefixIcon && prefixIcon}
-            {values.map((value, index) => (
-              <input
-                key={index}
-                {...rest}
-                value={value}
-                className={classNames(
-                  "picker-input",
-                  isRtl && "rtl",
-                  className,
-                )}
-                readOnly
-              />
-            ))}
+            <input
+              {...rest}
+              value={values?.[0]}
+              onChange={(e) => onChangeInputRange?.(e, true)}
+              className={classNames("picker-input", isRtl && "rtl", className)}
+              placeholder={placeholderFrom}
+            />
+            <input
+              {...rest}
+              value={values?.[1]}
+              onChange={(e) => onChangeInputRange?.(e, false)}
+              className={classNames("picker-input", isRtl && "rtl", className)}
+              placeholder={placeholderTo}
+            />
             {suffixIcon || (
               <div className="calendar-icon">
                 <Icon.Calendar />

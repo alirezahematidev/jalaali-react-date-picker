@@ -21,8 +21,7 @@ export const RangeDayPanel = ({
   selectedRange,
 }: RangeDayPanelProps) => {
   const today = momentTransformer(moment());
-  const { isJalaali, dayLabels } = useRangepicker();
-
+  const { isJalaali, dayLabels, changePlaceholder } = useRangepicker();
   const { dayLabelRender, highlightOffDays } = useRangePanelContext();
 
   const extendDays = days.map((day) => {
@@ -76,6 +75,8 @@ export const RangeDayPanel = ({
             <div
               key={`${id}-${day.month}`}
               className={classNames("day-item-outer")}
+              onMouseEnter={() => changePlaceholder(date)}
+              onMouseLeave={() => changePlaceholder(null)}
             >
               <div
                 className={classNames(

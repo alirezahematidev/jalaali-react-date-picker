@@ -4,6 +4,7 @@ import {
   dateTransformer,
   formatGenerator,
   getMonthLabels,
+  momentTransformer,
   rangeTransformer,
 } from "../../../utils";
 import { DateRangePickerTypes } from "../../types";
@@ -16,7 +17,7 @@ import {
 import { RangeActionKind, rangeReducer } from "./rangeReducer";
 
 interface RangeDateReducerType {
-  formatProp?: DateRangePickerTypes.Format;
+  formatProp?: string;
   onChangeProp?: DateRangePickerTypes.OnChange;
   valueProp?: DateRangePickerTypes.RangeValue;
   defaultValueProp?: DateRangePickerTypes.RangeValue;
@@ -84,16 +85,17 @@ export const useRangeReducer = ({
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
+  const [rangeInputValue, setRangeInputValue] = useState<[string, string]>([
+    "",
+    "",
+  ]);
+  const [placeholderFrom, setPlaceholderFrom] = useState("");
+  const [placeholderTo, setPlaceholderTo] = useState("");
+
   const formattedDates = useCallback(
     (dates: RangeValue) => {
       return dates.map((date) =>
-        date.format(
-          formatProp
-            ? typeof formatProp === "function"
-              ? formatProp(dates)
-              : formatProp
-            : formatGenerator(isJalaali),
-        ),
+        date.format(formatProp ? formatProp : formatGenerator(isJalaali)),
       ) as [string, string];
     },
     [formatProp, isJalaali],
@@ -109,14 +111,6 @@ export const useRangeReducer = ({
 
     return { rangeDateString };
   }, [isJalaali, rangeState]);
-
-  const { values } = useMemo(() => {
-    const values = (
-      rangeDateString ? formattedDates(rangeDateString) : ["", ""]
-    ) as [string, string];
-
-    return { values };
-  }, [formattedDates, rangeDateString]);
 
   useEffect(() => {
     if (valueProp && valueProp.length) {
@@ -150,9 +144,14 @@ export const useRangeReducer = ({
         payload.startDate.day !== 0 &&
           payload.endDate.day !== 0 &&
           onChangeProp?.(dates, formattedDates(dates));
+
+        setRangeInputValue([
+          dates[0].format(formatProp),
+          dates[1].format(formatProp),
+        ]);
       }
     },
-    [formattedDates, onChangeProp],
+    [formatProp, formattedDates, onChangeProp],
   );
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {
@@ -170,6 +169,11 @@ export const useRangeReducer = ({
         };
         dispatch({ type: RangeActionKind.DAY, payload: res });
         setCacheRangeDate(res);
+        setPlaceholderTo("");
+        setRangeInputValue([
+          dateTransformer(res.startDate, isJalaali).format(formatProp),
+          "",
+        ]);
         return;
       }
       const res: RangeDate = {
@@ -181,10 +185,17 @@ export const useRangeReducer = ({
       setCacheRangeDate(res);
 
       if (res) {
-        res.startDate.day !== 0 &&
+        if (
+          res.startDate.day !== 0 &&
           res.endDate !== null &&
-          res?.endDate?.day !== 0 &&
+          res?.endDate?.day !== 0
+        ) {
           onDayChangeProp?.([res.startDate.day, res.endDate.day]);
+        }
+        setRangeInputValue([
+          dateTransformer(res.startDate, isJalaali).format(formatProp),
+          "",
+        ]);
         onRangeDateChange?.(res);
       }
     },
@@ -192,8 +203,9 @@ export const useRangeReducer = ({
       isJalaali,
       rangeState.startDate,
       rangeState.endDate,
-      onDayChangeProp,
       onRangeDateChange,
+      onDayChangeProp,
+      formatProp,
     ],
   );
 
@@ -409,6 +421,65 @@ export const useRangeReducer = ({
     });
   }, [isJalaali, onMonthChangeProp]);
 
+  const onChangeInputRange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isStartDate: boolean,
+  ) => {
+    const fromInput = e.target.value;
+    const momentValue = moment(fromInput, formatProp, true);
+    if (momentValue.isValid()) {
+      if (isStartDate) {
+        if (rangeState.endDate) {
+          const endDate = dateTransformer(rangeState.endDate, isJalaali);
+          if (momentValue.isBefore(endDate)) {
+            const startDate = momentTransformer(momentValue, isJalaali);
+            setRangeInputValue([
+              momentValue.format(formatProp),
+              endDate.format(formatProp),
+            ]);
+            onRangeDateChange({
+              startDate,
+              endDate: rangeState.endDate,
+            });
+          }
+        }
+      } else {
+        const startDate = dateTransformer(rangeState.startDate, isJalaali);
+        if (momentValue.isAfter(startDate)) {
+          setRangeInputValue([
+            startDate.format(formatProp),
+            momentValue.format(formatProp),
+          ]);
+          onRangeDateChange({
+            startDate: rangeState.startDate,
+            endDate: momentTransformer(momentValue, isJalaali),
+          });
+        }
+      }
+    }
+  };
+
+  const changePlaceholder = useCallback(
+    (date: Date | null) => {
+      if (rangeState.startDate.day > 0 && rangeState.endDate !== null) {
+        return;
+      }
+      if (!date) {
+        if (rangeState.startDate.day === 0) {
+          setPlaceholderFrom("");
+        } else {
+          setPlaceholderTo("");
+        }
+        return;
+      }
+      if (rangeState.startDate.day === 0) {
+        setPlaceholderFrom(dateTransformer(date, isJalaali).format(formatProp));
+      } else {
+        setPlaceholderTo(dateTransformer(date, isJalaali).format(formatProp));
+      }
+    },
+    [formatProp, isJalaali, rangeState],
+  );
   return {
     rangeState,
     cacheRangeDate,
@@ -422,9 +493,13 @@ export const useRangeReducer = ({
     onRangeDecreaseMonth,
     rangeDateString,
     inputRangeProps: {
-      values,
+      values: rangeInputValue,
+      onChangeInputRange,
+      placeholderFrom,
+      placeholderTo,
     },
     from: fromAndTo.from,
     to: fromAndTo.to,
+    changePlaceholder,
   };
 };

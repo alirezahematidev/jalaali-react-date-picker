@@ -177,7 +177,6 @@ export const useDateReducer = ({
 
   const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userData = e.target.value;
-
     const momentValue = moment(userData, formatProp, true);
     if (momentValue.isValid()) {
       setInputValue(userData);
