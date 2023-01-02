@@ -39,7 +39,6 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
     const bounds = node.getBoundingClientRect();
 
     if (bounds) {
-      console.log("sagg");
       const gap = 8;
       const h = bounds.height;
       const w = bounds.width;
@@ -65,27 +64,19 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
           : placement === "right"
           ? width - (l + w) <= popupWidth
           : false;
-      console.log("shouldHorizontalReverse", shouldHorizontalReverse);
 
       const { animationClassName } = generateAnimation({
         placement,
         shouldHorizontalReverse,
         shouldVerticalReverse,
+        l,
+        width,
       });
 
       if (placement === "bottom" || placement === "top") {
-        if (t <= popupHeight && shouldVerticalReverse) {
-          return {
-            shouldVerticalReverse,
-            shouldHorizontalReverse,
-            top: h + gap,
-            bottom: undefined,
-            right: shouldHorizontalReverse ? 0 : undefined,
-            left: shouldHorizontalReverse ? 0 : undefined,
-            animationClassName,
-          };
-        }
-
+        const left = l <= popupWidth || shouldHorizontalReverse ? 0 : undefined;
+        const right =
+          l <= popupWidth || shouldHorizontalReverse ? undefined : 0;
         return {
           shouldVerticalReverse,
           shouldHorizontalReverse,
@@ -98,11 +89,11 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
           top:
             placement === "top"
               ? shouldVerticalReverse
-                ? -(h + gap)
+                ? h + gap
                 : -(popupHeight + gap)
               : undefined,
-          left: l < width / 2 || shouldHorizontalReverse ? 0 : undefined,
-          right: l < width / 2 || shouldHorizontalReverse ? undefined : 0,
+          left,
+          right,
           animationClassName,
         };
       }
@@ -140,10 +131,14 @@ const generateAnimation = ({
   placement,
   shouldHorizontalReverse,
   shouldVerticalReverse,
+  l,
+  width,
 }: {
   placement: Placement;
   shouldVerticalReverse: boolean;
   shouldHorizontalReverse: boolean;
+  l: number;
+  width: number;
 }) => {
   const below =
     (placement === "bottom" && !shouldVerticalReverse) ||
@@ -152,13 +147,18 @@ const generateAnimation = ({
     placement === "right";
   const isRight =
     (placement === "right" && !shouldHorizontalReverse) ||
-    (placement === "left" && shouldHorizontalReverse);
+    (placement === "left" && shouldHorizontalReverse) ||
+    ((placement === "top" || placement === "bottom") && l > width / 2);
 
   const animationClassName =
     placement === "top" || placement === "bottom"
       ? below
-        ? "open-vert-bottom"
-        : "open-vert-top"
+        ? isRight
+          ? "open-vert-bottom-left"
+          : "open-vert-bottom-right"
+        : isRight
+        ? "open-vert-top-left"
+        : "open-vert-top-right"
       : placement === "right" || placement === "left"
       ? isRight
         ? "open-horz-right"

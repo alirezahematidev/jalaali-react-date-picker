@@ -45,11 +45,16 @@
   max-width: 600px;
 }
 
-.open-vert-top {
+.open-vert-top-right {
+  transform-origin: bottom left;
+}
+.open-vert-bottom-right {
+  transform-origin: top left;
+}
+.open-vert-top-left {
   transform-origin: bottom right;
 }
-
-.open-vert-bottom {
+.open-vert-bottom-left {
   transform-origin: top right;
 }
 .open-horz-left {
