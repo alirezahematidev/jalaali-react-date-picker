@@ -106,5 +106,8 @@
   },
   "eslintIgnore": [
     "dist/*"
-  ]
+  ],
+  "peerDependencies": {
+    "moment-jalaali": ">= 0.9.6"
+  }
 }
