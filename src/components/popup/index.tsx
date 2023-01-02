@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React, { ReactNode, useRef, useState } from "react";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
-import { useDestroy } from "../../core/hooks/useDestroy";
 import { useReverse } from "../../core/hooks/useReverse";
 
 export type Placement = "bottom" | "top" | "right" | "left";
@@ -44,35 +43,21 @@ export const Popup = ({
     placement,
   });
 
-  useDestroy({
-    element: panelRef,
-    callback: () => {
-      close();
-      setAnimate(false);
-    },
-    destroy: config().destroy,
-    placement,
-  });
+  // useDestroy({
+  //   element: panelRef,
+  //   callback: () => {
+  //     close();
+  //     setAnimate(false);
+  //   },
+  //   destroy: config().destroy,
+  //   placement,
+  // });
 
   const onAnimationEnd = (e: React.AnimationEvent) => {
     if (e.animationName === "close") {
       e.preventDefault();
       setAnimate(false);
     }
-  };
-
-  const a = () => {
-    const vReverse = config().vReverse;
-
-    const isVertical = placement === "bottom" || placement === "top";
-    const isHorizontal = placement === "left" || placement === "right";
-
-    const below =
-      (placement === "bottom" && !vReverse) ||
-      (placement === "top" && vReverse) ||
-      isHorizontal;
-
-    return { isVertical, below };
   };
 
   return (
@@ -95,12 +80,9 @@ export const Popup = ({
                   mode === "date"
                     ? "popover-panel-date"
                     : "popover-panel-range",
-                  a().below ? "open-vert-bottom" : "open-vert-top",
+                  config().animationClassName,
                 )
-              : classNames(
-                  "popover-panel-close",
-                  a().below ? "open-vert-bottom" : "open-vert-top",
-                )
+              : classNames("popover-panel-close", config().animationClassName)
           }
           ref={panelRef}
           style={{
@@ -112,22 +94,10 @@ export const Popup = ({
             background: "#fff",
             position: "absolute",
             boxShadow: "0px 0px 4px rgba(0,0,0,.2)",
-            left: a().isVertical
-              ? "unset"
-              : config().hReverse
-              ? "unset"
-              : -(mode === "date" ? 306 : 606),
-            right: a().isVertical
-              ? 0
-              : !config().hReverse
-              ? "unset"
-              : -(mode === "date" ? 306 : 606),
-            top: a().isVertical ? (config().vReverse ? "unset" : 40) : 0,
-            bottom: a().isVertical
-              ? !config().vReverse
-                ? "unset"
-                : 40
-              : "unset",
+            left: config().left,
+            right: config().right,
+            top: config().top,
+            bottom: config().bottom,
           }}
         >
           {panel}

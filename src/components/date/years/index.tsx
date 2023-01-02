@@ -4,8 +4,6 @@ import { useDatepicker, useYears } from "../../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { YearsHeader } from "./header";
 
-export interface MonthsProps {}
-
 const Years = () => {
   const { isJalaali, onYearchange, state } = useDatepicker();
   const { onChangeMode } = usePanelContext();

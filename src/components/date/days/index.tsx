@@ -1,9 +1,8 @@
 import classNames from "classnames";
-import { isEqual } from "lodash-es";
 import moment from "moment-jalaali";
 import { Fragment } from "react";
 import { Date, useDatepicker, useDays } from "../../../core";
-import { momentTransformer } from "../../../utils";
+import { isEqual, momentTransformer } from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";
 import { Header, HeaderProps } from "../header";

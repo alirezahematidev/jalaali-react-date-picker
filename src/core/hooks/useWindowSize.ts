@@ -7,8 +7,8 @@ type WindowLayout = {
 
 export const useWindowSize = () => {
   const [size, setSize] = useState<WindowLayout>({
-    width: window?.innerWidth,
-    height: window?.innerHeight,
+    width: typeof window === "undefined" ? 0 : window?.innerWidth,
+    height: typeof window === "undefined" ? 0 : window?.innerHeight,
   });
 
   useEffect(() => {
