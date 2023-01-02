@@ -5,7 +5,7 @@ const resolvePath = (relativePath) => path.resolve(__dirname, relativePath);
 
 const excludes = `node_modules/(.*)`;
 
-const includes = [resolvePath("./src/core/styles/index.css")];
+const includes = [resolvePath("./src/styles/index.css")];
 
 module.exports = {
   webpack: (config) => {
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   jest: function (config) {
-    config.testPathIgnorePatterns = [".*/dist/.*", "dist"];
+    config.testPathIgnorePatterns = [".*/lib/.*", "lib"];
 
     config.transformIgnorePatterns = ["/node_modules/"];
 
