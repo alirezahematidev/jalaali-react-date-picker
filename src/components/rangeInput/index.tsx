@@ -1,9 +1,14 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { InputRangePickerProps, RangeProvider } from "../../core";
-import { Icon } from "../icon";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
+import { Suffix } from "../suffix";
+import { Input } from "./input";
+
+export const GAP = 34;
+
+type InputSize = Record<number, number>;
 
 export const InputRangePicker = ({
   value,
@@ -21,12 +26,18 @@ export const InputRangePicker = ({
   suffixIcon,
   prefixIcon,
   placement = "bottom",
-  className,
   wrapperClassName,
   wrapperStyle,
   ...rest
 }: InputRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+  const [inputSizes, setInputSizes] = useState<InputSize>({ 0: 0, 1: 0 });
+  const [focusedInput, setFocusedInput] = useState<number>(-1);
+
+  const onFocus = (index: number) => {
+    setFocusedInput(index);
+  };
+
   const isRtl = (locale?.language || "fa") === "fa";
 
   const toggle = () => {
@@ -41,6 +52,7 @@ export const InputRangePicker = ({
     setIsOpen(false);
     onOpenChange?.(false);
   };
+  const [clearIconVisible, setClearIconVisible] = useState(false);
 
   return (
     <RangeProvider
@@ -67,31 +79,52 @@ export const InputRangePicker = ({
         >
           <div
             className={classNames(
-              "picker-input-wrapper",
+              "range-input-wrapper",
               isRtl && "rtl",
               wrapperClassName,
             )}
             style={wrapperStyle}
+            /** @todo StartDate insted values[0] */
+            onMouseEnter={() => values[0] && setClearIconVisible(true)}
+            onMouseLeave={() => setClearIconVisible(false)}
           >
+            {focusedInput !== -1 && (
+              <div
+                className="input-border-ink"
+                style={{
+                  right: isRtl
+                    ? focusedInput === 0
+                      ? 8
+                      : inputSizes[0] + GAP + 4
+                    : 0,
+                  left: isRtl
+                    ? 0
+                    : focusedInput === 0
+                    ? 8
+                    : inputSizes[0] + GAP + 4,
+                  width: Math.ceil(inputSizes[focusedInput]),
+                }}
+              />
+            )}
             {prefixIcon && prefixIcon}
             {values.map((value, index) => (
-              <input
+              <Input
                 key={index}
-                {...rest}
                 value={value}
-                className={classNames(
-                  "picker-input",
-                  isRtl && "rtl",
-                  className,
-                )}
-                readOnly
+                index={index}
+                isRtl={isRtl}
+                onFocus={() => onFocus(index)}
+                onLayout={(width) =>
+                  setInputSizes((prev) => ({ ...prev, [index]: width + 4 }))
+                }
+                {...rest}
               />
             ))}
-            {suffixIcon || (
-              <div className="calendar-icon">
-                <Icon.Calendar />
-              </div>
-            )}
+            <Suffix
+              suffixIcon={suffixIcon}
+              clearable={clearIconVisible}
+              onClear={() => {}}
+            />
           </div>
         </Popup>
       )}

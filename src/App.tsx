@@ -16,7 +16,7 @@ function App() {
         // alignItems: "flex-start",
       }}
     >
-      <InputRangePicker placement="right" />
+      <InputRangePicker locale={{ language: "fa" }} placement="right" />
       {/* <InputRangePicker placement="right" /> */}
     </div>
   );
