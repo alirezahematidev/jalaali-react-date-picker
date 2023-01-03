@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjalaali_datepicker=self.webpackChunkjalaali_datepicker||[]).push([[181],{3744:a=>{a.exports=JSON.parse('{"label":"hello","permalink":"/react-jalaali-date-picker/blog/tags/hello","allTagsPath":"/react-jalaali-date-picker/blog/tags","count":2}')}}]);
