@@ -20,8 +20,8 @@ export const RangeDayPanel = ({
   onSelect,
   selectedRange,
 }: RangeDayPanelProps) => {
-  const today = momentTransformer(moment());
   const { isJalaali, dayLabels, changePlaceholder } = useRangepicker();
+  const today = momentTransformer(moment(), isJalaali);
   const { dayLabelRender, highlightDays, weekend } = useRangePanelContext();
 
   const extendDays = days.map((day) => {

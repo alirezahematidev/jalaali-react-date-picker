@@ -21,7 +21,7 @@ const Days = () => {
   } = useDatepicker();
 
   const { days: metadataDays } = useDays();
-  const today = momentTransformer(moment());
+  const today = momentTransformer(moment(), isJalaali);
 
   const {
     onChangeMode,

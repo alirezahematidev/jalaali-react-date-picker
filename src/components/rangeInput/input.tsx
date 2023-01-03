@@ -58,14 +58,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {index === 0 && (
           <div
             style={{
-              height: "100%",
               minWidth: GAP,
               maxWidth: GAP,
-              overflow: "hidden",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
             }}
+            className="separator-icon"
           >
             {isRtl ? <Icon.Back /> : <Icon.Forward />}
           </div>

@@ -26,7 +26,11 @@ describe("useYears", () => {
     expect(result.current.dayLabels[0]).toBe("ش");
     expect(result.current.locale).toBe("fa");
     expect(result.current.format).toBe("jYYYY-jMM-jDD");
-    expect(momentTransformer(moment())).toStrictEqual(result.current.state);
-    expect(momentTransformer(moment())).toStrictEqual(result.current.cacheDate);
+    expect(momentTransformer(moment(), result.current.isJalaali)).toStrictEqual(
+      result.current.state,
+    );
+    expect(momentTransformer(moment(), result.current.isJalaali)).toStrictEqual(
+      result.current.cacheDate,
+    );
   });
 });

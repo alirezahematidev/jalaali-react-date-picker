@@ -40,7 +40,7 @@ const RangeDays = ({}: RangeDaysProps) => {
         );
         if (firstDisabledIndex !== -1) {
           return onRangeDaychange(
-            momentTransformer(selectedRange[firstDisabledIndex - 1]),
+            momentTransformer(selectedRange[firstDisabledIndex - 1], isJalaali),
             false,
           );
         }

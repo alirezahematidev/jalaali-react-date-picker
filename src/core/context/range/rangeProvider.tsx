@@ -105,7 +105,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(rangeTransformer(cacheRangeDate))
+          ? props.format(rangeTransformer(cacheRangeDate, language === "fa"))
           : props.format
         : formatGenerator(props.locale === "fa");
       setFormat(format);

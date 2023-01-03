@@ -178,19 +178,19 @@ export const useRangeReducer = ({
       setCacheRangeDate(payload);
 
       if (payload.endDate) {
-        const dates = rangeTransformer({ ...payload });
+        const dates = rangeTransformer({ ...payload }, isJalaali);
 
         payload.startDate.day !== 0 &&
           payload.endDate.day !== 0 &&
           onChangeProp?.(dates, formattedDates(dates));
-
+        console.log([dates[0].format(formatProp), dates[1].format(formatProp)]);
         setRangeInputValue([
           dates[0].format(formatProp),
           dates[1].format(formatProp),
         ]);
       }
     },
-    [formatProp, formattedDates, onChangeProp],
+    [formatProp, formattedDates, isJalaali, onChangeProp],
   );
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {

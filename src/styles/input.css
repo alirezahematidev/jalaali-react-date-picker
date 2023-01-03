@@ -116,3 +116,11 @@
 .rtl {
   direction: rtl;
 }
+
+.separator-icon {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
