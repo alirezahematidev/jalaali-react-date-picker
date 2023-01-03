@@ -76,7 +76,9 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
           : placement === "right"
           ? r <= popupWidth
           : placement === "top" || placement === "bottom"
-          ? l <= popupWidth
+          ? popupWidth < w
+            ? false
+            : l <= popupWidth
           : false;
 
       const { animationClassName } = generateAnimation({
@@ -95,7 +97,7 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
             : undefined;
         const right =
           l <= popupWidth || shouldHorizontalReverse ? undefined : r;
-
+        console.log({ left, right, shouldHorizontalReverse });
         return {
           shouldVerticalReverse,
           shouldHorizontalReverse,
