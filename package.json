@@ -1,112 +1,112 @@
 {
-  "name": "jalaali-react-date-picker",
-  "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
-  "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.1.18",
-  "license": "MIT",
-  "sideEffects": false,
-  "private": false,
-  "keywords": [
-    "date-picker",
-    "react",
-    "jalaali"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
-  },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib",
-    "src",
-    "!.husky",
-    "!public"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/moment-jalaali": "^0.7.5",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "classnames": "^2.3.2",
-    "moment-jalaali": "^0.9.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
-  },
-  "scripts": {
-    "start": "node scripts/dev-scripts.js && react-scripts start",
-    "eject": "react-scripts eject",
-    "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b ",
-    "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
-    "release": " yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
-    "lint": "eslint . --ext tsx,ts --quiet",
-    "format": "prettier --write .",
-    "compile": "tsc -b",
-    "copy-styles": "Xcopy .\\src\\styles .\\lib\\styles /E/I",
-    "copy-custom": "Xcopy .\\src\\custom.d.ts .\\lib /E/I"
-  },
-  "devDependencies": {
-    "@commitlint/config-conventional": "^17.2.0",
-    "@svgr/webpack": "^6.5.1",
-    "@types/enzyme": "^3.10.12",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "commitlint": "^17.0.3",
-    "concurrently": "^6.3.0",
-    "cross-env": "^7.0.3",
-    "css-loader": "^6.7.2",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "eslint": "^8.4.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.30.1",
-    "eslint-webpack-plugin": "^3.2.0",
-    "lerna": "^6.0.1",
-    "prettier": "^2.7.1",
-    "prettier-plugin-jsdoc": "^0.3.38",
-    "prettier-plugin-organize-imports": "^3.2.0",
-    "react-app-rewired": "^2.2.1",
-    "rimraf": "^3.0.2",
-    "style-loader": "^3.3.1",
-    "tsconfig-paths": "^4.1.2",
-    "url-loader": "^4.1.1"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "name": "jalaali-react-date-picker",
+    "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
+    "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
+    "version": "0.1.18",
+    "license": "MIT",
+    "sideEffects": false,
+    "private": false,
+    "keywords": [
+        "date-picker",
+        "react",
+        "jalaali"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintIgnore": [
-    "lib/*"
-  ],
-  "peerDependencies": {
-    "@types/moment-jalaali": ">= 0.7.5",
-    "moment-jalaali": ">= 0.9.6"
-  }
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
+    },
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "src",
+        "!.husky",
+        "!public"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.14.1",
+        "@testing-library/react": "^13.0.0",
+        "@testing-library/user-event": "^13.2.1",
+        "@types/jest": "^27.0.1",
+        "@types/moment-jalaali": "^0.7.5",
+        "@types/node": "^16.7.13",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "classnames": "^2.3.2",
+        "moment-jalaali": "^0.9.6",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.4.2",
+        "web-vitals": "^2.1.0"
+    },
+    "scripts": {
+        "start": "node scripts/dev-scripts.js && react-scripts start",
+        "eject": "react-scripts eject",
+        "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b && git add . && git commit -m 'build-commit'",
+        "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
+        "release": " yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
+        "lint": "eslint . --ext tsx,ts --quiet",
+        "format": "prettier --write .",
+        "compile": "tsc -b",
+        "copy-styles": "Xcopy .\\src\\styles .\\lib\\styles /E/I",
+        "copy-custom": "Xcopy .\\src\\custom.d.ts .\\lib /E/I"
+    },
+    "devDependencies": {
+        "@commitlint/config-conventional": "^17.2.0",
+        "@svgr/webpack": "^6.5.1",
+        "@types/enzyme": "^3.10.12",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@typescript-eslint/eslint-plugin": "^5.31.0",
+        "@typescript-eslint/parser": "^5.31.0",
+        "commitlint": "^17.0.3",
+        "concurrently": "^6.3.0",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.2",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.6",
+        "eslint": "^8.4.1",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.30.1",
+        "eslint-webpack-plugin": "^3.2.0",
+        "lerna": "^6.0.1",
+        "prettier": "^2.7.1",
+        "prettier-plugin-jsdoc": "^0.3.38",
+        "prettier-plugin-organize-imports": "^3.2.0",
+        "react-app-rewired": "^2.2.1",
+        "rimraf": "^3.0.2",
+        "style-loader": "^3.3.1",
+        "tsconfig-paths": "^4.1.2",
+        "url-loader": "^4.1.1"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "eslintIgnore": [
+        "lib/*"
+    ],
+    "peerDependencies": {
+        "@types/moment-jalaali": ">= 0.7.5",
+        "moment-jalaali": ">= 0.9.6"
+    }
 }
