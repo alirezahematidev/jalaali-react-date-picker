@@ -1,4 +1,3 @@
-import { DatePickerProps } from "@core/interfaces";
 import moment, { Moment } from "moment-jalaali";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
@@ -7,6 +6,7 @@ import {
   momentTransformer,
 } from "../../../utils";
 import { localizedMonth } from "../../constants";
+import { DatePickerProps } from "../../interfaces";
 import { Date, Language } from "../../types/global.types";
 import { DateActionKind, reducer } from "./dateReducer";
 

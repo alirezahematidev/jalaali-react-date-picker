@@ -1,6 +1,6 @@
-import { ColorSchema, Language, Mode } from "@core/types";
 import { Moment } from "moment-jalaali";
 import { CSSProperties } from "react";
+import { ColorSchema, Date, Language, Mode } from "../types";
 export interface RangePickerProps {
   /** @type `Moment` */
   moment?: Moment;

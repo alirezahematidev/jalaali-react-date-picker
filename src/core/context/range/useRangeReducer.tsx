@@ -1,4 +1,3 @@
-import { RangePickerProps } from "@core/interfaces";
 import moment, { Moment } from "moment-jalaali";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
@@ -8,6 +7,7 @@ import {
   momentTransformer,
   rangeTransformer,
 } from "../../../utils";
+import { RangePickerProps } from "../../interfaces";
 import {
   Date,
   Language,

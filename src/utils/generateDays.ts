@@ -1,5 +1,5 @@
-import { DatePickerProps } from "@core/interfaces";
 import { getDaysOfGregorianMonth, getDaysOfJalaaliMonth } from ".";
+import { DatePickerProps } from "../core";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
 import { generatePrevMonthDays } from "./generatePrevMonthDays";

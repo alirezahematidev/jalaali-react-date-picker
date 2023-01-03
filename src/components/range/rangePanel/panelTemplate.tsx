@@ -1,5 +1,5 @@
-import { Mode } from "@core/types";
 import { useState } from "react";
+import { Mode } from "../../../core";
 import { RangeDays } from "../rangeDays";
 import { RangeMonths } from "../rangeMonths";
 import { RangeYears } from "../rangeYears";

@@ -1,6 +1,6 @@
-import { DatePickerProps } from "@core/interfaces";
 import { jIsLeapYear } from "moment-jalaali";
 import { dayModelGenerator } from ".";
+import { DatePickerProps } from "../core";
 import { jalaaliMonths } from "../core/constants/datasets";
 
 export const getDaysOfJalaaliMonth = (

@@ -1,5 +1,5 @@
-import { Mode } from "@core/types";
 import { createContext, useContext } from "react";
+import { Mode } from "../../../core";
 
 interface RangeTemplateContextType {
   type: "from" | "to";

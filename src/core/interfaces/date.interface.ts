@@ -1,6 +1,6 @@
-import { ColorSchema, Date, Mode } from "@core/types";
 import { Moment } from "moment-jalaali";
 import React, { CSSProperties } from "react";
+import { ColorSchema, Date, Mode } from "../types";
 
 type MonthValue = {
   name: string;
