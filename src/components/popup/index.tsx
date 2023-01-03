@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { ReactNode, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { useReverse } from "../../core/hooks/useReverse";
 
@@ -60,6 +61,36 @@ export const Popup = ({
     }
   };
 
+  const portalContent = (
+    <div
+      onAnimationEnd={onAnimationEnd}
+      className={
+        isOpen
+          ? classNames(
+              "popover-panel-open",
+              mode === "date" ? "popover-panel-date" : "popover-panel-range",
+              config().animationClassName,
+            )
+          : classNames("popover-panel-close", config().animationClassName)
+      }
+      ref={panelRef}
+      style={{
+        width: mode === "date" ? 300 : 600,
+        height: mode === "date" ? 352 : 312,
+        overflow: "hidden",
+        margin: 0,
+        padding: 0,
+        position: "absolute",
+        left: config().left,
+        right: config().right,
+        top: config().top,
+        bottom: config().bottom,
+      }}
+    >
+      {panel}
+    </div>
+  );
+
   return (
     <div
       ref={ref}
@@ -70,37 +101,8 @@ export const Popup = ({
       }}
     >
       <div onClick={open}>{children}</div>
-      {animate && (
-        <div
-          onAnimationEnd={onAnimationEnd}
-          className={
-            isOpen
-              ? classNames(
-                  "popover-panel-open",
-                  mode === "date"
-                    ? "popover-panel-date"
-                    : "popover-panel-range",
-                  config().animationClassName,
-                )
-              : classNames("popover-panel-close", config().animationClassName)
-          }
-          ref={panelRef}
-          style={{
-            width: mode === "date" ? 300 : 600,
-            height: mode === "date" ? 352 : 312,
-            overflow: "hidden",
-            margin: 0,
-            padding: 0,
-            position: "absolute",
-            left: config().left,
-            right: config().right,
-            top: config().top,
-            bottom: config().bottom,
-          }}
-        >
-          {panel}
-        </div>
-      )}
+      {animate &&
+        (document ? createPortal(portalContent, document.body) : null)}
     </div>
   );
 };

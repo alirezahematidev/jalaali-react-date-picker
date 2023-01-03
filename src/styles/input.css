@@ -11,6 +11,7 @@
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  background-color: var(--background);
 }
 
 .range-input-wrapper {
@@ -28,6 +29,7 @@
   position: relative;
   padding-inline-start: 8px;
   padding-inline-end: 4px;
+  background-color: var(--background);
 }
 
 .picker-input-wrapper:hover {
