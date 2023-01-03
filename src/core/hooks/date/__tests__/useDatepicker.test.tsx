@@ -8,7 +8,7 @@ function wrapper({ children }: { children: ReactNode }) {
   return (
     <DateProvider
       props={{
-        locale: { language: "fa" },
+        locale: "fa",
       }}
     >
       {children}
@@ -24,9 +24,13 @@ describe("useYears", () => {
     }),
       expect(result.current.isJalaali).toBeTruthy();
     expect(result.current.dayLabels[0]).toBe("ش");
-    expect(result.current.language).toBe("fa");
+    expect(result.current.locale).toBe("fa");
     expect(result.current.format).toBe("jYYYY-jMM-jDD");
-    expect(momentTransformer(moment())).toStrictEqual(result.current.state);
-    expect(momentTransformer(moment())).toStrictEqual(result.current.cacheDate);
+    expect(momentTransformer(moment(), result.current.isJalaali)).toStrictEqual(
+      result.current.state,
+    );
+    expect(momentTransformer(moment(), result.current.isJalaali)).toStrictEqual(
+      result.current.cacheDate,
+    );
   });
 });

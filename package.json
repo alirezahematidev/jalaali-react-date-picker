@@ -2,7 +2,7 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.1.11",
+  "version": "0.1.18",
   "license": "MIT",
   "sideEffects": false,
   "private": false,
@@ -32,6 +32,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/moment-jalaali": "^0.7.5",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -60,8 +61,6 @@
     "@svgr/webpack": "^6.5.1",
     "@types/enzyme": "^3.10.12",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/moment-jalaali": "^0.7.5",
-    "@types/moment-timezone": "^0.5.30",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "commitlint": "^17.0.3",
@@ -107,6 +106,7 @@
     "lib/*"
   ],
   "peerDependencies": {
+    "@types/moment-jalaali": ">= 0.7.5",
     "moment-jalaali": ">= 0.9.6"
   }
 }

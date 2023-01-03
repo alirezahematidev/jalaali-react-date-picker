@@ -5,7 +5,6 @@ import {
   NavigationIcon,
   PickerProps as Props,
   useDatepicker,
-  useSetColors,
 } from "../../../core";
 import { Footer } from "../../footer";
 import { PanelMode } from "./panelMode";
@@ -25,18 +24,18 @@ const Panel = (
     footerRender,
     headerRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     dayLabelRender,
     onModeChange,
-    customColors,
     toggle,
     navigationIcons,
+    weekend,
+    style,
+    className,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const { isJalaali } = useDatepicker();
-
-  useSetColors(customColors);
 
   return (
     <div
@@ -44,17 +43,20 @@ const Panel = (
       className={classNames(
         isJalaali ? "panel-jalaali" : "panel-gregorian",
         "panel-elevation",
+        className,
       )}
+      style={style}
     >
       <PanelMode
         {...{
           headerRender,
           panelRender,
           dayLabelRender,
-          highlightOffDays,
+          highlightDays,
           onModeChange,
           toggle,
           navigationIcons,
+          weekend,
         }}
       />
       <Footer footerRender={footerRender} />

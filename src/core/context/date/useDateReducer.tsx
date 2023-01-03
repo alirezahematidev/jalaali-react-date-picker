@@ -6,18 +6,18 @@ import {
   momentTransformer,
 } from "../../../utils";
 import { localizedMonth } from "../../constants";
-import { DatePickerTypes } from "../../types";
+import { DatePickerProps } from "../../interfaces";
 import { Date, Language } from "../../types/global.types";
 import { DateActionKind, reducer } from "./dateReducer";
 
 interface DateReducerType {
-  formatProp?: DatePickerTypes.Format;
-  onChangeProp?: DatePickerTypes.OnChange;
-  valueProp?: DatePickerTypes.Value;
-  defaultValueProp?: DatePickerTypes.Value;
-  onDayChangeProp?: DatePickerTypes.OnDayChange;
-  onMonthChangeProp?: DatePickerTypes.OnMonthChange;
-  onYearChangeProp?: DatePickerTypes.OnYearChange;
+  formatProp?: string;
+  onChangeProp?: DatePickerProps["onChange"];
+  valueProp?: DatePickerProps["value"];
+  defaultValueProp?: DatePickerProps["value"];
+  onDayChangeProp?: DatePickerProps["onDayChange"];
+  onMonthChangeProp?: DatePickerProps["onMonthChange"];
+  onYearChangeProp?: DatePickerProps["onYearChange"];
   language: Language;
 }
 
@@ -53,18 +53,12 @@ export const useDateReducer = ({
 
   const formattedValue = useCallback(
     (value: Moment) => {
-      return value.format(
-        formatProp
-          ? typeof formatProp === "function"
-            ? formatProp(value)
-            : formatProp
-          : formatGenerator(isJalaali),
-      );
+      return value.format(formatProp ? formatProp : formatGenerator(isJalaali));
     },
     [formatProp, isJalaali],
   );
 
-  const onEmptyInputValue = () => {
+  const onClear = () => {
     dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
     setCacheDate((c) => ({ ...c, day: 0 }));
     setInputValue("");
@@ -89,10 +83,20 @@ export const useDateReducer = ({
     if (valueProp) {
       const value = momentTransformer(valueProp, isJalaali);
       setCacheDate(value);
+      setInputValue(formattedValue(valueProp));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueProp]);
+  useEffect(() => {
+    if (defaultValueProp && !valueProp) {
+      const value = momentTransformer(defaultValueProp, isJalaali);
+      setCacheDate(value);
+      setInputValue(formattedValue(defaultValueProp));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValueProp, valueProp]);
 
   const onDateChange = useCallback(
     (payload: Date) => {
@@ -183,13 +187,13 @@ export const useDateReducer = ({
 
   const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userData = e.target.value;
-    setInputValue(userData);
-
-    const momentValue = moment(userData);
-
+    const momentValue = moment(userData, formatProp, true);
     if (momentValue.isValid()) {
+      setInputValue(userData);
       onDateChange(momentTransformer(momentValue, isJalaali));
       onMonthchange(momentTransformer(momentValue, isJalaali));
+    } else {
+      setInputValue(dateTransformer(cacheDate, isJalaali).format(formatProp));
     }
   };
 
@@ -214,12 +218,13 @@ export const useDateReducer = ({
     onIncreaseMonth,
     onDecreaseMonth,
     changePlaceholder,
-    onEmptyInputValue,
+    onClear,
     inputProps: {
       value: inputValue || dateValue,
       placeholder,
       onChangeInputValue,
-      onEmptyInputValue,
+      onClear,
+      shouldClose: state.day !== 0,
     },
   };
 };

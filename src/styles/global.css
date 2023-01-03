@@ -1,6 +1,6 @@
 :root {
-  --highlight: #18c5ff;
-  --highlight-fade: #e1f7ff;
+  --primary: #18c5ff;
+  --primary-fade: #e1f7ff;
   --text-dark: #000000;
   --text-light: #ffffff;
   --background: #ffffff;
@@ -9,6 +9,8 @@
   --border: #edededc7;
   --text-negative: #f83959;
   --day-label-background: #555555;
+  --highlight:#18c5ff;
+  --weekend:#f83959;
 }
 
 @font-face {
@@ -77,6 +79,9 @@
   color: var(--text-dark);
   opacity: 0.8;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon:hover {
@@ -85,7 +90,7 @@
 
 .icon-forward::before {
   font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e908";
+  content: "\e900";
 }
 
 .icon-calendar::before {

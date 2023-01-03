@@ -10,7 +10,7 @@
 }
 
 .panel-header-item-text:hover {
-  color: var(--highlight);
+  color: var(--primary);
 }
 
 .panel-header-year-picker {
@@ -29,5 +29,5 @@
 }
 
 .panel-header-year-picker p:hover {
-  color: var(--highlight);
+  color: var(--primary);
 }

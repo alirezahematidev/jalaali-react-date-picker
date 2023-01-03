@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { ReactNode, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { useReverse } from "../../core/hooks/useReverse";
 
@@ -24,11 +25,12 @@ export const Popup = ({
   panel,
   mode,
 }: PopupProps) => {
-  const panelRef = useRef<HTMLDivElement>(null);
-
   const [animate, setAnimate] = useState(false);
+  const refPopup = useClickOutside<HTMLDivElement>(() => {
+    close();
+  });
 
-  const ref = useClickOutside<HTMLDivElement>(close);
+  const ref = useRef(null);
 
   const open = () => {
     const toggling = toggle();
@@ -36,7 +38,6 @@ export const Popup = ({
 
     setAnimate(true);
   };
-
   const config = useReverse({
     element: ref,
     max: [mode === "date" ? 352 : 312, mode === "date" ? 300 : 600],
@@ -60,49 +61,48 @@ export const Popup = ({
     }
   };
 
+  const portalContent = (
+    <div
+      ref={refPopup}
+      onAnimationEnd={onAnimationEnd}
+      className={
+        isOpen
+          ? classNames(
+              "popover-panel-open",
+              mode === "date" ? "popover-panel-date" : "popover-panel-range",
+              config().animationClassName,
+            )
+          : classNames("popover-panel-close", config().animationClassName)
+      }
+      style={{
+        width: mode === "date" ? 300 : 600,
+        height: mode === "date" ? 352 : 312,
+        overflow: "hidden",
+        margin: 0,
+        padding: 0,
+        position: "absolute",
+        left: config().left,
+        right: config().right,
+        top: config().top,
+        bottom: config().bottom,
+        zIndex: 999999,
+      }}
+    >
+      {panel}
+    </div>
+  );
+
   return (
     <div
       ref={ref}
       style={{
-        position: "relative",
-        display: "inline-block",
-        zIndex: 9999999,
+        height: "fit-content",
+        width: "fit-content",
       }}
     >
       <div onClick={open}>{children}</div>
-      {animate && (
-        <div
-          onAnimationEnd={onAnimationEnd}
-          className={
-            isOpen
-              ? classNames(
-                  "popover-panel-open",
-                  mode === "date"
-                    ? "popover-panel-date"
-                    : "popover-panel-range",
-                  config().animationClassName,
-                )
-              : classNames("popover-panel-close", config().animationClassName)
-          }
-          ref={panelRef}
-          style={{
-            width: mode === "date" ? 300 : 600,
-            height: mode === "date" ? 352 : 312,
-            overflow: "hidden",
-            margin: 0,
-            padding: 0,
-            background: "#fff",
-            position: "absolute",
-            boxShadow: "0px 0px 4px rgba(0,0,0,.2)",
-            left: config().left,
-            right: config().right,
-            top: config().top,
-            bottom: config().bottom,
-          }}
-        >
-          {panel}
-        </div>
-      )}
+      {animate &&
+        (document ? createPortal(portalContent, document.body) : null)}
     </div>
   );
 };

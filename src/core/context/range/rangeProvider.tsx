@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  createContext,
+  useContext,
+  useEffect,
+} from "react";
 import { formatGenerator, isEqual, rangeTransformer } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate, RangeValue } from "../../types/global.types";
@@ -8,6 +13,13 @@ import { useRangeReducer } from "./useRangeReducer";
 
 interface RangeInputProps {
   values: [string, string];
+  onChangeInputRange?: (
+    e: ChangeEvent<HTMLInputElement>,
+    isStartDate: boolean,
+  ) => void;
+  placeholderFrom: string;
+  placeholderTo: string;
+  onClear?: () => void;
 }
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
@@ -21,6 +33,7 @@ interface ContextType extends RangePropsReducerType {
   onRangeDecreaseYear: () => void;
   onRangeIncreaseMonth: () => void;
   onRangeDecreaseMonth: () => void;
+  changePlaceholder: (date: Date | null) => void;
   from: Date;
   to: Date;
 }
@@ -31,9 +44,7 @@ export const RangePickerContext = createContext<ContextType>({
     endDate: null,
   },
   cacheRangeDate: undefined,
-  locale: {
-    language: "fa",
-  },
+  locale: "fa",
   rangeDateString: null,
   onRangeDateChange: () => null,
   onRangeDaychange: () => null,
@@ -43,6 +54,7 @@ export const RangePickerContext = createContext<ContextType>({
   onRangeDecreaseYear: () => null,
   onRangeIncreaseMonth: () => null,
   onRangeDecreaseMonth: () => null,
+  changePlaceholder: () => null,
   from: { day: 0, month: 0, year: 0 },
   to: { day: 0, month: 0, year: 0 },
 });
@@ -53,8 +65,9 @@ interface RangeProviderProps {
 }
 
 export const RangeProvider = ({ children, props }: RangeProviderProps) => {
-  const language = props ? props.locale?.language || "fa" : "fa";
-
+  const language = props ? props.locale || "fa" : "fa";
+  const { setLocale, setRangeDisabledDates, propsState, setFormat } =
+    useRangePropsReducer();
   const {
     cacheRangeDate,
     onRangeDateChange,
@@ -70,19 +83,17 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     to,
     inputRangeProps,
     rangeDateString,
+    changePlaceholder,
   } = useRangeReducer({
     language,
     onDayChangeProp: props?.onDayChange,
     onMonthChangeProp: props?.onMonthChange,
     onYearChangeProp: props?.onYearChange,
     onChangeProp: props.onChange,
-    formatProp: props.format,
+    formatProp: propsState.format,
     valueProp: props.value,
     defaultValueProp: props.defaultValue,
   });
-
-  const { setLocale, setRangeDisabledDates, propsState, setFormat } =
-    useRangePropsReducer();
 
   useEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
@@ -94,7 +105,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(rangeTransformer(cacheRangeDate))
+          ? props.format(rangeTransformer(cacheRangeDate, language === "fa"))
           : props.format
         : formatGenerator(language === "fa");
       setFormat(format);
@@ -121,6 +132,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
         onRangeIncreaseYear,
         onRangeMonthchange,
         onRangeYearchange,
+        changePlaceholder,
         from,
         to,
         rangeState,

@@ -4,7 +4,7 @@ import { RangeDate, RangeValue } from "../core";
 
 export const rangeTransformer = (
   data: RangeDate,
-  isJalaali = true,
+  isJalaali: boolean,
 ): RangeValue => {
   const { startDate, endDate } = data;
 

@@ -8,7 +8,7 @@ function wrapper({ children }: { children: ReactNode }) {
   return (
     <RangeProvider
       props={{
-        locale: { language: "fa" },
+        locale: "fa",
         disabledDates: (current) => {
           return current.isBefore(moment());
         },
@@ -31,7 +31,7 @@ describe("useRangeYears", () => {
     const { result } = renderHook(() => useRangePickerContext(), {
       wrapper,
     });
-    expect(result.current.locale?.language).toBe("fa");
+    expect(result.current.locale).toBe("fa");
   });
   it("checks for from and to months", () => {
     const { result } = renderHook(() => useRangePickerContext(), {

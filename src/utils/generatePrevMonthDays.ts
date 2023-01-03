@@ -1,4 +1,4 @@
-import { DateMetadata, DatePickerTypes } from "../core";
+import { DateMetadata, DatePickerProps } from "../core";
 import {
   getDaysOfGregorianMonth,
   getDaysOfJalaaliMonth,
@@ -15,7 +15,7 @@ export const generatePrevMonthDays = ({
   currentMonth: number;
   year: number;
   isJalaali?: boolean;
-  disabledDates: DatePickerTypes.DisabledDates;
+  disabledDates: DatePickerProps["disabledDates"];
 }) => {
   if (currentMonthWeekDay === 0) {
     return [];

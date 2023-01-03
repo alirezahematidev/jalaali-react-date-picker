@@ -39,20 +39,32 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
     const bounds = node.getBoundingClientRect();
 
     if (bounds) {
+      const scrollbarWidth =
+        typeof window === "undefined"
+          ? 0
+          : Math.abs(window.innerWidth - document.body.clientWidth);
+      const scrollbarHeight =
+        typeof window === "undefined"
+          ? 0
+          : Math.abs(window.innerHeight - document.body.clientHeight);
       const gap = 8;
       const h = bounds.height;
       const w = bounds.width;
-      const t = bounds.top;
+      const t = bounds.top + scrollbarHeight;
       const l = bounds.left;
+
+      const r = width - l - w - scrollbarWidth;
+      const b = height - t - h;
       const popupHeight = max[0];
+
       const popupWidth = max[1];
       const shouldVerticalReverse =
         gap + h + popupHeight > height
           ? false
           : placement === "bottom"
-          ? height - (h + t) <= popupHeight
+          ? b <= popupHeight && t >= popupHeight
           : placement === "top"
-          ? t <= popupHeight
+          ? t <= popupHeight && b >= popupHeight
           : false;
 
       const shouldHorizontalReverse =
@@ -62,7 +74,11 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
           : placement === "left"
           ? l <= popupWidth
           : placement === "right"
-          ? width - (l + w) <= popupWidth
+          ? r <= popupWidth
+          : placement === "top" || placement === "bottom"
+          ? popupWidth < w
+            ? false
+            : l <= popupWidth
           : false;
 
       const { animationClassName } = generateAnimation({
@@ -72,25 +88,30 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
         l,
         width,
       });
-
       if (placement === "bottom" || placement === "top") {
-        const left = l <= popupWidth || shouldHorizontalReverse ? 0 : undefined;
+        const left =
+          l <= popupWidth
+            ? shouldHorizontalReverse
+              ? l
+              : l + w - popupWidth
+            : undefined;
         const right =
-          l <= popupWidth || shouldHorizontalReverse ? undefined : 0;
+          l <= popupWidth || shouldHorizontalReverse ? undefined : r;
+        console.log({ left, right, shouldHorizontalReverse });
         return {
           shouldVerticalReverse,
           shouldHorizontalReverse,
           bottom:
             placement === "bottom"
               ? shouldVerticalReverse
-                ? h + gap
-                : -(popupHeight + gap)
+                ? gap + (height - t)
+                : b - (popupHeight + gap)
               : undefined,
           top:
             placement === "top"
               ? shouldVerticalReverse
-                ? h + gap
-                : -(popupHeight + gap)
+                ? h + gap + t
+                : t - (popupHeight + gap)
               : undefined,
           left,
           right,
@@ -101,18 +122,18 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
       return {
         shouldHorizontalReverse,
         shouldVerticalReverse,
-        top: 0,
+        top: t,
         left:
           placement === "left"
             ? shouldHorizontalReverse
-              ? l + w
-              : -(popupWidth + gap)
+              ? l + w + gap
+              : l - (popupWidth + gap)
             : undefined,
         right:
           placement === "right"
             ? shouldHorizontalReverse
-              ? w + gap
-              : -(popupWidth + gap)
+              ? w + gap + r
+              : r - (gap + popupWidth)
             : undefined,
 
         bottom: undefined,

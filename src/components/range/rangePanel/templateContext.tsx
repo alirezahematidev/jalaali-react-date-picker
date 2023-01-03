@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import { DateRangePickerTypes } from "../../../core";
+import { Mode } from "../../../core";
 
 interface RangeTemplateContextType {
   type: "from" | "to";
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
+  onChangeMode?: (mode: Mode) => void;
 }
 
 export const RangeTemplateContext = createContext<RangeTemplateContextType>({

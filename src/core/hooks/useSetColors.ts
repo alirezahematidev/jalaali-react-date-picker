@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { camelToKebab } from "../../utils/camelToKebab";
 import { ColorSchema } from "../types/global.types";
 
@@ -6,17 +6,19 @@ const properties: (keyof ColorSchema)[] = [
   "background",
   "backgroundDisabled",
   "backgroundHovered",
-  "highlight",
+  "primary",
   "border",
   "textDark",
-  "highlightFade",
+  "primaryFade",
   "textLight",
   "textNegative",
   "dayLabelBackground",
+  "highlight",
+  "weekend",
 ];
 
 export const useSetColors = (colors?: ColorSchema) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!document) return;
 
     const root = document.documentElement;

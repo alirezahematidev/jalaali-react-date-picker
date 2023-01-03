@@ -3,14 +3,9 @@ import { generateDays } from "../../../utils";
 import { useRangePickerContext } from "../../context";
 
 export const useRangeDays = (type: "from" | "to") => {
-  const {
-    disabledDates,
-    locale: { language } = { language: "fa" },
-    from,
-    to,
-  } = useRangePickerContext();
+  const { disabledDates, locale = "fa", from, to } = useRangePickerContext();
 
-  const isJalaali = useMemo(() => language === "fa", [language]);
+  const isJalaali = useMemo(() => locale === "fa", [locale]);
 
   const { days } = useMemo(
     () =>

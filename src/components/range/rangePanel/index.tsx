@@ -1,17 +1,14 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
-import {
-  RangeProps as Props,
-  useRangepicker,
-  useSetColors,
-} from "../../../core";
+import { RangeProps as Props, useRangepicker } from "../../../core";
 import { RangePanelMode } from "./panelRangeMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
 
 interface RangePanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
+  toggle?: () => void;
 }
 
 type RangePanelComponent = typeof RangePanel;
@@ -20,15 +17,17 @@ const RangePanel = (
   {
     headerRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     dayLabelRender,
-    customColors,
     onModeChange,
+    weekend,
+    className,
+    style,
+    toggle,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const { isJalaali } = useRangepicker();
-  useSetColors(customColors);
 
   return (
     <div
@@ -36,16 +35,19 @@ const RangePanel = (
       className={classNames(
         isJalaali ? "panel-range-jalaali" : "panel-range-gregorian",
         "panel-elevation",
+        className,
       )}
+      style={style}
     >
       <RangePanelMode
         {...{
           headerRender,
           panelRender,
           dayLabelRender,
-          highlightOffDays,
-          customColors,
+          highlightDays,
           onModeChange,
+          weekend,
+          toggle,
         }}
       />
     </div>

@@ -6,24 +6,24 @@ export const useRangepicker = () => {
   const {
     rangeState,
     cacheRangeDate,
-    locale: { language } = { language: "fa" },
+    locale: locale = "fa",
     onRangeDateChange,
     ...rest
   } = useRangePickerContext();
 
   const { isJalaali, months, dayLabels } = useMemo(() => {
     return {
-      isJalaali: language === "fa",
-      months: localizedMonth[language || "fa"],
-      dayLabels: localizedDayLabels[language || "fa"],
+      isJalaali: locale === "fa",
+      months: localizedMonth[locale || "fa"],
+      dayLabels: localizedDayLabels[locale || "fa"],
     };
-  }, [language]);
+  }, [locale]);
 
   return {
     rangeState,
     onRangeDateChange,
     isJalaali,
-    language,
+    locale,
     months,
     dayLabels,
     cacheRangeDate,

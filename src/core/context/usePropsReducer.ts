@@ -8,9 +8,7 @@ import {
 
 export const useDatePropsReducer = () => {
   const [propsState, dispatch] = useReducer(datePropsReducer, {
-    locale: {
-      language: "fa",
-    },
+    locale: "fa",
   });
 
   const setLocale = (payload?: DatePickerProps["locale"]) => {
@@ -33,9 +31,7 @@ export const useDatePropsReducer = () => {
 
 export const useRangePropsReducer = () => {
   const [propsState, dispatch] = useReducer(rangePropsReducer, {
-    locale: {
-      language: "fa",
-    },
+    locale: "fa",
   });
 
   const setLocale = (payload?: DatePickerProps["locale"]) => {

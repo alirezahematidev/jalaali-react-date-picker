@@ -399,7 +399,7 @@
 }
 
 .today-text:hover {
-  color: var(--highlight);
+  color: var(--primary);
 }
 
 .day-item-after::after {
@@ -409,7 +409,7 @@
   width: 8px;
   top: 0;
   right: 0;
-  background-color: var(--highlight);
+  background-color: var(--primary);
 }
 
 .day-item-before::before {
@@ -419,7 +419,7 @@
   width: 8px;
   top: 0;
   left: 0;
-  background-color: var(--highlight);
+  background-color: var(--primary);
 }
 
 .day-item-both::before {
@@ -429,7 +429,7 @@
   width: 8px;
   top: 0;
   left: 0;
-  background-color: var(--highlight);
+  background-color: var(--primary);
 }
 
 .day-item-both::after {
@@ -439,7 +439,7 @@
   width: 8px;
   top: 0;
   right: 0;
-  background-color: var(--highlight);
+  background-color: var(--primary);
 }
 
 .day-item-outer {
@@ -470,7 +470,7 @@
   background-color: var(--background-disabled);
 }
 .highlight-day {
-  background-color: var(--highlight-fade);
+  background-color: var(--primary-fade);
   color: var(--text-dark);
 }
 
@@ -481,7 +481,7 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: var(--highlight-fade);
+  background: var(--primary-fade);
   border: none;
   outline: none;
 }
@@ -493,7 +493,7 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: var(--highlight-fade);
+  background: var(--primary-fade);
   border: none;
   outline: none;
 }

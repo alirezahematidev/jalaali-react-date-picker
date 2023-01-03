@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import { DateRangePickerTypes, useRangepicker, Year } from "../../../core";
+import { Mode, useRangepicker, Year } from "../../../core";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { YearsHeader } from "./header";
 
 interface RangeYearTemplatePanelProps {
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
+  onChangeMode?: (mode: Mode) => void;
   years: Year[];
   lowerDecade: number;
   upperDecade: number;

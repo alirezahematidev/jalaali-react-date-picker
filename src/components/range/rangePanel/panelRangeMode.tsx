@@ -1,11 +1,12 @@
 import { createContext, useContext } from "react";
-import { DateRangePickerTypes, RangeProps } from "../../../core";
+import { Mode, RangeProps } from "../../../core";
 import { RangePanelTemplate } from "./panelTemplate";
 
 interface RangePanelModeProps extends RangeProps {}
 
 interface RangePanelModeContext extends RangePanelModeProps {
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
+  onChangeMode?: (mode: Mode) => void;
+  toggle?: () => void;
 }
 
 const RangePanelModeContext = createContext<RangePanelModeContext>({
@@ -13,11 +14,9 @@ const RangePanelModeContext = createContext<RangePanelModeContext>({
   panelRender: () => null,
   onChangeMode: () => null,
   dayLabelRender: () => null,
-  highlightOffDays: {
-    customDates: [],
-    weekend: true,
-  },
-  customColors: undefined,
+  toggle: () => null,
+  highlightDays: undefined,
+  weekend: true,
 });
 
 export const RangePanelMode = ({ ...props }: RangePanelModeProps) => {

@@ -8,22 +8,22 @@ export const useDatepicker = () => {
   const {
     state,
     cacheDate,
-    locale: { language } = { language: "fa" },
+    locale: locale = "fa",
     onDateChange,
     onMonthchange,
     onYearchange,
     disabledDates,
-    onEmptyInputValue,
+    onClear,
     ...rest
   } = useDatePickerContext();
 
   const { isJalaali, dayLabels } = useMemo(() => {
     return {
-      isJalaali: language === "fa",
-      months: localizedMonth[language || "fa"],
-      dayLabels: localizedDayLabels[language || "fa"],
+      isJalaali: locale === "fa",
+      months: localizedMonth[locale || "fa"],
+      dayLabels: localizedDayLabels[locale || "fa"],
     };
-  }, [language]);
+  }, [locale]);
 
   const goToToday = useCallback(() => {
     const today = isJalaali
@@ -41,7 +41,7 @@ export const useDatepicker = () => {
     const todayInMoment = dateTransformer({ ...today }, isJalaali);
     const isTodayDisabled = disabledDates?.(todayInMoment);
 
-    onEmptyInputValue();
+    onClear();
 
     if (isTodayDisabled) {
       onMonthchange?.({ ...today, day: 0 });
@@ -51,7 +51,7 @@ export const useDatepicker = () => {
   }, [
     disabledDates,
     isJalaali,
-    onEmptyInputValue,
+    onClear,
     onDateChange,
     onMonthchange,
     onYearchange,
@@ -62,7 +62,7 @@ export const useDatepicker = () => {
     onDateChange,
     goToToday,
     isJalaali,
-    language,
+    locale,
     dayLabels,
     cacheDate,
     onMonthchange,

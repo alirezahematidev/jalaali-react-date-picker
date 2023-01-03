@@ -4,10 +4,10 @@ interface DayProps {
   day: number;
   startDay?: number;
   endDay?: number;
-  isHighlight?: boolean;
+  isSelected?: boolean;
   isWeekend?: boolean;
   isDisabled?: boolean;
-  isOff?: boolean;
+  isHighlight?: boolean;
   isNotCurrentMonth?: boolean;
   isToday?: boolean;
   isNeighborsDisabled?: boolean;
@@ -20,10 +20,10 @@ interface DayProps {
 const Day = ({
   day,
   isDisabled,
-  isHighlight,
+  isSelected,
   isWeekend,
   onPress,
-  isOff,
+  isHighlight,
   isNotCurrentMonth,
   isToday,
   onMouseEnter,
@@ -40,18 +40,18 @@ const Day = ({
         isDisabled && !isNeighborsDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
-        isOff && "off-day",
-        isHighlight && "highlight",
-        !isHighlight && !isDisabled && "hovered",
+        isHighlight && "off-day",
+        isSelected && "highlight",
+        !isSelected && !isDisabled && "hovered",
         isToday && "today",
         mode === "range" &&
-          isHighlight &&
+          isSelected &&
           day === startDay &&
           endDay &&
           "start-tail-highlight",
 
         mode === "range" &&
-          isHighlight &&
+          isSelected &&
           day === endDay &&
           "end-tail-highlight",
       )}

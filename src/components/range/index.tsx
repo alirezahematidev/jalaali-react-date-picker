@@ -1,5 +1,9 @@
 import { ForwardedRef, forwardRef, Ref } from "react";
-import { RangePickerProps as Props, RangeProvider } from "../../core";
+import {
+  RangePickerProps as Props,
+  RangeProvider,
+  useSetColors,
+} from "../../core";
 import RangePanel from "./rangePanel";
 
 interface RangePickerProps extends Props {
@@ -9,17 +13,23 @@ interface RangePickerProps extends Props {
 type RangePickerComponent = typeof RangePicker;
 
 const RangePicker = (
-  {
+  rangeProps: RangePickerProps,
+  pickerRef: ForwardedRef<HTMLDivElement>,
+) => {
+  const {
     headerRender,
     dayLabelRender,
     panelRender,
-    highlightOffDays,
+    highlightDays,
     customColors,
     onModeChange,
+    weekend,
+    style,
+    className,
     ...restProps
-  }: RangePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
-) => {
+  } = rangeProps;
+  useSetColors(customColors);
+
   return (
     <RangeProvider props={restProps}>
       <RangePanel
@@ -27,9 +37,11 @@ const RangePicker = (
         headerRender={headerRender}
         panelRender={panelRender}
         dayLabelRender={dayLabelRender}
-        highlightOffDays={highlightOffDays}
-        customColors={customColors}
+        highlightDays={highlightDays}
         onModeChange={onModeChange}
+        weekend={weekend}
+        style={style}
+        className={className}
       />
     </RangeProvider>
   );

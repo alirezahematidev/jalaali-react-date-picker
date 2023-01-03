@@ -1,26 +1,150 @@
+import { Moment } from "moment-jalaali";
 import React, { CSSProperties } from "react";
-import { DatePickerTypes } from "../types";
+import { ColorSchema, Date, Language, Mode } from "../types";
+
+type MonthValue = {
+  name: string;
+  value: number;
+};
+
+export type PanelDate = {
+  days: Date[];
+  dayLabels: string[];
+  selected?: Date;
+};
 
 export interface DatePickerProps {
-  value?: DatePickerTypes.Value;
-  onChange?: DatePickerTypes.OnChange;
-  onDayChange?: DatePickerTypes.OnDayChange;
-  onMonthChange?: DatePickerTypes.OnMonthChange;
-  onYearChange?: DatePickerTypes.OnYearChange;
-  format?: DatePickerTypes.Format;
-  locale?: DatePickerTypes.Locale;
-  disabledDates?: DatePickerTypes.DisabledDates;
-  onModeChange?: DatePickerTypes.OnModeChange;
-  panelRender?: DatePickerTypes.PanelRender;
-  footerRender?: DatePickerTypes.FooterRender;
-  headerRender?: DatePickerTypes.HeaderRender;
-  dayLabelRender?: DatePickerTypes.DayLabelRender;
-  highlightOffDays?: DatePickerTypes.HighLightOffDays;
-  customColors?: DatePickerTypes.Colors;
+  /** @param `value` */
+  value?: Moment | undefined | null;
+
+  /** @param `defaultValue` */
+  defaultValue?: Moment | undefined | null;
+
+  /**
+   * The `onChange` method which will be executed when date changes.
+   *
+   * @param `date`
+   * @param `dateStrings`
+   */
+  onChange?: (date: Moment | undefined | null, dateString: string) => void;
+
+  /**
+   * The `onDayChange` method which will be executed when day changes.
+   *
+   * @param `day`
+   */
+  onDayChange?: (day: number) => void;
+
+  /**
+   * The `onMonthChange` method which will be executed when month changes.
+   *
+   * @param `month`
+   */
+  onMonthChange?: (month: MonthValue) => void;
+
+  /**
+   * The `onYearChange` method which will be executed when year changes.
+   *
+   * @param `year`
+   */
+  onYearChange?: (year: number) => void;
+
+  /**
+   * `format` turns the selected date into the formatted string value.
+   *
+   * @see https://momentjs.com/docs
+   */
+  format?: string | ((value: Moment) => string);
+
+  /** The `locale` that can be configures the language of datepicker. */
+  locale?: Language;
+
+  /**
+   * The `disableDates` method that can determine which dates should be disabled
+   *
+   * @param `current`
+   * @returns `boolean`
+   */
+  disabledDates?: (current: Moment) => boolean;
+
+  /**
+   * The `onModeChange` method which will be called when panel mode changes.
+   *
+   * @param `mode`
+   */
+  onModeChange?: (mode: Mode) => void;
+
+  /**
+   * The `panelRender` callback used to render custom node for panel component.
+   *
+   * @param `data` `panelNode`
+   * @returns `React.ReactNode`
+   */
+  panelRender?: (
+    data: PanelDate,
+    panelNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `footerRender` callback used to render custom node for footer component.
+   *
+   * @param `current` `footerNode`
+   * @returns `React.ReactNode`
+   */
+  footerRender?: (
+    current: Date | null,
+    footerNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `headerRender` callback used to render custom node for header component.
+   *
+   * @param `current` `headerNode`
+   * @returns `React.ReactNode`
+   */
+  headerRender?: (
+    current: Date | null,
+    headerNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `dayLabelRender` callback used to render custom node for day labels component.
+   *
+   * @param `labels` `labelNode`
+   * @returns `React.ReactNode`
+   */
+  dayLabelRender?: (
+    labels: string[],
+    labelNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `highlightDays` can be used to determines what dates should be
+   * highlighted. it accepts array or fucntion.
+   */
+  highlightDays?: Moment[] | ((date: Moment) => boolean);
+
+  /** If `weekend` set to `true`, its turn weekend days to highlighted */
+  weekend?: boolean;
+
+  /** The `customColors` object that can be used to overrides the default colors */
+  customColors?: ColorSchema;
+
+  /** Render icon for the next month icon */
   nextIcon?: React.ReactNode;
+
+  /** Render icon for the previous month icon */
   prevIcon?: React.ReactNode;
+
+  /** Render icon for the next year icon */
   superNextIcon?: React.ReactNode;
+
+  /** Render icon for the previous year icon */
   superPrevIcon?: React.ReactNode;
+
+  style?: CSSProperties;
+
+  className?: string;
 }
 
 interface PanelProps
@@ -29,10 +153,13 @@ interface PanelProps
     | "panelRender"
     | "footerRender"
     | "headerRender"
-    | "highlightOffDays"
+    | "highlightDays"
     | "dayLabelRender"
     | "onModeChange"
-    | "customColors"
+    | "weekend"
+    | "defaultValue"
+    | "style"
+    | "className"
   > {}
 
 export interface PickerProps extends PanelProps {}
@@ -48,11 +175,14 @@ interface DatePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
+    | "weekend"
+    | "defaultValue"
+    | "customColors"
   > {}
 
 type InputBuiltInProps = Omit<
   React.HtmlHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange"
+  "value" | "onChange" | "defaultValue"
 >;
 
 type InputDatePickerPickable = InputBuiltInProps & DatePickerPickable;

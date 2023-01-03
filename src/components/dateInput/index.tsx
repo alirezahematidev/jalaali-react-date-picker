@@ -1,33 +1,38 @@
 import classNames from "classnames";
 import { useState } from "react";
 import Panel from "../../components/date/panel";
-import { DateProvider, InputDatePickerProps } from "../../core";
+import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import { Suffix } from "../suffix";
 
-export const InputDatePicker = ({
-  value,
-  onChange,
-  onDayChange,
-  onMonthChange,
-  onYearChange,
-  format,
-  locale,
-  disabledDates,
-  open,
-  onOpenChange,
-  pickerProps,
-  disabled,
-  suffixIcon,
-  prefixIcon,
-  placement = "bottom",
-  className,
-  wrapperClassName,
-  wrapperStyle,
-  ...rest
-}: InputDatePickerProps) => {
+export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
+  const {
+    value,
+    onChange,
+    onDayChange,
+    onMonthChange,
+    onYearChange,
+    format,
+    locale,
+    disabledDates,
+    open,
+    onOpenChange,
+    pickerProps,
+    disabled,
+    suffixIcon,
+    prefixIcon,
+    placement = "bottom",
+    className,
+    wrapperClassName,
+    wrapperStyle,
+    defaultValue,
+    customColors,
+    ...rest
+  } = inputDatePickerProps;
+  useSetColors(customColors);
+
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
-  const isRtl = (locale?.language || "fa") === "fa";
+  const isRtl = (locale || "fa") === "fa";
 
   const toggle = () => {
     if (disabled) return;
@@ -54,9 +59,10 @@ export const InputDatePicker = ({
         disabledDates,
         locale,
         onDayChange,
+        defaultValue,
       }}
     >
-      {({ onChangeInputValue, onEmptyInputValue, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, shouldClose, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -92,7 +98,7 @@ export const InputDatePicker = ({
             <Suffix
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
-              onClear={() => onEmptyInputValue()}
+              onClear={onClear}
             />
           </div>
         </Popup>

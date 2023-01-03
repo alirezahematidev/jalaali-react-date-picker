@@ -20,10 +20,11 @@ export const RangeDayPanel = ({
   onSelect,
   selectedRange,
 }: RangeDayPanelProps) => {
-  const today = momentTransformer(moment());
-  const { isJalaali, dayLabels } = useRangepicker();
-
-  const { dayLabelRender, highlightOffDays } = useRangePanelContext();
+  const { isJalaali, dayLabels, changePlaceholder, rangeState } =
+    useRangepicker();
+  const today = momentTransformer(moment(), isJalaali);
+  const { dayLabelRender, highlightDays, weekend, toggle } =
+    useRangePanelContext();
 
   const extendDays = days.map((day) => {
     if (day.isDisabled) {
@@ -50,10 +51,7 @@ export const RangeDayPanel = ({
     };
   });
 
-  const canHighlighWeekend =
-    highlightOffDays && highlightOffDays.weekend !== undefined
-      ? highlightOffDays.weekend
-      : true;
+  const canHighlighWeekend = weekend !== undefined ? weekend : true;
 
   return (
     <div className="range-day-panel-item">
@@ -76,6 +74,8 @@ export const RangeDayPanel = ({
             <div
               key={`${id}-${day.month}`}
               className={classNames("day-item-outer")}
+              onMouseEnter={() => changePlaceholder(date)}
+              onMouseLeave={() => changePlaceholder(null)}
             >
               <div
                 className={classNames(
@@ -99,16 +99,28 @@ export const RangeDayPanel = ({
                   isDisabled={isDisabled}
                   isNeighborsDisabled={isNeighborsDisabled}
                   isNotCurrentMonth={isNotCurrentMonth}
-                  onPress={() => onSelect(day)}
-                  isHighlight={
+                  onPress={() => {
+                    onSelect(day);
+                    if (
+                      rangeState.endDate === null &&
+                      rangeState.startDate.day !== 0
+                    ) {
+                      toggle?.();
+                    }
+                  }}
+                  isSelected={
                     selectedRange.startDate && !isNotCurrentMonth
                       ? checkDates(selectedRange.startDate, day) ||
                         checkDates(selectedRange.endDate, day)
                       : false
                   }
-                  isOff={(highlightOffDays?.customDates || [])?.some((d) =>
-                    isEqual(d, date),
-                  )}
+                  isHighlight={
+                    typeof highlightDays === "function"
+                      ? highlightDays(dateTransformer(date, isJalaali))
+                      : (highlightDays || [])?.some((d) =>
+                          d.isSame(dateTransformer(date, isJalaali), "day"),
+                        )
+                  }
                   isWeekend={canHighlighWeekend ? isWeekend : false}
                   isToday={isEqual(today, date)}
                 />

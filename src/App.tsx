@@ -1,9 +1,9 @@
-import { InputDatePicker } from "./components/dateInput";
+import { DatePicker } from "./components";
 
 function App() {
   return (
     <div>
-      <InputDatePicker />
+      <DatePicker customColors={{ background: "#ccc" }} />
     </div>
   );
 }

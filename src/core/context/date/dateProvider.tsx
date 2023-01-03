@@ -11,7 +11,8 @@ interface DateInputProps {
   value: string;
   placeholder?: string;
   onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEmptyInputValue: () => void;
+  onClear: () => void;
+  shouldClose: boolean;
 }
 
 interface ContextType extends DatePropsReducerType {
@@ -26,7 +27,7 @@ interface ContextType extends DatePropsReducerType {
   onIncreaseMonth: (payload: Date) => void;
   onDecreaseMonth: (payload: Date) => void;
   changePlaceholder: (payload: Date | null) => void;
-  onEmptyInputValue: () => void;
+  onClear: () => void;
 }
 
 export const DatePickerContext = createContext<ContextType>({
@@ -36,9 +37,7 @@ export const DatePickerContext = createContext<ContextType>({
     year: 0,
   },
   cacheDate: undefined,
-  locale: {
-    language: "fa",
-  },
+  locale: "fa",
   changePlaceholder: () => null,
   onDateChange: () => null,
   onDaychange: () => null,
@@ -48,7 +47,7 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
-  onEmptyInputValue: () => null,
+  onClear: () => null,
 });
 
 interface DateProviderProps {
@@ -57,8 +56,9 @@ interface DateProviderProps {
 }
 
 export const DateProvider = ({ children, props }: DateProviderProps) => {
-  const language = props ? props.locale?.language || "fa" : "fa";
-
+  const language = props ? props.locale || "fa" : "fa";
+  const { setLocale, setFormat, setDisabledDates, propsState } =
+    useDatePropsReducer();
   const {
     state,
     onDaychange,
@@ -70,7 +70,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onIncreaseMonth,
     onDecreaseMonth,
     changePlaceholder,
-    onEmptyInputValue,
+    onClear,
     cacheDate,
     inputProps,
   } = useDateReducer({
@@ -79,16 +79,14 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onMonthChangeProp: props?.onMonthChange,
     onYearChangeProp: props?.onYearChange,
     onChangeProp: props.onChange,
-    formatProp: props.format,
+    formatProp: propsState.format,
     valueProp: props.value,
+    defaultValueProp: props.defaultValue,
   });
-
-  const { setLocale, setFormat, setDisabledDates, propsState } =
-    useDatePropsReducer();
 
   useEffect(() => {
     if (props.locale && !isEqual(props.locale, propsState.locale)) {
-      const isJalaali = language === "fa";
+      const isJalaali = props.locale === "fa";
       setLocale(props.locale);
       onDaychange({
         day: 0,
@@ -108,9 +106,10 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(dateTransformer(cacheDate, language === "fa"))
+          ? props.format(dateTransformer(cacheDate, props.locale === "fa"))
           : props.format
         : formatGenerator(language === "fa");
+
       setFormat(format);
     }
 
@@ -130,7 +129,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         onIncreaseMonth,
         onDecreaseMonth,
         changePlaceholder,
-        onEmptyInputValue,
+        onClear,
         cacheDate,
         format: propsState.format,
         ...propsState,
