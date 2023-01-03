@@ -1,9 +1,9 @@
-import { DatePicker } from "./components";
+import { InputDatePicker } from "./components/dateInput";
 
 function App() {
   return (
     <div>
-      <DatePicker />
+      <InputDatePicker />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 # React Jalaali Datepicker
 
-An advanced jalaali date or range picker that supports on all of Javascript frameworks, Specially React and React Native
+An advanced jalaali datepicker for Reactjs library.
 
 [![Version][version-badge]][package]
 [![MIT License][license-badge]][license]
@@ -36,24 +36,55 @@ To run tests, run the following command
 
 ## Usage/Examples
 
+Do not forget to import index.css at top of your application
+
 ```javascript
-import DatePicker from "jalaali-react-date-picker";
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { DatePicker } from "jalaali-react-date-picker";
 
 function App() {
   return <DatePicker />;
 }
 ```
 
+```javascript
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { RangePicker } from "jalaali-react-date-picker";
+
+function App() {
+  return <RangePicker />;
+}
+```
+
+```javascript
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { InputDatePicker } from "jalaali-react-date-picker";
+
+function App() {
+  return <InputDatePicker />;
+}
+```
+
+```javascript
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { InputRangePicker } from "jalaali-react-date-picker";
+
+function App() {
+  return <InputRangePicker />;
+}
+```
+
 ## Features
 
-- Full support on React and React Native libraries
+- Completely support on React and and server side frameworks like Nextjs.
+- Easily define custom dates and highlight them with any color you want.
 - Full styles customization (style overrides, colors and etc)
-- Support jalaali (Shamsi) date mode format
+- Support both gregorian and jalaali (Shamsi) date format
 
 ## props
 
 | Property            | Type                                                        | Description                                                                             |
-| :------------------ | :---------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| :------------------ | :---------------------------------------------------------- | :-------------------------------------------------------------------------------------- | -------------------- |
 | `value`             | `Moment`                                                    | To set date                                                                             |
 | `defaultValue`      | `Moment`                                                    | To set default date, if date is null or undefined, the date will be set                 |
 | `onChange`          | `(date: Value, dateString: string) => void`                 | Callback function, can be executed when the selected date is changing                   |
@@ -64,7 +95,7 @@ function App() {
 | `dayRender`         | `(date: Moment,dayNode:React.ReactNode) => React.ReactNode` | Render custom day component in panel                                                    |
 | `renderExtraHeader` | `(current:Moment) => React.ReactNode`                       | Render extra header in panel                                                            |
 | `renderFooter`      | `(current:Moment) => React.ReactNode`                       | Render extra footer in panel                                                            |
-| `locale`            | `Locale`                                                    | Locale configuration                                                                    |
+| `locale`            | `fa                                                         | en`                                                                                     | Locale configuration |
 
 ## Authors
 

@@ -36,3 +36,4 @@ tsconfig.tsbuildinfo
 dist
 lib
 picker-env.d.ts
+.env
