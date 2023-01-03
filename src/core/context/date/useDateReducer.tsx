@@ -185,7 +185,7 @@ export const useDateReducer = ({
     [cacheDate.day, cacheDate?.month],
   );
 
-  const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInputValue = (e: React.FormEvent<HTMLInputElement>) => {
     const userData = e.target.value;
     const momentValue = moment(userData, formatProp, true);
     if (momentValue.isValid()) {

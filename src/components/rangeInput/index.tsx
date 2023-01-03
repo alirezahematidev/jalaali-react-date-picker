@@ -1,9 +1,14 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { InputRangePickerProps, RangeProvider } from "../../core";
-import { Icon } from "../icon";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
+import { Suffix } from "../suffix";
+import { Input } from "./input";
+
+export const GAP = 34;
+
+type InputSize = Record<number, number>;
 
 export const InputRangePicker = ({
   value,
@@ -21,7 +26,6 @@ export const InputRangePicker = ({
   suffixIcon,
   prefixIcon,
   placement = "bottom",
-  className,
   wrapperClassName,
   wrapperStyle,
   defaultValue,
@@ -29,6 +33,12 @@ export const InputRangePicker = ({
 }: InputRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale || "fa") === "fa";
+  const [inputSizes, setInputSizes] = useState<InputSize>({ 0: 0, 1: 0 });
+  const [focusedInput, setFocusedInput] = useState<number>(-1);
+
+  const onFocus = (index: number) => {
+    setFocusedInput(index);
+  };
 
   const toggle = () => {
     if (disabled) return;
@@ -42,6 +52,8 @@ export const InputRangePicker = ({
     setIsOpen(false);
     onOpenChange?.(false);
   };
+  const [clearIconVisible, setClearIconVisible] = useState(false);
+
   return (
     <RangeProvider
       props={{
@@ -68,32 +80,66 @@ export const InputRangePicker = ({
         >
           <div
             className={classNames(
-              "picker-input-wrapper",
+              "range-input-wrapper",
               isRtl && "rtl",
               wrapperClassName,
             )}
             style={wrapperStyle}
+            /** @todo StartDate insted values[0] */
+            onMouseEnter={() => values[0] && setClearIconVisible(true)}
+            onMouseLeave={() => setClearIconVisible(false)}
           >
+            {focusedInput !== -1 && (
+              <div
+                className="input-border-ink"
+                style={{
+                  right: isRtl
+                    ? focusedInput === 0
+                      ? 8
+                      : inputSizes[0] + GAP + 4
+                    : 0,
+                  left: isRtl
+                    ? 0
+                    : focusedInput === 0
+                    ? 8
+                    : inputSizes[0] + GAP + 4,
+                  width: Math.ceil(inputSizes[focusedInput]),
+                }}
+              />
+            )}
             {prefixIcon && prefixIcon}
-            <input
-              {...rest}
+            <Input
               value={values?.[0]}
+              index={0}
+              isRtl={isRtl}
+              onFocus={() => onFocus(0)}
+              onLayout={(width) =>
+                setInputSizes((prev) => ({ ...prev, [0]: width + 4 }))
+              }
+              {...rest}
               onChange={(e) => onChangeInputRange?.(e, true)}
-              className={classNames("picker-input", isRtl && "rtl", className)}
+              className={classNames("picker-input", isRtl && "rtl")}
               placeholder={placeholderFrom}
             />
-            <input
-              {...rest}
+            <Input
               value={values?.[1]}
+              index={1}
+              isRtl={isRtl}
+              onFocus={() => onFocus(1)}
+              onLayout={(width) =>
+                setInputSizes((prev) => ({ ...prev, [1]: width + 4 }))
+              }
+              {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
-              className={classNames("picker-input", isRtl && "rtl", className)}
-              placeholder={placeholderTo}
+              className={classNames("picker-input", isRtl && "rtl")}
+              placeholder={placeholderFrom}
             />
-            {suffixIcon || (
-              <div className="calendar-icon">
-                <Icon.Calendar />
-              </div>
-            )}
+
+            <Suffix
+              suffixIcon={suffixIcon}
+              clearable={clearIconVisible}
+              onClear={() => {}}
+            />
           </div>
         </Popup>
       )}

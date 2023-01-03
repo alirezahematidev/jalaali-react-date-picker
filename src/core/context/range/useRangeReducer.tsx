@@ -461,7 +461,7 @@ export const useRangeReducer = ({
   }, [isJalaali, onMonthChangeProp]);
 
   const onChangeInputRange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.FormEvent<HTMLInputElement>,
     isStartDate: boolean,
   ) => {
     const fromInput = e.target.value;

@@ -13,8 +13,28 @@
   justify-content: center;
 }
 
+.range-input-wrapper {
+  margin: 0;
+  height: 34px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  overflow: hidden;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  padding-inline-start: 8px;
+  padding-inline-end: 4px;
+}
+
 .picker-input-wrapper:hover {
   border-color: var(--primary);
+}
+.range-input-wrapper:hover {
+  border-color: var(--highlight);
 }
 
 .picker-input-fa {
@@ -34,21 +54,45 @@
   width: 100%;
   height: 100%;
   font-size: 14px;
-  padding-inline: 4px;
+  padding-inline: 0px;
+  font-family: RobotoRegular;
+  color: var(--text-dark);
+  direction: ltr;
+}
+.range-input-fa {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  padding-inline: 0px;
+  margin-inline: 2px;
+  font-family: IRANSansRegular;
+  color: var(--text-dark);
+  direction: rtl;
+}
+
+.range-input-en {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  padding-inline: 0px;
+  margin-inline: 2px;
   font-family: RobotoRegular;
   color: var(--text-dark);
   direction: ltr;
 }
 
 .calendar-icon {
-  width: 20px;
-  height: 20px;
-  padding-inline: 4px;
+  min-width: 34px;
+  height: 100%;
+  margin-inline-start: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  filter: invert(0.4);
 }
 
 .clear-icon {
@@ -59,11 +103,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  filter: invert(0.7);
 }
 
-.clear-icon:hover {
-  filter: invert(0.4);
+.input-border-ink {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--highlight);
+  transition: all 350ms ease-in-out;
 }
 
 .rtl {

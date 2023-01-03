@@ -1,9 +1,4 @@
-import React, {
-  ChangeEvent,
-  createContext,
-  useContext,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { formatGenerator, isEqual, rangeTransformer } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate, RangeValue } from "../../types/global.types";
@@ -14,7 +9,7 @@ import { useRangeReducer } from "./useRangeReducer";
 interface RangeInputProps {
   values: [string, string];
   onChangeInputRange?: (
-    e: ChangeEvent<HTMLInputElement>,
+    e: FormEvent<HTMLInputElement>,
     isStartDate: boolean,
   ) => void;
   placeholderFrom: string;
