@@ -183,7 +183,6 @@ export const useRangeReducer = ({
         payload.startDate.day !== 0 &&
           payload.endDate.day !== 0 &&
           onChangeProp?.(dates, formattedDates(dates));
-        console.log([dates[0].format(formatProp), dates[1].format(formatProp)]);
         setRangeInputValue([
           dates[0].format(formatProp),
           dates[1].format(formatProp),
