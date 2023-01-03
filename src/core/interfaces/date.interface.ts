@@ -156,7 +156,6 @@ interface PanelProps
     | "highlightDays"
     | "dayLabelRender"
     | "onModeChange"
-    | "customColors"
     | "weekend"
     | "defaultValue"
     | "style"
@@ -178,6 +177,7 @@ interface DatePickerPickable
     | "disabledDates"
     | "weekend"
     | "defaultValue"
+    | "customColors"
   > {}
 
 type InputBuiltInProps = Omit<

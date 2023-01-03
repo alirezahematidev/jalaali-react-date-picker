@@ -50,6 +50,8 @@
   font-family: IRANSansRegular;
   color: var(--text-dark);
   direction: rtl;
+  background-color: var(--background);
+
 }
 .picker-input-en {
   border: none;
@@ -61,6 +63,8 @@
   font-family: RobotoRegular;
   color: var(--text-dark);
   direction: ltr;
+  background-color: var(--background);
+
 }
 .range-input-fa {
   border: none;
@@ -73,6 +77,8 @@
   font-family: IRANSansRegular;
   color: var(--text-dark);
   direction: rtl;
+  background-color: var(--background);
+
 }
 
 .range-input-en {
@@ -86,6 +92,8 @@
   font-family: RobotoRegular;
   color: var(--text-dark);
   direction: ltr;
+  background-color: var(--background);
+
 }
 
 .calendar-icon {
@@ -108,13 +116,7 @@
   cursor: pointer;
 }
 
-.input-border-ink {
-  position: absolute;
-  bottom: 0;
-  height: 2px;
-  background: var(--highlight);
-  transition: all 350ms ease-in-out;
-}
+
 
 .rtl {
   direction: rtl;

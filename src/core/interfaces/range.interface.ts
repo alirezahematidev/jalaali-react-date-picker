@@ -165,7 +165,6 @@ interface RangePanelProps
     | "headerRender"
     | "highlightDays"
     | "dayLabelRender"
-    | "customColors"
     | "onModeChange"
     | "weekend"
     | "style"
@@ -187,6 +186,7 @@ interface RangePickerPickable
     | "locale"
     | "disabledDates"
     | "weekend"
+    | "customColors"
   > {}
 
 type InputBuiltInProps = Omit<

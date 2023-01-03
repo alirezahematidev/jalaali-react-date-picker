@@ -1,5 +1,9 @@
 import { ForwardedRef, forwardRef, Ref } from "react";
-import { DatePickerProps as Props, DateProvider } from "../../../core";
+import {
+  DatePickerProps as Props,
+  DateProvider,
+  useSetColors,
+} from "../../../core";
 import Panel from "../panel";
 
 interface DatePickerProps extends Props {
@@ -29,6 +33,8 @@ const DatePicker = (
     className,
     ...restProps
   } = dateProps;
+  useSetColors(customColors);
+
   return (
     <DateProvider props={restProps}>
       <Panel
@@ -39,7 +45,6 @@ const DatePicker = (
         dayLabelRender={dayLabelRender}
         highlightDays={highlightDays}
         weekend={weekend}
-        customColors={customColors}
         onModeChange={onModeChange}
         navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}
         style={style}

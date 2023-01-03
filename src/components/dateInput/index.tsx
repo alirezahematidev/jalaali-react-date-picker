@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 import Panel from "../../components/date/panel";
-import { DateProvider, InputDatePickerProps } from "../../core";
+import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import { Suffix } from "../suffix";
 
@@ -26,8 +26,11 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     wrapperClassName,
     wrapperStyle,
     defaultValue,
+    customColors,
     ...rest
   } = inputDatePickerProps;
+  useSetColors(customColors);
+
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale || "fa") === "fa";
 

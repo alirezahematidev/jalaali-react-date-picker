@@ -1,11 +1,7 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Ref } from "react";
-import {
-  RangeProps as Props,
-  useRangepicker,
-  useSetColors,
-} from "../../../core";
+import { RangeProps as Props, useRangepicker } from "../../../core";
 import { RangePanelMode } from "./panelRangeMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
@@ -23,7 +19,6 @@ const RangePanel = (
     panelRender,
     highlightDays,
     dayLabelRender,
-    customColors,
     onModeChange,
     weekend,
     className,
@@ -33,7 +28,6 @@ const RangePanel = (
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const { isJalaali } = useRangepicker();
-  useSetColors(customColors);
 
   return (
     <div
@@ -51,7 +45,6 @@ const RangePanel = (
           panelRender,
           dayLabelRender,
           highlightDays,
-          customColors,
           onModeChange,
           weekend,
           toggle,

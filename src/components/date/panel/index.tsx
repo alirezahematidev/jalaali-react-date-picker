@@ -5,7 +5,6 @@ import {
   NavigationIcon,
   PickerProps as Props,
   useDatepicker,
-  useSetColors,
 } from "../../../core";
 import { Footer } from "../../footer";
 import { PanelMode } from "./panelMode";
@@ -28,7 +27,6 @@ const Panel = (
     highlightDays,
     dayLabelRender,
     onModeChange,
-    customColors,
     toggle,
     navigationIcons,
     weekend,
@@ -38,8 +36,6 @@ const Panel = (
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const { isJalaali } = useDatepicker();
-
-  useSetColors(customColors);
 
   return (
     <div
