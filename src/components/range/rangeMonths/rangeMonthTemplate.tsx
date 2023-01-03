@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import { DateRangePickerTypes, Month, useRangepicker } from "../../../core";
+import { Mode, Month, useRangepicker } from "../../../core";
 import { useRangeTemplate } from "../rangePanel/templateContext";
 import { MonthsHeader } from "./header";
 
 interface RangeMonthTemplatePanelProps {
-  onChangeMode?: (mode: DateRangePickerTypes.Mode) => void;
+  onChangeMode?: (mode: Mode) => void;
   months: Month[];
   onSelect: (month: number) => void;
 }

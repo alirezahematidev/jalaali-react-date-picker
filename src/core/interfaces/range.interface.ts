@@ -1,23 +1,175 @@
+import { ColorSchema, Language, Mode } from "@core/types";
+import { Moment } from "moment-jalaali";
 import { CSSProperties } from "react";
-import { DateRangePickerTypes } from "../types";
-
 export interface RangePickerProps {
-  value?: DateRangePickerTypes.RangeValue;
-  defaultValue?: DateRangePickerTypes.RangeValue;
-  onChange?: DateRangePickerTypes.OnChange;
-  onDayChange?: DateRangePickerTypes.OnDayChange;
-  onMonthChange?: DateRangePickerTypes.OnMonthChange;
-  onYearChange?: DateRangePickerTypes.OnYearChange;
-  format?: DateRangePickerTypes.Format;
-  locale?: DateRangePickerTypes.Locale;
-  disabledDates?: DateRangePickerTypes.DisabledDates;
-  onModeChange?: DateRangePickerTypes.OnModeChange;
-  panelRender?: DateRangePickerTypes.PanelRender;
-  headerRender?: DateRangePickerTypes.HeaderRender;
-  dayLabelRender?: DateRangePickerTypes.DayLabelRender;
-  highlightDays?: DateRangePickerTypes.HighlightDays;
-  weekend?: DateRangePickerTypes.Weekend;
-  customColors?: DateRangePickerTypes.Colors;
+  /** @type `Moment` */
+  moment?: Moment;
+
+  /** Return type of `onMonthChange` */
+  monthValue?: {
+    name: string;
+    value: number;
+  };
+
+  monthRangeValue?: [
+    {
+      name: string;
+      value: number;
+    },
+    {
+      name: string;
+      value: number;
+    },
+  ];
+
+  panelDate?: {
+    days: Date[];
+    dayLabels: string[];
+    selected?: {
+      startDate: Date;
+      endDate: Date | null;
+    };
+  };
+
+  mode?: "day" | "month" | "year";
+
+  /** The `customColors` object that can be used to overrides the default colors */
+  customColors?: ColorSchema;
+
+  /** @param `value` */
+  value?: [Moment, Moment];
+
+  /** @param `defaultValue` */
+  defaultValue?: [Moment, Moment];
+
+  /**
+   * The `onChange` method can be executed when date changes.
+   *
+   * @param `date`
+   * @param `dateStrings`
+   */
+  onChange?: (date: [Moment, Moment], dateStrings: [string, string]) => void;
+  /**
+   * The `onDayChange` method can be executed when day changes.
+   *
+   * @param `days`
+   */
+  onDayChange?: (days: [number, number]) => void;
+  /**
+   * The `onMonthChange` method can be executed when month changes.
+   *
+   * @param `months`
+   */
+  onMonthChange?: (
+    months: [
+      {
+        name: string;
+        value: number;
+      },
+      {
+        name: string;
+        value: number;
+      },
+    ],
+  ) => void;
+  /**
+   * The `onYearChange` method can be executed when year changes.
+   *
+   * @param `years`
+   */
+  onYearChange?: (years: [number, number]) => void;
+
+  /**
+   * The `onModeChange` method can be called when panel mode changes.
+   *
+   * @param `mode`
+   */
+  onModeChange?: (mode: Mode) => void;
+
+  /**
+   * The `disableDates` method that can determine what dates should be disabled
+   *
+   * @param `current`
+   * @returns `boolean`
+   */
+  disabledDates?: (current: Moment) => boolean;
+  /**
+   * The `dayRender` callback used to render custom node for day component.
+   *
+   * @param `dateRange` `dayNode`
+   * @returns `React.ReactNode`
+   */
+  dayRender?: (
+    dateRange: [Moment, Moment],
+    dayNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `highlightDays` object that can be used to determines what dates should
+   * be off. if `weekend` set to `true`, its turn weekend days to off, also if
+   * pass `customDates` as array, the passed dates turn into off.
+   */
+  highlightDays?: Moment[] | ((date: Moment) => boolean);
+  weekend?: boolean;
+
+  /** The `locale` object that can be configures the language of datepicker. */
+  locale?: Language;
+  /**
+   * `format` turns the selected date into the formatted string value.
+   *
+   * @see https://momentjs.com/docs
+   */
+  format?: string | ((value: [Moment, Moment]) => string);
+
+  /**
+   * The `headerRender` callback used to render custom node for header component.
+   *
+   * @param `dateRange` `headerNode`
+   * @returns `React.ReactNode`
+   */
+  headerRender?: (
+    dateRange: [Moment, Moment] | null,
+    headerNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `panelRender` callback used to render custom node for panel component.
+   *
+   * @param `dateRange` `panelNode`
+   * @returns `React.ReactNode`
+   */
+  panelRender?: (
+    dateRange: [
+      {
+        days: Date[];
+        dayLabels: string[];
+        selected?: {
+          startDate: Date;
+          endDate: Date | null;
+        };
+      },
+      {
+        days: Date[];
+        dayLabels: string[];
+        selected?: {
+          startDate: Date;
+          endDate: Date | null;
+        };
+      },
+    ],
+    panelNode: React.ReactNode,
+  ) => React.ReactNode;
+
+  /**
+   * The `dayLabelRender` callback used to render custom node for day labels component.
+   *
+   * @param `labels` `labelNode`
+   * @returns `React.ReactNode`
+   */
+  dayLabelRender?: (
+    labels: string[],
+    labelNode: React.ReactNode,
+  ) => React.ReactNode;
   nextIcon?: React.ReactNode | (() => React.ReactNode);
   prevIcon?: React.ReactNode | (() => React.ReactNode);
   superNextIcon?: React.ReactNode | (() => React.ReactNode);

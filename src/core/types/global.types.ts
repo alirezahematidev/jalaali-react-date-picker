@@ -57,6 +57,8 @@ export type LocalizedMonth = Record<Language, Month[]>;
 
 export type LocalizedDayLabel = Record<Language, string[]>;
 
+export type Mode = "day" | "month" | "year";
+
 export type NavigationIcon = {
   nextIcon?: React.ReactNode;
   prevIcon?: React.ReactNode;

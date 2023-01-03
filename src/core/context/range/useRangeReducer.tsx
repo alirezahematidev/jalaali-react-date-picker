@@ -1,3 +1,4 @@
+import { RangePickerProps } from "@core/interfaces";
 import moment, { Moment } from "moment-jalaali";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
@@ -7,7 +8,6 @@ import {
   momentTransformer,
   rangeTransformer,
 } from "../../../utils";
-import { DateRangePickerTypes } from "../../types";
 import {
   Date,
   Language,
@@ -18,12 +18,12 @@ import { RangeActionKind, rangeReducer } from "./rangeReducer";
 
 interface RangeDateReducerType {
   formatProp?: string;
-  onChangeProp?: DateRangePickerTypes.OnChange;
-  valueProp?: DateRangePickerTypes.RangeValue;
-  defaultValueProp?: DateRangePickerTypes.RangeValue;
-  onDayChangeProp?: DateRangePickerTypes.OnDayChange;
-  onMonthChangeProp?: DateRangePickerTypes.OnMonthChange;
-  onYearChangeProp?: DateRangePickerTypes.OnYearChange;
+  onChangeProp?: RangePickerProps["onChange"];
+  valueProp?: RangePickerProps["value"];
+  defaultValueProp?: RangePickerProps["value"];
+  onDayChangeProp?: RangePickerProps["onDayChange"];
+  onMonthChangeProp?: RangePickerProps["onMonthChange"];
+  onYearChangeProp?: RangePickerProps["onYearChange"];
   language: Language;
 }
 
