@@ -10,7 +10,7 @@ import { useDateReducer } from "./useDateReducer";
 interface DateInputProps {
   value: string;
   placeholder?: string;
-  onChangeInputValue: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEmptyInputValue: () => void;
 }
 

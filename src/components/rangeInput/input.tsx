@@ -4,7 +4,7 @@ import { GAP } from ".";
 import { Icon } from "../icon";
 
 type InputBuiltInProps = Omit<
-  React.HtmlHTMLAttributes<HTMLInputElement>,
+  React.InputHTMLAttributes<HTMLInputElement>,
   "value"
 >;
 

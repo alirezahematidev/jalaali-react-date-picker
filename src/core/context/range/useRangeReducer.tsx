@@ -461,7 +461,7 @@ export const useRangeReducer = ({
   }, [isJalaali, onMonthChangeProp]);
 
   const onChangeInputRange = (
-    e: React.FormEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>,
     isStartDate: boolean,
   ) => {
     const fromInput = e.target.value;
@@ -519,6 +519,13 @@ export const useRangeReducer = ({
     },
     [formatProp, isJalaali, rangeState],
   );
+
+  const onClear = () => {
+    setRangeInputValue(["", ""]);
+    setPlaceholderFrom("");
+    setPlaceholderTo("");
+    onRangeDateChange(getDefaultValue(undefined, isJalaali));
+  };
   return {
     rangeState,
     cacheRangeDate,
@@ -536,6 +543,7 @@ export const useRangeReducer = ({
       onChangeInputRange,
       placeholderFrom,
       placeholderTo,
+      onClear,
     },
     from: fromAndTo.from,
     to: fromAndTo.to,

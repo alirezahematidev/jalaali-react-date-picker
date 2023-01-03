@@ -68,7 +68,13 @@ export const InputRangePicker = ({
         defaultValue,
       }}
     >
-      {({ values, onChangeInputRange, placeholderFrom, placeholderTo }) => (
+      {({
+        values,
+        onChangeInputRange,
+        placeholderFrom,
+        placeholderTo,
+        onClear,
+      }) => (
         <Popup
           key="range-popup"
           mode="range"
@@ -113,6 +119,7 @@ export const InputRangePicker = ({
               index={0}
               isRtl={isRtl}
               onFocus={() => onFocus(0)}
+              onBlur={() => setFocusedInput(-1)}
               onLayout={(width) =>
                 setInputSizes((prev) => ({ ...prev, [0]: width + 4 }))
               }
@@ -126,19 +133,20 @@ export const InputRangePicker = ({
               index={1}
               isRtl={isRtl}
               onFocus={() => onFocus(1)}
+              onBlur={() => setFocusedInput(-1)}
               onLayout={(width) =>
                 setInputSizes((prev) => ({ ...prev, [1]: width + 4 }))
               }
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
               className={classNames("picker-input", isRtl && "rtl")}
-              placeholder={placeholderFrom}
+              placeholder={placeholderTo}
             />
 
             <Suffix
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
-              onClear={() => {}}
+              onClear={onClear}
             />
           </div>
         </Popup>
