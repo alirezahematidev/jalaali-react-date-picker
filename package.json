@@ -47,7 +47,7 @@
     "scripts": {
         "start": "node scripts/dev-scripts.js && react-scripts start",
         "eject": "react-scripts eject",
-        "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b && git add . && git commit -m 'build-commit'",
+        "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b",
         "test": "yarn build && cross-env TZ=UTC react-app-rewired test  --detectOpenHandles",
         "release": " yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
         "lint": "eslint . --ext tsx,ts --quiet",
