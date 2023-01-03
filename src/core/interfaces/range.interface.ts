@@ -170,10 +170,22 @@ export interface RangePickerProps {
     labels: string[],
     labelNode: React.ReactNode,
   ) => React.ReactNode;
+
+  /** Render icon for the next month icon */
   nextIcon?: React.ReactNode | (() => React.ReactNode);
+
+  /** Render icon for the previous month icon */
   prevIcon?: React.ReactNode | (() => React.ReactNode);
+
+  /** Render icon for the next year icon */
   superNextIcon?: React.ReactNode | (() => React.ReactNode);
+
+  /** Render icon for the previous year icon */
   superPrevIcon?: React.ReactNode | (() => React.ReactNode);
+
+  style?: CSSProperties;
+
+  className?: string;
 }
 
 interface RangePanelProps
@@ -186,6 +198,8 @@ interface RangePanelProps
     | "customColors"
     | "onModeChange"
     | "weekend"
+    | "style"
+    | "className"
   > {}
 
 export interface RangeProps extends RangePanelProps {}

@@ -32,6 +32,8 @@ const Panel = (
     toggle,
     navigationIcons,
     weekend,
+    style,
+    className,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -45,7 +47,9 @@ const Panel = (
       className={classNames(
         isJalaali ? "panel-jalaali" : "panel-gregorian",
         "panel-elevation",
+        className,
       )}
+      style={style}
     >
       <PanelMode
         {...{

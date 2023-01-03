@@ -17,6 +17,8 @@ const RangePicker = (
     customColors,
     onModeChange,
     weekend,
+    style,
+    className,
     ...restProps
   }: RangePickerProps,
   pickerRef: ForwardedRef<HTMLDivElement>,
@@ -32,6 +34,8 @@ const RangePicker = (
         customColors={customColors}
         onModeChange={onModeChange}
         weekend={weekend}
+        style={style}
+        className={className}
       />
     </RangeProvider>
   );

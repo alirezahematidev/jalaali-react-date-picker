@@ -22,6 +22,8 @@ const DatePicker = (
     superNextIcon,
     superPrevIcon,
     weekend,
+    style,
+    className,
     ...restProps
   }: DatePickerProps,
   pickerRef: ForwardedRef<HTMLDivElement>,
@@ -39,6 +41,8 @@ const DatePicker = (
         customColors={customColors}
         onModeChange={onModeChange}
         navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}
+        style={style}
+        className={className}
       />
     </DateProvider>
   );

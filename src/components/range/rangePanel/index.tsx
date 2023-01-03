@@ -25,6 +25,8 @@ const RangePanel = (
     customColors,
     onModeChange,
     weekend,
+    className,
+    style,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -37,7 +39,9 @@ const RangePanel = (
       className={classNames(
         isJalaali ? "panel-range-jalaali" : "panel-range-gregorian",
         "panel-elevation",
+        className,
       )}
+      style={style}
     >
       <RangePanelMode
         {...{

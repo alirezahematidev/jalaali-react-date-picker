@@ -142,6 +142,10 @@ export interface DatePickerProps {
 
   /** Render icon for the previous year icon */
   superPrevIcon?: React.ReactNode;
+
+  style?: CSSProperties;
+
+  className?: string;
 }
 
 interface PanelProps
@@ -156,6 +160,8 @@ interface PanelProps
     | "customColors"
     | "weekend"
     | "defaultValue"
+    | "style"
+    | "className"
   > {}
 
 export interface PickerProps extends PanelProps {}
