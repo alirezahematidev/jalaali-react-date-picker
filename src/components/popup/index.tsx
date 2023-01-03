@@ -85,6 +85,7 @@ export const Popup = ({
         right: config().right,
         top: config().top,
         bottom: config().bottom,
+        zIndex: 999999,
       }}
     >
       {panel}
@@ -97,7 +98,6 @@ export const Popup = ({
       style={{
         position: "relative",
         display: "inline-block",
-        zIndex: 9999999,
       }}
     >
       <div onClick={open}>{children}</div>
