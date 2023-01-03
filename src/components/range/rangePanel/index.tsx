@@ -12,6 +12,7 @@ moment.loadPersian({ dialect: "persian-modern" });
 
 interface RangePanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
+  toggle?: () => void;
 }
 
 type RangePanelComponent = typeof RangePanel;
@@ -27,6 +28,7 @@ const RangePanel = (
     weekend,
     className,
     style,
+    toggle,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -52,6 +54,7 @@ const RangePanel = (
           customColors,
           onModeChange,
           weekend,
+          toggle,
         }}
       />
     </div>

@@ -79,6 +79,9 @@
   color: var(--text-dark);
   opacity: 0.8;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon:hover {

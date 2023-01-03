@@ -14,6 +14,7 @@ interface PopupProps {
   mode: "date" | "range";
   close: () => void;
   toggle: () => boolean | undefined;
+  shouldClose: boolean;
 }
 
 export const Popup = ({
@@ -24,12 +25,14 @@ export const Popup = ({
   isOpen,
   panel,
   mode,
+  shouldClose,
 }: PopupProps) => {
-  const panelRef = useRef<HTMLDivElement>(null);
-
   const [animate, setAnimate] = useState(false);
-
-  const ref = useClickOutside<HTMLDivElement>(close);
+  const refPopup = useClickOutside<HTMLDivElement>(close);
+  const ref = useRef(null);
+  // useEffect(() => {
+  //   shouldClose && close();
+  // }, [close, shouldClose]);
 
   const open = () => {
     const toggling = toggle();
@@ -37,7 +40,6 @@ export const Popup = ({
 
     setAnimate(true);
   };
-
   const config = useReverse({
     element: ref,
     max: [mode === "date" ? 352 : 312, mode === "date" ? 300 : 600],
@@ -63,6 +65,7 @@ export const Popup = ({
 
   const portalContent = (
     <div
+      ref={refPopup}
       onAnimationEnd={onAnimationEnd}
       className={
         isOpen
@@ -73,7 +76,6 @@ export const Popup = ({
             )
           : classNames("popover-panel-close", config().animationClassName)
       }
-      ref={panelRef}
       style={{
         width: mode === "date" ? 300 : 600,
         height: mode === "date" ? 352 : 312,
@@ -96,8 +98,8 @@ export const Popup = ({
     <div
       ref={ref}
       style={{
-        position: "relative",
-        display: "inline-block",
+        height: "fit-content",
+        width: "fit-content",
       }}
     >
       <div onClick={open}>{children}</div>

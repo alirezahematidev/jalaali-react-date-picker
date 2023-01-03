@@ -6,6 +6,7 @@ interface RangePanelModeProps extends RangeProps {}
 
 interface RangePanelModeContext extends RangePanelModeProps {
   onChangeMode?: (mode: Mode) => void;
+  toggle?: () => void;
 }
 
 const RangePanelModeContext = createContext<RangePanelModeContext>({
@@ -13,6 +14,7 @@ const RangePanelModeContext = createContext<RangePanelModeContext>({
   panelRender: () => null,
   onChangeMode: () => null,
   dayLabelRender: () => null,
+  toggle: () => null,
   highlightDays: undefined,
   customColors: undefined,
   weekend: true,

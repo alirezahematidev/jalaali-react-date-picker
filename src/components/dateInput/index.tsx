@@ -59,7 +59,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
         defaultValue,
       }}
     >
-      {({ onChangeInputValue, onClear, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, shouldClose, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -67,6 +67,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           isOpen={isOpen}
           close={close}
           toggle={toggle}
+          shouldClose={shouldClose}
           panel={<Panel toggle={toggle} {...pickerProps} />}
         >
           <div

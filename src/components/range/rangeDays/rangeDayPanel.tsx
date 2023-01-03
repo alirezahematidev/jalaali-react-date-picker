@@ -20,9 +20,11 @@ export const RangeDayPanel = ({
   onSelect,
   selectedRange,
 }: RangeDayPanelProps) => {
-  const { isJalaali, dayLabels, changePlaceholder } = useRangepicker();
+  const { isJalaali, dayLabels, changePlaceholder, rangeState } =
+    useRangepicker();
   const today = momentTransformer(moment(), isJalaali);
-  const { dayLabelRender, highlightDays, weekend } = useRangePanelContext();
+  const { dayLabelRender, highlightDays, weekend, toggle } =
+    useRangePanelContext();
 
   const extendDays = days.map((day) => {
     if (day.isDisabled) {
@@ -97,7 +99,15 @@ export const RangeDayPanel = ({
                   isDisabled={isDisabled}
                   isNeighborsDisabled={isNeighborsDisabled}
                   isNotCurrentMonth={isNotCurrentMonth}
-                  onPress={() => onSelect(day)}
+                  onPress={() => {
+                    onSelect(day);
+                    if (
+                      rangeState.endDate === null &&
+                      rangeState.startDate.day !== 0
+                    ) {
+                      toggle?.();
+                    }
+                  }}
                   isSelected={
                     selectedRange.startDate && !isNotCurrentMonth
                       ? checkDates(selectedRange.startDate, day) ||

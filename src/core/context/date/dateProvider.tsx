@@ -12,6 +12,7 @@ interface DateInputProps {
   placeholder?: string;
   onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
+  shouldClose: boolean;
 }
 
 interface ContextType extends DatePropsReducerType {

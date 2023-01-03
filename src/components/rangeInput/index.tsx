@@ -85,7 +85,8 @@ export const InputRangePicker = (
           isOpen={isOpen}
           close={close}
           toggle={toggle}
-          panel={<RangePanel {...rangeProps} />}
+          panel={<RangePanel toggle={toggle} {...rangeProps} />}
+          shouldClose={false}
         >
           <div
             className={classNames(

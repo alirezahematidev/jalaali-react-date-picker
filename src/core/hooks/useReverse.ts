@@ -39,16 +39,20 @@ export const useReverse = ({ element, max, placement }: ReverseConfig) => {
     const bounds = node.getBoundingClientRect();
 
     if (bounds) {
-      const gap = 8;
-      const h = bounds.height;
-      const w = bounds.width;
-      const t = bounds.top;
-      const l = bounds.left;
-
       const scrollbarWidth =
         typeof window === "undefined"
           ? 0
           : Math.abs(window.innerWidth - document.body.clientWidth);
+      const scrollbarHeight =
+        typeof window === "undefined"
+          ? 0
+          : Math.abs(window.innerHeight - document.body.clientHeight);
+      const gap = 8;
+      const h = bounds.height;
+      const w = bounds.width;
+      const t = bounds.top + scrollbarHeight;
+      const l = bounds.left;
+
       const r = width - l - w - scrollbarWidth;
       const b = height - t - h;
       const popupHeight = max[0];
