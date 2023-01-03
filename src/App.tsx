@@ -1,9 +1,9 @@
-import { InputRangePicker } from "./components/rangeInput";
+import { DatePicker } from "./components";
 
 function App() {
   return (
     <div>
-      <InputRangePicker />
+      <DatePicker />
     </div>
   );
 }

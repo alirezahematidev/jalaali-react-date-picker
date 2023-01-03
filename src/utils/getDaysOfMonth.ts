@@ -1,12 +1,12 @@
+import { DatePickerProps } from "@core/interfaces";
 import { jIsLeapYear } from "moment-jalaali";
 import { dayModelGenerator } from ".";
-import { DatePickerTypes } from "../core";
 import { jalaaliMonths } from "../core/constants/datasets";
 
 export const getDaysOfJalaaliMonth = (
   month: number,
   year: number,
-  disabledDates: DatePickerTypes.DisabledDates,
+  disabledDates: DatePickerProps["disabledDates"],
 ) => {
   const isLeapYear = jIsLeapYear(year);
 
@@ -27,7 +27,7 @@ export const getDaysOfJalaaliMonth = (
 export const getDaysOfGregorianMonth = (
   month: number,
   year: number,
-  disabledDates: DatePickerTypes.DisabledDates,
+  disabledDates: DatePickerProps["disabledDates"],
 ) => {
   function isLeapYear(year: number) {
     return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;

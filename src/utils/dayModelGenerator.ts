@@ -1,12 +1,12 @@
 import moment from "moment-jalaali";
-import { DateMetadata, DatePickerTypes } from "../core";
+import { DateMetadata, DatePickerProps } from "../core";
 
 export const dayModelGenerator = (
   count: number,
   month: number,
   year: number,
   isJalaali: boolean,
-  disabledDates?: DatePickerTypes.DisabledDates,
+  disabledDates?: DatePickerProps["disabledDates"],
 ): DateMetadata[] => {
   return Array.from({ length: count }, (_, i) => {
     const generatedDayInMoment = isJalaali

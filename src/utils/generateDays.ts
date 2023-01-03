@@ -1,5 +1,5 @@
+import { DatePickerProps } from "@core/interfaces";
 import { getDaysOfGregorianMonth, getDaysOfJalaaliMonth } from ".";
-import { DatePickerTypes } from "../core";
 import { dateTransformer } from "./dateTransformer";
 import { generateNextMonthDays } from "./generateNextMonthDays";
 import { generatePrevMonthDays } from "./generatePrevMonthDays";
@@ -8,7 +8,7 @@ export const generateDays = (
   month: number,
   year: number,
   isJalaali = true,
-  disabledDates: DatePickerTypes.DisabledDates,
+  disabledDates: DatePickerProps["disabledDates"],
 ) => {
   const currentMonthDays = isJalaali
     ? getDaysOfJalaaliMonth(month, year, disabledDates)

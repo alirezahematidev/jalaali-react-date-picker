@@ -1,3 +1,4 @@
+import { DatePickerProps } from "@core/interfaces";
 import moment, { Moment } from "moment-jalaali";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
@@ -6,18 +7,17 @@ import {
   momentTransformer,
 } from "../../../utils";
 import { localizedMonth } from "../../constants";
-import { DatePickerTypes } from "../../types";
 import { Date, Language } from "../../types/global.types";
 import { DateActionKind, reducer } from "./dateReducer";
 
 interface DateReducerType {
   formatProp?: string;
-  onChangeProp?: DatePickerTypes.OnChange;
-  valueProp?: DatePickerTypes.Value;
-  defaultValueProp?: DatePickerTypes.Value;
-  onDayChangeProp?: DatePickerTypes.OnDayChange;
-  onMonthChangeProp?: DatePickerTypes.OnMonthChange;
-  onYearChangeProp?: DatePickerTypes.OnYearChange;
+  onChangeProp?: DatePickerProps["onChange"];
+  valueProp?: DatePickerProps["value"];
+  defaultValueProp?: DatePickerProps["value"];
+  onDayChangeProp?: DatePickerProps["onDayChange"];
+  onMonthChangeProp?: DatePickerProps["onMonthChange"];
+  onYearChangeProp?: DatePickerProps["onYearChange"];
   language: Language;
 }
 
