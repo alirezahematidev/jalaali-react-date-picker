@@ -5,28 +5,29 @@ import { DateProvider, InputDatePickerProps } from "../../core";
 import { Popup } from "../popup";
 import { Suffix } from "../suffix";
 
-export const InputDatePicker = ({
-  value,
-  onChange,
-  onDayChange,
-  onMonthChange,
-  onYearChange,
-  format,
-  locale,
-  disabledDates,
-  open,
-  onOpenChange,
-  pickerProps,
-  disabled,
-  suffixIcon,
-  prefixIcon,
-  placement = "bottom",
-  className,
-  wrapperClassName,
-  wrapperStyle,
-  defaultValue,
-  ...rest
-}: InputDatePickerProps) => {
+export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
+  const {
+    value,
+    onChange,
+    onDayChange,
+    onMonthChange,
+    onYearChange,
+    format,
+    locale,
+    disabledDates,
+    open,
+    onOpenChange,
+    pickerProps,
+    disabled,
+    suffixIcon,
+    prefixIcon,
+    placement = "bottom",
+    className,
+    wrapperClassName,
+    wrapperStyle,
+    defaultValue,
+    ...rest
+  } = inputDatePickerProps;
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale || "fa") === "fa";
 

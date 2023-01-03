@@ -10,27 +10,30 @@ export const GAP = 34;
 
 type InputSize = Record<number, number>;
 
-export const InputRangePicker = ({
-  value,
-  onChange,
-  onDayChange,
-  onMonthChange,
-  onYearChange,
-  format,
-  locale,
-  disabledDates,
-  open,
-  onOpenChange,
-  rangeProps,
-  disabled,
-  suffixIcon,
-  prefixIcon,
-  placement = "bottom",
-  wrapperClassName,
-  wrapperStyle,
-  defaultValue,
-  ...rest
-}: InputRangePickerProps) => {
+export const InputRangePicker = (
+  inputRangePickerProps: InputRangePickerProps,
+) => {
+  const {
+    value,
+    onChange,
+    onDayChange,
+    onMonthChange,
+    onYearChange,
+    format,
+    locale,
+    disabledDates,
+    open,
+    onOpenChange,
+    rangeProps,
+    disabled,
+    suffixIcon,
+    prefixIcon,
+    placement = "bottom",
+    wrapperClassName,
+    wrapperStyle,
+    defaultValue,
+    ...rest
+  } = inputRangePickerProps;
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
   const isRtl = (locale || "fa") === "fa";
   const [inputSizes, setInputSizes] = useState<InputSize>({ 0: 0, 1: 0 });

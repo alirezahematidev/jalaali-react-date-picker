@@ -2,37 +2,6 @@ import { Moment } from "moment-jalaali";
 import { CSSProperties } from "react";
 import { ColorSchema, Date, Language, Mode } from "../types";
 export interface RangePickerProps {
-  /** @type `Moment` */
-  moment?: Moment;
-
-  /** Return type of `onMonthChange` */
-  monthValue?: {
-    name: string;
-    value: number;
-  };
-
-  monthRangeValue?: [
-    {
-      name: string;
-      value: number;
-    },
-    {
-      name: string;
-      value: number;
-    },
-  ];
-
-  panelDate?: {
-    days: Date[];
-    dayLabels: string[];
-    selected?: {
-      startDate: Date;
-      endDate: Date | null;
-    };
-  };
-
-  mode?: "day" | "month" | "year";
-
   /** The `customColors` object that can be used to overrides the default colors */
   customColors?: ColorSchema;
 
@@ -43,20 +12,20 @@ export interface RangePickerProps {
   defaultValue?: [Moment, Moment];
 
   /**
-   * The `onChange` method can be executed when date changes.
+   * The `onChange` method which will be executed when date changes.
    *
    * @param `date`
    * @param `dateStrings`
    */
   onChange?: (date: [Moment, Moment], dateStrings: [string, string]) => void;
   /**
-   * The `onDayChange` method can be executed when day changes.
+   * The `onDayChange` method which will be executed when day changes.
    *
    * @param `days`
    */
   onDayChange?: (days: [number, number]) => void;
   /**
-   * The `onMonthChange` method can be executed when month changes.
+   * The `onMonthChange` method which will be executed when month changes.
    *
    * @param `months`
    */
@@ -73,7 +42,7 @@ export interface RangePickerProps {
     ],
   ) => void;
   /**
-   * The `onYearChange` method can be executed when year changes.
+   * The `onYearChange` method which will be executed when year changes.
    *
    * @param `years`
    */
@@ -87,7 +56,7 @@ export interface RangePickerProps {
   onModeChange?: (mode: Mode) => void;
 
   /**
-   * The `disableDates` method that can determine what dates should be disabled
+   * The `disableDates` method that can determine which dates should be disabled
    *
    * @param `current`
    * @returns `boolean`
@@ -105,11 +74,12 @@ export interface RangePickerProps {
   ) => React.ReactNode;
 
   /**
-   * The `highlightDays` object that can be used to determines what dates should
-   * be off. if `weekend` set to `true`, its turn weekend days to off, also if
-   * pass `customDates` as array, the passed dates turn into off.
+   * The `highlightDays` can be used to determines what dates should be
+   * highlighted. it accepts array or fucntion.
    */
   highlightDays?: Moment[] | ((date: Moment) => boolean);
+
+  /** If `weekend` set to `true`, its turn weekend days to highlighted */
   weekend?: boolean;
 
   /** The `locale` object that can be configures the language of datepicker. */

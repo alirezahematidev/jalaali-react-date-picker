@@ -9,7 +9,10 @@ interface RangePickerProps extends Props {
 type RangePickerComponent = typeof RangePicker;
 
 const RangePicker = (
-  {
+  rangeProps: RangePickerProps,
+  pickerRef: ForwardedRef<HTMLDivElement>,
+) => {
+  const {
     headerRender,
     dayLabelRender,
     panelRender,
@@ -20,9 +23,7 @@ const RangePicker = (
     style,
     className,
     ...restProps
-  }: RangePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
-) => {
+  } = rangeProps;
   return (
     <RangeProvider props={restProps}>
       <RangePanel

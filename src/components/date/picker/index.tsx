@@ -9,7 +9,10 @@ interface DatePickerProps extends Props {
 type DatePickerComponent = typeof DatePicker;
 
 const DatePicker = (
-  {
+  dateProps: DatePickerProps,
+  pickerRef: ForwardedRef<HTMLDivElement>,
+) => {
+  const {
     footerRender,
     headerRender,
     dayLabelRender,
@@ -25,9 +28,7 @@ const DatePicker = (
     style,
     className,
     ...restProps
-  }: DatePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
-) => {
+  } = dateProps;
   return (
     <DateProvider props={restProps}>
       <Panel
