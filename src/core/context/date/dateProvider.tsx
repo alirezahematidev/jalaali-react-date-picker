@@ -11,7 +11,7 @@ interface DateInputProps {
   value: string;
   placeholder?: string;
   onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEmptyInputValue: () => void;
+  onClear: () => void;
 }
 
 interface ContextType extends DatePropsReducerType {
@@ -26,7 +26,7 @@ interface ContextType extends DatePropsReducerType {
   onIncreaseMonth: (payload: Date) => void;
   onDecreaseMonth: (payload: Date) => void;
   changePlaceholder: (payload: Date | null) => void;
-  onEmptyInputValue: () => void;
+  onClear: () => void;
 }
 
 export const DatePickerContext = createContext<ContextType>({
@@ -46,7 +46,7 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
-  onEmptyInputValue: () => null,
+  onClear: () => null,
 });
 
 interface DateProviderProps {
@@ -69,7 +69,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onIncreaseMonth,
     onDecreaseMonth,
     changePlaceholder,
-    onEmptyInputValue,
+    onClear,
     cacheDate,
     inputProps,
   } = useDateReducer({
@@ -127,7 +127,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         onIncreaseMonth,
         onDecreaseMonth,
         changePlaceholder,
-        onEmptyInputValue,
+        onClear,
         cacheDate,
         format: propsState.format,
         ...propsState,

@@ -58,7 +58,7 @@ export const InputDatePicker = ({
         defaultValue,
       }}
     >
-      {({ onChangeInputValue, onEmptyInputValue, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -94,7 +94,7 @@ export const InputDatePicker = ({
             <Suffix
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
-              onClear={() => onEmptyInputValue()}
+              onClear={onClear}
             />
           </div>
         </Popup>

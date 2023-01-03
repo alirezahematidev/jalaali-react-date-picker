@@ -58,7 +58,7 @@ export const useDateReducer = ({
     [formatProp, isJalaali],
   );
 
-  const onEmptyInputValue = () => {
+  const onClear = () => {
     dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
     setCacheDate((c) => ({ ...c, day: 0 }));
     setInputValue("");
@@ -218,12 +218,12 @@ export const useDateReducer = ({
     onIncreaseMonth,
     onDecreaseMonth,
     changePlaceholder,
-    onEmptyInputValue,
+    onClear,
     inputProps: {
       value: inputValue || dateValue,
       placeholder,
       onChangeInputValue,
-      onEmptyInputValue,
+      onClear,
     },
   };
 };
