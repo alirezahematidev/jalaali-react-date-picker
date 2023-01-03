@@ -21,8 +21,14 @@ root.render(
 `;
 
 const app_dir_template = `
+import { InputDatePicker } from "./components/dateInput";
+
 function App() {
-  return <div>app</div>;
+  return (
+    <div>
+      <InputDatePicker />
+    </div>
+  );
 }
 
 export default App;`;
