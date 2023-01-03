@@ -56,7 +56,6 @@ export const InputRangePicker = (
     onOpenChange?.(false);
   };
   const [clearIconVisible, setClearIconVisible] = useState(false);
-
   return (
     <RangeProvider
       props={{
@@ -86,7 +85,6 @@ export const InputRangePicker = (
           close={close}
           toggle={toggle}
           panel={<RangePanel toggle={toggle} {...rangeProps} />}
-          shouldClose={false}
         >
           <div
             className={classNames(
@@ -99,30 +97,31 @@ export const InputRangePicker = (
             onMouseEnter={() => values[0] && setClearIconVisible(true)}
             onMouseLeave={() => setClearIconVisible(false)}
           >
-            {focusedInput !== -1 && (
-              <div
-                className="input-border-ink"
-                style={{
-                  right: isRtl
-                    ? focusedInput === 0
-                      ? 8
-                      : inputSizes[0] + GAP + 4
-                    : 0,
-                  left: isRtl
-                    ? 0
-                    : focusedInput === 0
+            <div
+              className="input-border-ink"
+              style={{
+                right: isRtl
+                  ? focusedInput === 0
                     ? 8
-                    : inputSizes[0] + GAP + 4,
-                  width: Math.ceil(inputSizes[focusedInput]),
-                }}
-              />
-            )}
+                    : inputSizes[0] + GAP + 4
+                  : 0,
+                left: isRtl
+                  ? 0
+                  : focusedInput === 0
+                  ? 8
+                  : inputSizes[0] + GAP + 4,
+                width: Math.ceil(inputSizes[focusedInput]),
+                visibility: focusedInput === -1 ? "hidden" : "visible",
+              }}
+            />
             {prefixIcon && prefixIcon}
             <Input
               value={values?.[0]}
               index={0}
               isRtl={isRtl}
-              onFocus={() => onFocus(0)}
+              onClick={() => {
+                onFocus(0);
+              }}
               onBlur={() => setFocusedInput(-1)}
               onLayout={(width) =>
                 setInputSizes((prev) => ({ ...prev, [0]: width + 4 }))
@@ -136,7 +135,9 @@ export const InputRangePicker = (
               value={values?.[1]}
               index={1}
               isRtl={isRtl}
-              onFocus={() => onFocus(1)}
+              onClick={() => {
+                onFocus(1);
+              }}
               onBlur={() => setFocusedInput(-1)}
               onLayout={(width) =>
                 setInputSizes((prev) => ({ ...prev, [1]: width + 4 }))

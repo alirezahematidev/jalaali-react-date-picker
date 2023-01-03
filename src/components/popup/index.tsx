@@ -14,7 +14,6 @@ interface PopupProps {
   mode: "date" | "range";
   close: () => void;
   toggle: () => boolean | undefined;
-  shouldClose: boolean;
 }
 
 export const Popup = ({
@@ -25,14 +24,13 @@ export const Popup = ({
   isOpen,
   panel,
   mode,
-  shouldClose,
 }: PopupProps) => {
   const [animate, setAnimate] = useState(false);
-  const refPopup = useClickOutside<HTMLDivElement>(close);
+  const refPopup = useClickOutside<HTMLDivElement>(() => {
+    close();
+  });
+
   const ref = useRef(null);
-  // useEffect(() => {
-  //   shouldClose && close();
-  // }, [close, shouldClose]);
 
   const open = () => {
     const toggling = toggle();

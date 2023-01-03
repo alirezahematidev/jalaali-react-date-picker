@@ -67,7 +67,6 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           isOpen={isOpen}
           close={close}
           toggle={toggle}
-          shouldClose={shouldClose}
           panel={<Panel toggle={toggle} {...pickerProps} />}
         >
           <div
