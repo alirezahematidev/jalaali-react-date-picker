@@ -1,10 +1,10 @@
 import { Moment } from "moment-jalaali";
 
 export type ColorSchema = {
-  textDark?: string;
-  textLight?: string;
+  text?: string;
   primary?: string;
   primaryFade?: string;
+  textPrimary?: string;
   background?: string;
   backgroundDisabled?: string;
   backgroundHovered?: string;

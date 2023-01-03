@@ -24,6 +24,6 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src", "picker-env.d.ts", "src/custom.d.ts"],
+  "include": ["src", "src/custom.d.ts"],
   "exclude": ["node_modules", "lib", "./node_modules", "./node_modules/*"]
 }

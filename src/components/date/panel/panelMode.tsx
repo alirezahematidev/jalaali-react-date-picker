@@ -23,7 +23,7 @@ const PanelModeContext = createContext<PanelModeContext>({
   toggle: () => null,
   navigationIcons: undefined,
   highlightDays: undefined,
-  weekend: true,
+  highlightWeekend: true,
 });
 
 export const PanelMode = ({

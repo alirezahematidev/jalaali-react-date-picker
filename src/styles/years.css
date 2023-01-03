@@ -1,52 +1,52 @@
 .years-body {
-  display: grid;
-  height: 100%;
-  max-width: 300px;
-  place-items: center;
-  grid-template-columns: repeat(3, minmax(100px, 100px));
-  grid-template-rows: auto;
+    display: grid;
+    height: 100%;
+    max-width: 300px;
+    place-items: center;
+    grid-template-columns: repeat(3, minmax(100px, 100px));
+    grid-template-rows: auto;
 }
 
 .years-body-rtl {
-  display: grid;
-  height: 100%;
-  max-width: 300px;
-  place-items: center;
-  grid-template-columns: repeat(3, minmax(100px, 100px));
-  grid-template-rows: auto;
-  direction: rtl;
+    display: grid;
+    height: 100%;
+    max-width: 300px;
+    place-items: center;
+    grid-template-columns: repeat(3, minmax(100px, 100px));
+    grid-template-rows: auto;
+    direction: rtl;
 }
 
 .years-body-ltr {
-  display: grid;
-  height: 100%;
-  max-width: 300px;
-  place-items: center;
-  grid-template-columns: repeat(3, minmax(100px, 100px));
-  grid-template-rows: auto;
-  direction: ltr;
+    display: grid;
+    height: 100%;
+    max-width: 300px;
+    place-items: center;
+    grid-template-columns: repeat(3, minmax(100px, 100px));
+    grid-template-rows: auto;
+    direction: ltr;
 }
 
 .year-item {
-  padding-block: 4px;
-  border-radius: 2px;
-  min-width: 54px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--text-dark);
+    padding-block: 4px;
+    border-radius: 2px;
+    min-width: 54px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text);
 }
 
 .year-item-hovered:hover {
-  background-color: var(--background-hovered);
+    background-color: var(--background-hovered);
 }
 
 .year-item-selected {
-  background-color: var(--primary);
-  color: var(--text-light);
+    background-color: var(--primary);
+    color: var(--text-primary);
 }
 
 .year-item-prev {
-  opacity: 0.4;
+    opacity: 0.4;
 }

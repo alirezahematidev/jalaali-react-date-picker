@@ -16,7 +16,7 @@ const RangePanelModeContext = createContext<RangePanelModeContext>({
   dayLabelRender: () => null,
   toggle: () => null,
   highlightDays: undefined,
-  weekend: true,
+  highlightWeekend: true,
 });
 
 export const RangePanelMode = ({ ...props }: RangePanelModeProps) => {

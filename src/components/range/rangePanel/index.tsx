@@ -20,7 +20,7 @@ const RangePanel = (
     highlightDays,
     dayLabelRender,
     onModeChange,
-    weekend,
+    highlightWeekend,
     className,
     style,
     toggle,
@@ -46,7 +46,7 @@ const RangePanel = (
           dayLabelRender,
           highlightDays,
           onModeChange,
-          weekend,
+          highlightWeekend,
           toggle,
         }}
       />

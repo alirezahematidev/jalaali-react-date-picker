@@ -29,7 +29,7 @@ const Days = () => {
     dayLabelRender,
     highlightDays,
     toggle,
-    weekend,
+    highlightWeekend,
   } = usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
@@ -38,7 +38,8 @@ const Days = () => {
     year,
   }));
 
-  const canHighlighWeekend = weekend !== undefined ? weekend : true;
+  const canHighlighWeekend =
+    highlightWeekend !== undefined ? highlightWeekend : true;
 
   const extendMetadataDays = metadataDays.map((metadata) => {
     if (metadata.isDisabled) {

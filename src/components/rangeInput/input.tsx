@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import { forwardRef, useEffect, useRef } from "react";
-import { GAP } from ".";
+import React, { forwardRef, useEffect, useRef } from "react";
 import { Icon } from "../icon";
+
+const GAP = 34;
 
 type InputBuiltInProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -11,12 +12,16 @@ type InputBuiltInProps = Omit<
 interface InputProps extends InputBuiltInProps {
   isRtl: boolean;
   value?: string;
-  index: number;
+  firstInput?: boolean;
+  seperator?: React.ReactNode;
   onLayout?: (width: number) => void;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ value, isRtl, className, index, onLayout, ...rest }) => {
+  (
+    { value, isRtl, className, firstInput, seperator, onLayout, ...rest },
+    _ref,
+  ) => {
     const ref = useRef<HTMLInputElement>(null);
     const mounted = useRef<boolean>(false);
 
@@ -50,12 +55,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           value={value}
           className={classNames(
-            isRtl && "rtl",
             isRtl ? "range-input-fa" : "range-input-en",
             className,
           )}
         />
-        {index === 0 && (
+        {firstInput && (
           <div
             style={{
               minWidth: GAP,
@@ -63,7 +67,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             }}
             className="separator-icon"
           >
-            {isRtl ? <Icon.Back /> : <Icon.Forward />}
+            {seperator ? seperator : isRtl ? <Icon.Back /> : <Icon.Forward />}
           </div>
         )}
       </>

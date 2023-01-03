@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isServer } from "../constants/variables";
 
 type WindowLayout = {
   width: number;
@@ -7,17 +8,18 @@ type WindowLayout = {
 
 export const useWindowSize = () => {
   const [size, setSize] = useState<WindowLayout>({
-    width: typeof window === "undefined" ? 0 : window?.innerWidth,
-    height: typeof window === "undefined" ? 0 : window?.innerHeight,
+    width: isServer ? 0 : window?.innerWidth,
+    height: isServer ? 0 : window?.innerHeight,
   });
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (isServer) return;
 
     const handler = () => {
       setSize({ width: window.innerWidth, height: window.innerHeight });
     };
     window.addEventListener("resize", handler);
+
     handler();
 
     return () => window.removeEventListener("resize", handler);

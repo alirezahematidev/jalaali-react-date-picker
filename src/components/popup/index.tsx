@@ -1,10 +1,15 @@
 import classNames from "classnames";
-import React, { ReactNode, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import React, { memo, ReactNode, useMemo, useRef, useState } from "react";
+import { useConfig } from "../../core/hooks";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
-import { useReverse } from "../../core/hooks/useReverse";
+import { Portal } from "../portal";
 
 export type Placement = "bottom" | "top" | "right" | "left";
+
+const DATE_WIDTH = 300;
+const DATE_HEIGHT = 352;
+const RANGE_WIDTH = 600;
+const RANGE_HEIGHT = 312;
 
 interface PopupProps {
   children: ReactNode;
@@ -12,97 +17,90 @@ interface PopupProps {
   isOpen?: boolean;
   panel: ReactNode;
   mode: "date" | "range";
+  getContainer?: HTMLElement | (() => HTMLElement) | string;
   close: () => void;
   toggle: () => boolean | undefined;
 }
 
-export const Popup = ({
-  children,
-  placement = "bottom",
-  close,
-  toggle,
-  isOpen,
-  panel,
-  mode,
-}: PopupProps) => {
-  const [animate, setAnimate] = useState(false);
-  const refPopup = useClickOutside<HTMLDivElement>(() => {
-    close();
-  });
-
-  const ref = useRef(null);
-
-  const open = () => {
-    const toggling = toggle();
-    if (!toggling) return;
-
-    setAnimate(true);
-  };
-  const config = useReverse({
-    element: ref,
-    max: [mode === "date" ? 352 : 312, mode === "date" ? 300 : 600],
+export const Popup = memo(
+  ({
+    children,
     placement,
-  });
+    close,
+    toggle,
+    isOpen,
+    panel,
+    mode,
+    getContainer,
+  }: PopupProps) => {
+    const [animate, setAnimate] = useState(false);
 
-  // useDestroy({
-  //   element: panelRef,
-  //   callback: () => {
-  //     close();
-  //     setAnimate(false);
-  //   },
-  //   destroy: config().destroy,
-  //   placement,
-  // });
+    const refPopup = useClickOutside<HTMLDivElement>(close);
 
-  const onAnimationEnd = (e: React.AnimationEvent) => {
-    if (e.animationName === "close") {
-      e.preventDefault();
-      setAnimate(false);
-    }
-  };
+    const ref = useRef<HTMLDivElement>(null);
 
-  const portalContent = (
-    <div
-      ref={refPopup}
-      onAnimationEnd={onAnimationEnd}
-      className={
-        isOpen
-          ? classNames(
-              "popover-panel-open",
-              mode === "date" ? "popover-panel-date" : "popover-panel-range",
-              config().animationClassName,
-            )
-          : classNames("popover-panel-close", config().animationClassName)
+    const open = () => {
+      const toggling = toggle();
+      if (!toggling) return;
+
+      setAnimate(true);
+    };
+
+    const config = useConfig({
+      element: ref,
+      placement,
+      dimensions: [
+        mode === "date" ? DATE_HEIGHT : RANGE_HEIGHT,
+        mode === "date" ? DATE_WIDTH : RANGE_WIDTH,
+      ],
+    });
+
+    const onAnimationEnd = (e: React.AnimationEvent) => {
+      if (e.animationName === "close") {
+        e.preventDefault();
+        setAnimate(false);
       }
-      style={{
-        width: mode === "date" ? 300 : 600,
-        height: mode === "date" ? 352 : 312,
-        overflow: "hidden",
-        margin: 0,
-        padding: 0,
-        position: "absolute",
-        left: config().left,
-        right: config().right,
-        top: config().top,
-        bottom: config().bottom,
-        zIndex: 999999,
-      }}
-    >
-      {panel}
-    </div>
-  );
+    };
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        height: "fit-content",
-        width: "fit-content",
-      }}
-    >
-      <div onClick={open}>{children}</div>
-      {animate &&
-        (document ? createPortal(portalContent, document.body) : null)}
-    </div>
-  );
-};
+    const className = useMemo(() => {
+      if (isOpen) {
+        return classNames(
+          "popup-panel-overlay",
+          "popover-panel-open",
+          mode === "date" ? "popover-panel-date" : "popover-panel-range",
+          config().animationClassName,
+        );
+      }
+      return classNames(
+        "popup-panel-overlay",
+        "popover-panel-close",
+        config().animationClassName,
+      );
+    }, [config, isOpen, mode]);
+
+    return (
+      <div ref={ref} className="popup-wrapper-overlay">
+        <div onClick={open} className="input-wrapper">
+          {children}
+        </div>
+
+        {animate && (
+          <Portal getContainer={getContainer}>
+            <div
+              ref={refPopup}
+              onAnimationEnd={onAnimationEnd}
+              className={className}
+              style={{
+                width: mode === "date" ? DATE_WIDTH : RANGE_WIDTH,
+                height: mode === "date" ? DATE_HEIGHT : RANGE_HEIGHT,
+                ...config().coordinates,
+              }}
+            >
+              {panel}
+            </div>
+          </Portal>
+        )}
+      </div>
+    );
+  },
+);

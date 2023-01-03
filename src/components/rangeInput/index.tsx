@@ -6,8 +6,6 @@ import RangePanel from "../range/rangePanel";
 import { Suffix } from "../suffix";
 import { Input } from "./input";
 
-export const GAP = 34;
-
 export const InputRangePicker = (
   inputRangePickerProps: InputRangePickerProps,
 ) => {
@@ -26,16 +24,21 @@ export const InputRangePicker = (
     disabled,
     suffixIcon,
     prefixIcon,
-    placement = "bottom",
+    placement,
     wrapperClassName,
     wrapperStyle,
     defaultValue,
     customColors,
+    getContainer,
+    seperator,
     ...rest
   } = inputRangePickerProps;
+
   useSetColors(customColors);
 
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+  const [clearIconVisible, setClearIconVisible] = useState(false);
+
   const isRtl = (locale || "fa") === "fa";
 
   const toggle = () => {
@@ -50,7 +53,7 @@ export const InputRangePicker = (
     setIsOpen(false);
     onOpenChange?.(false);
   };
-  const [clearIconVisible, setClearIconVisible] = useState(false);
+
   return (
     <RangeProvider
       props={{
@@ -79,6 +82,7 @@ export const InputRangePicker = (
           isOpen={isOpen}
           close={close}
           toggle={toggle}
+          getContainer={getContainer}
           panel={<RangePanel toggle={toggle} {...rangeProps} />}
         >
           <div
@@ -95,20 +99,24 @@ export const InputRangePicker = (
             {prefixIcon && prefixIcon}
             <Input
               value={values?.[0]}
-              index={0}
+              firstInput
               isRtl={isRtl}
+              seperator={seperator}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, true)}
-              className={classNames("picker-input", isRtl && "rtl")}
+              className={classNames(
+                isRtl ? "picker-input-fa" : "picker-input-en",
+              )}
               placeholder={placeholderFrom}
             />
             <Input
               value={values?.[1]}
-              index={1}
               isRtl={isRtl}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
-              className={classNames("picker-input", isRtl && "rtl")}
+              className={classNames(
+                isRtl ? "picker-input-fa" : "picker-input-en",
+              )}
               placeholder={placeholderTo}
             />
 

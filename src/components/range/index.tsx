@@ -23,7 +23,7 @@ const RangePicker = (
     highlightDays,
     customColors,
     onModeChange,
-    weekend,
+    highlightWeekend,
     style,
     className,
     ...restProps
@@ -39,7 +39,7 @@ const RangePicker = (
         dayLabelRender={dayLabelRender}
         highlightDays={highlightDays}
         onModeChange={onModeChange}
-        weekend={weekend}
+        highlightWeekend={highlightWeekend}
         style={style}
         className={className}
       />

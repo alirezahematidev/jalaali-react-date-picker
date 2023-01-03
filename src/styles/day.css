@@ -1,40 +1,40 @@
 .day {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  user-select: none;
-  cursor: pointer;
-  color: var(--text-dark);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    cursor: pointer;
+    color: var(--text);
 }
 
 .hovered:not(.disabled):hover {
-  background-color: var(--background-hovered);
+    background-color: var(--background-hovered);
 }
 
 .not-current {
-  opacity: 0.4;
+    opacity: 0.4;
 }
-
 
 .off-day {
-  color: var(--highlight);
+    color: var(--highlight);
 }
+
 .weekend-day {
-  color: var(--weekend);
+    color: var(--weekend);
 }
 
 .highlight {
-  background-color: var(--primary);
-  color: var(--text-light);
+    background-color: var(--primary);
+    color: var(--text-primary);
 }
 
 .today {
-  border: 1px dotted var(--primary);
-  border-radius: 2px;
+    border: 1px dotted var(--primary);
+    border-radius: 2px;
 }

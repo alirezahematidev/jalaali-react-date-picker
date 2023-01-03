@@ -1,5 +1,5 @@
 import { Moment } from "moment-jalaali";
-import React, { CSSProperties } from "react";
+import React from "react";
 import { ColorSchema, Date, Language, Mode } from "../types";
 
 type MonthValue = {
@@ -24,125 +24,135 @@ export interface DatePickerProps {
    * The `onChange` method which will be executed when date changes.
    *
    * @param `date`
-   * @param `dateStrings`
+   * @param `dateString`
    */
-  onChange?: (date: Moment | undefined | null, dateString: string) => void;
+  onChange?(date: Moment | undefined | null, dateString: string): void;
 
   /**
    * The `onDayChange` method which will be executed when day changes.
    *
    * @param `day`
    */
-  onDayChange?: (day: number) => void;
+  onDayChange?(day: number): void;
 
   /**
    * The `onMonthChange` method which will be executed when month changes.
    *
    * @param `month`
    */
-  onMonthChange?: (month: MonthValue) => void;
+  onMonthChange?(month: MonthValue): void;
 
   /**
    * The `onYearChange` method which will be executed when year changes.
    *
    * @param `year`
    */
-  onYearChange?: (year: number) => void;
+  onYearChange?(year: number): void;
 
   /**
-   * `format` turns the selected date into the formatted string value.
+   * To set the date format, refer to `momentjs`, selected value is formatting to a string
    *
+   * @default `jYYYY-jMM-jDD`
    * @see https://momentjs.com/docs
    */
   format?: string | ((value: Moment) => string);
 
-  /** The `locale` that can be configures the language of datepicker. */
+  /**
+   * The `locale` that can be configures the language of datepicker.
+   *
+   * @default `fa`
+   */
   locale?: Language;
 
   /**
-   * The `disableDates` method that can determine which dates should be disabled
+   * The `disableDates` method that can specify the dates that cannot be selected
    *
    * @param `current`
    * @returns `boolean`
    */
-  disabledDates?: (current: Moment) => boolean;
+  disabledDates?(current: Moment): boolean;
 
   /**
    * The `onModeChange` method which will be called when panel mode changes.
    *
    * @param `mode`
    */
-  onModeChange?: (mode: Mode) => void;
+  onModeChange?(mode: Mode): void;
 
   /**
    * The `panelRender` callback used to render custom node for panel component.
    *
-   * @param `data` `panelNode`
+   * @param `data` `PanelDate`
+   * @param `panelNode` `React.ReactNode`
    * @returns `React.ReactNode`
    */
-  panelRender?: (
-    data: PanelDate,
-    panelNode: React.ReactNode,
-  ) => React.ReactNode;
+  panelRender?(data: PanelDate, panelNode: React.ReactNode): React.ReactNode;
 
   /**
    * The `footerRender` callback used to render custom node for footer component.
    *
-   * @param `current` `footerNode`
+   * @param `current` `Date`
+   * @param `footerNode` `React.ReactNode`
    * @returns `React.ReactNode`
    */
-  footerRender?: (
+  footerRender?(
     current: Date | null,
     footerNode: React.ReactNode,
-  ) => React.ReactNode;
+  ): React.ReactNode;
 
   /**
    * The `headerRender` callback used to render custom node for header component.
    *
-   * @param `current` `headerNode`
+   * @param `current` `Date`
+   * @param `headerNode` `React.ReactNode`
    * @returns `React.ReactNode`
    */
-  headerRender?: (
+  headerRender?(
     current: Date | null,
     headerNode: React.ReactNode,
-  ) => React.ReactNode;
+  ): React.ReactNode;
 
   /**
    * The `dayLabelRender` callback used to render custom node for day labels component.
    *
-   * @param `labels` `labelNode`
+   * @param `labels` `string[]`
+   * @param `labelNode` `React.ReactNode`
    * @returns `React.ReactNode`
    */
-  dayLabelRender?: (
+  dayLabelRender?(
     labels: string[],
     labelNode: React.ReactNode,
-  ) => React.ReactNode;
+  ): React.ReactNode;
 
   /**
-   * The `highlightDays` can be used to determines what dates should be
-   * highlighted. it accepts array or fucntion.
+   * The `highlightDays` can be used to determines which dates should be
+   * highlighted. it accepts array of `moments` or a callback function.
    */
   highlightDays?: Moment[] | ((date: Moment) => boolean);
 
-  /** If `weekend` set to `true`, its turn weekend days to highlighted */
-  weekend?: boolean;
+  /**
+   * If `weekend` set to `true`, its turn weekend days to highlighted
+   *
+   * @default true
+   */
+  highlightWeekend?: boolean;
 
-  /** The `customColors` object that can be used to overrides the default colors */
+  /** The `customColors` can be used to overrides the default colors */
   customColors?: ColorSchema;
 
-  /** Render icon for the next month icon */
+  /** The custom next icon */
   nextIcon?: React.ReactNode;
 
-  /** Render icon for the previous month icon */
+  /** The custom previous icon */
   prevIcon?: React.ReactNode;
 
-  /** Render icon for the next year icon */
+  /** The custom super next icon */
   superNextIcon?: React.ReactNode;
 
-  /** Render icon for the previous year icon */
+  /** The custom super previous icon */
   superPrevIcon?: React.ReactNode;
 
-  style?: CSSProperties;
+  style?: React.CSSProperties;
 
   className?: string;
 }
@@ -156,7 +166,7 @@ interface PanelProps
     | "highlightDays"
     | "dayLabelRender"
     | "onModeChange"
-    | "weekend"
+    | "highlightWeekend"
     | "defaultValue"
     | "style"
     | "className"
@@ -175,7 +185,7 @@ interface DatePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
-    | "weekend"
+    | "highlightWeekend"
     | "defaultValue"
     | "customColors"
   > {}
@@ -188,13 +198,28 @@ type InputBuiltInProps = Omit<
 type InputDatePickerPickable = InputBuiltInProps & DatePickerPickable;
 
 export interface InputDatePickerProps extends InputDatePickerPickable {
+  /** Popup calendar props */
   pickerProps?: PickerProps;
+  /** To set `open` the popup calendar */
   open?: boolean;
+  /** To set `disable` the popup calendar */
   disabled?: boolean;
-  wrapperClassName?: string;
-  wrapperStyle?: CSSProperties;
+  /** Input custom prefix icon */
   prefixIcon?: React.ReactNode;
+  /** Input custom suffix icon */
   suffixIcon?: React.ReactNode;
+  /** The position where the popup calendar box pops up */
   placement?: "top" | "bottom" | "right" | "left";
+  /**
+   * The mounted node for popup calendar
+   *
+   * @default `document.body`
+   */
+  getContainer?: HTMLElement | (() => HTMLElement) | string;
+
+  /** Callback function, can be executed whether the popup calendar is popped up or closed */
   onOpenChange?: (open: boolean) => void;
+
+  wrapperClassName?: string;
+  wrapperStyle?: React.CSSProperties;
 }

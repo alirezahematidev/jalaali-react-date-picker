@@ -23,7 +23,7 @@ export const RangeDayPanel = ({
   const { isJalaali, dayLabels, changePlaceholder, rangeState } =
     useRangepicker();
   const today = momentTransformer(moment(), isJalaali);
-  const { dayLabelRender, highlightDays, weekend, toggle } =
+  const { dayLabelRender, highlightDays, highlightWeekend, toggle } =
     useRangePanelContext();
 
   const extendDays = days.map((day) => {
@@ -51,7 +51,8 @@ export const RangeDayPanel = ({
     };
   });
 
-  const canHighlighWeekend = weekend !== undefined ? weekend : true;
+  const canHighlighWeekend =
+    highlightWeekend !== undefined ? highlightWeekend : true;
 
   return (
     <div className="range-day-panel-item">

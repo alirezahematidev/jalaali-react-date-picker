@@ -1,33 +1,33 @@
 .center {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .panel-header-item-text {
-  color: var(--text-dark);
+    color: var(--text);
 }
 
 .panel-header-item-text:hover {
-  color: var(--primary);
+    color: var(--primary);
 }
 
 .panel-header-year-picker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .panel-header-year-picker p {
-  color: var(--text-dark);
+    color: var(--text);
 }
 
 .panel-header-year-picker span {
-  margin-inline: 4px;
-  color: var(--text-dark);
+    margin-inline: 4px;
+    color: var(--text);
 }
 
 .panel-header-year-picker p:hover {
-  color: var(--primary);
+    color: var(--primary);
 }

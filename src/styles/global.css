@@ -1,135 +1,141 @@
 :root {
-  --primary: #18c5ff;
-  --primary-fade: #e1f7ff;
-  --text-dark: #000000;
-  --text-light: #ffffff;
-  --background: #ffffff;
-  --background-disabled: #dedede;
-  --background-hovered: #f2f2f2;
-  --border: #edededc7;
-  --text-negative: #f83959;
-  --day-label-background: #555555;
-  --highlight:#18c5ff;
-  --weekend:#f83959;
+    --primary: #18c5ff;
+    --text-primary: #ffffff;
+    --primary-fade: #e1f7ff;
+    --text: #000000;
+    --background: #ffffff;
+    --background-disabled: #dedede;
+    --background-hovered: #f2f2f2;
+    --border: #edededc7;
+    --text-negative: #f83959;
+    --day-label-background: #555555;
+    --highlight: #18c5ff;
+    --weekend: #f83959;
 }
 
 @font-face {
-  font-family: IRANSansRegular;
-  src: url("../../public/assets/fonts/IRANSansFaNum.ttf") format("woff");
+    font-family: IRANSansRegular;
+    src: url("../../public/assets/fonts/IRANSansFaNum.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansBold;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Bold.ttf") format("woff");
+    font-family: IRANSansBold;
+    src: url("../../public/assets/fonts/IRANSansFaNum_Bold.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansLight;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Light.ttf") format("woff");
+    font-family: IRANSansLight;
+    src: url("../../public/assets/fonts/IRANSansFaNum_Light.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IRANSansMedium;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
+    font-family: IRANSansMedium;
+    src: url("../../public/assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoLight;
-  src: url("../../public/assets/fonts/Roboto-Light.ttf") format("woff");
+    font-family: RobotoLight;
+    src: url("../../public/assets/fonts/Roboto-Light.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoRegular;
-  src: url("../../public/assets/fonts/Roboto-Regular.ttf") format("woff");
+    font-family: RobotoRegular;
+    src: url("../../public/assets/fonts/Roboto-Regular.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoMedium;
-  src: url("../../public/assets/fonts/Roboto-Medium.ttf") format("woff");
+    font-family: RobotoMedium;
+    src: url("../../public/assets/fonts/Roboto-Medium.ttf") format("woff");
 }
 
 @font-face {
-  font-family: RobotoBold;
-  src: url("../../public/assets/fonts/Roboto-Bold.ttf") format("woff");
+    font-family: RobotoBold;
+    src: url("../../public/assets/fonts/Roboto-Bold.ttf") format("woff");
 }
 
 @font-face {
-  font-family: IcomoonWOFF;
-  src: url("../../public/assets/fonts/icomoon/icomoon.woff") format("woff");
+    font-family: IcomoonWOFF;
+    src: url("../../public/assets/fonts/icomoon/icomoon.woff") format("woff");
 }
+
 @font-face {
-  font-family: IcomoonTTF;
-  src: url("../../public/assets/fonts/icomoon/icomoon.ttf") format("truetype");
+    font-family: IcomoonTTF;
+    src: url("../../public/assets/fonts/icomoon/icomoon.ttf") format("truetype");
 }
+
 @font-face {
-  font-family: IcomoonSVG;
-  src: url("../../public/assets/fonts/icomoon/icomoon.svg") format("svg");
+    font-family: IcomoonSVG;
+    src: url("../../public/assets/fonts/icomoon/icomoon.svg") format("svg");
 }
+
 @font-face {
-  font-family: IcomoonEOT;
-  src: url("../../public/assets/fonts/icomoon/icomoon.eot") format("eot");
+    font-family: IcomoonEOT;
+    src: url("../../public/assets/fonts/icomoon/icomoon.eot") format("eot");
 }
 
 .icon {
-  font-weight: normal;
-  font-family: icomoon !important;
-  font-style: normal;
-  font-variant: normal;
-  text-transform: none;
-  color: var(--text-dark);
-  opacity: 0.8;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-weight: normal;
+    font-family: icomoon !important;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: var(--text);
+    opacity: 0.8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 .icon-forward::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e900";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e900";
 }
 
 .icon-calendar::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e901";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e901";
 }
 
 .icon-calendar-today::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e902";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e902";
 }
+
 .icon-chevron-left::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e903";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e903";
 }
+
 .icon-chevron-right::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e904";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e904";
 }
+
 .icon-clear::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e905";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e905";
 }
 
 .icon-keyboard_double_arrow_left::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e906";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e906";
 }
 
 .icon-keyboard_double_arrow_right::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e907";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e907";
 }
 
 .icon-arrow_back::before {
-  font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-  content: "\e908";
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e908";
 }
 
 .clickable {
-  cursor: pointer;
+    cursor: pointer;
 }

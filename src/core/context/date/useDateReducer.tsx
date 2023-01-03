@@ -224,7 +224,6 @@ export const useDateReducer = ({
       placeholder,
       onChangeInputValue,
       onClear,
-      shouldClose: state.day !== 0,
     },
   };
 };

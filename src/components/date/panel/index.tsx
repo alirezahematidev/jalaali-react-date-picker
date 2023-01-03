@@ -29,7 +29,7 @@ const Panel = (
     onModeChange,
     toggle,
     navigationIcons,
-    weekend,
+    highlightWeekend,
     style,
     className,
   }: PanelProps,
@@ -56,7 +56,7 @@ const Panel = (
           onModeChange,
           toggle,
           navigationIcons,
-          weekend,
+          highlightWeekend,
         }}
       />
       <Footer footerRender={footerRender} />

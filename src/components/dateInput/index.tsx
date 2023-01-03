@@ -21,17 +21,21 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     disabled,
     suffixIcon,
     prefixIcon,
-    placement = "bottom",
+    placement,
     className,
     wrapperClassName,
     wrapperStyle,
     defaultValue,
     customColors,
+    getContainer,
     ...rest
   } = inputDatePickerProps;
+
   useSetColors(customColors);
 
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+  const [clearIconVisible, setClearIconVisible] = useState(false);
+
   const isRtl = (locale || "fa") === "fa";
 
   const toggle = () => {
@@ -46,7 +50,6 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     setIsOpen(false);
     onOpenChange?.(false);
   };
-  const [clearIconVisible, setClearIconVisible] = useState(false);
 
   return (
     <DateProvider
@@ -62,7 +65,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
         defaultValue,
       }}
     >
-      {({ onChangeInputValue, onClear, shouldClose, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -70,6 +73,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           isOpen={isOpen}
           close={close}
           toggle={toggle}
+          getContainer={getContainer}
           panel={<Panel toggle={toggle} {...pickerProps} />}
         >
           <div

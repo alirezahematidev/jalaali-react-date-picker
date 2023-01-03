@@ -28,7 +28,7 @@ const DatePicker = (
     prevIcon,
     superNextIcon,
     superPrevIcon,
-    weekend,
+    highlightWeekend,
     style,
     className,
     ...restProps
@@ -44,7 +44,7 @@ const DatePicker = (
         panelRender={panelRender}
         dayLabelRender={dayLabelRender}
         highlightDays={highlightDays}
-        weekend={weekend}
+        highlightWeekend={highlightWeekend}
         onModeChange={onModeChange}
         navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}
         style={style}
