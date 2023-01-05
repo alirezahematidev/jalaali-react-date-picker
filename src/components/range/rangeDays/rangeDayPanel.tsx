@@ -1,7 +1,13 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
 import { Date, DateMetadata, useRangepicker } from "../../../core";
-import { dateTransformer, isEqual, momentTransformer } from "../../../utils";
+import {
+  checkDates,
+  dateTransformer,
+  isBetweenHighlight,
+  isEqual,
+  momentTransformer,
+} from "../../../utils";
 import Day from "../../day";
 import { DayLabel } from "../../dayLabel";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
@@ -23,7 +29,7 @@ export const RangeDayPanel = ({
   const { isJalaali, dayLabels, changePlaceholder, rangeState } =
     useRangepicker();
   const today = momentTransformer(moment(), isJalaali);
-  const { dayLabelRender, highlightDays, highlightWeekend, toggle } =
+  const { dayLabelRender, highlightDays, highlightWeekend, onClose } =
     useRangePanelContext();
 
   const extendDays = days.map((day) => {
@@ -95,6 +101,7 @@ export const RangeDayPanel = ({
                 <Day
                   day={day.day}
                   mode="range"
+                  isJalaali={isJalaali}
                   startDay={selectedRange.startDate?.day}
                   endDay={selectedRange.endDate?.day}
                   isDisabled={isDisabled}
@@ -106,7 +113,7 @@ export const RangeDayPanel = ({
                       rangeState.endDate === null &&
                       rangeState.startDate.day !== 0
                     ) {
-                      toggle?.();
+                      onClose?.();
                     }
                   }}
                   isSelected={
@@ -133,36 +140,3 @@ export const RangeDayPanel = ({
     </div>
   );
 };
-
-function checkDates(a: Date | null, b: DateMetadata) {
-  if (!a) {
-    return false;
-  }
-  return a.year === b.year && a.month === b.month && a.day === b.day;
-}
-
-const checkAfter = (start: Date, current: Date, isJalaali: boolean) => {
-  return dateTransformer({ ...current }, isJalaali).isAfter(
-    dateTransformer({ ...start }, isJalaali),
-  );
-};
-const checkBefore = (end: Date, current: Date, isJalaali: boolean) => {
-  return dateTransformer({ ...current }, isJalaali).isBefore(
-    dateTransformer({ ...end }, isJalaali),
-  );
-};
-
-function isBetweenHighlight(
-  day: Date,
-  startDate: Date | null,
-  endDate: Date | null,
-  isJalaali: boolean,
-) {
-  if (!startDate || !endDate || startDate.day === 0 || endDate?.day === 0)
-    return false;
-
-  return (
-    checkAfter(startDate, day, isJalaali) &&
-    checkBefore(endDate, day, isJalaali)
-  );
-}

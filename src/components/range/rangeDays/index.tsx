@@ -81,8 +81,6 @@ const RangeDays = ({}: RangeDaysProps) => {
     ],
   );
 
-  // const {} = useMemo(() => {}, []);
-
   return (
     <div className="range-day-wrapper">
       <RangeHeader

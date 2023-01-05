@@ -1,33 +1,44 @@
 .center {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.stretch {
+  width: 64px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .panel-header-item-text {
-    color: var(--text);
+  color: var(--text);
+  font-size: 14px;
+  margin-block: 0;
 }
 
-.panel-header-item-text:hover {
-    color: var(--primary);
-}
+/* .panel-header-item-text:hover {
+  color: var(--primary);
+} */
 
 .panel-header-year-picker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .panel-header-year-picker p {
-    color: var(--text);
+  color: var(--text);
+  font-size: 14px;
 }
 
 .panel-header-year-picker span {
-    margin-inline: 4px;
-    color: var(--text);
+  margin-inline: 4px;
+  color: var(--text);
 }
 
 .panel-header-year-picker p:hover {
-    color: var(--primary);
+  color: var(--primary);
 }

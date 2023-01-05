@@ -1,8 +1,11 @@
+import classNames from "classnames";
 import { MouseEvent } from "react";
 
 interface IconProps {
   size?: number;
   onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  isJalaali?: boolean;
+  hoverEffect?: boolean;
 }
 
 const Icon = () => null;
@@ -10,7 +13,7 @@ const Icon = () => null;
 const Forward = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
-      className="icon icon-forward"
+      className={classNames("icon", "icon-forward")}
       onClick={onClick}
       style={{ width: size, height: "100%", fontSize: size }}
     />
@@ -37,20 +40,42 @@ const CalendarToday = ({ size = 20, onClick }: IconProps) => {
   );
 };
 
-const ChevronLeft = ({ size = 20, onClick }: IconProps) => {
+const ChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
   return (
     <div
-      className="icon icon-chevron-left"
+      className={classNames(
+        "panel-icon",
+        "icon-chevron-left",
+        hoverEffect && "panel-icon-hovered",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
     />
   );
 };
 
-const ChevronRight = ({ size = 20, onClick }: IconProps) => {
+const ChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
   return (
     <div
-      className="icon icon-chevron-right"
+      className={classNames(
+        "panel-icon",
+        "icon-chevron-right",
+        hoverEffect && "panel-icon-hovered",
+      )}
+      style={{ width: size, height: "100%", fontSize: size }}
+      onClick={onClick}
+    />
+  );
+};
+
+const Chevron = ({ size = 20, onClick, isJalaali, hoverEffect }: IconProps) => {
+  return (
+    <div
+      className={classNames(
+        "panel-icon",
+        isJalaali ? "icon-chevron-right" : "icon-chevron-left",
+        hoverEffect && "panel-icon-hovered",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
     />
@@ -67,20 +92,49 @@ const Clear = ({ size = 20, onClick }: IconProps) => {
   );
 };
 
-const DoubleChevronLeft = ({ size = 20, onClick }: IconProps) => {
+const DoubleChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
   return (
     <div
-      className="icon icon-keyboard_double_arrow_left"
+      className={classNames(
+        "panel-icon",
+        "icon-keyboard_double_arrow_left",
+        hoverEffect && "panel-icon-hovered",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
     />
   );
 };
 
-const DoubleChevronRight = ({ size = 20, onClick }: IconProps) => {
+const DoubleChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
   return (
     <div
-      className="icon icon-keyboard_double_arrow_right"
+      className={classNames(
+        "panel-icon",
+        "icon-keyboard_double_arrow_right",
+        hoverEffect && "panel-icon-hovered",
+      )}
+      style={{ width: size, height: "100%", fontSize: size }}
+      onClick={onClick}
+    />
+  );
+};
+
+const DoubleChevron = ({
+  size = 20,
+  onClick,
+  isJalaali,
+  hoverEffect,
+}: IconProps) => {
+  return (
+    <div
+      className={classNames(
+        "panel-icon",
+        isJalaali
+          ? "icon-keyboard_double_arrow_right"
+          : "icon-keyboard_double_arrow_left",
+        hoverEffect && "panel-icon-hovered",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
     />
@@ -106,5 +160,7 @@ Icon.Clear = Clear;
 Icon.ChevronRight = ChevronRight;
 Icon.ChevronLeft = ChevronLeft;
 Icon.CalendarToday = CalendarToday;
+Icon.Chevron = Chevron;
+Icon.DoubleChevron = DoubleChevron;
 
 export { Icon };

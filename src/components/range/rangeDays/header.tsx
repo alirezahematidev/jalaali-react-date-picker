@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useRangepicker } from "../../../core";
 import { getMonthLabels } from "../../../utils";
 import { useRangePanelContext } from "../rangePanel/panelRangeMode";
@@ -21,12 +22,12 @@ const RangeHeader = ({
     isJalaali,
     from,
     to,
-    rangeDateString,
+    dateRange,
   } = useRangepicker();
 
   const { type } = useRangeTemplate();
 
-  const { headerRender } = useRangePanelContext();
+  const { headerRender, shouldResponsive } = useRangePanelContext();
 
   const node = (
     <div className={isJalaali ? "panel-header-rtl" : "panel-header-ltr"}>
@@ -43,13 +44,20 @@ const RangeHeader = ({
         onIncreaseYear={() => onRangeIncreaseYear()}
         onSelectMonthPicker={onSelectMonthPicker}
         onSelectYearPicker={onSelectYearPicker}
+        shouldResponsive={shouldResponsive}
       />
     </div>
   );
 
   return (
-    <div className="panel-header-wrapper">
-      {headerRender ? headerRender(rangeDateString, node) : node}
+    <div
+      className={classNames(
+        shouldResponsive
+          ? "mobile-panel-header-wrapper"
+          : "panel-header-wrapper",
+      )}
+    >
+      {headerRender ? headerRender(dateRange, node) : node}
     </div>
   );
 };

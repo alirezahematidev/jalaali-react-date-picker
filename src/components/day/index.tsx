@@ -12,6 +12,7 @@ interface DayProps {
   isToday?: boolean;
   isNeighborsDisabled?: boolean;
   mode?: "date" | "range";
+  isJalaali?: boolean;
   onPress?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -32,7 +33,9 @@ const Day = ({
   mode,
   endDay,
   startDay,
+  isJalaali,
 }: DayProps) => {
+  console.log({ isJalaali });
   return (
     <div
       className={classnames(
@@ -48,12 +51,12 @@ const Day = ({
           isSelected &&
           day === startDay &&
           endDay &&
-          "start-tail-highlight",
+          (isJalaali ? "start-tail-highlight" : "end-tail-highlight"),
 
         mode === "range" &&
           isSelected &&
           day === endDay &&
-          "end-tail-highlight",
+          (isJalaali ? "end-tail-highlight" : "start-tail-highlight"),
       )}
       onClick={() => {
         if (isDisabled) return;
@@ -62,7 +65,7 @@ const Day = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <span>{day}</span>
+      <span className="day-span-text">{day}</span>
     </div>
   );
 };

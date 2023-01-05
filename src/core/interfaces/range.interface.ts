@@ -218,6 +218,14 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
    */
   getContainer?: HTMLElement | (() => HTMLElement) | string;
 
+  /**
+   * To set responsive, the range picker component is responsed and optimized to
+   * device it runs on.
+   *
+   * @default `auto`
+   */
+  responsive?: "desktop" | "mobile" | "auto";
+
   /** Callback function, can be executed whether the popup calendar is popped up or closed */
   onOpenChange?: (open: boolean) => void;
 

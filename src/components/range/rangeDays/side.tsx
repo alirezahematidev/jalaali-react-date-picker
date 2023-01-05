@@ -1,5 +1,9 @@
-import { Icon } from "../../icon";
+import { Fragment } from "react";
 import { useRangeTemplate } from "../rangePanel/templateContext";
+import { DateLabel } from "./components/dateLabel";
+import { FromNavigator } from "./components/fromNavigator";
+import { SelectedDates } from "./components/selectedDates";
+import { ToNavigator } from "./components/toNavigator";
 
 interface HeaderSideProps {
   isJalaali: boolean;
@@ -11,6 +15,7 @@ interface HeaderSideProps {
   onSelectYearPicker?: () => void;
   monthLabel?: string;
   yearLabel?: string;
+  shouldResponsive?: boolean;
 }
 
 const HeaderSide = ({
@@ -23,57 +28,54 @@ const HeaderSide = ({
   onSelectYearPicker,
   monthLabel,
   yearLabel,
+  shouldResponsive,
 }: HeaderSideProps) => {
   const { type } = useRangeTemplate();
+
   return (
-    <div className="panel-header-inner">
-      {type === "from" ? (
-        <div className="center">
-          <div onClick={onDecreaseYear}>
-            {isJalaali ? (
-              <Icon.DoubleChevronRight />
-            ) : (
-              <Icon.DoubleChevronLeft />
-            )}
-          </div>
-          <div onClick={onDecreaseMonth}>
-            {isJalaali ? <Icon.ChevronRight /> : <Icon.ChevronLeft />}
-          </div>
+    <Fragment>
+      {shouldResponsive && (
+        <div className="mobile-extra-date-header">
+          <SelectedDates isJalaali={isJalaali} />
         </div>
-      ) : (
-        <div className="panel-empty-holder" />
       )}
-      <div className="panel-date-holder-item-ltr">
-        <div
-          className="panel-date-holder-item clickable"
-          onClick={onSelectMonthPicker}
-        >
-          <p className="panel-header-item-text">{monthLabel}</p>
-        </div>
-        <div
-          className="panel-date-holder-item clickable"
-          onClick={onSelectYearPicker}
-        >
-          <p className="panel-header-item-text">{yearLabel}</p>
-        </div>
+      <div className="panel-header-inner">
+        <FromNavigator
+          {...{
+            onDecreaseYear,
+            onDecreaseMonth,
+            isJalaali,
+            shouldResponsive,
+            type,
+            monthLabel,
+            yearLabel,
+            onSelectMonthPicker,
+            onSelectYearPicker,
+          }}
+        />
+        <DateLabel
+          {...{
+            onSelectMonthPicker,
+            onSelectYearPicker,
+            shouldResponsive,
+            onDecreaseMonth,
+            onIncreaseMonth,
+            yearLabel,
+            monthLabel,
+            isJalaali,
+          }}
+        />
+        <ToNavigator
+          {...{
+            isJalaali,
+            onIncreaseMonth,
+            onIncreaseYear,
+            shouldResponsive,
+            type,
+          }}
+        />
       </div>
-      {type === "to" ? (
-        <div className="center">
-          <div onClick={onIncreaseMonth}>
-            {isJalaali ? <Icon.ChevronLeft /> : <Icon.ChevronRight />}
-          </div>
-          <div onClick={onIncreaseYear}>
-            {isJalaali ? (
-              <Icon.DoubleChevronLeft />
-            ) : (
-              <Icon.DoubleChevronRight />
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="panel-empty-holder" />
-      )}
-    </div>
+    </Fragment>
   );
 };
 

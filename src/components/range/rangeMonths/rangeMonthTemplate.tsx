@@ -40,7 +40,7 @@ export const RangeMonthtemplate = ({
                 isDisabled && "disabled",
               )}
             >
-              <p>{item.name}</p>
+              <p className="month-item-name">{item.name}</p>
             </div>
           );
         })}

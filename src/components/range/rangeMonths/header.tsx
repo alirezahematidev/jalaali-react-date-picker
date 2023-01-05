@@ -6,13 +6,10 @@ import { useRangeTemplate } from "../rangePanel/templateContext";
 export interface HeaderProps {}
 
 const MonthsHeader = ({}: HeaderProps) => {
-  const { isJalaali, rangeState } = useRangepicker();
+  const { isJalaali } = useRangepicker();
   const { onChangeMode, type } = useRangeTemplate();
   const { from, to } = useRangepicker();
   const { year, month } = type === "from" ? from : to;
-
-  const current =
-    rangeState && rangeState.startDate.day !== 0 ? rangeState : null;
 
   const node = (
     <div className="panel-header-rtl">

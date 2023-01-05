@@ -1,14 +1,19 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
-import { ForwardedRef, forwardRef, Ref } from "react";
+import { ForwardedRef, forwardRef, Fragment, memo, Ref } from "react";
 import { RangeProps as Props, useRangepicker } from "../../../core";
 import { RangePanelMode } from "./panelRangeMode";
+import { RangePanelTemplate } from "./panelTemplate";
 
 moment.loadPersian({ dialect: "persian-modern" });
 
+type Responsive = "desktop" | "mobile" | "auto";
+
 interface RangePanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
-  toggle?: () => void;
+  responsive?: "desktop" | "mobile" | "auto";
+  shouldResponsive?: boolean;
+  onClose?: () => void;
 }
 
 type RangePanelComponent = typeof RangePanel;
@@ -23,17 +28,48 @@ const RangePanel = (
     highlightWeekend,
     className,
     style,
-    toggle,
+    onClose,
+    responsive,
+    shouldResponsive,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const { isJalaali } = useRangepicker();
+
+  const responsiveClassName: Record<Responsive, string> = {
+    auto: shouldResponsive ? "mobile-panel" : "desktop-panel",
+    desktop: "desktop-panel",
+    mobile: "mobile-panel",
+  };
+
+  const renderTemplate: Record<Responsive, JSX.Element> = {
+    auto: (
+      <Fragment>
+        {shouldResponsive ? (
+          <RangePanelTemplate />
+        ) : (
+          <Fragment>
+            <RangePanelTemplate type="from" />
+            <RangePanelTemplate type="to" />
+          </Fragment>
+        )}
+      </Fragment>
+    ),
+    desktop: (
+      <Fragment>
+        <RangePanelTemplate type="from" />
+        <RangePanelTemplate type="to" />
+      </Fragment>
+    ),
+    mobile: <RangePanelTemplate />,
+  };
 
   return (
     <div
       ref={ref}
       className={classNames(
         isJalaali ? "panel-range-jalaali" : "panel-range-gregorian",
+        responsive && shouldResponsive && responsiveClassName[responsive],
         "panel-elevation",
         className,
       )}
@@ -47,15 +83,25 @@ const RangePanel = (
           highlightDays,
           onModeChange,
           highlightWeekend,
-          toggle,
+          onClose,
+          shouldResponsive,
         }}
-      />
+      >
+        {responsive ? (
+          renderTemplate[responsive]
+        ) : (
+          <Fragment>
+            <RangePanelTemplate type="from" />
+            <RangePanelTemplate type="to" />
+          </Fragment>
+        )}
+      </RangePanelMode>
     </div>
   );
 };
 
-const RangePanelWithRef = forwardRef<HTMLDivElement, RangePanelProps>(
-  RangePanel,
+const RangePanelWithRef = memo(
+  forwardRef<HTMLDivElement, RangePanelProps>(RangePanel),
 ) as RangePanelComponent;
 
 export default RangePanelWithRef;

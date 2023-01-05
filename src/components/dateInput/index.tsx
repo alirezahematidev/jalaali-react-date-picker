@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
 import { Popup } from "../popup";
@@ -33,10 +33,19 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
 
   useSetColors(customColors);
 
+  const inputRef = useRef<HTMLDivElement>(null);
+
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+
+  const [animate, setAnimate] = useState(false);
+
   const [clearIconVisible, setClearIconVisible] = useState(false);
 
   const isRtl = (locale || "fa") === "fa";
+
+  const toggleAnimate = (animate: boolean) => {
+    setAnimate(animate);
+  };
 
   const toggle = () => {
     if (disabled) return;
@@ -49,6 +58,13 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
   const close = () => {
     setIsOpen(false);
     onOpenChange?.(false);
+  };
+
+  const onOpen = () => {
+    const toggling = toggle();
+    if (!toggling) return;
+
+    toggleAnimate(true);
   };
 
   return (
@@ -72,12 +88,15 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           placement={placement}
           isOpen={isOpen}
           close={close}
-          toggle={toggle}
           getContainer={getContainer}
-          panel={<Panel toggle={toggle} {...pickerProps} />}
+          animate={animate}
+          toggleAnimate={toggleAnimate}
+          inputRef={inputRef}
+          panel={() => <Panel toggle={toggle} {...pickerProps} />}
         >
           <div
             dir={isRtl ? "rtl" : "ltr"}
+            ref={inputRef}
             aria-label="datepicker"
             className={classNames(
               "picker-input-wrapper",
@@ -85,6 +104,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               wrapperClassName,
             )}
             style={wrapperStyle}
+            onClick={onOpen}
             onMouseEnter={() => inputProps.value && setClearIconVisible(true)}
             onMouseLeave={() => setClearIconVisible(false)}
           >
@@ -94,7 +114,6 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               {...inputProps}
               className={classNames(
                 isRtl ? "picker-input-fa" : "picker-input-en",
-                isRtl && "rtl",
                 className,
               )}
               onChange={onChangeInputValue}

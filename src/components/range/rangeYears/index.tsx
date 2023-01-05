@@ -6,7 +6,7 @@ import { RangeYeartemplate } from "./rangeYearTemplate";
 export interface RangeYearsProps {}
 
 const RangeYears = ({}: RangeYearsProps) => {
-  const { onRangeYearchange, from } = useRangepicker();
+  const { onRangeYearchange } = useRangepicker();
   const [offsets, setoffset] = useState<[number, number]>([0, 0]);
   const { type, onChangeMode } = useRangeTemplate();
   const { years, lowerDecade, upperDecade } = useRangeYears({

@@ -4,8 +4,7 @@ const DEFAULT_EVENTS = ["mousedown", "touchstart"];
 
 export function useClickOutside<T extends HTMLElement = HTMLElement>(
   handler: () => void,
-  events?: string[] | null,
-  nodes?: HTMLElement[],
+  nodes?: (HTMLElement | null)[],
 ) {
   const ref = useRef<T>(null);
 
@@ -22,16 +21,14 @@ export function useClickOutside<T extends HTMLElement = HTMLElement>(
       }
     };
 
-    (events || DEFAULT_EVENTS).forEach((fn) =>
-      document.addEventListener(fn, listener),
-    );
+    DEFAULT_EVENTS.forEach((fn) => document.addEventListener(fn, listener));
 
     return () => {
-      (events || DEFAULT_EVENTS).forEach((fn) =>
+      DEFAULT_EVENTS.forEach((fn) =>
         document.removeEventListener(fn, listener),
       );
     };
-  }, [ref, handler, nodes, events]);
+  }, [ref, handler, nodes]);
 
   return ref;
 }

@@ -89,8 +89,8 @@ export const useRangeReducer = ({
     "",
     "",
   ]);
-  const [placeholderFrom, setPlaceholderFrom] = useState("");
-  const [placeholderTo, setPlaceholderTo] = useState("");
+  const [placeholderFrom, setPlaceholderFrom] = useState<string>("");
+  const [placeholderTo, setPlaceholderTo] = useState<string>("");
 
   const formattedDates = useCallback(
     (dates: [Moment, Moment | null]) => {
@@ -103,15 +103,15 @@ export const useRangeReducer = ({
     [formatProp, isJalaali],
   );
 
-  const { rangeDateString } = useMemo(() => {
-    const rangeDateString =
+  const { dateRange } = useMemo(() => {
+    const dateRange =
       rangeState.startDate.day !== 0 &&
       rangeState.endDate !== null &&
       rangeState.endDate?.day !== 0
         ? rangeTransformer(rangeState, isJalaali)
         : null;
 
-    return { rangeDateString };
+    return { dateRange };
   }, [isJalaali, rangeState]);
 
   useEffect(() => {
@@ -536,7 +536,7 @@ export const useRangeReducer = ({
     onRangeDecreaseYear,
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
-    rangeDateString,
+    dateRange,
     inputRangeProps: {
       values: rangeInputValue,
       onChangeInputRange,

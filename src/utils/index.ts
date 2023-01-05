@@ -9,5 +9,6 @@ export * from "./getDaysOfMonth";
 export * from "./getMonthLabel";
 export * from "./isEqual";
 export * from "./listOfYears";
+export * from "./momentMethods";
 export * from "./momentTransformer";
 export * from "./rangeTransformer";

@@ -9,7 +9,7 @@ interface SuffixProps {
 
 const Suffix = ({ clearable, suffixIcon, onClear }: SuffixProps) => {
   return (
-    <div>
+    <div className="icon-wrapper">
       {(clearable && (
         <Icon.Clear
           onClick={(e) => {

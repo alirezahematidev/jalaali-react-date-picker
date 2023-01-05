@@ -7,12 +7,12 @@ import { useRangePanelContext } from "./panelRangeMode";
 import { RangeTemplateContext } from "./templateContext";
 
 export interface RangePanelTemplateProps {
-  type: "from" | "to";
+  type?: "from" | "to";
 }
 
 type Panel = Record<Mode, JSX.Element>;
 
-const RangePanelTemplate = ({ type }: RangePanelTemplateProps) => {
+const RangePanelTemplate = ({ type = "from" }: RangePanelTemplateProps) => {
   const [mode, setMode] = useState<Mode>("day");
   const panelProps = useRangePanelContext();
 

@@ -24,7 +24,7 @@ interface RangeInputProps {
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
   cacheRangeDate?: RangeDate;
-  rangeDateString: RangeValue | null;
+  dateRange: RangeValue | null;
   onRangeDateChange: (payload: RangeDate) => void;
   onRangeDaychange: (payload: Date, isStartDate: boolean) => void;
   onRangeMonthchange: (month: number, mode: "from" | "to") => void;
@@ -45,7 +45,7 @@ export const RangePickerContext = createContext<ContextType>({
   },
   cacheRangeDate: undefined,
   locale: "fa",
-  rangeDateString: null,
+  dateRange: null,
   onRangeDateChange: () => null,
   onRangeDaychange: () => null,
   onRangeMonthchange: () => null,
@@ -82,7 +82,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     from,
     to,
     inputRangeProps,
-    rangeDateString,
+    dateRange,
     changePlaceholder,
   } = useRangeReducer({
     language,
@@ -136,7 +136,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
         from,
         to,
         rangeState,
-        rangeDateString,
+        dateRange,
         ...propsState,
       }}
     >

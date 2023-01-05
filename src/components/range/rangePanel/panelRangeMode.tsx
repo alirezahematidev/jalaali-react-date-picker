@@ -1,31 +1,38 @@
-import { createContext, useContext } from "react";
+import { createContext, memo, useContext } from "react";
 import { Mode, RangeProps } from "../../../core";
-import { RangePanelTemplate } from "./panelTemplate";
 
-interface RangePanelModeProps extends RangeProps {}
+interface RangePanelModeProps extends RangeProps {
+  children: JSX.Element | JSX.Element[] | null;
+  shouldResponsive?: boolean;
+}
 
 interface RangePanelModeContext extends RangePanelModeProps {
   onChangeMode?: (mode: Mode) => void;
-  toggle?: () => void;
+  onClose?: () => void;
 }
 
-const RangePanelModeContext = createContext<RangePanelModeContext>({
+const RangePanelModeContext = createContext<
+  Omit<RangePanelModeContext, "children">
+>({
   headerRender: () => null,
   panelRender: () => null,
   onChangeMode: () => null,
+  onModeChange: () => null,
   dayLabelRender: () => null,
-  toggle: () => null,
+  onClose: () => null,
+  shouldResponsive: false,
   highlightDays: undefined,
   highlightWeekend: true,
 });
 
-export const RangePanelMode = ({ ...props }: RangePanelModeProps) => {
-  return (
-    <RangePanelModeContext.Provider value={{ ...props }}>
-      <RangePanelTemplate type="from" />
-      <RangePanelTemplate type="to" />
-    </RangePanelModeContext.Provider>
-  );
-};
+export const RangePanelMode = memo(
+  ({ children, ...props }: RangePanelModeProps) => {
+    return (
+      <RangePanelModeContext.Provider value={{ ...props }}>
+        {children}
+      </RangePanelModeContext.Provider>
+    );
+  },
+);
 
 export const useRangePanelContext = () => useContext(RangePanelModeContext);

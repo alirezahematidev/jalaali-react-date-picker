@@ -9,11 +9,6 @@ interface PortalProps {
 
 function createContainer(container?: PortalProps["getContainer"]) {
   if (!container) {
-    if (!isDOM) {
-      throw new Error(
-        "document is undefined due to mounted in server side component, you must provide a absolute container.",
-      );
-    }
     return document.body;
   }
 
@@ -41,7 +36,7 @@ function createContainer(container?: PortalProps["getContainer"]) {
 const Portal = ({ children, getContainer }: PortalProps) => {
   if (!isDOM) return null;
 
-  return createPortal(children, createContainer(getContainer), "popup");
+  return createPortal(children, createContainer(getContainer));
 };
 
 export { Portal };

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { InputRangePickerProps, RangeProvider, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
@@ -31,27 +31,37 @@ export const InputRangePicker = (
     customColors,
     getContainer,
     seperator,
+    responsive = "auto",
     ...rest
   } = inputRangePickerProps;
+  const isRtl = (locale || "fa") === "fa";
 
   useSetColors(customColors);
 
+  const inputRef = useRef<HTMLDivElement>(null);
+
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
+
+  const [animate, setAnimate] = useState(false);
+
   const [clearIconVisible, setClearIconVisible] = useState(false);
 
-  const isRtl = (locale || "fa") === "fa";
-
-  const toggle = () => {
-    if (disabled) return;
-
-    setIsOpen((prev) => !prev);
-    onOpenChange?.(isOpen === undefined ? false : isOpen);
-    return true;
+  const toggleAnimate = (animate: boolean) => {
+    setAnimate(animate);
   };
 
-  const close = () => {
+  const onClose = () => {
     setIsOpen(false);
     onOpenChange?.(false);
+  };
+
+  const onOpen = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    event.stopPropagation();
+
+    setIsOpen(true);
+    toggleAnimate(true);
+    onOpenChange?.(isOpen === undefined ? false : isOpen);
   };
 
   return (
@@ -80,10 +90,20 @@ export const InputRangePicker = (
           mode="range"
           placement={placement}
           isOpen={isOpen}
-          close={close}
-          toggle={toggle}
+          close={onClose}
+          animate={animate}
+          toggleAnimate={toggleAnimate}
+          inputRef={inputRef}
           getContainer={getContainer}
-          panel={<RangePanel toggle={toggle} {...rangeProps} />}
+          responsive={responsive}
+          panel={(shouldResponsive) => (
+            <RangePanel
+              shouldResponsive={shouldResponsive}
+              responsive={responsive}
+              onClose={onClose}
+              {...rangeProps}
+            />
+          )}
         >
           <div
             className={classNames(
@@ -91,7 +111,9 @@ export const InputRangePicker = (
               isRtl && "rtl",
               wrapperClassName,
             )}
+            ref={inputRef}
             style={wrapperStyle}
+            onClick={onOpen}
             /** @todo StartDate insted values[0] */
             onMouseEnter={() => values[0] && setClearIconVisible(true)}
             onMouseLeave={() => setClearIconVisible(false)}
@@ -104,9 +126,6 @@ export const InputRangePicker = (
               seperator={seperator}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, true)}
-              className={classNames(
-                isRtl ? "picker-input-fa" : "picker-input-en",
-              )}
               placeholder={placeholderFrom}
             />
             <Input
@@ -114,9 +133,6 @@ export const InputRangePicker = (
               isRtl={isRtl}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
-              className={classNames(
-                isRtl ? "picker-input-fa" : "picker-input-en",
-              )}
               placeholder={placeholderTo}
             />
 

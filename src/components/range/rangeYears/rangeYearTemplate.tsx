@@ -61,7 +61,7 @@ export const RangeYeartemplate = ({
                 isDisabled && "disabled",
               )}
             >
-              <p>{item.id}</p>
+              <p className="year-item-name">{item.id}</p>
             </div>
           );
         })}

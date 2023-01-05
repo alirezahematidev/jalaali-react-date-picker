@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function isEqual(object1: any, object2: any) {
   if (
     object1 === undefined ||

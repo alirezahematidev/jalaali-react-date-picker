@@ -1,25 +1,25 @@
 import classNames from "classnames";
-import React, { memo, ReactNode, useMemo, useRef, useState } from "react";
-import { useConfig } from "../../core/hooks";
+import React, { Fragment, memo, ReactNode, useMemo, useRef } from "react";
+import { useConfig, useShouldResponsive } from "../../core/hooks";
 import { useClickOutside } from "../../core/hooks/useClickoutside";
 import { Portal } from "../portal";
 
 export type Placement = "bottom" | "top" | "right" | "left";
 
-const DATE_WIDTH = 300;
-const DATE_HEIGHT = 352;
-const RANGE_WIDTH = 600;
-const RANGE_HEIGHT = 312;
+export type Responsive = "desktop" | "mobile" | "auto";
 
 interface PopupProps {
   children: ReactNode;
   placement?: Placement;
   isOpen?: boolean;
-  panel: ReactNode;
+  panel: (shouldResponsive?: boolean) => ReactNode;
   mode: "date" | "range";
   getContainer?: HTMLElement | (() => HTMLElement) | string;
   close: () => void;
-  toggle: () => boolean | undefined;
+  toggleAnimate: (animate: boolean) => void;
+  animate: boolean;
+  inputRef: React.RefObject<HTMLDivElement>;
+  responsive?: Responsive;
 }
 
 export const Popup = memo(
@@ -27,38 +27,35 @@ export const Popup = memo(
     children,
     placement,
     close,
-    toggle,
+    animate,
+    toggleAnimate,
     isOpen,
     panel,
     mode,
     getContainer,
+    inputRef,
+    responsive,
   }: PopupProps) => {
-    const [animate, setAnimate] = useState(false);
+    const refPopup = useRef<HTMLDivElement>(null);
 
-    const refPopup = useClickOutside<HTMLDivElement>(close);
+    const shouldResponsive = useShouldResponsive(responsive);
 
-    const ref = useRef<HTMLDivElement>(null);
-
-    const open = () => {
-      const toggling = toggle();
-      if (!toggling) return;
-
-      setAnimate(true);
-    };
+    useClickOutside<HTMLDivElement>(close, [
+      refPopup.current,
+      inputRef.current,
+    ]);
 
     const config = useConfig({
-      element: ref,
+      element: inputRef,
       placement,
-      dimensions: [
-        mode === "date" ? DATE_HEIGHT : RANGE_HEIGHT,
-        mode === "date" ? DATE_WIDTH : RANGE_WIDTH,
-      ],
+      shouldResponsive,
+      mode,
     });
 
     const onAnimationEnd = (e: React.AnimationEvent) => {
       if (e.animationName === "close") {
         e.preventDefault();
-        setAnimate(false);
+        toggleAnimate(false);
       }
     };
 
@@ -67,7 +64,11 @@ export const Popup = memo(
         return classNames(
           "popup-panel-overlay",
           "popover-panel-open",
-          mode === "date" ? "popover-panel-date" : "popover-panel-range",
+          mode === "date"
+            ? "popover-panel-date"
+            : shouldResponsive
+            ? "mobile-popover-panel-range"
+            : "popover-panel-range",
           config().animationClassName,
         );
       }
@@ -76,13 +77,11 @@ export const Popup = memo(
         "popover-panel-close",
         config().animationClassName,
       );
-    }, [config, isOpen, mode]);
+    }, [config, isOpen, mode, shouldResponsive]);
 
     return (
-      <div ref={ref} className="popup-wrapper-overlay">
-        <div onClick={open} className="input-wrapper">
-          {children}
-        </div>
+      <Fragment>
+        {children}
 
         {animate && (
           <Portal getContainer={getContainer}>
@@ -91,16 +90,14 @@ export const Popup = memo(
               onAnimationEnd={onAnimationEnd}
               className={className}
               style={{
-                width: mode === "date" ? DATE_WIDTH : RANGE_WIDTH,
-                height: mode === "date" ? DATE_HEIGHT : RANGE_HEIGHT,
                 ...config().coordinates,
               }}
             >
-              {panel}
+              {panel(shouldResponsive)}
             </div>
           </Portal>
         )}
-      </div>
+      </Fragment>
     );
   },
 );
