@@ -131,7 +131,7 @@ export interface DatePickerProps {
   highlightDays?: Moment[] | ((date: Moment) => boolean);
 
   /**
-   * If `weekend` set to `true`, its turn weekend days to highlighted
+   * If `highlightWeekend` set to `true`, its turn weekend days to highlighted
    *
    * @default true
    */

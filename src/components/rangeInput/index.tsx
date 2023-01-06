@@ -29,7 +29,7 @@ export const InputRangePicker = (
     wrapperStyle,
     defaultValue,
     customColors,
-    getContainer,
+    getPopupContainer,
     seperator,
     responsive = "auto",
     error,
@@ -95,7 +95,7 @@ export const InputRangePicker = (
           animate={animate}
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
-          getContainer={getContainer}
+          getContainer={getPopupContainer}
           responsive={responsive}
           panel={(shouldResponsive) => (
             <RangePanel

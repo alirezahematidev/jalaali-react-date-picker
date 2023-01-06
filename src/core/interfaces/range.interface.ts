@@ -73,7 +73,7 @@ export interface RangePickerProps {
   highlightDays?: Moment[] | ((date: Moment) => boolean);
 
   /**
-   * If `weekend` set to `true`, its turn weekend days to highlighted
+   * If `highlightWeekend` set to `true`, its turn weekend days to highlighted
    *
    * @default true
    */
@@ -232,7 +232,7 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
    *
    * @default `document.body`
    */
-  getContainer?: HTMLElement | (() => HTMLElement) | string;
+  getPopupContainer?: HTMLElement | (() => HTMLElement) | string;
 
   /**
    * To set responsive, the range picker component is responsed and optimized to
