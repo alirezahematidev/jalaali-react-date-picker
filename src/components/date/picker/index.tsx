@@ -31,6 +31,7 @@ const DatePicker = (
     highlightWeekend,
     style,
     className,
+    loading,
     ...restProps
   } = dateProps;
   useSetColors(customColors);
@@ -49,6 +50,7 @@ const DatePicker = (
         navigationIcons={{ nextIcon, prevIcon, superNextIcon, superPrevIcon }}
         style={style}
         className={className}
+        loading={loading}
       />
     </DateProvider>
   );

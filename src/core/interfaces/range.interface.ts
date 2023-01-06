@@ -154,6 +154,12 @@ export interface RangePickerProps {
   /** The custom super previous icon */
   superPrevIcon?: React.ReactNode;
 
+  /** If `true`, renders loading component in calendar instead of calendar panel */
+  loading?: boolean;
+
+  /** Set custom loading indicator */
+  loadingIndicator?: React.ReactNode;
+
   style?: React.CSSProperties;
 
   className?: string;
@@ -170,6 +176,8 @@ interface RangePanelProps
     | "highlightWeekend"
     | "style"
     | "className"
+    | "loading"
+    | "loadingIndicator"
   > {}
 
 export interface RangeProps extends RangePanelProps {}
@@ -200,14 +208,22 @@ type InputRangePickerPickable = InputBuiltInProps & RangePickerPickable;
 export interface InputRangePickerProps extends InputRangePickerPickable {
   /** Popup calendar props */
   rangeProps?: RangeProps;
+
   /** To set `open` the popup calendar */
   open?: boolean;
+
   /** To set `disable` the popup calendar */
   disabled?: boolean;
+
+  /** If `true`, the input will indicate an error */
+  error?: boolean;
+
   /** Input custom prefix icon */
   prefixIcon?: React.ReactNode;
+
   /** Input custom suffix icon */
   suffixIcon?: React.ReactNode;
+
   /** The position where the popup calendar box pops up */
   placement?: "top" | "bottom" | "right" | "left";
 

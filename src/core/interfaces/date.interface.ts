@@ -152,6 +152,12 @@ export interface DatePickerProps {
   /** The custom super previous icon */
   superPrevIcon?: React.ReactNode;
 
+  /** If `true`, renders loading component in calendar instead of calendar panel */
+  loading?: boolean;
+
+  /** Set custom loading indicator */
+  loadingIndicator?: React.ReactNode;
+
   style?: React.CSSProperties;
 
   className?: string;
@@ -170,6 +176,8 @@ interface PanelProps
     | "defaultValue"
     | "style"
     | "className"
+    | "loading"
+    | "loadingIndicator"
   > {}
 
 export interface PickerProps extends PanelProps {}
@@ -204,6 +212,10 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
   open?: boolean;
   /** To set `disable` the popup calendar */
   disabled?: boolean;
+
+  /** If `true`, the input will indicate an error */
+  error?: boolean;
+
   /** Input custom prefix icon */
   prefixIcon?: React.ReactNode;
   /** Input custom suffix icon */
@@ -215,7 +227,7 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
    *
    * @default `document.body`
    */
-  getContainer?: HTMLElement | (() => HTMLElement) | string;
+  getPopupContainer?: HTMLElement | (() => HTMLElement) | string;
 
   /** Callback function, can be executed whether the popup calendar is popped up or closed */
   onOpenChange?: (open: boolean) => void;

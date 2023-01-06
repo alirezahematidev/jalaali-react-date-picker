@@ -1,8 +1,10 @@
 import { PickerProps, useDatepicker, useTranslation } from "../../core";
 
-interface FooterProps extends Pick<PickerProps, "footerRender"> {}
+interface FooterProps extends Pick<PickerProps, "footerRender"> {
+  toggle?: () => void;
+}
 
-export const Footer = ({ footerRender }: FooterProps) => {
+export const Footer = ({ footerRender, toggle }: FooterProps) => {
   const { t } = useTranslation();
   const { goToToday, state } = useDatepicker();
 
@@ -10,7 +12,12 @@ export const Footer = ({ footerRender }: FooterProps) => {
 
   const node = (
     <div className="panel-footer-rtl">
-      <div onClick={goToToday}>
+      <div
+        onClick={() => {
+          goToToday();
+          toggle?.();
+        }}
+      >
         <p className="today-text clickable">{t("today")}</p>
       </div>
     </div>

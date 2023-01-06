@@ -35,7 +35,6 @@ const Day = ({
   startDay,
   isJalaali,
 }: DayProps) => {
-  console.log({ isJalaali });
   return (
     <div
       className={classnames(

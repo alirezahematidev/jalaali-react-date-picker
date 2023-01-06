@@ -2,6 +2,7 @@ import classNames from "classnames";
 import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Fragment, memo, Ref } from "react";
 import { RangeProps as Props, useRangepicker } from "../../../core";
+import { Loading } from "../../loading";
 import { RangePanelMode } from "./panelRangeMode";
 import { RangePanelTemplate } from "./panelTemplate";
 
@@ -31,6 +32,8 @@ const RangePanel = (
     onClose,
     responsive,
     shouldResponsive,
+    loading,
+    loadingIndicator,
   }: RangePanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -75,27 +78,29 @@ const RangePanel = (
       )}
       style={style}
     >
-      <RangePanelMode
-        {...{
-          headerRender,
-          panelRender,
-          dayLabelRender,
-          highlightDays,
-          onModeChange,
-          highlightWeekend,
-          onClose,
-          shouldResponsive,
-        }}
-      >
-        {responsive ? (
-          renderTemplate[responsive]
-        ) : (
-          <Fragment>
-            <RangePanelTemplate type="from" />
-            <RangePanelTemplate type="to" />
-          </Fragment>
-        )}
-      </RangePanelMode>
+      <Loading loading={loading} indicator={loadingIndicator}>
+        <RangePanelMode
+          {...{
+            headerRender,
+            panelRender,
+            dayLabelRender,
+            highlightDays,
+            onModeChange,
+            highlightWeekend,
+            onClose,
+            shouldResponsive,
+          }}
+        >
+          {responsive ? (
+            renderTemplate[responsive]
+          ) : (
+            <Fragment>
+              <RangePanelTemplate type="from" />
+              <RangePanelTemplate type="to" />
+            </Fragment>
+          )}
+        </RangePanelMode>
+      </Loading>
     </div>
   );
 };

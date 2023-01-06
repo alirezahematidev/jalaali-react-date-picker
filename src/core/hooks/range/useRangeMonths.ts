@@ -4,13 +4,7 @@ import { localizedMonth } from "../../constants";
 import { useRangePickerContext } from "../../context";
 
 export const useRangeMonths = (type: "from" | "to") => {
-  const {
-    rangeState,
-    locale = "fa",
-    disabledDates,
-    from,
-    to,
-  } = useRangePickerContext();
+  const { locale = "fa", disabledDates, from, to } = useRangePickerContext();
 
   const months = localizedMonth[locale || "fa"];
 

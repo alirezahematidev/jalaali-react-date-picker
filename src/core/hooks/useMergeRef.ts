@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo } from "react";
 
 export type ReactRef<T> = React.RefCallback<T> | React.MutableRefObject<T>;

@@ -27,7 +27,8 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     wrapperStyle,
     defaultValue,
     customColors,
-    getContainer,
+    getPopupContainer,
+    error,
     ...rest
   } = inputDatePickerProps;
 
@@ -88,7 +89,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           placement={placement}
           isOpen={isOpen}
           close={close}
-          getContainer={getContainer}
+          getContainer={getPopupContainer}
           animate={animate}
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
@@ -100,6 +101,8 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
             aria-label="datepicker"
             className={classNames(
               "picker-input-wrapper",
+              error && "picker-input-error",
+              disabled && "picker-input-disabled",
               isRtl && "rtl",
               wrapperClassName,
             )}
@@ -114,8 +117,10 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               {...inputProps}
               className={classNames(
                 isRtl ? "picker-input-fa" : "picker-input-en",
+                disabled && "picker-input-disabled",
                 className,
               )}
+              disabled={disabled}
               onChange={onChangeInputValue}
             />
             <Suffix

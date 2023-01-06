@@ -32,6 +32,7 @@ export const InputRangePicker = (
     getContainer,
     seperator,
     responsive = "auto",
+    error,
     ...rest
   } = inputRangePickerProps;
   const isRtl = (locale || "fa") === "fa";
@@ -108,6 +109,8 @@ export const InputRangePicker = (
           <div
             className={classNames(
               "range-input-wrapper",
+              error && "picker-input-error",
+              disabled && "picker-input-disabled",
               isRtl && "rtl",
               wrapperClassName,
             )}
@@ -123,6 +126,7 @@ export const InputRangePicker = (
               value={values?.[0]}
               firstInput
               isRtl={isRtl}
+              disabled={disabled}
               seperator={seperator}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, true)}
@@ -131,6 +135,7 @@ export const InputRangePicker = (
             <Input
               value={values?.[1]}
               isRtl={isRtl}
+              disabled={disabled}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
               placeholder={placeholderTo}

@@ -37,7 +37,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseYear(selectedDate)
             }
           >
-            {navigationIcons?.superPrevIcon || <Icon.DoubleChevronRight />}
+            {navigationIcons?.superPrevIcon || (
+              <Icon.DoubleChevronRight hoverEffect />
+            )}
           </div>
           <div
             className="iconItem"
@@ -47,7 +49,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onIncreaseMonth(selectedDate)
             }
           >
-            {navigationIcons?.prevIcon || <Icon.ChevronRight />}
+            {navigationIcons?.prevIcon || <Icon.ChevronRight hoverEffect />}
           </div>
         </div>
         <div className="panel-date-holder-item-ltr">
@@ -75,7 +77,7 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseMonth(selectedDate)
             }
           >
-            {navigationIcons?.nextIcon || <Icon.ChevronLeft />}
+            {navigationIcons?.nextIcon || <Icon.ChevronLeft hoverEffect />}
           </div>
           <div
             className="iconItem"
@@ -85,7 +87,9 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 : onDecreaseYear(selectedDate)
             }
           >
-            {navigationIcons?.superNextIcon || <Icon.DoubleChevronLeft />}
+            {navigationIcons?.superNextIcon || (
+              <Icon.DoubleChevronLeft hoverEffect />
+            )}
           </div>
         </div>
       </div>

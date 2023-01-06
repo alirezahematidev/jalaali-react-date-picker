@@ -14,6 +14,7 @@ interface InputProps extends InputBuiltInProps {
   value?: string;
   firstInput?: boolean;
   seperator?: React.ReactNode;
+  disabled?: boolean;
   onLayout?: (width: number) => void;
 }
 
@@ -24,6 +25,7 @@ export const Input = ({
   firstInput,
   seperator,
   onLayout,
+  disabled,
   ...rest
 }: InputProps) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -58,8 +60,10 @@ export const Input = ({
         {...rest}
         ref={ref}
         value={value}
+        disabled={disabled}
         className={classNames(
           isRtl ? "range-input-fa" : "range-input-en",
+          disabled && "picker-input-disabled",
           className,
         )}
       />

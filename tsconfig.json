@@ -24,6 +24,14 @@
     "outDir": "lib",
     "rootDir": "src"
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "outDir": "lib",
+      "rootDir": "src"
+    }
+  },
   "include": ["src", "src/custom.d.ts"],
   "exclude": ["node_modules", "lib", "./node_modules", "./node_modules/*"]
 }

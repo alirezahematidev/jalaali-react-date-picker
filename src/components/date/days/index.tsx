@@ -80,8 +80,12 @@ const Days = () => {
           <div
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
-            onMouseEnter={() => changePlaceholder(date)}
-            onMouseLeave={() => changePlaceholder(null)}
+            onMouseEnter={() => {
+              changePlaceholder(date);
+            }}
+            onMouseLeave={() => {
+              changePlaceholder(null);
+            }}
           >
             <div
               className={classNames(
@@ -130,6 +134,7 @@ const Days = () => {
         dayLabels={dayLabels}
         isJalaali={isJalaali}
       />
+
       <div className="days-body">
         {panelRender ? panelRender({ days, dayLabels, selected }, node) : node}
       </div>

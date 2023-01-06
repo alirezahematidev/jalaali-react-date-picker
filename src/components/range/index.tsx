@@ -26,6 +26,7 @@ const RangePicker = (
     highlightWeekend,
     style,
     className,
+    loading,
     ...restProps
   } = rangeProps;
   useSetColors(customColors);
@@ -42,6 +43,7 @@ const RangePicker = (
         highlightWeekend={highlightWeekend}
         style={style}
         className={className}
+        loading={loading}
       />
     </RangeProvider>
   );

@@ -7,6 +7,7 @@ import {
   useDatepicker,
 } from "../../../core";
 import { Footer } from "../../footer";
+import { Loading } from "../../loading";
 import { PanelMode } from "./panelMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
@@ -32,6 +33,8 @@ const Panel = (
     highlightWeekend,
     style,
     className,
+    loading,
+    loadingIndicator,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -47,19 +50,21 @@ const Panel = (
       )}
       style={style}
     >
-      <PanelMode
-        {...{
-          headerRender,
-          panelRender,
-          dayLabelRender,
-          highlightDays,
-          onModeChange,
-          toggle,
-          navigationIcons,
-          highlightWeekend,
-        }}
-      />
-      <Footer footerRender={footerRender} />
+      <Loading loading={loading} indicator={loadingIndicator}>
+        <PanelMode
+          {...{
+            headerRender,
+            panelRender,
+            dayLabelRender,
+            highlightDays,
+            onModeChange,
+            toggle,
+            navigationIcons,
+            highlightWeekend,
+          }}
+        />
+        <Footer toggle={toggle} footerRender={footerRender} />
+      </Loading>
     </div>
   );
 };

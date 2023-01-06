@@ -31,13 +31,13 @@ FromNavigatorProps) => {
           className="panel-date-holder-item" //panel-date-holder-item clickable
           // onClick={onSelectYearPicker}
         >
-          <p className="panel-header-item-text">{yearLabel}</p>
+          <p className="range-panel-header-item-text">{yearLabel}</p>
         </div>
         <div
           className="panel-date-holder-item" //panel-date-holder-item clickable
           // onClick={onSelectMonthPicker}
         >
-          <p className="panel-header-item-text">{monthLabel}</p>
+          <p className="range-panel-header-item-text">{monthLabel}</p>
         </div>
       </div>
     );
