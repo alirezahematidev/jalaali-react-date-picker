@@ -20,7 +20,7 @@ const config: webpack.Configuration = {
     minimizer: [new CssMinimizerPlugin({ test: /.css$/i })],
     removeEmptyChunks: true,
   },
-  entry: path.resolve(__dirname, "lib/index.js"),
+  entry: path.resolve(__dirname, "lib/main.js"),
   output: {
     path: path.resolve(__dirname, "lib"),
     filename: "main.js",
