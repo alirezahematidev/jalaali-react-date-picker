@@ -59,7 +59,6 @@ export const InputRangePicker = (
     setAnimate(animate);
   };
 
-  console.log("animate", animate);
   const onClose = () => {
     setIsOpen(open === undefined ? false : open);
     // toggleAnimate(open === undefined ? false : open);
