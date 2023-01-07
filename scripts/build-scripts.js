@@ -9,6 +9,7 @@ const build_template = `import { DatePicker } from "./components/date";
 import { InputDatePicker } from "./components/dateInput";
 import { RangePicker } from "./components/range";
 import { InputRangePicker } from "./components/rangeInput";
+
 import {
   DatePickerProps,
   InputDatePickerProps,
@@ -18,18 +19,16 @@ import {
 
 export { DatePicker, RangePicker, InputDatePicker, InputRangePicker };
 export type {
-  DatePickerProps,
-  RangePickerProps,
   InputDatePickerProps,
   InputRangePickerProps,
-};
-`;
+  RangePickerProps,
+  DatePickerProps,
+};`;
 
 function createBuildTemplate() {
   if (fs.existsSync(APP_DIR)) {
     fs.rmSync(APP_DIR);
   }
-
   prettier.resolveConfig(INDEX_DIR).then((options) => {
     const formatted = prettier.format(build_template, {
       parser: "babel-ts",

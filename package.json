@@ -53,9 +53,7 @@
     "release": "yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
-    "compile": "tsc -b",
-    "copy-styles": "Xcopy .\\src\\styles .\\lib\\styles /E/I",
-    "copy-custom": "Xcopy .\\src\\custom.d.ts .\\lib /E/I"
+    "compile": "tsc -b"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
@@ -73,6 +71,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "commitlint": "^17.0.3",
     "concurrently": "^6.3.0",
+    "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.2",
     "enzyme": "^3.11.0",

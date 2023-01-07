@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "CommonJS",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "esModuleInterop": true,
@@ -26,29 +26,12 @@
   },
   "ts-node": {
     "compilerOptions": {
-      "target": "esnext",
-      "module": "commonjs",
-      "lib": ["dom", "dom.iterable", "esnext"],
-      "allowJs": true,
       "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "react-jsx",
-      "noImplicitAny": true,
-      "noUnusedLocals": false,
-      "skipLibCheck": true,
-      "sourceMap": true,
-      "declaration": true,
-      "declarationMap": true,
-      "downlevelIteration": true,
-      "checkJs": false,
       "outDir": "lib",
-      "rootDir": "src"
+      "declaration": true,
+      "allowSyntheticDefaultImports": true,
+      "declarationMap": true,
+      "jsx": "react-jsx"
     }
   },
   "include": ["src", "src/custom.d.ts"],
