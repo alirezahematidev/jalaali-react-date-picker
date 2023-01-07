@@ -1,5 +1,8 @@
 // Auto generate
 export const iconsContent = {
+  highlight_off: "e909",
+  error_FILL0_wght400_GRAD0_opsz48: "e90a",
+  arrow_drop_down: "e90b",
   arrow_forward: "e900",
   calendar: "e901",
   calendar_today: "e902",

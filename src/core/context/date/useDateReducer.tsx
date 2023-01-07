@@ -224,6 +224,7 @@ export const useDateReducer = ({
       placeholder,
       onChangeInputValue,
       onClear,
+      isJalaali,
     },
   };
 };

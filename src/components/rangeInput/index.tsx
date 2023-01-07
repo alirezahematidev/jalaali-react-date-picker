@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputRangePickerProps, RangeProvider, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
@@ -33,6 +33,7 @@ export const InputRangePicker = (
     seperator,
     responsive = "auto",
     error,
+
     ...rest
   } = inputRangePickerProps;
   const isRtl = (locale || "fa") === "fa";
@@ -43,6 +44,13 @@ export const InputRangePicker = (
 
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
 
+  useEffect(() => {
+    if (open !== undefined) {
+      open ? onOpen() : onClose();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   const [animate, setAnimate] = useState(false);
 
   const [clearIconVisible, setClearIconVisible] = useState(false);
@@ -52,17 +60,16 @@ export const InputRangePicker = (
   };
 
   const onClose = () => {
-    setIsOpen(false);
+    setIsOpen(open === undefined ? false : open);
+    // toggleAnimate(open === undefined ? false : open);
     onOpenChange?.(false);
   };
 
-  const onOpen = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onOpen = () => {
     if (disabled) return;
-    event.stopPropagation();
-
-    setIsOpen(true);
-    toggleAnimate(true);
-    onOpenChange?.(isOpen === undefined ? false : isOpen);
+    setIsOpen(open === undefined ? true : open);
+    toggleAnimate(open === undefined ? true : open);
+    onOpenChange?.(true);
   };
 
   return (
@@ -85,6 +92,7 @@ export const InputRangePicker = (
         placeholderFrom,
         placeholderTo,
         onClear,
+        isJalaali,
       }) => (
         <Popup
           key="range-popup"
@@ -97,6 +105,7 @@ export const InputRangePicker = (
           inputRef={inputRef}
           getContainer={getPopupContainer}
           responsive={responsive}
+          isJalaali={isJalaali}
           panel={(shouldResponsive) => (
             <RangePanel
               shouldResponsive={shouldResponsive}
@@ -145,6 +154,7 @@ export const InputRangePicker = (
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
               onClear={onClear}
+              error={error}
             />
           </div>
         </Popup>

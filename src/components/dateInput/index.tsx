@@ -82,7 +82,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
         defaultValue,
       }}
     >
-      {({ onChangeInputValue, onClear, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, isJalaali, ...inputProps }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -94,6 +94,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
           panel={() => <Panel toggle={toggle} {...pickerProps} />}
+          isJalaali={isJalaali}
         >
           <div
             dir={isRtl ? "rtl" : "ltr"}
@@ -127,6 +128,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
               onClear={onClear}
+              error={error}
             />
           </div>
         </Popup>

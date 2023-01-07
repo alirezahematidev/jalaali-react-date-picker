@@ -85,7 +85,7 @@ const Chevron = ({ size = 20, onClick, isJalaali, hoverEffect }: IconProps) => {
 const Clear = ({ size = 20, onClick }: IconProps) => {
   return (
     <div
-      className="icon icon-clear"
+      className="icon icon-highlight_off"
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
     />
@@ -150,6 +150,32 @@ const Back = ({ size = 20, onClick }: IconProps) => {
     />
   );
 };
+const Dropdown = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+  return (
+    <div
+      className={classNames(
+        "panel-icon",
+        "icon-arrow_drop_down",
+        hoverEffect && "panel-icon-hovered",
+      )}
+      style={{ width: size, height: size, fontSize: size }}
+      onClick={onClick}
+    />
+  );
+};
+const Error = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+  return (
+    <div
+      className={classNames(
+        "icon",
+        "icon-error",
+        hoverEffect && "panel-icon-hovered",
+      )}
+      style={{ width: size, height: "100%", fontSize: size }}
+      onClick={onClick}
+    />
+  );
+};
 
 Icon.Forward = Forward;
 Icon.Calendar = Calendar;
@@ -162,5 +188,7 @@ Icon.ChevronLeft = ChevronLeft;
 Icon.CalendarToday = CalendarToday;
 Icon.Chevron = Chevron;
 Icon.DoubleChevron = DoubleChevron;
+Icon.Dropdown = Dropdown;
+Icon.Error = Error;
 
 export { Icon };

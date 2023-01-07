@@ -21,24 +21,24 @@ export const FromNavigator = ({
   shouldResponsive,
   monthLabel,
   yearLabel,
-}: // onSelectMonthPicker,
-// onSelectYearPicker,
-FromNavigatorProps) => {
+  onSelectYearPicker,
+}: FromNavigatorProps) => {
   if (shouldResponsive) {
     return (
-      <div className={classNames("panel-date-holder-item-ltr")}>
-        <div
-          className="panel-date-holder-item" //panel-date-holder-item clickable
-          // onClick={onSelectYearPicker}
-        >
-          <p className="range-panel-header-item-text">{yearLabel}</p>
-        </div>
+      <div className={classNames("panel-date-holder-item")}>
         <div
           className="panel-date-holder-item" //panel-date-holder-item clickable
           // onClick={onSelectMonthPicker}
         >
           <p className="range-panel-header-item-text">{monthLabel}</p>
         </div>
+        <div
+          className="panel-date-holder-item clickable" //
+          onClick={onSelectYearPicker}
+        >
+          <p className="range-panel-header-item-text">{yearLabel}</p>
+        </div>
+        <Icon.Dropdown hoverEffect />
       </div>
     );
   }
