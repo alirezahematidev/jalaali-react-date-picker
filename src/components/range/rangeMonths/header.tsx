@@ -25,11 +25,17 @@ const MonthsHeader = ({}: HeaderProps) => {
             )}
           >
             <div className="panel-header-year-picker">
-              <p className="clickable" onClick={() => onChangeMode?.("year")}>
+              <span
+                className="clickable"
+                onClick={() => onChangeMode?.("year")}
+                onTouchStart={() => onChangeMode?.("year")}
+              >
                 {year}
-              </p>
+              </span>
               <span>{"-"}</span>
-              <p className="clickable">{getMonthLabels(month, isJalaali)}</p>
+              <span className="clickable">
+                {getMonthLabels(month, isJalaali)}
+              </span>
             </div>
           </div>
         </div>

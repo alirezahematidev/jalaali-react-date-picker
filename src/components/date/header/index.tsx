@@ -31,6 +31,11 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
         <div className="center">
           <div
             className="iconItem"
+            onTouchStart={() =>
+              isJalaali
+                ? onDecreaseYear(selectedDate)
+                : onIncreaseYear(selectedDate)
+            }
             onClick={() =>
               isJalaali
                 ? onDecreaseYear(selectedDate)
@@ -48,6 +53,11 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 ? onDecreaseMonth(selectedDate)
                 : onIncreaseMonth(selectedDate)
             }
+            onTouchStart={() =>
+              isJalaali
+                ? onDecreaseMonth(selectedDate)
+                : onIncreaseMonth(selectedDate)
+            }
           >
             {navigationIcons?.prevIcon || <Icon.ChevronRight hoverEffect />}
           </div>
@@ -56,16 +66,18 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <div
             className="panel-date-holder-item clickable"
             onClick={onSelectMonthPicker}
+            onTouchStart={onSelectMonthPicker}
           >
-            <p className="panel-header-item-text">
+            <span className="panel-header-item-text">
               {getMonthLabels(selectedDate.month, isJalaali)}
-            </p>
+            </span>
           </div>
           <div
             className="panel-date-holder-item clickable"
             onClick={onSelectYearPicker}
+            onTouchStart={onSelectYearPicker}
           >
-            <p className="panel-header-item-text">{selectedDate.year}</p>
+            <span className="panel-header-item-text">{selectedDate.year}</span>
           </div>
         </div>
         <div className="center">
@@ -76,12 +88,22 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
                 ? onIncreaseMonth(selectedDate)
                 : onDecreaseMonth(selectedDate)
             }
+            onTouchStart={() =>
+              isJalaali
+                ? onIncreaseMonth(selectedDate)
+                : onDecreaseMonth(selectedDate)
+            }
           >
             {navigationIcons?.nextIcon || <Icon.ChevronLeft hoverEffect />}
           </div>
           <div
             className="iconItem"
             onClick={() =>
+              isJalaali
+                ? onIncreaseYear(selectedDate)
+                : onDecreaseYear(selectedDate)
+            }
+            onTouchStart={() =>
               isJalaali
                 ? onIncreaseYear(selectedDate)
                 : onDecreaseYear(selectedDate)

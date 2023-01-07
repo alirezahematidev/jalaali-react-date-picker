@@ -32,6 +32,9 @@ const YearsHeader = ({
             onClick={() =>
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
+            onTouchStart={() =>
+              isJalaali ? onDecreaseDecade() : onIncreaseDecade()
+            }
           >
             <Icon.DoubleChevronRight />
           </div>
@@ -47,35 +50,39 @@ const YearsHeader = ({
           >
             {isJalaali ? (
               <div className="panel-header-year-picker">
-                <p
+                <span
                   className="clickable"
                   onClick={() => onYearPress?.(lowerDecade)}
+                  onTouchStart={() => onYearPress?.(lowerDecade)}
                 >
                   {lowerDecade}
-                </p>
+                </span>
                 <span>{"-"}</span>
-                <p
+                <span
                   className="clickable"
                   onClick={() => onYearPress?.(upperDecade)}
+                  onTouchStart={() => onYearPress?.(upperDecade)}
                 >
                   {upperDecade}
-                </p>
+                </span>
               </div>
             ) : (
               <div className="panel-header-year-picker">
-                <p
+                <span
                   className="clickable"
                   onClick={() => onYearPress?.(upperDecade)}
+                  onTouchStart={() => onYearPress?.(upperDecade)}
                 >
                   {upperDecade}
-                </p>
+                </span>
                 <span>{"-"}</span>
-                <p
+                <span
                   className="clickable"
                   onClick={() => onYearPress?.(lowerDecade)}
+                  onTouchStart={() => onYearPress?.(lowerDecade)}
                 >
                   {lowerDecade}
-                </p>
+                </span>
               </div>
             )}
           </div>
@@ -83,6 +90,9 @@ const YearsHeader = ({
         <div className="center">
           <div
             onClick={() =>
+              isJalaali ? onIncreaseDecade() : onDecreaseDecade()
+            }
+            onTouchStart={() =>
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >

@@ -24,6 +24,12 @@ const Months = () => {
                   onChangeMode?.("day");
                 }
               }}
+              onTouchStart={() => {
+                if (!isDisabled) {
+                  onMonthchange({ ...state, month: item.id });
+                  onChangeMode?.("day");
+                }
+              }}
               key={item.id}
               className={classNames(
                 "month-item",
@@ -32,7 +38,7 @@ const Months = () => {
                 isDisabled && "disabled",
               )}
             >
-              <p className="month-item-name">{item.name}</p>
+              <span className="month-item-name">{item.name}</span>
             </div>
           );
         })}

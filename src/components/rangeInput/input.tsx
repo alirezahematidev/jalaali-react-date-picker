@@ -13,7 +13,7 @@ interface InputProps extends InputBuiltInProps {
   isRtl: boolean;
   value?: string;
   firstInput?: boolean;
-  seperator?: React.ReactNode;
+  separator?: React.ReactNode;
   disabled?: boolean;
   onLayout?: (width: number) => void;
 }
@@ -23,7 +23,7 @@ export const Input = ({
   isRtl,
   className,
   firstInput,
-  seperator,
+  separator,
   onLayout,
   disabled,
   ...rest
@@ -75,7 +75,7 @@ export const Input = ({
           }}
           className="separator-icon"
         >
-          {seperator ? seperator : isRtl ? <Icon.Back /> : <Icon.Forward />}
+          {separator ? separator : isRtl ? <Icon.Back /> : <Icon.Forward />}
         </div>
       )}
     </>

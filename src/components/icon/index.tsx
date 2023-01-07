@@ -3,7 +3,7 @@ import { MouseEvent } from "react";
 
 interface IconProps {
   size?: number;
-  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  onClick?: (e?: MouseEvent<HTMLDivElement>) => void;
   isJalaali?: boolean;
   hoverEffect?: boolean;
 }
@@ -15,6 +15,7 @@ const Forward = ({ size = 20, onClick }: IconProps) => {
     <div
       className={classNames("icon", "icon-forward")}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
       style={{ width: size, height: "100%", fontSize: size }}
     />
   );
@@ -25,6 +26,7 @@ const Calendar = ({ size = 20, onClick }: IconProps) => {
     <div
       className="icon icon-calendar"
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
       style={{ width: size, height: "100%", fontSize: size }}
     />
   );
@@ -36,6 +38,7 @@ const CalendarToday = ({ size = 20, onClick }: IconProps) => {
       className="icon icon-calendar-today"
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -50,6 +53,7 @@ const ChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -64,6 +68,7 @@ const ChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -78,6 +83,7 @@ const Chevron = ({ size = 20, onClick, isJalaali, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -88,6 +94,7 @@ const Clear = ({ size = 20, onClick }: IconProps) => {
       className="icon icon-highlight_off"
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -102,6 +109,7 @@ const DoubleChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -116,6 +124,7 @@ const DoubleChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -137,6 +146,7 @@ const DoubleChevron = ({
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -147,6 +157,7 @@ const Back = ({ size = 20, onClick }: IconProps) => {
       className="icon icon-arrow_back"
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -160,6 +171,7 @@ const Dropdown = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };
@@ -173,6 +185,7 @@ const Error = ({ size = 20, onClick, hoverEffect }: IconProps) => {
       )}
       style={{ width: size, height: "100%", fontSize: size }}
       onClick={onClick}
+      onTouchStart={() => onClick?.()}
     />
   );
 };

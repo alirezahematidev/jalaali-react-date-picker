@@ -9,6 +9,7 @@ export type ColorSchema = {
   backgroundDisabled?: string;
   backgroundHovered?: string;
   border?: string;
+  borderFade?: string;
   textNegative?: string;
   dayLabelBackground?: string;
   highlight?: string;

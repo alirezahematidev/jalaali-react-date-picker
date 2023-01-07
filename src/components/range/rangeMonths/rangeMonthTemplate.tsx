@@ -33,6 +33,12 @@ export const RangeMonthtemplate = ({
                   onChangeMode?.("day");
                 }
               }}
+              onTouchStart={() => {
+                if (!isDisabled) {
+                  onSelect(item.id);
+                  onChangeMode?.("day");
+                }
+              }}
               className={classNames(
                 "month-item",
                 !isSelected && !isDisabled && "month-item-hovered",
@@ -40,7 +46,7 @@ export const RangeMonthtemplate = ({
                 isDisabled && "disabled",
               )}
             >
-              <p className="month-item-name">{item.name}</p>
+              <span className="month-item-name">{item.name}</span>
             </div>
           );
         })}

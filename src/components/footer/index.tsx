@@ -17,8 +17,12 @@ export const Footer = ({ footerRender, toggle }: FooterProps) => {
           goToToday();
           toggle?.();
         }}
+        onTouchStart={() => {
+          goToToday();
+          toggle?.();
+        }}
       >
-        <p className="today-text clickable">{t("today")}</p>
+        <span className="today-text clickable">{t("today")}</span>
       </div>
     </div>
   );

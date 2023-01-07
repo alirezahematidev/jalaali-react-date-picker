@@ -200,7 +200,7 @@ interface RangePickerPickable
 
 type InputBuiltInProps = Omit<
   React.HtmlHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange" | "defaultValue"
+  "value" | "onChange" | "defaultValue" | "placeholder"
 >;
 
 type InputRangePickerPickable = InputBuiltInProps & RangePickerPickable;
@@ -217,6 +217,9 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
 
   /** If `true`, the input will indicate an error */
   error?: boolean;
+
+  /** The placeholder of date inputs */
+  placeholder?: [string, string];
 
   /** Input custom prefix icon */
   prefixIcon?: React.ReactNode;
@@ -245,9 +248,13 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
   /** Callback function, can be executed whether the popup calendar is popped up or closed */
   onOpenChange?: (open: boolean) => void;
 
+  /** Callback function, can be executed when the clear icon is clicked */
+  onClear?: () => void;
+
   /** Set separator between inputs */
-  seperator?: React.ReactNode;
+  separator?: React.ReactNode;
 
   wrapperClassName?: string;
+
   wrapperStyle?: CSSProperties;
 }

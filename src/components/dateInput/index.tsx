@@ -4,6 +4,7 @@ import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import { Suffix } from "../suffix";
+import { CustomWrapper } from "./customWrapper";
 
 export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
   const {
@@ -29,6 +30,9 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     customColors,
     getPopupContainer,
     error,
+    renderInput,
+    placeholder: inputPlaceholder,
+    onClear: inputOnClear,
     ...rest
   } = inputDatePickerProps;
 
@@ -82,7 +86,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
         defaultValue,
       }}
     >
-      {({ onChangeInputValue, onClear, isJalaali, ...inputProps }) => (
+      {({ onChangeInputValue, onClear, isJalaali, value, placeholder }) => (
         <Popup
           key="date-popup"
           mode="date"
@@ -93,44 +97,60 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           animate={animate}
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
-          panel={() => <Panel toggle={toggle} {...pickerProps} />}
+          panel={() => <Panel {...pickerProps} />}
           isJalaali={isJalaali}
         >
-          <div
-            dir={isRtl ? "rtl" : "ltr"}
-            ref={inputRef}
-            aria-label="datepicker"
-            className={classNames(
-              "picker-input-wrapper",
-              error && "picker-input-error",
-              disabled && "picker-input-disabled",
-              isRtl && "rtl",
-              wrapperClassName,
-            )}
-            style={wrapperStyle}
-            onClick={onOpen}
-            onMouseEnter={() => inputProps.value && setClearIconVisible(true)}
-            onMouseLeave={() => setClearIconVisible(false)}
-          >
-            {prefixIcon && prefixIcon}
-            <input
-              {...rest}
-              {...inputProps}
+          {renderInput ? (
+            <CustomWrapper inputRef={inputRef} onOpen={onOpen}>
+              {renderInput({
+                isJalaali,
+                onChange: onChangeInputValue,
+                onClear,
+                value,
+                placeholder,
+              })}
+            </CustomWrapper>
+          ) : (
+            <div
+              dir={isRtl ? "rtl" : "ltr"}
+              ref={inputRef}
+              aria-label="datepicker"
               className={classNames(
-                isRtl ? "picker-input-fa" : "picker-input-en",
+                "picker-input-wrapper",
+                error && "picker-input-error",
                 disabled && "picker-input-disabled",
-                className,
+                isRtl && "rtl",
+                wrapperClassName,
               )}
-              disabled={disabled}
-              onChange={onChangeInputValue}
-            />
-            <Suffix
-              suffixIcon={suffixIcon}
-              clearable={clearIconVisible}
-              onClear={onClear}
-              error={error}
-            />
-          </div>
+              style={wrapperStyle}
+              onClick={onOpen}
+              onTouchStart={onOpen}
+              onMouseEnter={() => value && setClearIconVisible(true)}
+              onMouseLeave={() => setClearIconVisible(false)}
+            >
+              {prefixIcon && prefixIcon}
+
+              <input
+                {...rest}
+                value={value}
+                placeholder={placeholder || inputPlaceholder}
+                className={classNames(
+                  isRtl ? "picker-input-fa" : "picker-input-en",
+                  disabled && "picker-input-disabled",
+                  className,
+                )}
+                disabled={disabled}
+                onChange={onChangeInputValue}
+              />
+              <Suffix
+                suffixIcon={suffixIcon}
+                clearable={clearIconVisible}
+                inputOnClear={inputOnClear}
+                onClear={onClear}
+                error={error}
+              />
+            </div>
+          )}
         </Popup>
       )}
     </DateProvider>

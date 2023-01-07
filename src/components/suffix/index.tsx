@@ -5,10 +5,17 @@ interface SuffixProps {
   suffixIcon?: ReactNode;
   clearable?: boolean;
   onClear?: () => void;
+  inputOnClear?: () => void;
   error?: boolean;
 }
 
-const Suffix = ({ clearable, suffixIcon, onClear, error }: SuffixProps) => {
+const Suffix = ({
+  clearable,
+  suffixIcon,
+  onClear,
+  inputOnClear,
+  error,
+}: SuffixProps) => {
   if (suffixIcon || suffixIcon === null) {
     return <>{suffixIcon}</>;
   }
@@ -24,8 +31,9 @@ const Suffix = ({ clearable, suffixIcon, onClear, error }: SuffixProps) => {
       <div className="icon-wrapper">
         <Icon.Clear
           onClick={(e) => {
-            e.stopPropagation();
+            e?.stopPropagation();
             onClear?.();
+            inputOnClear?.();
           }}
         />
       </div>

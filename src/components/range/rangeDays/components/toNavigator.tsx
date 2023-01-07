@@ -21,10 +21,10 @@ export const ToNavigator = ({
 
   return (
     <div className="center">
-      <div onClick={onIncreaseMonth}>
+      <div onClick={onIncreaseMonth} onTouchStart={onIncreaseMonth}>
         <Icon.Chevron isJalaali={!isJalaali} hoverEffect />
       </div>
-      <div onClick={onIncreaseYear}>
+      <div onClick={onIncreaseYear} onTouchStart={onIncreaseYear}>
         <Icon.DoubleChevron isJalaali={!isJalaali} hoverEffect />
       </div>
     </div>

@@ -15,6 +15,7 @@ const properties: (keyof ColorSchema)[] = [
   "dayLabelBackground",
   "highlight",
   "weekend",
+  "borderFade",
 ];
 
 export const useSetColors = (colors?: ColorSchema) => {

@@ -53,6 +53,12 @@ export const RangeYeartemplate = ({
                   onChangeMode?.("month");
                 }
               }}
+              onTouchStart={() => {
+                if (!isDisabled) {
+                  onSelect(item.id);
+                  onChangeMode?.("month");
+                }
+              }}
               className={classNames(
                 "year-item",
                 !isSelected && !isDisabled && "year-item-hovered",
@@ -61,7 +67,7 @@ export const RangeYeartemplate = ({
                 isDisabled && "disabled",
               )}
             >
-              <p className="year-item-name">{item.id}</p>
+              <span className="year-item-name">{item.id}</span>
             </div>
           );
         })}

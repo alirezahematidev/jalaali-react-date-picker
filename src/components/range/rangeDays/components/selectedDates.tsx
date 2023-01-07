@@ -38,15 +38,15 @@ export const SelectedDates = ({ isJalaali }: SelectedDatesProps) => {
     <div
       style={{ display: "flex", alignItems: "center", flexDirection: "row" }}
     >
-      <p
+      <span
         className={classNames(
           "panel-header-date",
           isFromDay && "panel-header-date-selected",
         )}
       >
         {startText}
-      </p>
-      <p
+      </span>
+      <span
         className={classNames(
           "panel-header-date",
           isFromDay && "panel-header-date-selected",
@@ -54,15 +54,15 @@ export const SelectedDates = ({ isJalaali }: SelectedDatesProps) => {
         style={{ marginInline: 4 }}
       >
         {"–"}
-      </p>
-      <p
+      </span>
+      <span
         className={classNames(
           "panel-header-date",
           isToDay && "panel-header-date-selected",
         )}
       >
         {endText}
-      </p>
+      </span>
     </div>
   );
 };

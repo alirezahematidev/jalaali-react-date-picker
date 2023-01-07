@@ -1,5 +1,5 @@
 import { Moment } from "moment-jalaali";
-import React from "react";
+import React, { ReactNode } from "react";
 import { ColorSchema, Date, Language, Mode } from "../types";
 
 type MonthValue = {
@@ -13,11 +13,30 @@ export type PanelDate = {
   selected?: Date;
 };
 
+export type FieldProps = {
+  value?: string;
+  /**
+   * Determine based on locale, for `locale="fa"`, it will be `true`
+   *
+   * @default true
+   */
+  isJalaali?: boolean;
+  /** The preset date for selection */
+  placeholder?: string;
+
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+  onClear?: () => void;
+};
+
 export interface DatePickerProps {
-  /** @param `value` */
+  /** The value of selected date */
   value?: Moment | undefined | null;
 
-  /** @param `defaultValue` */
+  /**
+   * To set default value, if `value` is `undefined` or `null`, the date picker
+   * will show default value
+   */
   defaultValue?: Moment | undefined | null;
 
   /**
@@ -216,6 +235,14 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
   /** If `true`, the input will indicate an error */
   error?: boolean;
 
+  /**
+   * Customize date picker input render
+   *
+   * @param field `FieldProps`
+   * @returns `ReactNode`
+   */
+  renderInput?: (field: FieldProps) => ReactNode;
+
   /** Input custom prefix icon */
   prefixIcon?: React.ReactNode;
   /** Input custom suffix icon */
@@ -229,9 +256,17 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
    */
   getPopupContainer?: HTMLElement | (() => HTMLElement) | string;
 
-  /** Callback function, can be executed whether the popup calendar is popped up or closed */
+  /**
+   * Callback function, can be executed whether the popup calendar is popped up or closed
+   *
+   * @param open `boolean`
+   */
   onOpenChange?: (open: boolean) => void;
 
+  /** Callback function, can be executed when the clear icon is clicked */
+  onClear?: () => void;
+
   wrapperClassName?: string;
+
   wrapperStyle?: React.CSSProperties;
 }

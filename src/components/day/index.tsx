@@ -61,6 +61,10 @@ const Day = ({
         if (isDisabled) return;
         onPress?.();
       }}
+      onTouchStart={() => {
+        if (isDisabled) return;
+        onPress?.();
+      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

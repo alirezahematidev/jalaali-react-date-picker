@@ -24,10 +24,10 @@ export const DateLabel = ({
   if (shouldResponsive) {
     return (
       <div className="stretch">
-        <div onClick={onDecreaseMonth}>
+        <div onClick={onDecreaseMonth} onTouchStart={onDecreaseMonth}>
           <Icon.Chevron isJalaali={isJalaali} hoverEffect />
         </div>
-        <div onClick={onIncreaseMonth}>
+        <div onClick={onIncreaseMonth} onTouchStart={onIncreaseMonth}>
           <Icon.Chevron isJalaali={!isJalaali} hoverEffect />
         </div>
       </div>
@@ -39,14 +39,16 @@ export const DateLabel = ({
       <div
         className="panel-date-holder-item clickable"
         onClick={onSelectMonthPicker}
+        onTouchStart={onSelectMonthPicker}
       >
-        <p className="panel-header-item-text">{monthLabel}</p>
+        <span className="panel-header-item-text">{monthLabel}</span>
       </div>
       <div
         className="panel-date-holder-item clickable"
         onClick={onSelectYearPicker}
+        onTouchStart={onSelectYearPicker}
       >
-        <p className="panel-header-item-text">{yearLabel}</p>
+        <span className="panel-header-item-text">{yearLabel}</span>
       </div>
     </div>
   );

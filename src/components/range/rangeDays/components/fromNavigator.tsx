@@ -26,17 +26,15 @@ export const FromNavigator = ({
   if (shouldResponsive) {
     return (
       <div className={classNames("panel-date-holder-item")}>
-        <div
-          className="panel-date-holder-item" //panel-date-holder-item clickable
-          // onClick={onSelectMonthPicker}
-        >
-          <p className="range-panel-header-item-text">{monthLabel}</p>
+        <div className="panel-date-holder-item">
+          <span className="range-panel-header-item-text">{monthLabel}</span>
         </div>
         <div
-          className="panel-date-holder-item clickable" //
+          className="panel-date-holder-item clickable"
           onClick={onSelectYearPicker}
+          onTouchStart={onSelectYearPicker}
         >
-          <p className="range-panel-header-item-text">{yearLabel}</p>
+          <span className="range-panel-header-item-text">{yearLabel}</span>
         </div>
         <Icon.Dropdown hoverEffect />
       </div>
@@ -47,10 +45,10 @@ export const FromNavigator = ({
 
   return (
     <div className="center">
-      <div onClick={onDecreaseYear}>
+      <div onClick={onDecreaseYear} onTouchStart={onDecreaseYear}>
         <Icon.DoubleChevron isJalaali={isJalaali} hoverEffect />
       </div>
-      <div onClick={onDecreaseMonth}>
+      <div onClick={onDecreaseMonth} onTouchStart={onDecreaseMonth}>
         <Icon.Chevron isJalaali={isJalaali} hoverEffect />
       </div>
     </div>

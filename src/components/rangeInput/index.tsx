@@ -30,10 +30,11 @@ export const InputRangePicker = (
     defaultValue,
     customColors,
     getPopupContainer,
-    seperator,
+    separator,
     responsive = "auto",
     error,
-
+    placeholder,
+    onClear: inputOnClear,
     ...rest
   } = inputRangePickerProps;
   const isRtl = (locale || "fa") === "fa";
@@ -110,7 +111,7 @@ export const InputRangePicker = (
             <RangePanel
               shouldResponsive={shouldResponsive}
               responsive={responsive}
-              onClose={onClose}
+              onClose={() => {}}
               {...rangeProps}
             />
           )}
@@ -126,6 +127,7 @@ export const InputRangePicker = (
             ref={inputRef}
             style={wrapperStyle}
             onClick={onOpen}
+            onTouchStart={onOpen}
             /** @todo StartDate insted values[0] */
             onMouseEnter={() => values[0] && setClearIconVisible(true)}
             onMouseLeave={() => setClearIconVisible(false)}
@@ -136,10 +138,12 @@ export const InputRangePicker = (
               firstInput
               isRtl={isRtl}
               disabled={disabled}
-              seperator={seperator}
+              separator={separator}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, true)}
-              placeholder={placeholderFrom}
+              placeholder={
+                placeholderFrom || (placeholder ? placeholder[0] : undefined)
+              }
             />
             <Input
               value={values?.[1]}
@@ -147,13 +151,16 @@ export const InputRangePicker = (
               disabled={disabled}
               {...rest}
               onChange={(e) => onChangeInputRange?.(e, false)}
-              placeholder={placeholderTo}
+              placeholder={
+                placeholderTo || (placeholder ? placeholder[1] : undefined)
+              }
             />
 
             <Suffix
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
               onClear={onClear}
+              inputOnClear={inputOnClear}
               error={error}
             />
           </div>
