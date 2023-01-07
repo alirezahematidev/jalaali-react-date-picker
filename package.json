@@ -50,7 +50,7 @@
     "eject": "react-scripts eject",
     "build": "node scripts/build-scripts.js && rimraf lib  && tsc -b  && webpack --mode=production --config webpack.config.ts",
     "test": "yarn build && cross-env TZ=UTC react-scripts test  --detectOpenHandles",
-    "release": "yarn test --watchAll=false && yarn lint && yarn build && yarn copy-styles && yarn copy-custom && yarn publish",
+    "release": "yarn test --watchAll=false && yarn lint && yarn build && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
     "compile": "tsc -b"
