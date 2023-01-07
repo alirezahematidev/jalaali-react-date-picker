@@ -24,11 +24,11 @@ export const SelectedDates = ({ isJalaali }: SelectedDatesProps) => {
     const isToDay = !!(rangeState.endDate && toDay);
 
     const startText = isFromDay
-      ? `${getMonthLabels(fromMonth, isJalaali)} ${fromYear}`
+      ? `${fromDay} ${getMonthLabels(fromMonth, isJalaali)} ${fromYear}`
       : t("startDate");
 
     const endText = isToDay
-      ? `${getMonthLabels(toMonth, isJalaali)} ${toYear}`
+      ? `${toDay} ${getMonthLabels(toMonth, isJalaali)} ${toYear}`
       : t("endDate");
 
     return { startText, endText, isFromDay, isToDay };

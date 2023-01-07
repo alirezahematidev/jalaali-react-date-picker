@@ -145,6 +145,7 @@ export const InputRangePicker = (
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
               onClear={onClear}
+              error={error}
             />
           </div>
         </Popup>

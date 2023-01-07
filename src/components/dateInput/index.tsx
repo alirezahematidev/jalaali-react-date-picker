@@ -127,6 +127,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               suffixIcon={suffixIcon}
               clearable={clearIconVisible}
               onClear={onClear}
+              error={error}
             />
           </div>
         </Popup>

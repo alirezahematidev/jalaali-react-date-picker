@@ -8,7 +8,8 @@ const path = require("path");
 
 const resolvePath = (relativePath) => path.resolve(__dirname, relativePath);
 
-const config = require("../../assets/fonts/icomoon/selection.json");
+// @ts-ignore
+const config = require("../../../public/assets/fonts/icomoon/selection.json");
 
 const icons = {};
 const types = [];

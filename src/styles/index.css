@@ -122,9 +122,9 @@
     content: "\e904";
 }
 
-.icon-clear::before {
+.icon-highlight_off::before {
     font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
-    content: "\e905";
+    content: "\e909";
 }
 
 .icon-keyboard_double_arrow_left::before {
@@ -140,6 +140,15 @@
 .icon-arrow_back::before {
     font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
     content: "\e908";
+}
+.icon-arrow_drop_down::before {
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e90b";
+}
+.icon-error::before {
+    font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
+    content: "\e90a";
+    color: var(--text-negative);
 }
 
 .clickable {
