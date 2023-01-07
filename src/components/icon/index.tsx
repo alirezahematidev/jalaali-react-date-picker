@@ -158,7 +158,7 @@ const Dropdown = ({ size = 20, onClick, hoverEffect }: IconProps) => {
         "icon-arrow_drop_down",
         hoverEffect && "panel-icon-hovered",
       )}
-      style={{ width: size, height: "100%", fontSize: size }}
+      style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
     />
   );

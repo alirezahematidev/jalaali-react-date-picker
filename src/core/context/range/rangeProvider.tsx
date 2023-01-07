@@ -20,6 +20,7 @@ interface RangeInputProps {
   placeholderFrom: string;
   placeholderTo: string;
   onClear?: () => void;
+  isJalaali?: boolean;
 }
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;

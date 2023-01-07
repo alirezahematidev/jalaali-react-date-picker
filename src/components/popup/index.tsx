@@ -20,6 +20,7 @@ interface PopupProps {
   animate: boolean;
   inputRef: React.RefObject<HTMLDivElement>;
   responsive?: Responsive;
+  isJalaali?: boolean;
 }
 
 export const Popup = memo(
@@ -35,6 +36,7 @@ export const Popup = memo(
     getContainer,
     inputRef,
     responsive,
+    isJalaali,
   }: PopupProps) => {
     const refPopup = useRef<HTMLDivElement>(null);
 
@@ -50,6 +52,7 @@ export const Popup = memo(
       placement,
       shouldResponsive,
       mode,
+      isJalaali,
     });
 
     const onAnimationEnd = (e: React.AnimationEvent) => {

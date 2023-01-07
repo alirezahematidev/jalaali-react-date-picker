@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { InputRangePicker } from "./components/rangeInput";
 
 function App() {
-  const [open, setopen] = useState(false);
   return (
-    <div>
-      <InputRangePicker error open={true} onOpenChange={setopen} />
+    <div style={{ marginTop: 100 }}>
+      <InputRangePicker locale="en" />
     </div>
   );
 }

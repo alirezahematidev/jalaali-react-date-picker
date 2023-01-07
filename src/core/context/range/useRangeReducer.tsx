@@ -61,22 +61,31 @@ export const useRangeReducer = ({
 }: RangeDateReducerType) => {
   const isJalaali = language === "fa";
 
-  const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>({
-    from: {
-      day: 0,
-      year: isJalaali ? moment().jYear() : moment().year(),
-      month: Number(moment().format(isJalaali ? "jM" : "M")),
-    },
-    to: {
-      day: 0,
-      year: isJalaali ? moment().jYear() : moment().year(),
-      month: Number(
-        moment()
-          .add(1, "month")
-          .format(isJalaali ? "jM" : "M"),
-      ),
-    },
-  });
+  const fromAndToDefaultValue = useMemo(
+    () => ({
+      from: {
+        day: 0,
+        year: isJalaali ? moment().jYear() : moment().year(),
+        month: Number(moment().format(isJalaali ? "jM" : "M")),
+      },
+      to: {
+        day: 0,
+        year: isJalaali ? moment().jYear() : moment().year(),
+        month: Number(
+          moment()
+            .add(1, "month")
+            .format(isJalaali ? "jM" : "M"),
+        ),
+      },
+    }),
+    [isJalaali],
+  );
+
+  const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>(
+    fromAndToDefaultValue,
+  );
+  console.log("isJalaali", isJalaali);
+  console.log("fromAndTo", fromAndTo);
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
   );
@@ -170,6 +179,10 @@ export const useRangeReducer = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValueProp, valueProp]);
+
+  useEffect(() => {
+    setFromAndTo(fromAndToDefaultValue);
+  }, [fromAndToDefaultValue, isJalaali]);
 
   const onRangeDateChange = useCallback(
     (payload: RangeDate) => {
@@ -543,6 +556,7 @@ export const useRangeReducer = ({
       placeholderFrom,
       placeholderTo,
       onClear,
+      isJalaali,
     },
     from: fromAndTo.from,
     to: fromAndTo.to,

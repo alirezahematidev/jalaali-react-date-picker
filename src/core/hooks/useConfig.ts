@@ -17,6 +17,7 @@ type ConfigProps = {
   placement?: Placement;
   shouldResponsive?: boolean;
   mode: "date" | "range";
+  isJalaali?: boolean;
 };
 
 type Coordinate = {
@@ -38,8 +39,11 @@ export const useConfig = ({
   placement,
   mode,
   shouldResponsive,
+  isJalaali,
 }: ConfigProps) => {
   const _window = useWindowSize();
+
+  console.log("isJalaali", isJalaali);
 
   const config: () => Config = useCallback(() => {
     const ph =
@@ -113,10 +117,12 @@ export const useConfig = ({
 
     if (placement && placements.includes(placement)) {
       if (placement === "bottom") {
-        const animationClassName = "open-vert-bottom-left";
+        const animationClassName = isJalaali
+          ? "open-vert-bottom-left"
+          : "open-vert-bottom-right";
 
         const coordinates: Coordinate = {
-          left: l + w - pw,
+          left: isJalaali ? l + w - pw : l,
           bottom: b - (ph + gap),
           top: undefined,
           right: undefined,
@@ -128,10 +134,12 @@ export const useConfig = ({
       }
 
       if (placement === "top") {
-        const animationClassName = "open-vert-top-left";
+        const animationClassName = isJalaali
+          ? "open-vert-top-left"
+          : "open-vert-top-right";
 
         const coordinates: Coordinate = {
-          left: l + w - pw,
+          left: isJalaali ? l + w - pw : l,
           top: t - (ph + gap),
           bottom: undefined,
           right: undefined,
@@ -177,11 +185,15 @@ export const useConfig = ({
     const shouldReverse = canReverse ? b <= ph && t >= ph : false;
 
     const animationClassName = shouldReverse
-      ? "open-vert-top-left"
-      : "open-vert-bottom-left";
+      ? isJalaali
+        ? "open-vert-top-left"
+        : "open-vert-top-right"
+      : isJalaali
+      ? "open-vert-bottom-left"
+      : "open-vert-bottom-right";
 
     const coordinates: Coordinate = {
-      left: l + w - pw,
+      left: isJalaali ? l + w - pw : l,
       bottom: shouldReverse ? gap + (_window.height - t) : b - (ph + gap),
       top: undefined,
       right: undefined,
@@ -193,7 +205,15 @@ export const useConfig = ({
       coordinates,
       animationClassName,
     };
-  }, [element, _window, mode, shouldResponsive, placement]);
+  }, [
+    mode,
+    shouldResponsive,
+    element,
+    _window.width,
+    _window.height,
+    placement,
+    isJalaali,
+  ]);
 
   return config;
 };

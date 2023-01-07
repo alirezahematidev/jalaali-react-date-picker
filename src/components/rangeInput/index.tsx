@@ -92,6 +92,7 @@ export const InputRangePicker = (
         placeholderFrom,
         placeholderTo,
         onClear,
+        isJalaali,
       }) => (
         <Popup
           key="range-popup"
@@ -104,6 +105,7 @@ export const InputRangePicker = (
           inputRef={inputRef}
           getContainer={getPopupContainer}
           responsive={responsive}
+          isJalaali={isJalaali}
           panel={(shouldResponsive) => (
             <RangePanel
               shouldResponsive={shouldResponsive}
