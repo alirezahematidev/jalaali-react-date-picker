@@ -84,8 +84,6 @@ export const useRangeReducer = ({
   const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>(
     fromAndToDefaultValue,
   );
-  console.log("isJalaali", isJalaali);
-  console.log("fromAndTo", fromAndTo);
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
   );

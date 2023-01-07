@@ -43,8 +43,6 @@ export const useConfig = ({
 }: ConfigProps) => {
   const _window = useWindowSize();
 
-  console.log("isJalaali", isJalaali);
-
   const config: () => Config = useCallback(() => {
     const ph =
       mode === "date"
