@@ -20,13 +20,19 @@ const config: webpack.Configuration = {
     minimizer: [new CssMinimizerPlugin({ test: /.css$/i })],
     removeEmptyChunks: true,
   },
+  mode:
+    typeof process.env.NODE_ENV !== "undefined"
+      ? (process.env.NODE_ENV as webpack.Configuration["mode"])
+      : undefined,
   entry: path.resolve(__dirname, "lib/index.js"),
   output: {
     path: path.resolve(__dirname, "lib"),
     filename: "main.js",
     compareBeforeEmit: true,
+    chunkFormat: "commonjs",
+    libraryTarget: "commonjs",
   },
-
+  externals: "moment-jalaali",
   ignoreWarnings: [() => false],
   plugins: [new MiniCssExtractPlugin()],
 };
