@@ -644,12 +644,6 @@
   background: transparent;
 }
 
-.disabled {
-  opacity: 0.4;
-  cursor: not-allowed !important;
-  background-color: var(--background-disabled);
-}
-
 .highlight-day {
   background-color: var(--primary-fade);
   color: var(--text);
@@ -716,6 +710,12 @@
   user-select: none;
   cursor: pointer;
   color: var(--text);
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: default !important;
+  background-color: var(--background-disabled);
 }
 
 .day-span-text {

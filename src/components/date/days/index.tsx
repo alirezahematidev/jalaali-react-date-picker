@@ -81,6 +81,7 @@ const Days = () => {
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
             onMouseEnter={() => {
+              if (isDisabled) return;
               changePlaceholder(date);
             }}
             onMouseLeave={() => {
@@ -88,10 +89,7 @@ const Days = () => {
             }}
           >
             <div
-              className={classNames(
-                "day-item-chain",
-                isDisabled && isNeighborsDisabled && "disabled",
-              )}
+              className={classNames("day-item-chain", isDisabled && "disabled")}
             >
               <Day
                 day={date.day}

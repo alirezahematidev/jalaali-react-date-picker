@@ -25,8 +25,6 @@ export type FieldProps = {
   placeholder?: string;
 
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-
-  onClear?: () => void;
 };
 
 export interface DatePickerProps {
