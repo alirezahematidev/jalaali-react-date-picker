@@ -60,6 +60,20 @@ export const useRangeReducer = ({
   language,
 }: RangeDateReducerType) => {
   const isJalaali = language === "fa";
+  const [offsets, setOffset] = useState<[number, number]>([0, 0]);
+  const [rangeInputValue, setRangeInputValue] = useState<[string, string]>([
+    "",
+    "",
+  ]);
+  useEffect(() => {
+    const year = isJalaali ? moment().jYear() : moment().year();
+    setOffset([
+      (rangeState.startDate.day === 0 ? year : rangeState.startDate.year) -
+        year,
+      (rangeState.endDate?.year || year) - year,
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isJalaali, rangeInputValue]);
 
   const fromAndToDefaultValue = useMemo(
     () => ({
@@ -92,10 +106,6 @@ export const useRangeReducer = ({
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
-  const [rangeInputValue, setRangeInputValue] = useState<[string, string]>([
-    "",
-    "",
-  ]);
   const [placeholderFrom, setPlaceholderFrom] = useState<string>("");
   const [placeholderTo, setPlaceholderTo] = useState<string>("");
 
@@ -145,6 +155,7 @@ export const useRangeReducer = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueProp]);
+
   useEffect(() => {
     if (defaultValueProp && !valueProp) {
       const values: RangeDate = {
@@ -172,6 +183,7 @@ export const useRangeReducer = ({
         dateTransformer(values.startDate, isJalaali),
         values.endDate ? dateTransformer(values.endDate, isJalaali) : null,
       ]);
+
       setRangeInputValue(inputRangeVal);
     }
 
@@ -275,7 +287,6 @@ export const useRangeReducer = ({
     ],
   );
 
-  console.log("fromandto", fromAndTo);
   const onRangeMonthchange = useCallback(
     (month: number, mode: "from" | "to") => {
       setFromAndTo(({ from, to }) => {
@@ -615,6 +626,10 @@ export const useRangeReducer = ({
     setPlaceholderTo("");
     onRangeDateChange(getDefaultValue(undefined, isJalaali));
   };
+
+  const setOffsets = useCallback((offsets: [number, number]) => {
+    setOffset(offsets);
+  }, []);
   return {
     rangeState,
     cacheRangeDate,
@@ -638,5 +653,7 @@ export const useRangeReducer = ({
     from: fromAndTo.from,
     to: fromAndTo.to,
     changePlaceholder,
+    offsets,
+    setOffsets,
   };
 };
