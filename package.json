@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
   },
-  "main": "lib/main.js",
+  "main": "lib/main.bundle.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib",
