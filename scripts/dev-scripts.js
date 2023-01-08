@@ -25,7 +25,7 @@ function App() {
 
 export default App;`;
 
-function createDevTemplate() {
+(function createDevTemplate() {
   prettier.resolveConfig(APP_DIR).then((options) => {
     const formatted = prettier.format(app_dir_template, {
       parser: "babel-ts",
@@ -43,6 +43,4 @@ function createDevTemplate() {
 
     fs.writeFileSync(INDEX_DIR, formatted);
   });
-}
-
-createDevTemplate();
+})();

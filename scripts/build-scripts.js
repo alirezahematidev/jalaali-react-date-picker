@@ -25,7 +25,7 @@ export type {
   DatePickerProps,
 };`;
 
-function createBuildTemplate() {
+(function createBuildTemplate() {
   if (fs.existsSync(APP_DIR)) {
     fs.rmSync(APP_DIR);
   }
@@ -37,6 +37,4 @@ function createBuildTemplate() {
 
     fs.writeFileSync(INDEX_DIR, formatted);
   });
-}
-
-createBuildTemplate();
+})();

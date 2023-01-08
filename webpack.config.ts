@@ -48,7 +48,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: "/node_modules/",
         use: {
           loader: "babel-loader",
           options: {
@@ -75,7 +75,6 @@ const config: webpack.Configuration = {
     removeEmptyChunks: true,
     usedExports: true,
   },
-  devtool: "inline-source-map",
   resolve: {
     alias: {
       components: path.resolve(__dirname, "./src/components"),
