@@ -5,19 +5,11 @@ const prettier = require("prettier");
 const APP_DIR = "src/App.tsx";
 const INDEX_DIR = "src/index.tsx";
 
-const develop_template = `import React from "react";
-import ReactDOM from "react-dom/client";
+const develop_template = `import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
 `;
 
 const app_dir_template = `
