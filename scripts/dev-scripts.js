@@ -5,19 +5,11 @@ const prettier = require("prettier");
 const APP_DIR = "src/App.tsx";
 const INDEX_DIR = "src/index.tsx";
 
-const develop_template = `import React from "react";
-import ReactDOM from "react-dom/client";
+const develop_template = `import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
 `;
 
 const app_dir_template = `
@@ -33,7 +25,7 @@ function App() {
 
 export default App;`;
 
-function createDevTemplate() {
+(function createDevTemplate() {
   prettier.resolveConfig(APP_DIR).then((options) => {
     const formatted = prettier.format(app_dir_template, {
       parser: "babel-ts",
@@ -51,6 +43,4 @@ function createDevTemplate() {
 
     fs.writeFileSync(INDEX_DIR, formatted);
   });
-}
-
-createDevTemplate();
+})();

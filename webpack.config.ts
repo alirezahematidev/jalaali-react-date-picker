@@ -7,29 +7,48 @@ import * as path from "path";
 import * as webpack from "webpack";
 
 const config: webpack.Configuration = {
+  name: "jalaali-react-date-picker_webpack_config",
   module: {
     rules: [
       {
-        test: /.css$/i,
+        test: /.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
         exclude: "/node_modules/",
+        oneOf: [
+          {
+            test: /.css$/,
+            exclude: "/node_modules/",
+          },
+        ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         use: ["url-loader?limit=100000"],
         exclude: "/node_modules/",
+        oneOf: [
+          {
+            test: /.css$/,
+            exclude: "/node_modules/",
+          },
+        ],
       },
       {
-        test: /\.tsx?$/i,
+        test: /\.tsx?$/,
         use: "ts-loader",
         exclude: "/node_modules/",
         resolve: {
           extensions: [".ts", ".tsx", ".jsx", ".js"],
         },
+        oneOf: [
+          {
+            test: /\.tsx?$/,
+            exclude: "/node_modules/",
+          },
+        ],
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: "/node_modules/",
         use: {
           loader: "babel-loader",
           options: {
@@ -40,14 +59,22 @@ const config: webpack.Configuration = {
         resolve: {
           extensions: [".js", ".jsx"],
         },
+        oneOf: [
+          {
+            test: /\.jsx?$/,
+            exclude: "/node_modules/",
+          },
+        ],
       },
     ],
   },
   optimization: {
-    minimizer: [new CssMinimizerPlugin({ test: /.css$/i })],
+    minimizer: [
+      new CssMinimizerPlugin({ test: /.css$/, exclude: "/node_modules/" }),
+    ],
     removeEmptyChunks: true,
+    usedExports: true,
   },
-  devtool: "inline-source-map",
   resolve: {
     alias: {
       components: path.resolve(__dirname, "./src/components"),
@@ -58,11 +85,12 @@ const config: webpack.Configuration = {
   entry: path.resolve(__dirname, "./src/index.tsx"),
   output: {
     path: path.resolve(__dirname, "./lib"),
-    filename: "[name].js",
+    filename: "[name].bundle.js",
     library: "jalaali-react-date-picker",
     libraryTarget: "umd",
     clean: true,
   },
+  resolveLoader: { modules: [path.resolve(__dirname, "./node_modules")] },
   ignoreWarnings: [() => false],
   mode: "production",
   plugins: [
@@ -71,6 +99,7 @@ const config: webpack.Configuration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./public/index.html"),
       title: "jalaali-react-date-picker",
+      minify: "auto",
     }),
     new CopyPlugin({
       patterns: [

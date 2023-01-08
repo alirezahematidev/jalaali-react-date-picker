@@ -114,7 +114,6 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               {renderInput({
                 isJalaali,
                 onChange: onChangeInputValue,
-                onClear,
                 value,
                 placeholder,
               })}

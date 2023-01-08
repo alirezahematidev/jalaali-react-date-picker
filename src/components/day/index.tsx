@@ -29,7 +29,7 @@ const Day = ({
   isToday,
   onMouseEnter,
   onMouseLeave,
-  isNeighborsDisabled,
+  // isNeighborsDisabled,
   mode,
   endDay,
   startDay,
@@ -39,7 +39,7 @@ const Day = ({
     <div
       className={classnames(
         "day",
-        isDisabled && !isNeighborsDisabled && "disabled",
+        isDisabled && "disabled",
         isNotCurrentMonth && "not-current",
         isWeekend && "weekend-day",
         isHighlight && "off-day",

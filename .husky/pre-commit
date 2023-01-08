@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# shellcheck source=./_/husky.sh
-. "$(dirname "$0")/_/husky.sh"
-
-yarn lint
-yarn compile
-yarn test
-git add .
