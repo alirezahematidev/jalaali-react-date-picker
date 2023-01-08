@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { useDatepicker } from "../../../core";
-import { usePanelContext } from "../../date/panel/panelMode";
+import { useRangepicker } from "../../../core";
 import { Icon } from "../../icon";
+import { useRangePanelContext } from "../rangePanel/panelRangeMode";
 
 export interface HeaderProps {
   lowerDecade: number;
@@ -18,11 +18,9 @@ const YearsHeader = ({
   onIncreaseDecade,
   onYearPress,
 }: HeaderProps) => {
-  const { isJalaali, state } = useDatepicker();
+  const { isJalaali, rangeStateMoment } = useRangepicker();
 
-  const { headerRender } = usePanelContext();
-
-  const current = state && state.day !== 0 ? state : null;
+  const { headerRender } = useRangePanelContext();
 
   const node = (
     <div className="panel-header-rtl">
@@ -48,43 +46,23 @@ const YearsHeader = ({
                 : "panel-date-holder-item-ltr",
             )}
           >
-            {isJalaali ? (
-              <div className="panel-header-year-picker">
-                <span
-                  className="clickable"
-                  onClick={() => onYearPress?.(lowerDecade)}
-                  onTouchStart={() => onYearPress?.(lowerDecade)}
-                >
-                  {lowerDecade}
-                </span>
-                <span>{"-"}</span>
-                <span
-                  className="clickable"
-                  onClick={() => onYearPress?.(upperDecade)}
-                  onTouchStart={() => onYearPress?.(upperDecade)}
-                >
-                  {upperDecade}
-                </span>
-              </div>
-            ) : (
-              <div className="panel-header-year-picker">
-                <span
-                  className="clickable"
-                  onClick={() => onYearPress?.(upperDecade)}
-                  onTouchStart={() => onYearPress?.(upperDecade)}
-                >
-                  {upperDecade}
-                </span>
-                <span>{"-"}</span>
-                <span
-                  className="clickable"
-                  onClick={() => onYearPress?.(lowerDecade)}
-                  onTouchStart={() => onYearPress?.(lowerDecade)}
-                >
-                  {lowerDecade}
-                </span>
-              </div>
-            )}
+            <div className="panel-header-year-picker">
+              <span
+                className="clickable"
+                onClick={() => onYearPress?.(lowerDecade)}
+                onTouchStart={() => onYearPress?.(lowerDecade)}
+              >
+                {lowerDecade}
+              </span>
+              <span>{"-"}</span>
+              <span
+                className="clickable"
+                onClick={() => onYearPress?.(upperDecade)}
+                onTouchStart={() => onYearPress?.(upperDecade)}
+              >
+                {upperDecade}
+              </span>
+            </div>
           </div>
         </div>
         <div className="center">
@@ -105,7 +83,7 @@ const YearsHeader = ({
 
   return (
     <div className="panel-header-wrapper">
-      {headerRender ? headerRender(current, node) : node}
+      {headerRender ? headerRender(rangeStateMoment, node) : node}
     </div>
   );
 };

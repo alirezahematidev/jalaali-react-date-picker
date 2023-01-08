@@ -22,12 +22,14 @@ const RangeYears = ({}: RangeYearsProps) => {
   }, [type]);
 
   const onDecreaseDecade = useCallback(() => {
-    setoffset((prev) => {
-      return type === "from"
-        ? [prev[0] - 10, prev[1]]
-        : [prev[0], prev[1] - 10];
-    });
-  }, [type]);
+    if (lowerDecade > 9) {
+      setoffset((prev) => {
+        return type === "from"
+          ? [prev[0] - 10, prev[1]]
+          : [prev[0], prev[1] - 10];
+      });
+    }
+  }, [lowerDecade, type]);
 
   return (
     <RangeYeartemplate
