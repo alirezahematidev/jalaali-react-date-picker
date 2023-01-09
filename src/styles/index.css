@@ -18,42 +18,42 @@
 
 @font-face {
   font-family: IRANSansRegular;
-  src: url("../../public/assets/fonts/IRANSansFaNum.ttf") format("woff");
+  src: url("../assets/IRANSansFaNum.ttf") format("woff");
 }
 
 @font-face {
   font-family: IRANSansBold;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Bold.ttf") format("woff");
+  src: url("../assets/IRANSansFaNum_Bold.ttf") format("woff");
 }
 
 @font-face {
   font-family: IRANSansLight;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Light.ttf") format("woff");
+  src: url("../assets/IRANSansFaNum_Light.ttf") format("woff");
 }
 
 @font-face {
   font-family: IRANSansMedium;
-  src: url("../../public/assets/fonts/IRANSansFaNum_Medium.ttf") format("woff");
+  src: url("../assets/IRANSansFaNum_Medium.ttf") format("woff");
 }
 
 @font-face {
   font-family: IcomoonWOFF;
-  src: url("../../public/assets/fonts/icomoon/icomoon.woff") format("woff");
+  src: url("../assets/icomoon/icomoon.woff") format("woff");
 }
 
 @font-face {
   font-family: IcomoonTTF;
-  src: url("../../public/assets/fonts/icomoon/icomoon.ttf") format("truetype");
+  src: url("../assets/icomoon/icomoon.ttf") format("truetype");
 }
 
 @font-face {
   font-family: IcomoonSVG;
-  src: url("../../public/assets/fonts/icomoon/icomoon.svg") format("svg");
+  src: url("../assets/icomoon/icomoon.svg") format("svg");
 }
 
 @font-face {
   font-family: IcomoonEOT;
-  src: url("../../public/assets/fonts/icomoon/icomoon.eot") format("eot");
+  src: url("../assets/icomoon/icomoon.eot") format("eot");
 }
 
 .icon {

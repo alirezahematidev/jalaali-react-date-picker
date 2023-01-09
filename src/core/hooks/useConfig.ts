@@ -86,10 +86,6 @@ export const useConfig = ({
       ? Math.abs(window.innerWidth - document.body.clientWidth)
       : 0;
 
-    const scrollbarHeight = isClient
-      ? Math.abs(window.innerHeight - document.body.clientHeight)
-      : 0;
-
     //popup offset from input
     const gap = 8;
 
@@ -100,7 +96,7 @@ export const useConfig = ({
     const w = bounds.width;
 
     // input offset from top of window
-    const t = bounds.top + scrollbarHeight;
+    const t = bounds.top;
 
     // input offset from left of window
     const l = bounds.left;
@@ -203,15 +199,7 @@ export const useConfig = ({
       coordinates,
       animationClassName,
     };
-  }, [
-    mode,
-    shouldResponsive,
-    element,
-    _window.width,
-    _window.height,
-    placement,
-    isJalaali,
-  ]);
+  }, [mode, shouldResponsive, element, _window, placement, isJalaali]);
 
   return config;
 };

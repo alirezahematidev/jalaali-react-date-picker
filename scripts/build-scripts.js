@@ -29,6 +29,10 @@ export type {
   if (fs.existsSync(APP_DIR)) {
     fs.rmSync(APP_DIR);
   }
+  if (fs.existsSync("public")) {
+    fs.rmSync("public", { recursive: true, force: true });
+  }
+
   prettier.resolveConfig(INDEX_DIR).then((options) => {
     const formatted = prettier.format(build_template, {
       parser: "babel-ts",

@@ -1,7 +1,6 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react-hooks";
 import moment from "moment-jalaali";
 import { ReactNode } from "react";
-import { act } from "react-dom/test-utils";
 import { RangeProvider, useRangePickerContext } from "../../..";
 
 function wrapper({ children }: { children: ReactNode }) {

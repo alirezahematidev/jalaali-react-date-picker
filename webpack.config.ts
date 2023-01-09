@@ -1,9 +1,9 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
+import TerserPlugin from "terser-webpack-plugin";
 import * as webpack from "webpack";
 import pkg from "./package.json";
 
@@ -13,7 +13,7 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: ["css-loader"],
         exclude: "/node_modules/",
         oneOf: [
           {
@@ -71,12 +71,14 @@ const config: webpack.Configuration = {
   },
   optimization: {
     minimizer: [
-      new CssMinimizerPlugin({
-        test: /.css$/,
+      new TerserPlugin({
         exclude: "/node_modules/",
+        parallel: true,
+        terserOptions: {
+          sourceMap: true,
+        },
       }),
     ],
-    removeEmptyChunks: true,
     usedExports: true,
   },
 
@@ -104,7 +106,7 @@ const config: webpack.Configuration = {
     libraryTarget: "umd",
     globalObject: "this",
     clean: true,
-    publicPath: path.resolve(__dirname, "./public"),
+    publicPath: "",
   },
   resolveLoader: {
     modules: [
@@ -121,7 +123,6 @@ const config: webpack.Configuration = {
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./public/index.html"),
       title: pkg.name,
       minify: "auto",
     }),
@@ -131,30 +132,15 @@ const config: webpack.Configuration = {
           from: "src/styles",
           to: "styles",
         },
+        {
+          from: "src/assets",
+          to: "assets",
+        },
       ],
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-  externals: {
-    react: {
-      root: "React",
-      commonjs2: "react",
-      commonjs: "react",
-      amd: "react",
-    },
-    "react-dom": {
-      root: "ReactDOM",
-      commonjs2: "react-dom",
-      commonjs: "react-dom",
-      amd: "react-dom",
-    },
-    "moment-jalaali": {
-      root: "moment-jalaali",
-      commonjs2: "moment-jalaali",
-      commonjs: "moment-jalaali",
-      amd: "moment-jalaali",
-    },
-  },
+  externals: ["react", "react-dom", "moment-jalaali"],
 };
 
 export default config;

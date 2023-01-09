@@ -1,10 +1,6 @@
-import {
-  fireEvent,
-  getByTestId,
-  render,
-  renderHook,
-} from "@testing-library/react";
-import { useState } from "react";
+import { fireEvent, getByTestId, render } from "@testing-library/react";
+import { renderHook } from "@testing-library/react-hooks";
+import { ReactNode, useState } from "react";
 import { DateProvider, useDatepicker } from "../../core";
 import { gregorianMonths, jalaaliMonths } from "../../core/constants/datasets";
 
@@ -35,7 +31,10 @@ describe("change language ", () => {
 });
 
 describe("locaize test", () => {
-  const { result } = renderHook(() => useDatepicker(), {
+  const { result } = renderHook<
+    { children: ReactNode },
+    ReturnType<typeof useDatepicker>
+  >(() => useDatepicker(), {
     wrapper({ children }) {
       return <DateProvider props={{ locale: "fa" }}>{children}</DateProvider>;
     },

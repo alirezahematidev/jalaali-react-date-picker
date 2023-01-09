@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react-hooks";
 import moment from "moment-jalaali";
 import { ReactNode } from "react";
 import { DateProvider, useDatepicker } from "../../..";
@@ -19,10 +19,9 @@ function wrapper({ children }: { children: ReactNode }) {
 describe("useYears", () => {
   test("test useYears", async () => {
     const { result } = renderHook(() => useDatepicker(), { wrapper });
-    act(() => {
-      result.current.goToToday();
-    }),
-      expect(result.current.isJalaali).toBeTruthy();
+    act(() => result.current.goToToday());
+
+    expect(result.current.isJalaali).toBeTruthy();
     expect(result.current.dayLabels[0]).toBe("ش");
     expect(result.current.locale).toBe("fa");
     expect(result.current.format).toBe("jYYYY-jMM-jDD");

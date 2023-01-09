@@ -26,6 +26,11 @@ function App() {
 export default App;`;
 
 (function createDevTemplate() {
+  if (!fs.existsSync("public")) {
+    fs.mkdirSync("public");
+    fs.writeFileSync("public/index.html", `<div id="root"></div>;`);
+  }
+
   prettier.resolveConfig(APP_DIR).then((options) => {
     const formatted = prettier.format(app_dir_template, {
       parser: "babel-ts",
