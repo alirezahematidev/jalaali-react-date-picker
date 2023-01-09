@@ -16,6 +16,7 @@ interface PanelProps extends Props {
   ref?: Ref<HTMLDivElement>;
   toggle?: () => void;
   navigationIcons?: NavigationIcon;
+  presets?: boolean;
 }
 
 type PanelComponent = typeof Panel;
@@ -35,6 +36,7 @@ const Panel = (
     className,
     loading,
     loadingIndicator,
+    presets,
   }: PanelProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
@@ -61,6 +63,7 @@ const Panel = (
             toggle,
             navigationIcons,
             highlightWeekend,
+            presets,
           }}
         />
         <Footer toggle={toggle} footerRender={footerRender} />

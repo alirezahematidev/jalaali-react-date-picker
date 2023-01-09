@@ -21,7 +21,7 @@ export type FieldProps = {
    * @default true
    */
   isJalaali?: boolean;
-  /** The preset date for selection */
+  /** The preset placeholder for selection */
   placeholder?: string;
 
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -232,6 +232,13 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
 
   /** If `true`, the input will indicate an error */
   error?: boolean;
+
+  /**
+   * The preset date for quick selection
+   *
+   * @default true
+   */
+  presets?: boolean;
 
   /**
    * Customize date picker input render

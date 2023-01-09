@@ -31,6 +31,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     getPopupContainer,
     error,
     renderInput,
+    presets = true,
     placeholder: inputPlaceholder,
     onClear: inputOnClear,
     ...rest
@@ -106,8 +107,8 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           animate={animate}
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
-          panel={() => <Panel {...pickerProps} />}
           isJalaali={isJalaali}
+          panel={() => <Panel presets={presets} {...pickerProps} />}
         >
           {renderInput ? (
             <CustomWrapper inputRef={inputRef} onOpen={onOpen}>

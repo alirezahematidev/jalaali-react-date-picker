@@ -9,6 +9,7 @@ type Panel = Record<Mode, JSX.Element>;
 interface PanelModeProps extends Omit<PickerProps, "renderFooter"> {
   toggle?: () => void;
   navigationIcons?: NavigationIcon;
+  presets?: boolean;
 }
 
 interface PanelModeContext extends PanelModeProps {
@@ -19,6 +20,7 @@ const PanelModeContext = createContext<PanelModeContext>({
   headerRender: undefined,
   panelRender: undefined,
   dayLabelRender: undefined,
+  presets: true,
   onChangeMode: () => null,
   toggle: () => null,
   navigationIcons: undefined,
@@ -30,6 +32,7 @@ export const PanelMode = ({
   toggle,
   onModeChange,
   navigationIcons,
+  presets,
   ...props
 }: PanelModeProps) => {
   const [mode, setMode] = useState<Mode>("day");
@@ -50,7 +53,7 @@ export const PanelMode = ({
 
   return (
     <PanelModeContext.Provider
-      value={{ ...props, onChangeMode, navigationIcons, toggle }}
+      value={{ ...props, onChangeMode, navigationIcons, toggle, presets }}
     >
       {panel[mode]}
     </PanelModeContext.Provider>

@@ -34,6 +34,7 @@ export const InputRangePicker = (
     responsive = "auto",
     error,
     placeholder,
+    presets = true,
     onClear: inputOnClear,
     ...rest
   } = inputRangePickerProps;
@@ -111,6 +112,7 @@ export const InputRangePicker = (
             <RangePanel
               shouldResponsive={shouldResponsive}
               responsive={responsive}
+              presets={presets}
               onClose={() => {}}
               {...rangeProps}
             />

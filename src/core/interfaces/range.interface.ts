@@ -218,6 +218,13 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
   /** If `true`, the input will indicate an error */
   error?: boolean;
 
+  /**
+   * The preset range dates for quick selection
+   *
+   * @default true
+   */
+  presets?: boolean;
+
   /** The placeholder of date inputs */
   placeholder?: [string, string];
 

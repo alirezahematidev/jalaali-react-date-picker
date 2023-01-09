@@ -4,6 +4,7 @@ import { Mode, RangeProps } from "../../../core";
 interface RangePanelModeProps extends RangeProps {
   children: JSX.Element | JSX.Element[] | null;
   shouldResponsive?: boolean;
+  presets?: boolean;
 }
 
 interface RangePanelModeContext extends RangePanelModeProps {
@@ -20,6 +21,7 @@ const RangePanelModeContext = createContext<
   onModeChange: () => null,
   dayLabelRender: () => null,
   onClose: () => null,
+  presets: true,
   shouldResponsive: false,
   highlightDays: undefined,
   highlightWeekend: true,

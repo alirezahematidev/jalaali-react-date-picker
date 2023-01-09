@@ -30,6 +30,7 @@ const Days = () => {
     highlightDays,
     toggle,
     highlightWeekend,
+    presets,
   } = usePanelContext();
 
   const days: Date[] = metadataDays.map(({ day, month, year }) => ({
@@ -81,10 +82,12 @@ const Days = () => {
             key={`${id}-${date.month}`}
             className={classNames("day-item-outer")}
             onMouseEnter={() => {
-              if (isDisabled) return;
+              if (isDisabled || !presets) return;
               changePlaceholder(date);
             }}
             onMouseLeave={() => {
+              if (!presets) return;
+
               changePlaceholder(null);
             }}
           >

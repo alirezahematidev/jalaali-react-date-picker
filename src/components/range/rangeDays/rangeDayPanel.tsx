@@ -29,7 +29,7 @@ export const RangeDayPanel = ({
   const { isJalaali, dayLabels, changePlaceholder, rangeState } =
     useRangepicker();
   const today = momentTransformer(moment(), isJalaali);
-  const { dayLabelRender, highlightDays, highlightWeekend, onClose } =
+  const { dayLabelRender, highlightDays, highlightWeekend, onClose, presets } =
     useRangePanelContext();
 
   const extendDays = days.map((day) => {
@@ -81,8 +81,15 @@ export const RangeDayPanel = ({
             <div
               key={`${id}-${day.month}`}
               className={classNames("day-item-outer")}
-              onMouseEnter={() => changePlaceholder(date)}
-              onMouseLeave={() => changePlaceholder(null)}
+              onMouseEnter={() => {
+                if (isDisabled || !presets) return;
+
+                changePlaceholder(date);
+              }}
+              onMouseLeave={() => {
+                if (!presets) return;
+                changePlaceholder(null);
+              }}
             >
               <div
                 className={classNames(
