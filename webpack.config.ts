@@ -24,7 +24,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
+        use: ["url-loader?limit=100000"],
         exclude: "/node_modules/",
         oneOf: [
           {
