@@ -28,6 +28,8 @@ interface ContextType extends DatePropsReducerType {
   onDecreaseMonth: (payload: Date) => void;
   changePlaceholder: (payload: Date | null) => void;
   onClear: () => void;
+  offset: number;
+  setOffset: (offset: number) => void;
 }
 
 export const DatePickerContext = createContext<ContextType>({
@@ -47,7 +49,9 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseYear: () => null,
   onIncreaseMonth: () => null,
   onDecreaseMonth: () => null,
+  setOffset: () => null,
   onClear: () => null,
+  offset: 0,
 });
 
 interface DateProviderProps {
@@ -73,6 +77,8 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     onClear,
     cacheDate,
     inputProps,
+    offset,
+    setOffset,
   } = useDateReducer({
     language,
     onDayChangeProp: props?.onDayChange,
@@ -132,6 +138,8 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         onClear,
         cacheDate,
         format: propsState.format,
+        offset,
+        setOffset,
         ...propsState,
       }}
     >

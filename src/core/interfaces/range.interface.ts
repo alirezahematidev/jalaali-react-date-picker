@@ -114,7 +114,7 @@ export interface RangePickerProps {
    * @returns `React.ReactNode`
    */
   headerRender?(
-    dateRange: [Moment, Moment] | null,
+    dateRange: [Moment, Moment | null] | null,
     headerNode: React.ReactNode,
   ): React.ReactNode;
 

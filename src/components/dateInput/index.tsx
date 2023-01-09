@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
 import { Popup } from "../popup";
@@ -42,6 +42,13 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean | undefined>(open);
 
+  useEffect(() => {
+    if (open !== undefined) {
+      open ? onOpen() : close();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   const [animate, setAnimate] = useState(false);
 
   const [clearIconVisible, setClearIconVisible] = useState(false);
@@ -61,7 +68,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
   };
 
   const close = () => {
-    setIsOpen(false);
+    setIsOpen(open === undefined ? false : open);
     onOpenChange?.(false);
   };
 
@@ -69,7 +76,9 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     const toggling = toggle();
     if (!toggling) return;
 
-    toggleAnimate(true);
+    setIsOpen(open === undefined ? true : open);
+    toggleAnimate(open === undefined ? true : open);
+    onOpenChange?.(true);
   };
 
   return (

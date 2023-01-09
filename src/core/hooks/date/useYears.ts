@@ -4,7 +4,6 @@ import { useDatePickerContext } from "../../context/date/dateProvider";
 
 export const useYears = (offset: number) => {
   const { state, locale = "fa", disabledDates } = useDatePickerContext();
-
   const { years, lowerDecade, upperDecade } = listOfYears(
     locale === "fa",
     offset,

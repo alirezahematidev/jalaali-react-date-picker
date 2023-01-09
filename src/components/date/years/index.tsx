@@ -1,20 +1,19 @@
 import classNames from "classnames";
-import { useState } from "react";
 import { useDatepicker, useYears } from "../../../core";
 import { usePanelContext } from "../panel/panelMode";
 import { YearsHeader } from "./header";
 
 const Years = () => {
-  const { isJalaali, onYearchange, state } = useDatepicker();
+  const { isJalaali, onYearchange, state, offset, setOffset } = useDatepicker();
   const { onChangeMode } = usePanelContext();
-  const [offset, setoffset] = useState(0);
+
   const { years, lowerDecade, upperDecade } = useYears(offset);
   return (
     <>
       <YearsHeader
         {...{ lowerDecade, upperDecade }}
-        onDecreaseDecade={() => setoffset((prev) => prev - 10)}
-        onIncreaseDecade={() => setoffset((prev) => prev + 10)}
+        onDecreaseDecade={() => setOffset(offset - 10)}
+        onIncreaseDecade={() => setOffset(offset + 10)}
         onYearPress={(year) => {
           onYearchange({ ...state, year });
           onChangeMode?.("month");
