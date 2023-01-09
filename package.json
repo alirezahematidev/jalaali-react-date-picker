@@ -20,7 +20,6 @@
   "types": "lib/index.d.ts",
   "files": [
     "lib",
-    "src",
     "!.husky",
     "!public"
   ],

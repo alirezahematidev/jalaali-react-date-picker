@@ -27,13 +27,15 @@
   "ts-node": {
     "compilerOptions": {
       "esModuleInterop": true,
+      "rootDir": "src",
       "outDir": "lib",
       "declaration": true,
+      "sourceMap": true,
       "allowSyntheticDefaultImports": true,
       "declarationMap": true,
       "jsx": "react-jsx"
     }
   },
   "include": ["src", "src/custom.d.ts"],
-  "exclude": ["node_modules", "lib", "./node_modules", "./node_modules/*"]
+  "exclude": ["node_modules", "lib"]
 }

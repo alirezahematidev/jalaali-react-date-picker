@@ -5,9 +5,10 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
 import * as webpack from "webpack";
+import pkg from "./package.json";
 
 const config: webpack.Configuration = {
-  name: "jalaali-react-date-picker_webpack_config",
+  name: pkg.name,
   module: {
     rules: [
       {
@@ -27,7 +28,7 @@ const config: webpack.Configuration = {
         exclude: "/node_modules/",
         oneOf: [
           {
-            test: /.css$/,
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
             exclude: "/node_modules/",
           },
         ],
@@ -57,7 +58,7 @@ const config: webpack.Configuration = {
           },
         },
         resolve: {
-          extensions: [".js", ".jsx"],
+          extensions: [".js", ".jsx", ".mjs", ".mjsx"],
         },
         oneOf: [
           {
@@ -70,35 +71,54 @@ const config: webpack.Configuration = {
   },
   optimization: {
     minimizer: [
-      new CssMinimizerPlugin({ test: /.css$/, exclude: "/node_modules/" }),
+      new CssMinimizerPlugin({
+        test: /.css$/,
+        parallel: true,
+        exclude: "/node_modules/",
+      }),
     ],
     removeEmptyChunks: true,
     usedExports: true,
   },
+
+  devtool: "source-map",
   resolve: {
+    modules: ["node_modules", path.join(__dirname, "./node_modules")],
     alias: {
       components: path.resolve(__dirname, "./src/components"),
+      [pkg.name]: process.cwd(),
     },
     preferRelative: true,
     extensions: [".ts", ".tsx", ".jsx", ".js"],
   },
-  entry: path.resolve(__dirname, "./src/index.tsx"),
+  entry: {
+    main: path.resolve(__dirname, "./src/index"),
+  },
   output: {
-    path: path.resolve(__dirname, "./lib"),
+    path: path.resolve(__dirname, "lib"),
     filename: "[name].bundle.js",
-    library: "jalaali-react-date-picker",
+    library: pkg.name,
     libraryTarget: "umd",
+    globalObject: "this",
     clean: true,
   },
-  resolveLoader: { modules: [path.resolve(__dirname, "./node_modules")] },
+  resolveLoader: {
+    modules: [
+      path.resolve(__dirname, "./node_modules"),
+      path.resolve(__dirname, "./lib"),
+    ],
+  },
   ignoreWarnings: [() => false],
   mode: "production",
   plugins: [
-    new MiniCssExtractPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.LoaderOptionsPlugin({ minimize: true }),
+    new webpack.BannerPlugin(`${pkg.name} v${pkg.version}`),
+    new MiniCssExtractPlugin({ filename: "[name].css" }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./public/index.html"),
-      title: "jalaali-react-date-picker",
+      title: pkg.name,
       minify: "auto",
     }),
     new CopyPlugin({
@@ -115,7 +135,24 @@ const config: webpack.Configuration = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   externals: {
-    react: "commonjs react",
+    react: {
+      root: "React",
+      commonjs2: "react",
+      commonjs: "react",
+      amd: "react",
+    },
+    "react-dom": {
+      root: "ReactDOM",
+      commonjs2: "react-dom",
+      commonjs: "react-dom",
+      amd: "react-dom",
+    },
+    "moment-jalaali": {
+      root: "moment-jalaali",
+      commonjs2: "moment-jalaali",
+      commonjs: "moment-jalaali",
+      amd: "moment-jalaali",
+    },
   },
 };
 
