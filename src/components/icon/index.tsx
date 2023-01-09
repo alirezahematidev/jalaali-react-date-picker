@@ -51,7 +51,7 @@ const ChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
         "icon-chevron-left",
         hoverEffect && "panel-icon-hovered",
       )}
-      style={{ width: size, height: "100%", fontSize: size }}
+      style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
       onTouchStart={() => onClick?.()}
     />
@@ -66,7 +66,7 @@ const ChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
         "icon-chevron-right",
         hoverEffect && "panel-icon-hovered",
       )}
-      style={{ width: size, height: "100%", fontSize: size }}
+      style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
       onTouchStart={() => onClick?.()}
     />
@@ -107,7 +107,7 @@ const DoubleChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
         "icon-keyboard_double_arrow_left",
         hoverEffect && "panel-icon-hovered",
       )}
-      style={{ width: size, height: "100%", fontSize: size }}
+      style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
       onTouchStart={() => onClick?.()}
     />
@@ -122,7 +122,7 @@ const DoubleChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
         "icon-keyboard_double_arrow_right",
         hoverEffect && "panel-icon-hovered",
       )}
-      style={{ width: size, height: "100%", fontSize: size }}
+      style={{ width: size, height: size, fontSize: size }}
       onClick={onClick}
       onTouchStart={() => onClick?.()}
     />

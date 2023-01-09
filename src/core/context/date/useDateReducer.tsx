@@ -19,6 +19,7 @@ interface DateReducerType {
   onMonthChangeProp?: DatePickerProps["onMonthChange"];
   onYearChangeProp?: DatePickerProps["onYearChange"];
   language: Language;
+  setOffset?: (offset: number) => void;
 }
 
 const getDefaultValue = (value: Moment, isJalaali: boolean) => {
@@ -44,12 +45,20 @@ export const useDateReducer = ({
   const [cacheDate, setCacheDate] = useState<Date>(
     getDefaultValue(defaultValueProp || moment(), isJalaali),
   );
+  const [offset, seterOffset] = useState(0);
+
   const [state, dispatch] = useReducer(
     reducer,
     getDefaultValue(defaultValueProp || moment(), isJalaali),
   );
-  const [placeholder, setPlaceholder] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
+
+  useEffect(() => {
+    seterOffset(state.year - (isJalaali ? moment().jYear() : moment().year()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isJalaali, inputValue]);
+
+  const [placeholder, setPlaceholder] = useState<string>("");
 
   const formattedValue = useCallback(
     (value: Moment) => {
@@ -59,10 +68,8 @@ export const useDateReducer = ({
   );
 
   const onClear = () => {
-    dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
-    setCacheDate((c) => ({ ...c, day: 0 }));
+    onDateChange(null);
     setInputValue("");
-    setPlaceholder("");
   };
 
   const changePlaceholder = useCallback(
@@ -99,13 +106,19 @@ export const useDateReducer = ({
   }, [defaultValueProp, valueProp]);
 
   const onDateChange = useCallback(
-    (payload: Date) => {
+    (payload: Date | null) => {
+      if (payload === null) {
+        setPlaceholder("");
+        dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
+        setCacheDate((prev) => ({ ...prev, day: 0 }));
+        return onChangeProp?.(null, "");
+      }
       dispatch({ type: DateActionKind.DATE, payload });
       setCacheDate(payload);
       const res = dateTransformer({ ...payload }, isJalaali);
       payload.day !== 0 && onChangeProp?.(res, formattedValue(res));
     },
-    [isJalaali, onChangeProp, formattedValue],
+    [isJalaali, onChangeProp, formattedValue, state],
   );
   const onDaychange = useCallback(
     (payload: Date) => {
@@ -188,12 +201,13 @@ export const useDateReducer = ({
   const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userData = e.target.value;
     const momentValue = moment(userData, formatProp, true);
+    setInputValue(userData);
     if (momentValue.isValid()) {
-      setInputValue(userData);
       onDateChange(momentTransformer(momentValue, isJalaali));
       onMonthchange(momentTransformer(momentValue, isJalaali));
+      onYearchange(momentTransformer(momentValue, isJalaali));
     } else {
-      setInputValue(dateTransformer(cacheDate, isJalaali).format(formatProp));
+      onDateChange(null);
     }
   };
 
@@ -205,6 +219,10 @@ export const useDateReducer = ({
 
     return { dateValue };
   }, [formattedValue, isJalaali, state]);
+
+  const setOffset = (offset: number) => {
+    seterOffset(offset);
+  };
 
   return {
     state,
@@ -226,5 +244,7 @@ export const useDateReducer = ({
       onClear,
       isJalaali,
     },
+    offset,
+    setOffset,
   };
 };
