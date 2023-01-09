@@ -1,13 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./styles/index.css";
+import { DatePicker } from "./components/date";
+import { InputDatePicker } from "./components/dateInput";
+import { RangePicker } from "./components/range";
+import { InputRangePicker } from "./components/rangeInput";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+import {
+  DatePickerProps,
+  InputDatePickerProps,
+  InputRangePickerProps,
+  RangePickerProps,
+} from "./core/interfaces";
+
+export { DatePicker, RangePicker, InputDatePicker, InputRangePicker };
+export type {
+  InputDatePickerProps,
+  InputRangePickerProps,
+  RangePickerProps,
+  DatePickerProps,
+};
