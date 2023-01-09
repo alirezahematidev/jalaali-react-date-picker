@@ -82,8 +82,12 @@ const config: webpack.Configuration = {
 
   devtool: "source-map",
   resolve: {
-    modules: ["node_modules", path.join(__dirname, "./node_modules")],
+    modules: [
+      path.resolve(__dirname, "./node_modules"),
+      path.resolve(__dirname, "lib"),
+    ],
     alias: {
+      src: false,
       components: path.resolve(__dirname, "./src/components"),
       [pkg.name]: process.cwd(),
     },
@@ -95,7 +99,7 @@ const config: webpack.Configuration = {
   },
   output: {
     path: path.resolve(__dirname, "lib"),
-    filename: "[name].bundle.js",
+    filename: "[name].js",
     library: pkg.name,
     libraryTarget: "umd",
     globalObject: "this",
@@ -126,9 +130,6 @@ const config: webpack.Configuration = {
         {
           from: "src/styles",
           to: "styles",
-        },
-        {
-          from: "src/custom.d.ts",
         },
       ],
     }),

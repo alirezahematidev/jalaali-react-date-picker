@@ -2,7 +2,7 @@
   "name": "jalaali-react-date-picker",
   "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
   "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "license": "MIT",
   "sideEffects": false,
   "private": false,
@@ -16,12 +16,12 @@
     "type": "git",
     "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
   },
-  "main": "lib/main.bundle.js",
+  "main": "lib/main.js",
+  "module": "lib/main.js",
   "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "files": [
-    "lib",
-    "!.husky",
-    "!public"
+    "lib"
   ],
   "publishConfig": {
     "access": "public",
