@@ -1,21 +1,27 @@
 {
   "name": "jalaali-react-date-picker",
-  "description": "An advanced jalaali date picker that supports on all of Javascript frameworks, Specially React and React Native",
-  "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni, Mehdi Samimi",
+  "description": "This package is a date picker component for React that supports the Jalaali (Iranian/Shamsi/Persian) calendar system. It provides an easy-to-use interface for selecting a date in the Jalaali calendar and is fully customizable with options for setting the start and end date range, localization, and more.",
+  "author": "Alireza Hemati <alirezahematideveloper@gmail.com>, Mohamad Gharouni <mohammadgharouni@icloud.com>, Mehdi Samimi <samimi.dev@gmail.com>",
   "version": "0.1.45",
   "license": "MIT",
   "sideEffects": false,
   "private": false,
   "keywords": [
-    "date-picker",
+    "date picker",
     "react",
     "jalaali",
-    "shamsi"
+    "shamsi",
+    "calendar",
+    "persian"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alirezahematidev/react-jalaali-date-picker.git"
+    "url": "git+https://github.com/alirezahematidev/jalaali-react-date-picker.git"
   },
+  "bugs": {
+    "url": "https://github.com/alirezahematidev/jalaali-react-date-picker/issues"
+  },
+  "homepage": "https://github.com/alirezahematidev/jalaali-react-date-picker#readme",
   "main": "lib/main.js",
   "module": "lib/main.js",
   "types": "lib/index.d.ts",
