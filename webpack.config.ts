@@ -73,7 +73,6 @@ const config: webpack.Configuration = {
     minimizer: [
       new CssMinimizerPlugin({
         test: /.css$/,
-        parallel: true,
         exclude: "/node_modules/",
       }),
     ],
@@ -101,6 +100,7 @@ const config: webpack.Configuration = {
     libraryTarget: "umd",
     globalObject: "this",
     clean: true,
+    publicPath: path.resolve(__dirname, "./public"),
   },
   resolveLoader: {
     modules: [
@@ -114,7 +114,7 @@ const config: webpack.Configuration = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.LoaderOptionsPlugin({ minimize: true }),
     new webpack.BannerPlugin(`${pkg.name} v${pkg.version}`),
-    new MiniCssExtractPlugin({ filename: "[name].css" }),
+    new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./public/index.html"),
