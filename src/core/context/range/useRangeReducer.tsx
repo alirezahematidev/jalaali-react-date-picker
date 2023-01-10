@@ -8,12 +8,7 @@ import {
   rangeTransformer,
 } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
-import {
-  Date,
-  Language,
-  RangeDate,
-  RangeValue,
-} from "../../types/global.types";
+import { Date, Locale, RangeDate, RangeValue } from "../../types/global.types";
 import { RangeActionKind, rangeReducer } from "./rangeReducer";
 
 interface RangeDateReducerType {
@@ -24,7 +19,7 @@ interface RangeDateReducerType {
   onDayChangeProp?: RangePickerProps["onDayChange"];
   onMonthChangeProp?: RangePickerProps["onMonthChange"];
   onYearChangeProp?: RangePickerProps["onYearChange"];
-  language: Language;
+  language: Locale;
 }
 
 const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {

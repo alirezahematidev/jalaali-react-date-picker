@@ -1,4 +1,4 @@
-import { Language } from "../types/global.types";
+import { Locale } from "../types/global.types";
 
 const fa = {
   today: "امروز",
@@ -16,7 +16,7 @@ const en = {
 
 type TranslationKey = keyof typeof fa;
 
-type Translation = Record<Language, Record<TranslationKey, string>>;
+type Translation = Record<Locale, Record<TranslationKey, string>>;
 
 export type { TranslationKey, Translation };
 export { fa, en };

@@ -7,7 +7,7 @@ import {
 } from "../../../utils";
 import { localizedMonth } from "../../constants";
 import { DatePickerProps } from "../../interfaces";
-import { Date, Language } from "../../types/global.types";
+import { Date, Locale } from "../../types/global.types";
 import { DateActionKind, reducer } from "./dateReducer";
 
 interface DateReducerType {
@@ -18,7 +18,7 @@ interface DateReducerType {
   onDayChangeProp?: DatePickerProps["onDayChange"];
   onMonthChangeProp?: DatePickerProps["onMonthChange"];
   onYearChangeProp?: DatePickerProps["onYearChange"];
-  language: Language;
+  language: Locale;
   setOffset?: (offset: number) => void;
 }
 

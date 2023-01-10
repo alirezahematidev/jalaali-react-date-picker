@@ -52,11 +52,11 @@ export type RangeDate = {
 
 export type RangeValue = [Moment, Moment];
 
-export type Language = "fa" | "en";
+export type Locale = "fa" | "en";
 
-export type LocalizedMonth = Record<Language, Month[]>;
+export type LocalizedMonth = Record<Locale, Month[]>;
 
-export type LocalizedDayLabel = Record<Language, string[]>;
+export type LocalizedDayLabel = Record<Locale, string[]>;
 
 export type Mode = "day" | "month" | "year";
 

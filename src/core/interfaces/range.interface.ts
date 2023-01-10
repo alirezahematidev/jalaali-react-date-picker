@@ -1,6 +1,6 @@
 import { Moment } from "moment-jalaali";
 import { CSSProperties } from "react";
-import { ColorSchema, Date, Language, Mode } from "../types";
+import { ColorSchema, Date, Locale, Mode } from "../types";
 
 type MonthValue = {
   name: string;
@@ -87,7 +87,7 @@ export interface RangePickerProps {
    *
    * @default `fa`
    */
-  locale?: Language;
+  locale?: Locale;
 
   /**
    * To set the date format, refer to `momentjs`, selected value is formatting to a string

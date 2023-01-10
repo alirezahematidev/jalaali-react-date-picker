@@ -1,6 +1,6 @@
 import { Moment } from "moment-jalaali";
 import React, { ReactNode } from "react";
-import { ColorSchema, Date, Language, Mode } from "../types";
+import { ColorSchema, Date, Locale, Mode } from "../types";
 
 type MonthValue = {
   name: string;
@@ -80,7 +80,7 @@ export interface DatePickerProps {
    *
    * @default `fa`
    */
-  locale?: Language;
+  locale?: Locale;
 
   /**
    * The `disableDates` method that can specify the dates that cannot be selected
