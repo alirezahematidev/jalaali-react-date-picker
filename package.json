@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/alirezahematidev/jalaali-react-date-picker/issues"
   },
-  "homepage": "https://github.com/alirezahematidev/jalaali-react-date-picker#readme",
+  "homepage": "/",
   "main": "lib/main.js",
   "module": "lib/main.js",
   "types": "lib/index.d.ts",
@@ -46,7 +46,8 @@
     "moment-jalaali": "^0.9.6",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "cross-env": "^7.0.3"
   },
   "scripts": {
     "start": "node scripts/dev-scripts.js && webpack --mode=development --config webpack.config.ts && react-scripts start",
@@ -77,7 +78,6 @@
     "commitlint": "^17.0.3",
     "concurrently": "^6.3.0",
     "copy-webpack-plugin": "^11.0.0",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.7.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",

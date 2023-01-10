@@ -117,8 +117,8 @@ export const useConfig = ({
 
         const coordinates: Coordinate = {
           left: isJalaali ? l + w - pw : l,
-          bottom: b - (ph + gap),
-          top: undefined,
+          bottom: undefined,
+          top: t + h + gap,
           right: undefined,
           width: pw,
           height: ph,
@@ -178,6 +178,8 @@ export const useConfig = ({
 
     const shouldReverse = canReverse ? b <= ph && t >= ph : false;
 
+    console.log({ shouldReverse });
+
     const animationClassName = shouldReverse
       ? isJalaali
         ? "open-vert-top-left"
@@ -188,8 +190,8 @@ export const useConfig = ({
 
     const coordinates: Coordinate = {
       left: isJalaali ? l + w - pw : l,
-      bottom: shouldReverse ? gap + (_window.height - t) : b - (ph + gap),
-      top: undefined,
+      bottom: undefined,
+      top: shouldReverse ? t - gap - ph : t + h + gap,
       right: undefined,
       width: pw,
       height: ph,
