@@ -28,7 +28,7 @@ export type FieldProps = {
 };
 
 export interface DatePickerProps {
-  /** The value of selected date */
+  /** The currently selected date. */
   value?: Moment | undefined | null;
 
   /**
@@ -67,7 +67,8 @@ export interface DatePickerProps {
   onYearChange?(year: number): void;
 
   /**
-   * To set the date format, refer to `momentjs`, selected value is formatting to a string
+   * The format in which the selected date should be displayed. Uses moment.js
+   * format strings.
    *
    * @default `jYYYY-jMM-jDD`
    * @see https://momentjs.com/docs
@@ -75,7 +76,7 @@ export interface DatePickerProps {
   format?: string | ((value: Moment) => string);
 
   /**
-   * The `locale` that can be configures the language of datepicker.
+   * The locale to be used for localization.
    *
    * @default `fa`
    */
@@ -203,6 +204,7 @@ interface DatePickerPickable
   extends Pick<
     DatePickerProps,
     | "value"
+    | "defaultValue"
     | "onChange"
     | "onDayChange"
     | "onMonthChange"
@@ -211,7 +213,6 @@ interface DatePickerPickable
     | "locale"
     | "disabledDates"
     | "highlightWeekend"
-    | "defaultValue"
     | "customColors"
   > {}
 
