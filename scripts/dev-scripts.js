@@ -12,18 +12,18 @@ import "./styles/index.css";
 ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
 `;
 
-const app_dir_template = `
-import { InputDatePicker } from "./components/dateInput";
+const app_dir_template = `import { TimePicker } from "./components/time";
 
 function App() {
   return (
     <div>
-      <InputDatePicker />
+      <TimePicker />
     </div>
   );
 }
 
-export default App;`;
+export default App;
+`;
 
 (function createDevTemplate() {
   if (!fs.existsSync("public")) {

@@ -1165,3 +1165,68 @@
   line-height: 30px;
   font-size: 16px;
 }
+
+/* start of timepicker styles */
+
+.time-panel {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+}
+
+.time-clock-area {
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.time-clock-area::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #777;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.time-clock-handle {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 5px);
+  height: 50%;
+  width: 4px;
+  border-radius: 50px;
+  background-color: #777;
+  cursor: grab;
+}
+
+.time-clock-handle-move {
+  background-color: #444;
+  cursor: grabbing !important;
+}
+
+.time-clock-handle::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #777;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  transform: translate(calc(-50% + 2px));
+}
+
+/* end of timepicker styles */
