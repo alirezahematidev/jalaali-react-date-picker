@@ -7,7 +7,7 @@ export const useMouseAngularPosition = () => {
     const x = mouse.x - ORIGIN_X;
     const y = mouse.y - ORIGIN_Y;
 
-    const angleRadian = Math.atan2(y, x);
+    const angleRadian = Math.atan2(y, x) + Math.PI / 2;
 
     let angleDegree = angleRadian * (180 / Math.PI);
 
