@@ -36,7 +36,7 @@ export const FromNavigator = ({
         >
           <span className="range-panel-header-item-text">{yearLabel}</span>
         </div>
-        <Icon.Dropdown hoverEffect />
+        <Icon.Dropdown hoverEffect onClick={onSelectYearPicker} />
       </div>
     );
   }

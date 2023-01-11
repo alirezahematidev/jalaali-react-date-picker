@@ -272,6 +272,7 @@
   color: var(--text);
   font-size: 16px;
   opacity: 0.5;
+  user-select: none;
 }
 
 .panel-header-date-selected {
@@ -568,6 +569,7 @@
   transition: color 100ms ease;
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .today-text:hover {
@@ -758,11 +760,13 @@
 .range-panel-header-item-text {
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .panel-header-item-text {
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .panel-header-item-text:hover {
@@ -779,6 +783,7 @@
   font-size: 14px;
   margin-inline: 4px;
   color: var(--text);
+  user-select: none;
 }
 
 .panel-header-year-picker span:hover {
@@ -898,6 +903,7 @@
 
 .year-item-name {
   font-size: 14px;
+  user-select: none;
 }
 
 .year-item-prev {
@@ -1164,4 +1170,5 @@
   color: inherit;
   line-height: 30px;
   font-size: 16px;
+  user-select: none;
 }
