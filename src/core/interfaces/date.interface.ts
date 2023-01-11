@@ -195,6 +195,7 @@ interface PanelProps
     | "className"
     | "loading"
     | "loadingIndicator"
+    | "onModeChange"
   > {}
 
 export interface PickerProps extends PanelProps {}
