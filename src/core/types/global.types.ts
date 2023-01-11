@@ -50,7 +50,7 @@ export type RangeDate = {
   endDate: Date | null;
 };
 
-export type RangeValue = [Moment, Moment];
+export type RangeValue = [Moment, Moment | null] | null;
 
 export type Locale = "fa" | "en";
 

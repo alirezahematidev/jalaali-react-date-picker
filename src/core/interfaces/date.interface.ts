@@ -189,13 +189,13 @@ interface PanelProps
     | "headerRender"
     | "highlightDays"
     | "dayLabelRender"
-    | "onModeChange"
     | "highlightWeekend"
     | "defaultValue"
     | "style"
     | "className"
     | "loading"
     | "loadingIndicator"
+    | "onModeChange"
   > {}
 
 export interface PickerProps extends PanelProps {}

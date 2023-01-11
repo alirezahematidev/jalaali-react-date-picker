@@ -20,13 +20,13 @@ export interface RangePickerProps {
   customColors?: ColorSchema;
 
   /** The currently selected range date */
-  value?: [Moment, Moment];
+  value?: [Moment, Moment | null] | null;
 
   /**
    * To set default value, if `value` is `undefined` or `null`, the range picker
    * will show default value
    */
-  defaultValue?: [Moment, Moment];
+  defaultValue?: [Moment, Moment | null] | null;
 
   /**
    * The `onChange` method which will be executed when date changes.
@@ -34,7 +34,10 @@ export interface RangePickerProps {
    * @param `date`
    * @param `dateStrings`
    */
-  onChange?(date: [Moment, Moment], dateStrings: [string, string]): void;
+  onChange?(
+    date: [Moment, Moment | null] | null,
+    dateStrings: [string, string],
+  ): void;
   /**
    * The `onDayChange` method which will be executed when days changes.
    *
