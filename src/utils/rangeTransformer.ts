@@ -9,11 +9,11 @@ export const rangeTransformer = (
   const { startDate, endDate } = data;
 
   if (startDate.day < 1 || startDate.month < 1 || startDate.year < 1) {
-    console.error("entered inputs are not valid");
+    throw new Error("entered inputs are not valid");
   }
 
   if (endDate && (endDate.day < 1 || endDate.month < 1 || endDate.year < 1)) {
-    console.error("entered inputs are not valid");
+    throw new Error("entered inputs are not valid");
   }
 
   const result: RangeValue = [
@@ -28,7 +28,7 @@ export const rangeTransformer = (
   ];
 
   if (result.some((date) => !date?.isValid())) {
-    console.error("entered inputs are not valid");
+    throw new Error("entered inputs are not valid");
   }
 
   return result;

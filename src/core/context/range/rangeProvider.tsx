@@ -162,7 +162,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
 
 export const useRangePickerContext = () => {
   if (typeof RangePickerContext === "undefined") {
-    console.error(
+    throw new Error(
       "useRangePickerContext must be under RangePickerContext Provider",
     );
   }

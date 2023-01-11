@@ -8,7 +8,7 @@ export const dateTransformer = (
 ): moment.Moment => {
   const { day, month, year } = data;
   if (day < 1 || month < 1 || year < 1) {
-    console.error("entered inputs are not valid");
+    throw new Error("entered inputs are not valid");
   }
   const result = moment(
     `${year}-${month}-${day}`,
@@ -16,7 +16,7 @@ export const dateTransformer = (
   );
 
   if (!result.isValid()) {
-    console.error("entered inputs are not valid");
+    throw new Error("entered inputs are not valid");
   }
 
   return result;
