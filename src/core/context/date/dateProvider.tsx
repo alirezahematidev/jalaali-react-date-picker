@@ -150,7 +150,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
 
 export const useDatePickerContext = () => {
   if (typeof DatePickerContext === "undefined") {
-    throw new Error(
+    console.error(
       "useDatePickerContext must be under DatePickerContext Provider",
     );
   }

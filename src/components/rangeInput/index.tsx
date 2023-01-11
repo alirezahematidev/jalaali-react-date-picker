@@ -36,6 +36,7 @@ export const InputRangePicker = (
     placeholder,
     presets = true,
     onClear: inputOnClear,
+    highlightWeekend,
     ...rest
   } = inputRangePickerProps;
   const isRtl = (locale || "fa") === "fa";
@@ -114,6 +115,7 @@ export const InputRangePicker = (
               responsive={responsive}
               presets={presets}
               onClose={() => {}}
+              highlightWeekend={highlightWeekend}
               {...rangeProps}
             />
           )}

@@ -189,7 +189,6 @@ interface PanelProps
     | "headerRender"
     | "highlightDays"
     | "dayLabelRender"
-    | "onModeChange"
     | "highlightWeekend"
     | "defaultValue"
     | "style"

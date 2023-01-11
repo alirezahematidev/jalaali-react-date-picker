@@ -34,6 +34,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     presets = true,
     placeholder: inputPlaceholder,
     onClear: inputOnClear,
+    highlightWeekend,
     ...rest
   } = inputDatePickerProps;
 
@@ -108,7 +109,13 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
           toggleAnimate={toggleAnimate}
           inputRef={inputRef}
           isJalaali={isJalaali}
-          panel={() => <Panel presets={presets} {...pickerProps} />}
+          panel={() => (
+            <Panel
+              highlightWeekend={highlightWeekend}
+              presets={presets}
+              {...pickerProps}
+            />
+          )}
         >
           {renderInput ? (
             <CustomWrapper inputRef={inputRef} onOpen={onOpen}>

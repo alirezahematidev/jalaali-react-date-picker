@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { formatGenerator, isEqual, rangeTransformer } from "../../../utils";
+import { dateTransformer, formatGenerator, isEqual } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate, RangeValue } from "../../types/global.types";
 import { RangePropsReducerType } from "../propsReducer";
@@ -112,7 +112,13 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(rangeTransformer(cacheRangeDate, language === "fa"))
+          ? props.format([
+              dateTransformer(cacheRangeDate.startDate, language === "fa"),
+              dateTransformer(
+                cacheRangeDate.endDate ?? cacheRangeDate.startDate,
+                language === "fa",
+              ),
+            ])
           : props.format
         : formatGenerator(language === "fa");
       setFormat(format);
@@ -156,7 +162,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
 
 export const useRangePickerContext = () => {
   if (typeof RangePickerContext === "undefined") {
-    throw new Error(
+    console.error(
       "useRangePickerContext must be under RangePickerContext Provider",
     );
   }
