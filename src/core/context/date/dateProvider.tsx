@@ -1,6 +1,6 @@
 import moment from "moment-jalaali";
 import { createContext, useContext, useEffect } from "react";
-import { dateTransformer, formatGenerator, isEqual } from "../../../utils";
+import { dateTransformer, formatGenerator } from "../../../utils";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
 import { DatePropsReducerType } from "../propsReducer";
@@ -10,14 +10,16 @@ import { useDateReducer } from "./useDateReducer";
 interface DateInputProps {
   value: string;
   placeholder?: string;
-  onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClear: () => void;
   isJalaali?: boolean;
+  onClear: () => void;
+  onChangeInputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface ContextType extends DatePropsReducerType {
   state: Date;
   cacheDate?: Date;
+  offset: number;
+  onClear: () => void;
   onDateChange: (payload: Date) => void;
   onDaychange: (payload: Date) => void;
   onMonthchange: (payload: Date) => void;
@@ -27,8 +29,6 @@ interface ContextType extends DatePropsReducerType {
   onIncreaseMonth: (payload: Date) => void;
   onDecreaseMonth: (payload: Date) => void;
   changePlaceholder: (payload: Date | null) => void;
-  onClear: () => void;
-  offset: number;
   setOffset: (offset: number) => void;
 }
 
@@ -39,6 +39,7 @@ export const DatePickerContext = createContext<ContextType>({
     year: 0,
   },
   cacheDate: undefined,
+  offset: 0,
   locale: "fa",
   changePlaceholder: () => null,
   onDateChange: () => null,
@@ -51,7 +52,6 @@ export const DatePickerContext = createContext<ContextType>({
   onDecreaseMonth: () => null,
   setOffset: () => null,
   onClear: () => null,
-  offset: 0,
 });
 
 interface DateProviderProps {
@@ -91,7 +91,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
   });
 
   useEffect(() => {
-    if (props.locale && !isEqual(props.locale, propsState.locale)) {
+    if (props.locale && props.locale !== propsState.locale) {
       const isJalaali = props.locale === "fa";
       setLocale(props.locale);
       onDaychange({
@@ -100,10 +100,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         month: Number(moment().format(isJalaali ? "jM" : "M")),
       });
     }
-    if (
-      props.disabledDates?.length &&
-      !isEqual(props.disabledDates, propsState.disabledDates)
-    ) {
+    if (props.disabledDates && typeof props.disabledDates === "function") {
       setDisabledDates(props.disabledDates);
     }
     if (

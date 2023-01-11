@@ -21,7 +21,7 @@ function createContainer(container?: PortalProps["getContainer"]) {
 
     if (!selector) {
       console.warn(
-        "Your selector does not exists in DOM, we automatically replace it with body",
+        "Your selector is not valid or does not exists in DOM, we automatically replace it with root element",
       );
 
       return document.body;

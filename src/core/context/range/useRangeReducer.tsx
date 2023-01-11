@@ -588,8 +588,6 @@ export const useRangeReducer = ({
           endDate: null,
         });
       }
-    } else {
-      // onRangeDateChange(null);
     }
   };
 
@@ -625,6 +623,7 @@ export const useRangeReducer = ({
   const setOffsets = useCallback((offsets: [number, number]) => {
     setOffset(offsets);
   }, []);
+
   return {
     rangeState,
     cacheRangeDate,

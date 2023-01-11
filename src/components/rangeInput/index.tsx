@@ -130,7 +130,6 @@ export const InputRangePicker = (
             style={wrapperStyle}
             onClick={onOpen}
             onTouchStart={onOpen}
-            /** @todo StartDate insted values[0] */
             onMouseEnter={() => values[0] && setClearIconVisible(true)}
             onMouseLeave={() => setClearIconVisible(false)}
           >
