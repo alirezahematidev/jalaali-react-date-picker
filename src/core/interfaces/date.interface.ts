@@ -190,7 +190,6 @@ interface PanelProps
     | "highlightDays"
     | "dayLabelRender"
     | "highlightWeekend"
-    | "defaultValue"
     | "style"
     | "className"
     | "loading"
@@ -212,7 +211,6 @@ interface DatePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
-    | "highlightWeekend"
     | "customColors"
   > {}
 
