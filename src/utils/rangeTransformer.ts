@@ -27,7 +27,7 @@ export const rangeTransformer = (
     ),
   ];
 
-  if (result.some((date) => !date.isValid())) {
+  if (result.some((date) => !date?.isValid())) {
     throw new Error("entered inputs are not valid");
   }
 

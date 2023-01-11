@@ -178,8 +178,6 @@ export const useConfig = ({
 
     const shouldReverse = canReverse ? b <= ph && t >= ph : false;
 
-    console.log({ shouldReverse });
-
     const animationClassName = shouldReverse
       ? isJalaali
         ? "open-vert-top-left"

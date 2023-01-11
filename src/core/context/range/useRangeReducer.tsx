@@ -105,8 +105,8 @@ export const useRangeReducer = ({
   const [placeholderTo, setPlaceholderTo] = useState<string>("");
 
   const formattedDates = useCallback(
-    (dates: [Moment, Moment | null]) => {
-      return dates.map((date) =>
+    (dates: [Moment, Moment | null] | null) => {
+      return dates?.map((date) =>
         date
           ? date.format(formatProp ? formatProp : formatGenerator(isJalaali))
           : "",
@@ -134,11 +134,14 @@ export const useRangeReducer = ({
           year: isJalaali ? valueProp[0].jYear() : valueProp[0].year(),
           month: Number(valueProp[0].format(isJalaali ? "jM" : "M")),
         },
-        endDate: {
-          day: isJalaali ? valueProp[1].jDate() : valueProp[1].date(),
-          year: isJalaali ? valueProp[1].jYear() : valueProp[1].year(),
-          month: Number(valueProp[1].format(isJalaali ? "jM" : "M")),
-        },
+        endDate:
+          valueProp?.[1] !== null
+            ? {
+                day: isJalaali ? valueProp[1].jDate() : valueProp[1].date(),
+                year: isJalaali ? valueProp[1].jYear() : valueProp[1].year(),
+                month: Number(valueProp[1].format(isJalaali ? "jM" : "M")),
+              }
+            : null,
       };
       setCacheRangeDate(values);
       const inputRangeVal = formattedDates([
@@ -163,15 +166,20 @@ export const useRangeReducer = ({
             : defaultValueProp[0].year(),
           month: Number(defaultValueProp[0].format(isJalaali ? "jM" : "M")),
         },
-        endDate: {
-          day: isJalaali
-            ? defaultValueProp[1].jDate()
-            : defaultValueProp[1].date(),
-          year: isJalaali
-            ? defaultValueProp[1].jYear()
-            : defaultValueProp[1].year(),
-          month: Number(defaultValueProp[1].format(isJalaali ? "jM" : "M")),
-        },
+        endDate:
+          defaultValueProp[1] !== null
+            ? {
+                day: isJalaali
+                  ? defaultValueProp[1].jDate()
+                  : defaultValueProp[1].date(),
+                year: isJalaali
+                  ? defaultValueProp[1].jYear()
+                  : defaultValueProp[1].year(),
+                month: Number(
+                  defaultValueProp[1].format(isJalaali ? "jM" : "M"),
+                ),
+              }
+            : null,
       };
       setCacheRangeDate(values);
       const inputRangeVal = formattedDates([
@@ -219,8 +227,8 @@ export const useRangeReducer = ({
           payload.endDate.day !== 0 &&
           onChangeProp?.(dates, formattedDates(dates));
         setRangeInputValue([
-          dates[0].format(formatProp),
-          dates[1].format(formatProp),
+          dates?.[0] ? dates[0].format(formatProp) : "",
+          dates?.[1] ? dates[1].format(formatProp) : "",
         ]);
       }
     },
