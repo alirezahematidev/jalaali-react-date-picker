@@ -1,6 +1,10 @@
 import moment from "moment-jalaali";
 import { createContext, useContext, useEffect } from "react";
-import { dateTransformer, formatGenerator } from "../../../utils";
+import {
+  dateTransformer,
+  formatGenerator,
+  getCurrentYear,
+} from "../../../utils";
 import { DatePickerProps } from "../../interfaces";
 import { Date } from "../../types/global.types";
 import { DatePropsReducerType } from "../propsReducer";
@@ -60,7 +64,8 @@ interface DateProviderProps {
 }
 
 export const DateProvider = ({ children, props }: DateProviderProps) => {
-  const language = props ? props.locale || "fa" : "fa";
+  const locale = props ? props.locale || "fa" : "fa";
+
   const { setLocale, setFormat, setDisabledDates, propsState } =
     useDatePropsReducer();
   const {
@@ -80,7 +85,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     offset,
     setOffset,
   } = useDateReducer({
-    language,
+    locale,
     onDayChangeProp: props?.onDayChange,
     onMonthChangeProp: props?.onMonthChange,
     onYearChangeProp: props?.onYearChange,
@@ -93,10 +98,12 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
   useEffect(() => {
     if (props.locale && props.locale !== propsState.locale) {
       const isJalaali = props.locale === "fa";
+
       setLocale(props.locale);
+
       onDaychange({
         day: 0,
-        year: isJalaali ? moment().jYear() : moment().year(),
+        year: getCurrentYear(isJalaali),
         month: Number(moment().format(isJalaali ? "jM" : "M")),
       });
     }
@@ -111,7 +118,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
         ? typeof props.format === "function"
           ? props.format(dateTransformer(cacheDate, props.locale === "fa"))
           : props.format
-        : formatGenerator(language === "fa");
+        : formatGenerator(locale === "fa");
 
       setFormat(format);
     }

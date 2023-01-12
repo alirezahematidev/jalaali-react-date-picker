@@ -3,6 +3,11 @@ import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
   dateTransformer,
   formatGenerator,
+  getCurrentMonth,
+  getCurrentYear,
+  getDateDay,
+  getDateMonth,
+  getDateYear,
   getMonthLabels,
   momentTransformer,
   rangeTransformer,
@@ -15,11 +20,11 @@ interface RangeDateReducerType {
   formatProp?: string;
   onChangeProp?: RangePickerProps["onChange"];
   valueProp?: RangePickerProps["value"];
-  defaultValueProp?: RangePickerProps["value"];
+  defaultValueProp?: RangePickerProps["defaultValue"];
   onDayChangeProp?: RangePickerProps["onDayChange"];
   onMonthChangeProp?: RangePickerProps["onMonthChange"];
   onYearChangeProp?: RangePickerProps["onYearChange"];
-  language: Locale;
+  locale: Locale;
 }
 
 const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
@@ -27,8 +32,8 @@ const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
     return {
       startDate: {
         day: 0,
-        year: isJalaali ? value[0].jYear() : value[0].year(),
-        month: Number(value[0].format(isJalaali ? "jM" : "M")),
+        year: getDateYear(value[0], isJalaali),
+        month: getDateMonth(value[0], isJalaali),
       },
       endDate: null,
     };
@@ -37,8 +42,8 @@ const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
   return {
     startDate: {
       day: 0,
-      year: isJalaali ? moment().jYear() : moment().year(),
-      month: Number(moment().format(isJalaali ? "jM" : "M")),
+      year: getCurrentYear(isJalaali),
+      month: getCurrentMonth(isJalaali),
     },
     endDate: null,
   };
@@ -52,34 +57,25 @@ export const useRangeReducer = ({
   onDayChangeProp,
   onMonthChangeProp,
   onYearChangeProp,
-  language,
+  locale,
 }: RangeDateReducerType) => {
-  const isJalaali = language === "fa";
+  const isJalaali = locale === "fa";
   const [offsets, setOffset] = useState<[number, number]>([0, 0]);
   const [rangeInputValue, setRangeInputValue] = useState<[string, string]>([
     "",
     "",
   ]);
-  useEffect(() => {
-    const year = isJalaali ? moment().jYear() : moment().year();
-    setOffset([
-      (rangeState.startDate.day === 0 ? year : rangeState.startDate.year) -
-        year,
-      (rangeState.endDate?.year || year) - year,
-    ]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isJalaali, rangeInputValue]);
 
   const fromAndToDefaultValue = useMemo(
     () => ({
       from: {
         day: 0,
-        year: isJalaali ? moment().jYear() : moment().year(),
-        month: Number(moment().format(isJalaali ? "jM" : "M")),
+        year: getCurrentYear(isJalaali),
+        month: getCurrentMonth(isJalaali),
       },
       to: {
         day: 0,
-        year: isJalaali ? moment().jYear() : moment().year(),
+        year: getCurrentYear(isJalaali),
         month: Number(
           moment()
             .add(1, "month")
@@ -93,15 +89,18 @@ export const useRangeReducer = ({
   const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>(
     fromAndToDefaultValue,
   );
+
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
   );
+
   const [rangeState, dispatch] = useReducer(
     rangeReducer,
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
   const [placeholderFrom, setPlaceholderFrom] = useState<string>("");
+
   const [placeholderTo, setPlaceholderTo] = useState<string>("");
 
   const formattedDates = useCallback(
@@ -118,8 +117,8 @@ export const useRangeReducer = ({
   const { dateRange } = useMemo(() => {
     const dateRange =
       rangeState.startDate.day !== 0 &&
-      rangeState.endDate !== null &&
-      rangeState.endDate?.day !== 0
+      rangeState.endDate?.day !== 0 &&
+      rangeState.endDate !== null
         ? rangeTransformer(rangeState, isJalaali)
         : null;
 
@@ -127,27 +126,40 @@ export const useRangeReducer = ({
   }, [isJalaali, rangeState]);
 
   useEffect(() => {
+    const year = getCurrentYear(isJalaali);
+    setOffset([
+      (rangeState.startDate.day === 0 ? year : rangeState.startDate.year) -
+        year,
+      (rangeState.endDate?.year || year) - year,
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isJalaali, rangeInputValue]);
+
+  useEffect(() => {
     if (valueProp && valueProp.length) {
       const values: RangeDate = {
         startDate: {
-          day: isJalaali ? valueProp[0].jDate() : valueProp[0].date(),
-          year: isJalaali ? valueProp[0].jYear() : valueProp[0].year(),
-          month: Number(valueProp[0].format(isJalaali ? "jM" : "M")),
+          day: getDateDay(valueProp[0], isJalaali),
+          year: getDateYear(valueProp[0], isJalaali),
+          month: getDateMonth(valueProp[0], isJalaali),
         },
         endDate:
           valueProp?.[1] !== null
             ? {
-                day: isJalaali ? valueProp[1].jDate() : valueProp[1].date(),
-                year: isJalaali ? valueProp[1].jYear() : valueProp[1].year(),
-                month: Number(valueProp[1].format(isJalaali ? "jM" : "M")),
+                day: getDateDay(valueProp[1], isJalaali),
+                year: getDateYear(valueProp[1], isJalaali),
+                month: getDateMonth(valueProp[1], isJalaali),
               }
             : null,
       };
+
       setCacheRangeDate(values);
+
       const inputRangeVal = formattedDates([
         dateTransformer(values.startDate, isJalaali),
         values.endDate ? dateTransformer(values.endDate, isJalaali) : null,
       ]);
+
       setRangeInputValue(inputRangeVal);
     }
 
@@ -158,30 +170,22 @@ export const useRangeReducer = ({
     if (defaultValueProp && !valueProp) {
       const values: RangeDate = {
         startDate: {
-          day: isJalaali
-            ? defaultValueProp[0].jDate()
-            : defaultValueProp[0].date(),
-          year: isJalaali
-            ? defaultValueProp[0].jYear()
-            : defaultValueProp[0].year(),
-          month: Number(defaultValueProp[0].format(isJalaali ? "jM" : "M")),
+          day: getDateDay(defaultValueProp[0], isJalaali),
+          year: getDateYear(defaultValueProp[0], isJalaali),
+          month: getDateMonth(defaultValueProp[0], isJalaali),
         },
         endDate:
           defaultValueProp[1] !== null
             ? {
-                day: isJalaali
-                  ? defaultValueProp[1].jDate()
-                  : defaultValueProp[1].date(),
-                year: isJalaali
-                  ? defaultValueProp[1].jYear()
-                  : defaultValueProp[1].year(),
-                month: Number(
-                  defaultValueProp[1].format(isJalaali ? "jM" : "M"),
-                ),
+                day: getDateDay(defaultValueProp[1], isJalaali),
+                year: getDateYear(defaultValueProp[1], isJalaali),
+                month: getDateMonth(defaultValueProp[1], isJalaali),
               }
             : null,
       };
+
       setCacheRangeDate(values);
+
       const inputRangeVal = formattedDates([
         dateTransformer(values.startDate, isJalaali),
         values.endDate ? dateTransformer(values.endDate, isJalaali) : null,
@@ -223,9 +227,10 @@ export const useRangeReducer = ({
       if (payload.endDate) {
         const dates = rangeTransformer({ ...payload }, isJalaali);
 
-        payload.startDate.day !== 0 &&
-          payload.endDate.day !== 0 &&
+        if (payload.startDate.day !== 0 && payload.endDate.day !== 0) {
           onChangeProp?.(dates, formattedDates(dates));
+        }
+
         setRangeInputValue([
           dates?.[0] ? dates[0].format(formatProp) : "",
           dates?.[1] ? dates[1].format(formatProp) : "",
@@ -234,6 +239,7 @@ export const useRangeReducer = ({
     },
     [formatProp, formattedDates, isJalaali, onChangeProp, rangeState.startDate],
   );
+
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {
       if (
@@ -268,8 +274,8 @@ export const useRangeReducer = ({
       if (res) {
         if (
           res.startDate.day !== 0 &&
-          res.endDate !== null &&
-          res?.endDate?.day !== 0
+          res?.endDate?.day !== 0 &&
+          res.endDate !== null
         ) {
           onDayChangeProp?.([res.startDate.day, res.endDate.day]);
         }
@@ -448,6 +454,7 @@ export const useRangeReducer = ({
       };
     });
   }, [isJalaali, onMonthChangeProp]);
+
   const onRangeDecreaseMonth = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       if (from.month === 1) {
@@ -507,10 +514,15 @@ export const useRangeReducer = ({
     isStartDate: boolean,
   ) => {
     const fromInputValue = isStartDate ? e.target.value : rangeInputValue[0];
+
     const toInputValue = !isStartDate ? e.target.value : rangeInputValue[1];
+
     const momentValueFrom = moment(fromInputValue, formatProp, true);
+
     const momentValueTo = moment(toInputValue, formatProp, true);
+
     setRangeInputValue([fromInputValue, toInputValue]);
+
     if (isStartDate && momentValueFrom.isValid()) {
       if (momentValueFrom.isBefore(momentValueTo)) {
         // x<y everything is good and don't need to change anything
@@ -644,6 +656,11 @@ export const useRangeReducer = ({
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
     dateRange,
+    from: fromAndTo.from,
+    to: fromAndTo.to,
+    changePlaceholder,
+    offsets,
+    setOffsets,
     inputRangeProps: {
       values: rangeInputValue,
       onChangeInputRange,
@@ -652,10 +669,5 @@ export const useRangeReducer = ({
       onClear,
       isJalaali,
     },
-    from: fromAndTo.from,
-    to: fromAndTo.to,
-    changePlaceholder,
-    offsets,
-    setOffsets,
   };
 };

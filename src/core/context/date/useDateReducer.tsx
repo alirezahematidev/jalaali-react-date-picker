@@ -3,6 +3,9 @@ import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import {
   dateTransformer,
   formatGenerator,
+  getCurrentYear,
+  getDateMonth,
+  getDateYear,
   momentTransformer,
 } from "../../../utils";
 import { localizedMonth } from "../../constants";
@@ -14,21 +17,35 @@ interface DateReducerType {
   formatProp?: string;
   onChangeProp?: DatePickerProps["onChange"];
   valueProp?: DatePickerProps["value"];
-  defaultValueProp?: DatePickerProps["value"];
+  defaultValueProp?: DatePickerProps["defaultValue"];
   onDayChangeProp?: DatePickerProps["onDayChange"];
   onMonthChangeProp?: DatePickerProps["onMonthChange"];
   onYearChangeProp?: DatePickerProps["onYearChange"];
-  language: Locale;
+  locale: Locale;
   setOffset?: (offset: number) => void;
 }
 
-const getDefaultValue = (value: Moment, isJalaali: boolean) => {
+/** While there is no value selected, we set a default value */
+const getDefaultValue = (
+  value: Moment | null | undefined,
+  isJalaali: boolean,
+) => {
+  const _value = value || moment();
+
   return {
     day: 0,
-    year: isJalaali ? value.jYear() : value.year(),
-    month: Number(value.format(isJalaali ? "jM" : "M")),
+    year: getDateYear(_value, isJalaali),
+    month: getDateMonth(_value, isJalaali),
   };
 };
+
+function formatter(value: Moment, isJalaali: boolean, format?: string) {
+  return value.format(format ? format : formatGenerator(isJalaali));
+}
+
+function isDateObjectValid(date: Date) {
+  return date && date.day !== 0;
+}
 
 export const useDateReducer = ({
   formatProp,
@@ -38,32 +55,27 @@ export const useDateReducer = ({
   onDayChangeProp,
   onMonthChangeProp,
   onYearChangeProp,
-  language,
+  locale,
 }: DateReducerType) => {
-  const isJalaali = language === "fa";
-  const months = localizedMonth[language];
+  const isJalaali = locale === "fa";
+
+  const months = localizedMonth[locale];
+
   const [cacheDate, setCacheDate] = useState<Date>(
-    getDefaultValue(defaultValueProp || moment(), isJalaali),
+    getDefaultValue(defaultValueProp, isJalaali),
   );
-  const [offset, seterOffset] = useState(0);
+  const [offset, setterOffset] = useState<number>(0);
 
   const [state, dispatch] = useReducer(
     reducer,
-    getDefaultValue(defaultValueProp || moment(), isJalaali),
+    getDefaultValue(defaultValueProp, isJalaali),
   );
   const [inputValue, setInputValue] = useState<string>("");
-
-  useEffect(() => {
-    seterOffset(state.year - (isJalaali ? moment().jYear() : moment().year()));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isJalaali, inputValue]);
 
   const [placeholder, setPlaceholder] = useState<string>("");
 
   const formattedValue = useCallback(
-    (value: Moment) => {
-      return value.format(formatProp ? formatProp : formatGenerator(isJalaali));
-    },
+    (value: Moment) => formatter(value, isJalaali, formatProp),
     [formatProp, isJalaali],
   );
 
@@ -74,26 +86,33 @@ export const useDateReducer = ({
 
   const changePlaceholder = useCallback(
     (date: Date | null) => {
-      if (!date) {
-        return setPlaceholder("");
-      }
+      if (!date) return setPlaceholder("");
 
-      const formattedInputValue = formattedValue(
-        dateTransformer(date, isJalaali),
-      );
-      setPlaceholder(formattedInputValue);
+      const fInputValue = formattedValue(dateTransformer(date, isJalaali));
+
+      setPlaceholder(fInputValue);
     },
     [formattedValue, isJalaali],
   );
 
   useEffect(() => {
+    setterOffset(state.year - getCurrentYear(isJalaali));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isJalaali, inputValue]);
+
+  useEffect(() => {
     if (valueProp) {
       const value = momentTransformer(valueProp, isJalaali);
+
       setCacheDate(value);
+
       setInputValue(formattedValue(valueProp));
     } else if (defaultValueProp) {
       const value = momentTransformer(defaultValueProp, isJalaali);
+
       setCacheDate(value);
+
       setInputValue(formattedValue(defaultValueProp));
     }
 
@@ -104,44 +123,66 @@ export const useDateReducer = ({
     (payload: Date | null) => {
       if (payload === null) {
         setPlaceholder("");
+
         dispatch({ type: DateActionKind.DAY, payload: { ...state, day: 0 } });
+
         setCacheDate((prev) => ({ ...prev, day: 0 }));
+
         return onChangeProp?.(null, "");
       }
+
       dispatch({ type: DateActionKind.DATE, payload });
+
       setCacheDate(payload);
+
       const res = dateTransformer({ ...payload }, isJalaali);
-      payload.day !== 0 && onChangeProp?.(res, formattedValue(res));
+
+      if (isDateObjectValid(payload)) {
+        onChangeProp?.(res, formattedValue(res));
+      }
     },
     [isJalaali, onChangeProp, formattedValue, state],
   );
+
   const onDaychange = useCallback(
     (payload: Date) => {
       dispatch({ type: DateActionKind.DAY, payload });
+
       setCacheDate(payload);
-      payload.day !== 0 && onDayChangeProp?.(payload.day);
-      payload.day !== 0 && setInputValue("");
+
+      if (isDateObjectValid(payload)) {
+        onDayChangeProp?.(payload.day);
+
+        setInputValue("");
+      }
     },
     [onDayChangeProp],
   );
+
   const onMonthchange = useCallback(
     (payload: Date) => {
       dispatch({ type: DateActionKind.MONTH, payload });
+
+      const name = months.find(({ id }) => id === payload.month)?.name || "--";
+
       onMonthChangeProp?.({
         value: payload.month,
-        name: months.find((item) => item.id === payload.month)?.name || "",
+        name,
       });
     },
     [months, onMonthChangeProp],
   );
+
   const onYearchange = useCallback(
     (payload: Date) => {
       dispatch({ type: DateActionKind.YEAR, payload });
+
       onYearChangeProp?.(payload.year);
     },
 
     [onYearChangeProp],
   );
+
   const onIncreaseYear = useCallback(
     (payload: Date) => {
       dispatch({
@@ -154,6 +195,7 @@ export const useDateReducer = ({
     },
     [cacheDate.day, cacheDate?.year],
   );
+
   const onDecreaseYear = useCallback(
     (payload: Date) => {
       dispatch({
@@ -166,6 +208,7 @@ export const useDateReducer = ({
     },
     [cacheDate.day, cacheDate?.year],
   );
+
   const onIncreaseMonth = useCallback(
     (payload: Date) => {
       dispatch({
@@ -179,6 +222,7 @@ export const useDateReducer = ({
     },
     [cacheDate.day, cacheDate?.month],
   );
+
   const onDecreaseMonth = useCallback(
     (payload: Date) => {
       dispatch({
@@ -195,28 +239,38 @@ export const useDateReducer = ({
 
   const onChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userData = e.target.value;
-    const momentValue = moment(userData, formatProp, true);
+
+    const format = formatProp ? formatProp : formatGenerator(isJalaali);
+
+    const momentValue = moment(userData, format, true);
+
     setInputValue(userData);
+
     if (momentValue.isValid()) {
       onDateChange(momentTransformer(momentValue, isJalaali));
+
       onMonthchange(momentTransformer(momentValue, isJalaali));
+
       onYearchange(momentTransformer(momentValue, isJalaali));
-    } else {
-      onDateChange(null);
+
+      return;
     }
+
+    onDateChange(null);
   };
 
   const { dateValue } = useMemo(() => {
-    const dateValue =
-      state && state.day !== 0
-        ? formattedValue(dateTransformer(state, isJalaali))
-        : "";
+    let dateValue = "";
+
+    if (isDateObjectValid(state)) {
+      dateValue = formattedValue(dateTransformer(state, isJalaali));
+    }
 
     return { dateValue };
   }, [formattedValue, isJalaali, state]);
 
   const setOffset = (offset: number) => {
-    seterOffset(offset);
+    setterOffset(offset);
   };
 
   return {
@@ -232,6 +286,8 @@ export const useDateReducer = ({
     onDecreaseMonth,
     changePlaceholder,
     onClear,
+    offset,
+    setOffset,
     inputProps: {
       value: inputValue || dateValue,
       placeholder,
@@ -239,7 +295,5 @@ export const useDateReducer = ({
       onClear,
       isJalaali,
     },
-    offset,
-    setOffset,
   };
 };
