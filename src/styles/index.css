@@ -83,7 +83,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    padding: 4px;
 }
 
 .icon:hover {
@@ -1180,7 +1179,6 @@
 }
 
 .iconItem {
-    max-width: 28px;
-    max-height: 28px;
+    display: inline-block;
     overflow: hidden;
 }
