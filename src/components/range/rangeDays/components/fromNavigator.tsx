@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { Icon } from "../../../icon";
 
 interface FromNavigatorProps {
@@ -25,7 +24,7 @@ export const FromNavigator = ({
 }: FromNavigatorProps) => {
   if (shouldResponsive) {
     return (
-      <div className={classNames("panel-date-holder-item")}>
+      <div className={"panel-date-holder-item"}>
         <div className="panel-date-holder-item">
           <span className="range-panel-header-item-text">{monthLabel}</span>
         </div>
@@ -45,10 +44,18 @@ export const FromNavigator = ({
 
   return (
     <div className="center">
-      <div onClick={onDecreaseYear} onTouchStart={onDecreaseYear}>
+      <div
+        className="iconItem"
+        onClick={onDecreaseYear}
+        onTouchStart={onDecreaseYear}
+      >
         <Icon.DoubleChevron isJalaali={isJalaali} hoverEffect />
       </div>
-      <div onClick={onDecreaseMonth} onTouchStart={onDecreaseMonth}>
+      <div
+        className="iconItem"
+        onClick={onDecreaseMonth}
+        onTouchStart={onDecreaseMonth}
+      >
         <Icon.Chevron isJalaali={isJalaali} hoverEffect />
       </div>
     </div>

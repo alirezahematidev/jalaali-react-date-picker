@@ -37,7 +37,7 @@ const YearsHeader = ({
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
           >
-            <Icon.DoubleChevronRight />
+            <Icon.DoubleChevronRight hoverEffect />
           </div>
         </div>
         <div className="panel-date-holder">
@@ -98,7 +98,7 @@ const YearsHeader = ({
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >
-            <Icon.DoubleChevronLeft />
+            <Icon.DoubleChevronLeft hoverEffect />
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
-import { DatePicker } from "./components/date";
-import { InputDatePicker } from "./components/dateInput";
-import { RangePicker } from "./components/range";
-import { InputRangePicker } from "./components/rangeInput";
+import {
+  DatePicker,
+  InputDatePicker,
+  InputRangePicker,
+  RangePicker,
+} from "./components";
 
 import {
   DatePickerProps,
