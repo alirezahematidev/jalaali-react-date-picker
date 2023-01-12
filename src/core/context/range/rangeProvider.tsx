@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { formatGenerator, isEqual, rangeTransformer } from "../../../utils";
+import { dateTransformer, formatGenerator } from "../../../utils";
 import { RangePickerProps } from "../../interfaces";
 import { Date, RangeDate, RangeValue } from "../../types/global.types";
 import { RangePropsReducerType } from "../propsReducer";
@@ -13,14 +13,14 @@ import { useRangeReducer } from "./useRangeReducer";
 
 interface RangeInputProps {
   values: [string, string];
+  placeholderFrom: string;
+  placeholderTo: string;
+  isJalaali?: boolean;
+  onClear?: () => void;
   onChangeInputRange?: (
     e: ChangeEvent<HTMLInputElement>,
     isStartDate: boolean,
   ) => void;
-  placeholderFrom: string;
-  placeholderTo: string;
-  onClear?: () => void;
-  isJalaali?: boolean;
 }
 interface ContextType extends RangePropsReducerType {
   rangeState: RangeDate;
@@ -103,7 +103,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
   });
 
   useEffect(() => {
-    if (props.locale && !isEqual(props.locale, propsState.locale)) {
+    if (props.locale && props.locale !== propsState.locale) {
       setLocale(props.locale);
     }
     if (
@@ -112,15 +112,18 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     ) {
       const format = props.format
         ? typeof props.format === "function"
-          ? props.format(rangeTransformer(cacheRangeDate, language === "fa"))
+          ? props.format([
+              dateTransformer(cacheRangeDate.startDate, language === "fa"),
+              dateTransformer(
+                cacheRangeDate.endDate ?? cacheRangeDate.startDate,
+                language === "fa",
+              ),
+            ])
           : props.format
         : formatGenerator(language === "fa");
       setFormat(format);
     }
-    if (
-      props.disabledDates?.length &&
-      !isEqual(props.disabledDates, propsState.disabledDates)
-    ) {
+    if (props.disabledDates) {
       setRangeDisabledDates(props.disabledDates);
     }
 

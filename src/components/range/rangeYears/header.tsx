@@ -27,6 +27,7 @@ const YearsHeader = ({
       <div className="panel-header-inner">
         <div className="center">
           <div
+            className="iconItem"
             onClick={() =>
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
@@ -34,7 +35,7 @@ const YearsHeader = ({
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
           >
-            <Icon.DoubleChevronRight />
+            <Icon.DoubleChevronRight hoverEffect />
           </div>
         </div>
         <div className="panel-date-holder">
@@ -67,6 +68,7 @@ const YearsHeader = ({
         </div>
         <div className="center">
           <div
+            className="iconItem"
             onClick={() =>
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
@@ -74,7 +76,7 @@ const YearsHeader = ({
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >
-            <Icon.DoubleChevronLeft />
+            <Icon.DoubleChevronLeft hoverEffect />
           </div>
         </div>
       </div>

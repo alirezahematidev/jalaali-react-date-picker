@@ -83,7 +83,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    padding: 4px;
 }
 
 .icon:hover {
@@ -263,6 +262,7 @@
     align-items: center;
     height: 312px;
     max-height: 312px;
+    width: 600px;
     background-color: var(--background);
     border-radius: 2px;
     overflow: hidden;
@@ -273,6 +273,7 @@
     color: var(--text);
     font-size: 16px;
     opacity: 0.5;
+    user-select: none;
 }
 
 .panel-header-date-selected {
@@ -285,6 +286,7 @@
     justify-content: center;
     align-items: center;
     height: 312px;
+    width: 600px;
     max-height: 312px;
     background-color: var(--background);
     border-radius: 2px;
@@ -567,6 +569,7 @@
     transition: color 100ms ease;
     color: var(--text);
     font-size: 14px;
+    user-select: none;
 }
 
 .today-text:hover {
@@ -761,11 +764,13 @@
 .range-panel-header-item-text {
     color: var(--text);
     font-size: 14px;
+    user-select: none;
 }
 
 .panel-header-item-text {
     color: var(--text);
     font-size: 14px;
+    user-select: none;
 }
 
 .panel-header-item-text:hover {
@@ -782,6 +787,7 @@
     font-size: 14px;
     margin-inline: 4px;
     color: var(--text);
+    user-select: none;
 }
 
 .panel-header-year-picker span:hover {
@@ -905,6 +911,7 @@
 
 .year-item-name {
     font-size: 14px;
+    user-select: none;
 }
 
 .year-item-prev {
@@ -1168,6 +1175,11 @@
     color: inherit;
     line-height: 30px;
     font-size: 16px;
+}
+
+.iconItem {
+    display: inline-block;
+    overflow: hidden;
 }
 
 
