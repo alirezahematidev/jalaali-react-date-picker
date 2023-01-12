@@ -1,48 +1,70 @@
 import { useMemo } from "react";
-import {
-  HOUR_TICK,
-  MARK_SIZE,
-  MINUTE_TICK,
-  ORIGIN_Y,
-} from "../../constants/variables";
+import { createMarkets, degreeToRadian, timePad } from "../../../utils";
+import * as c from "../../constants/variables";
+import { TimeMode } from "../../types";
 
-export const useTransforms = (mode: "hour" | "minute") => {
-  function toRadian(degree: number) {
-    return degree * (Math.PI / 180);
-  }
+type TransformMarker = {
+  marker: number;
+  label: string;
+  transform: string;
+};
 
-  const transforms = useMemo(() => {
-    const markers = Array.from(
-      { length: mode === "hour" ? 12 : 60 },
-      (_, i) => i + 1,
-    );
+export const useTransforms = (mode: TimeMode) => {
+  const { transforms } = useMemo(() => {
+    const markers = createMarkets(mode);
 
-    function transform(hour: number) {
-      const radius = ORIGIN_Y - MARK_SIZE / 2;
+    function transform(hour: number): number[] {
+      const radius = c.ORIGIN_Y - c.MARK_SIZE / 2;
 
-      const tick = mode === "hour" ? HOUR_TICK : 6 * MINUTE_TICK;
+      const tick = mode === "hour" ? c.HOUR_TICK : 6 * c.MINUTE_TICK;
 
-      const radian = toRadian(hour * tick);
+      const radian = degreeToRadian(hour * tick);
 
       const transX = radius * Math.sin(radian);
 
-      const transY = ORIGIN_Y - radius * Math.cos(radian);
+      const transY = c.ORIGIN_Y - radius * Math.cos(radian);
 
       const x = Math.round(transX);
 
-      const y = Math.round(transY) - MARK_SIZE / 2;
+      const y = Math.round(transY) - c.MARK_SIZE / 2;
 
-      return { x, y };
+      return [x, y];
     }
 
-    return markers
-      .filter((m) => (mode === "hour" ? true : m % 5 === 0))
-      .map((marker) => ({
-        marker,
-        transform: `translate(${transform(marker).x}px,${
-          transform(marker).y
-        }px)`,
-      }));
+    function stepMarkers(mode: TimeMode, markers: number[]) {
+      if (mode === "hour") return markers;
+
+      const steps = markers.filter((marker) => marker % 5 === 0);
+
+      return steps;
+    }
+
+    function transformMap(markers: number[]): TransformMarker[] {
+      const map = stepMarkers(mode, markers).map((marker) => {
+        const [x, y] = transform(marker);
+
+        const t = `translate(${x}px,${y}px)`;
+
+        let label = marker.toString();
+
+        if (mode === "minute") {
+          const m = marker === 60 ? 0 : marker;
+          label = timePad(m);
+        }
+
+        return {
+          marker,
+          label,
+          transform: t,
+        };
+      });
+
+      return map;
+    }
+
+    const transforms = transformMap(markers);
+
+    return { transforms };
   }, [mode]);
 
   return transforms;

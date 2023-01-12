@@ -1,106 +1,40 @@
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
-import { HOUR_TICK } from "../../core/constants/variables";
-import { useMouseAngularPosition, useTransforms } from "../../core/hooks/time";
+import { useRef } from "react";
+import { TimePickerProps } from "../../core";
+import { useTimeConfig, useTransforms } from "../../core/hooks/time";
+import { Transform } from "./transform";
 
-type Mode = "hour" | "minute";
+export const TimePicker = (timePickerProps: TimePickerProps) => {
+  const handleRef = useRef<HTMLDivElement>(null);
 
-type Time = {
-  [k in Mode]: number;
-};
+  const config = useTimeConfig({ handleRef });
 
-export const TimePicker = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<"hour" | "minute">("hour");
-  const [time, setTime] = useState<Time>({
-    hour: 0,
-    minute: 0,
-  });
-  const [grabbed, setGrabbed] = useState<boolean>(false);
-
-  const getRotate = useMouseAngularPosition();
-
-  const transforms = useTransforms(mode);
-
-  const onMouseDown = () => {
-    setGrabbed(true);
-  };
-
-  const onMouseUp = () => {
-    setGrabbed(false);
-    setMode("minute");
-  };
-
-  useEffect(() => {
-    setTime((prevTime) => prevTime);
-    if (ref.current) {
-      const node = ref.current;
-
-      node.classList.toggle("handle-animate-move");
-    }
-  }, [mode]);
-
-  console.log({ time: `${time.hour}:${time.minute}` });
+  const transforms = useTransforms(config.mode);
 
   return (
     <div className="time-panel panel-elevation">
       <div
         className={classNames(
           "time-clock-area",
-          grabbed && "time-clock-handle-move",
+          config.handleGrabbed && "time-clock-handle-grab",
         )}
-        onMouseDown={(e) => {
-          const x = e.clientX - e.currentTarget.offsetLeft;
-          const y = e.clientY - e.currentTarget.offsetTop;
-          const value = getRotate({ x, y }, mode);
-
-          setTime((prevTime) => ({ ...prevTime, [mode]: value }));
-        }}
-        onMouseMove={(e) => {
-          if (!grabbed) return;
-
-          const x = e.clientX - e.currentTarget.offsetLeft;
-          const y = e.clientY - e.currentTarget.offsetTop;
-
-          const value = getRotate({ x, y }, mode);
-
-          setTime((prevTime) => ({ ...prevTime, [mode]: value }));
-        }}
-        onMouseUp={onMouseUp}
+        {...config.clockEvents}
       >
         <div
+          ref={handleRef}
           className={classNames(
-            "time-clock-handle",
-            grabbed && "time-clock-handle-move",
+            config.handleTickClassName,
+            config.handleGrabbed && "time-clock-handle-grab",
           )}
-          ref={ref}
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
+          {...config.handleEvents}
           style={{
-            transform:
-              mode === "hour"
-                ? `rotateZ(${time.hour * HOUR_TICK}deg)`
-                : `rotateZ(${(time.minute / 60) * 360}deg)`,
+            transform: config.transform,
           }}
         />
-        {transforms.map(({ transform, marker }) => (
-          <div
-            key={marker}
-            className="hour"
-            style={{
-              transform,
-              color: (
-                mode === "hour"
-                  ? [marker - 12, marker].includes(time.hour)
-                  : [marker - 60, marker].includes(time.minute)
-              )
-                ? "#fff"
-                : "#000",
-            }}
-          >
-            {marker.toString().padStart(2, "0")}
-          </div>
-        ))}
+        <Transform
+          transforms={transforms}
+          activeTickClassName={config.activeTickClassName}
+        />
       </div>
     </div>
   );

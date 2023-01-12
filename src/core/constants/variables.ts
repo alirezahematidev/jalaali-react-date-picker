@@ -21,6 +21,12 @@ const ORIGIN_X = (CLOCK_WIDTH - 4) / 2;
 const ORIGIN_Y = CLOCK_HEIGHT / 2;
 const MARK_SIZE = 36;
 
+// time units
+const HALF_PI = Math.PI / 2;
+const FULL_PI = Math.PI;
+const HALF_DEG = 180;
+const FULL_DEG = 360;
+
 export {
   isServer,
   isClient,
@@ -37,4 +43,8 @@ export {
   ORIGIN_X,
   ORIGIN_Y,
   MARK_SIZE,
+  HALF_PI,
+  FULL_PI,
+  HALF_DEG,
+  FULL_DEG,
 };
