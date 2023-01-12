@@ -1175,6 +1175,7 @@
     color: inherit;
     line-height: 30px;
     font-size: 16px;
+    user-select: none;
 }
 
 .iconItem {
