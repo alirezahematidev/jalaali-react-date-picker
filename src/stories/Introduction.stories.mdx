@@ -1,219 +1,247 @@
-import { Meta } from "@storybook/addon-docs";
-import Code from "./assets/code-brackets.svg";
-import Colors from "./assets/colors.svg";
-import Comments from "./assets/comments.svg";
-import Direction from "./assets/direction.svg";
-import Flow from "./assets/flow.svg";
-import Plugin from "./assets/plugin.svg";
-import Repo from "./assets/repo.svg";
-import StackAlt from "./assets/stackalt.svg";
+<Meta title="Introduction" />
 
-<Meta title="Example/Introduction" />
+[package]: https://www.npmjs.com/package/jalaali-react-date-picker
 
-<style>
-  {`
-    .subheading {
-      --mediumdark: '#999999';
-      font-weight: 900;
-      font-size: 13px;
-      color: #999;
-      letter-spacing: 6px;
-      line-height: 24px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      margin-top: 40px;
-    }
+## Installation
 
-    .link-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-      row-gap: 10px;
-    }
+To install jalaali-react-date-picker, you will need to have [npm](https://npmjs.com) or [yarn](https://yarnpkg.com) installed on your system. Once you have one of these package managers set up, you can install jalaali-react-date-picker by running the following command:
 
-    @media (min-width: 620px) {
-      .link-list {
-        row-gap: 20px;
-        column-gap: 20px;
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+```bash
+  npm install --save jalaali-react-date-picker
+```
 
-    @media all and (-ms-high-contrast:none) {
-    .link-list {
-        display: -ms-grid;
-        -ms-grid-columns: 1fr 1fr;
-        -ms-grid-rows: 1fr 1fr;
-      }
-    }
+or
 
-    .link-item {
-      display: block;
-      padding: 20px 30px 20px 15px;
-      border: 1px solid #00000010;
-      border-radius: 5px;
-      transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-      color: #333333;
-      display: flex;
-      align-items: flex-start;
-    }
+```bash
+  yarn add jalaali-react-date-picker
+```
 
-    .link-item:hover {
-      border-color: #1EA7FD50;
-      transform: translate3d(0, -3px, 0);
-      box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
-    }
+This will install the latest version of jalaali-react-date-picker and add it as a dependency to your project.
 
-    .link-item:active {
-      border-color: #1EA7FD;
-      transform: translate3d(0, 0, 0);
-    }
+## Usage/Examples
 
-    .link-item strong {
-      font-weight: 700;
-      display: block;
-      margin-bottom: 2px;
-    }
+First, import the necessary styles at top of your application:
 
-    .link-item img {
-      height: 40px;
-      width: 40px;
-      margin-right: 15px;
-      flex: none;
-    }
+```javascript
+import "jalaali-react-date-picker/lib/styles/index.css";
+```
 
-    .link-item span {
-      font-size: 14px;
-      line-height: 20px;
-    }
+# DatePicker
 
-    .tip {
-      display: inline-block;
-      border-radius: 1em;
-      font-size: 11px;
-      line-height: 12px;
-      font-weight: 700;
-      background: #E7FDD8;
-      color: #66BF3C;
-      padding: 4px 12px;
-      margin-right: 10px;
-      vertical-align: top;
-    }
+The **DatePicker** component is a standalone calendar picker that allows the user to select a single date.
 
-    .tip-wrapper {
-      font-size: 13px;
-      line-height: 20px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-    }
+```javascript
+import { DatePicker } from "jalaali-react-date-picker";
 
-    .tip-wrapper code {
-      font-size: 12px;
-      display: inline-block;
-    }
-  `}
-</style>
+function App() {
+  return <DatePicker />;
+}
+```
 
-# Welcome to Storybook
+# RangePicker
 
-Storybook helps you build UI components in isolation from your app's business logic, data, and context.
-That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
+The **RangePicker** component is a calendar picker that allows the user to select a range of dates.
 
-Browse example stories now by navigating to them in the sidebar.
-View their code in the `stories` directory to learn how they work.
-We recommend building UIs with a [**component-driven**](https://componentdriven.org) process starting with atomic components and ending with pages.
+```javascript
+import { RangePicker } from "jalaali-react-date-picker";
 
-<div className="subheading">Configure</div>
+function App() {
+  return <RangePicker />;
+}
+```
 
-<div className="link-list">
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/addons/addon-types"
-    target="_blank"
-  >
-    <img src={Plugin} alt="plugin" />
-    <span>
-      <strong>Presets for popular tools</strong>
-      Easy setup for TypeScript, SCSS and more.
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/webpack"
-    target="_blank"
-  >
-    <img src={StackAlt} alt="Build" />
-    <span>
-      <strong>Build configuration</strong>
-      How to customize webpack and Babel
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/styling-and-css"
-    target="_blank"
-  >
-    <img src={Colors} alt="colors" />
-    <span>
-      <strong>Styling</strong>
-      How to load and configure CSS libraries
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/get-started/setup#configure-storybook-for-your-stack"
-    target="_blank"
-  >
-    <img src={Flow} alt="flow" />
-    <span>
-      <strong>Data</strong>
-      Providers and mocking for data libraries
-    </span>
-  </a>
-</div>
+# InputDatePicker
 
-<div className="subheading">Learn</div>
+The **InputDatePicker** component is a calendar picker that is displayed as an input field. The user can select a single date by clicking the input field and selecting a date from the calendar picker.
 
-<div className="link-list">
-  <a className="link-item" href="https://storybook.js.org/docs" target="_blank">
-    <img src={Repo} alt="repo" />
-    <span>
-      <strong>Storybook documentation</strong>
-      Configure, customize, and extend
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/tutorials/"
-    target="_blank"
-  >
-    <img src={Direction} alt="direction" />
-    <span>
-      <strong>In-depth guides</strong>
-      Best practices from leading teams
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://github.com/storybookjs/storybook"
-    target="_blank"
-  >
-    <img src={Code} alt="code" />
-    <span>
-      <strong>GitHub project</strong>
-      View the source and add issues
-    </span>
-  </a>
-  <a className="link-item" href="https://discord.gg/storybook" target="_blank">
-    <img src={Comments} alt="comments" />
-    <span>
-      <strong>Discord chat</strong>
-      Chat with maintainers and the community
-    </span>
-  </a>
-</div>
+```javascript
+import { InputDatePicker } from "jalaali-react-date-picker";
 
-<div className="tip-wrapper">
-  <span className="tip">Tip</span>Edit the Markdown in{" "}
-  <code>stories/Introduction.stories.mdx</code>
-</div>
+function App() {
+  return <InputDatePicker />;
+}
+```
+
+# InputRangePicker
+
+The **InputRangePicker** component is a calendar picker that is displayed as two input fields. The user can select a range of dates by clicking on either of the input fields and selecting a date from the calendar picker.
+
+```javascript
+import { InputRangePicker } from "jalaali-react-date-picker";
+
+function App() {
+  return <InputRangePicker />;
+}
+```
+
+## Running Tests
+
+To run tests, run the following command:
+
+```bash
+  npm run test or yarn test
+```
+
+## Features
+
+- Full support for React and server-side frameworks like Next.js: The package is designed to work seamlessly with these technologies, allowing you to easily incorporate it into your project.
+
+- Custom date highlighting: With this feature, you can define specific dates and highlight them with any color you choose. This is useful for highlighting important dates, events, or deadlines.
+
+- Complete style customization: The package allows you to fully customize the styles, including colors and style overrides. This means you can match the calendar to the look and feel of your project.
+
+- Support for both Gregorian and Jalaali (Shamsi) date formats: The package provides support for both formats, giving you the flexibility to use the one that best fits your needs.
+
+## Props
+
+The **jalaali-react-date-picker** package offers a wide range of customizable props for each of the components. Here is a list of the available props for each component:
+
+# DatePicker
+
+| Property           |                                  Type                                   | Description                                                                                                                           |
+| :----------------- | :---------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `value`            |                            `Moment \| null`                             | The currently selected date.                                                                                                          |
+| `defaultValue`     |                            `Moment \| null`                             | To set default value, if `value` is `undefined` or `null`, the date picker will show default value.                                   |
+| `onChange`         |          `(date: Moment \| null, dateString: string) => void`           | Callback function which will be executed when date changes.                                                                           |
+| `onDayChange`      |                         `(day:number) => void`                          | Callback function which will be executed when day changes.                                                                            |
+| `onMonthChange`    |                      `(month:MonthValue) => void`                       | Callback function which will be executed when month changes.                                                                          |
+| `onYearChange`     |                         `(year:number) => void`                         | Callback function which will be executed when year changes.                                                                           |
+| `format`           |                  `string \| (value:Moment) => string`                   | The format is which the selected date should be displayed. Uses moment.js format strings.                                             |
+| `locale`           |                                `Locale`                                 | The locale to be used for localization, while default locale is `fa`.                                                                 |
+| `disabledDates`    |                      `(current:Moment) => boolean`                      | Callback function that can specify the date that cannot be selected                                                                   |
+| `onModeChange`     |                          `(mode:Mode) => void`                          | Callback function which will be executed when calendar mode changes.                                                                  |
+| `panelRender`      |     `(date:PanelDate,panelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom node for calendar panel component.                                                     |
+| `footerRender`     | `(current:Date \| null, footerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for footer component.                                                             |
+| `headerRender`     | `(current:Date \| null, headerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for header component.                                                             |
+| `dayLabelRender`   |    `(labels:string[],labelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom for day labels component.                                                              |
+| `highlightDays`    |                 `Moment[] \| (date:Moment) => boolean`                  | The `highlightDays` can be used to determines which dates should be highlighted. it accepts array of `moment` or a callback function. |
+| `highlightWeekend` |                                `boolean`                                | If `highlightWeekend` set to `true`, its turn weekend days to highlighted. Default is `true`.                                         |
+| `customColors`     |                              `ColorSchema`                              | The `customColors` can be used to overrides the default colors.                                                                       |
+| `nextIcon`         |                            `React.ReactNode`                            | custom icon for next month                                                                                                            |
+| `prevIcon`         |                            `React.ReactNode`                            | custom icon for previous month                                                                                                        |
+| `superNextIcon`    |                            `React.ReactNode`                            | custom icon for next year                                                                                                             |
+| `superPrevIcon`    |                            `React.ReactNode`                            | custom icon for previous year                                                                                                         |
+| `loading`          |                                `boolean`                                | If `true`, renders loading component in calendar instead of caledar panel                                                             |
+| `loadingIndicator` |                            `React.ReactNode`                            | Set custom loading indicator                                                                                                          |
+| `style`            |                          `React.CSSProperties`                          | styles for root element of calendar panel                                                                                             |
+| `className`        |                                `string`                                 | class for root element of calendar panel                                                                                              |
+
+# RangePicker
+
+| Property           |                                            Type                                             | Description                                                                                                                           |
+| :----------------- | :-----------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `value`            |                                  `[Moment,Moment] \| null`                                  | The currently selected range date date.                                                                                               |
+| `defaultValue`     |                                      `[Moment,Moment]`                                      | To set default value, if `value` is `undefined` or `null`, the range picker will show default value.                                  |
+| `onChange`         |               `(date: [Moment,Moment], dateString: [string,string]) => void`                | Callback function which will be executed when range dates changes.                                                                    |
+| `onDayChange`      |                              `(days:[number,number]) => void`                               | Callback function which will be executed when days changes.                                                                           |
+| `onMonthChange`    |                          `(month:[MonthValue,MonthValue]) => void`                          | Callback function which will be executed when months changes.                                                                         |
+| `onYearChange`     |                              `(year:[number, number]) => void`                              | Callback function which will be executed when years changes.                                                                          |
+| `format`           |                       `string \| (value:[Moment, Moment]) => string`                        | The format is which the selected range dates should be displayed. Uses moment.js format strings. Default is `jYYYY-jMM-jDD`           |
+| `locale`           |                                          `Locale`                                           | The locale to be used for localization, while default is `fa`.                                                                        |
+| `disabledDates`    |                                `(current:Moment) => boolean`                                | Callback function that can specify the dates that cannot be selected                                                                  |
+| `onModeChange`     |                                    `(mode:Mode) => void`                                    | Callback function which will be executed when calendar mode changes.                                                                  |
+| `panelRender`      |       `(date:[PanelRange, PanelRange],panelNode:React.ReactNode) => React.ReactNode`        | Callback render function used to render custom node for calendar panel component.                                                     |
+| `headerRender`     | `(current:[Moment, Moment \| null] \| null, headerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for header component.                                                             |
+| `dayLabelRender`   |              `(labels:string[],labelNode:React.ReactNode) => React.ReactNode`               | Callback render function used to render custom for day labels component.                                                              |
+| `highlightDays`    |                           `Moment[] \| (date:Moment) => boolean`                            | The `highlightDays` can be used to determines which dates should be highlighted. it accepts array of `moment` or a callback function. |
+| `highlightWeekend` |                                          `boolean`                                          | If `highlightWeekend` set to `true`, its turn weekend days to highlighted. Default is `true`.                                         |
+| `customColors`     |                                        `ColorSchema`                                        | The `customColors` can be used to overrides the default colors.                                                                       |
+| `nextIcon`         |                                      `React.ReactNode`                                      | custom icon for next month                                                                                                            |
+| `prevIcon`         |                                      `React.ReactNode`                                      | custom icon for previous month                                                                                                        |
+| `superNextIcon`    |                                      `React.ReactNode`                                      | custom icon for next year                                                                                                             |
+| `superPrevIcon`    |                                      `React.ReactNode`                                      | custom icon for previous year                                                                                                         |
+| `loading`          |                                          `boolean`                                          | If `true`, renders loading component in calendar instead of caledar panel                                                             |
+| `loadingIndicator` |                                      `React.ReactNode`                                      | Set custom loading indicator                                                                                                          |
+| `style`            |                                    `React.CSSProperties`                                    | styles for root element of calendar panel                                                                                             |
+| `className`        |                                          `string`                                           | class for root element of calendar panel                                                                                              |
+
+# InputDatePicker
+
+| Property            |                         Type                         | Description                                                                                                          |
+| :------------------ | :--------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------- |
+| `value`             |                   `Moment \| null`                   | The currently selected date.                                                                                         |
+| `defaultValue`      |                   `Moment \| null`                   | To set default value, if `value` is `undefined` or `null`, the date picker will show default value.                  |
+| `open`              |                      `boolean`                       | To set `open` the popup calendar.                                                                                    |
+| `disabled`          |                      `boolean`                       | To set `disable` the popup calendar                                                                                  |
+| `error`             |                      `boolean`                       | If `true`, the input will indicate an error                                                                          |
+| `presets`           |                      `boolean`                       | The preset range dates for quick selection. Default is `true`.                                                       |
+| `renderInput`       |          `(field: FieldProps) => ReactNode`          | Customize date picker input render.                                                                                  |
+| `prefixIcon`        |                  `React.ReactNode`                   | Input custom prefix icon.                                                                                            |
+| `suffixIcon`        |                  `React.ReactNode`                   | Input custom suffix icon                                                                                             |
+| `placement`         |           `top \| bottom \| right \| left`           | The position where the popup calendar box pops up.                                                                   |
+| `format`            |         `string \| (value:Moment) => string`         | The format is which the selected date should be displayed. Uses moment.js format strings. Default is `jYYYY-jMM-jDD` |
+| `locale`            |                       `Locale`                       | The locale to be used for localization, while default is `fa`.                                                       |
+| `getPopupContainer` |    `HTMLElement \| (() => HTMLElement) \| string`    | The mounted node for popup calendar.                                                                                 |
+| `disabledDates`     |            `(current:Moment) => boolean`             | Callback function that can specify the date that cannot be selected                                                  |
+| `customColors`      |                    `ColorSchema`                     | The `customColors` can be used to overrides the default colors.                                                      |
+| `onChange`          | `(date: Moment \| null, dateString: string) => void` | Callback function which will be executed when date changes.                                                          |
+| `onDayChange`       |                `(day:number) => void`                | Callback function which will be executed when day changes.                                                           |
+| `onMonthChange`     |             `(month:MonthValue) => void`             | Callback function which will be executed when month changes.                                                         |
+| `onYearChange`      |               `(year:number) => void`                | Callback function which will be executed when year changes.                                                          |
+| `onOpenChange`      |              `(open: boolean) => void`               | Callback function, can be executed whether the popup calendar is popped up or closed.                                |
+| `pickerProps`       |             [picker props](#pickerprops)             | Object containing options for changing the picker itself.                                                            |
+| `onClear`           |                     `() => void`                     | Callback function, can be executed when the clear icon is clicked.                                                   |
+| `wrapperClassName`  |                       `string`                       | class for wrapper element of inputs.                                                                                 |
+| `wrapperStyle`      |                `React.CSSProperties`                 | styles for wrapper element of inputs.                                                                                |
+|                     |
+
+## PickerProps
+
+| Property           |                                  Type                                   | Description                                                                                                                           |
+| :----------------- | :---------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `panelRender`      |     `(date:PanelDate,panelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom node for calendar panel component.                                                     |
+| `footerRender`     | `(current:Date \| null, footerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for footer component.                                                             |
+| `headerRender`     | `(current:Date \| null, headerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for header component.                                                             |
+| `dayLabelRender`   |    `(labels:string[],labelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom for day labels component.                                                              |
+| `highlightDays`    |                 `Moment[] \| (date:Moment) => boolean`                  | The `highlightDays` can be used to determines which dates should be highlighted. it accepts array of `moment` or a callback function. |
+| `highlightWeekend` |                                `boolean`                                | If `highlightWeekend` set to `true`, its turn weekend days to highlighted. Default is `true`.                                         |
+| `loading`          |                                `boolean`                                | If `true`, renders loading component in calendar instead of caledar panel                                                             |
+| `loadingIndicator` |                            `React.ReactNode`                            | Set custom loading indicator                                                                                                          |
+| `onModeChange`     |                          `(mode:Mode) => void`                          | Callback function which will be executed when calendar mode changes.                                                                  |
+| `style`            |                          `React.CSSProperties`                          | styles for root element of calendar panel                                                                                             |
+| `className`        |                                `string`                                 | class for root element of calendar panel                                                                                              |
+
+# InputRangePicker
+
+| Property            |                              Type                              | Description                                                                                                                 |
+| :------------------ | :------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------- |
+| `value`             |                       `[Moment,Moment]`                        | The currently selected range date date.                                                                                     |
+| `defaultValue`      |                       `[Moment,Moment]`                        | To set default value, if `value` is `undefined` or `null`, the range picker will show default value.                        |
+| `open`              |                           `boolean`                            | To set `open` the popup calendar.                                                                                           |
+| `disabled`          |                           `boolean`                            | To set `disable` the popup calendar                                                                                         |
+| `error`             |                           `boolean`                            | If `true`, the input will indicate an error                                                                                 |
+| `presets`           |                           `boolean`                            | The preset range dates for quick selection. Default is `true`.                                                              |
+| `placeholder`       |                       `[string,string]`                        | The placeholder of date inputs.                                                                                             |
+| `prefixIcon`        |                       `React.ReactNode`                        | Input custom prefix icon.                                                                                                   |
+| `suffixIcon`        |                       `React.ReactNode`                        | Input custom suffix icon                                                                                                    |
+| `placement`         |                `top \| bottom \| right \| left`                | The position where the popup calendar box pops up.                                                                          |
+| `getPopupContainer` |         `HTMLElement \| (() => HTMLElement) \| string`         | The mounted node for popup calendar.                                                                                        |
+| `format`            |         `string \| (value:[Moment, Moment]) => string`         | The format is which the selected range dates should be displayed. Uses moment.js format strings. Default is `jYYYY-jMM-jDD` |
+| `locale`            |                            `Locale`                            | The locale to be used for localization, while default is `fa`.                                                              |
+| `responsive`        |                  `desktop \| mobile \| auto`                   | To set responsive, the range picker component is responsed and optimized to device it runs on. Default set to `auto`.       |
+| `separator`         |                       `React.ReactNode`                        | Set separator between inputs.                                                                                               |
+| `customColors`      |                         `ColorSchema`                          | The `customColors` can be used to overrides the default colors.                                                             |
+| `rangeProps`        |                   [range props](#rangeprops)                   | Object containing options for changing the range picker itself.                                                             |
+| `onChange`          | `(date: [Moment,Moment], dateString: [string,string]) => void` | Callback function which will be executed when range dates changes.                                                          |
+| `onDayChange`       |                `(days:[number,number]) => void`                | Callback function which will be executed when days changes.                                                                 |
+| `onMonthChange`     |           `(month:[MonthValue,MonthValue]) => void`            | Callback function which will be executed when months changes.                                                               |
+| `onYearChange`      |               `(year:[number, number]) => void`                | Callback function which will be executed when years changes.                                                                |
+| `onOpenChange`      |                   `(open: boolean) => void`                    | Callback function, can be executed whether the popup calendar is popped up or closed.                                       |
+| `onClear`           |                          `() => void`                          | Callback function, can be executed when the clear icon is clicked.                                                          |
+| `wrapperStyle`      |                     `React.CSSProperties`                      | styles for wrapper element of inputs.                                                                                       |
+| `wrapperClassName`  |                            `string`                            | class for wrapper element of inputs.                                                                                        |
+
+## RangeProps
+
+| Property           |                                  Type                                   | Description                                                                                                                           |
+| :----------------- | :---------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `panelRender`      |     `(date:PanelDate,panelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom node for calendar panel component.                                                     |
+| `headerRender`     | `(current:Date \| null, headerNode:React.ReactNode) => React.ReactNode` | Callback render function used to render custom node for header component.                                                             |
+| `dayLabelRender`   |    `(labels:string[],labelNode:React.ReactNode) => React.ReactNode`     | Callback render function used to render custom for day labels component.                                                              |
+| `highlightDays`    |                 `Moment[] \| (date:Moment) => boolean`                  | The `highlightDays` can be used to determines which dates should be highlighted. it accepts array of `moment` or a callback function. |
+| `highlightWeekend` |                                `boolean`                                | If `highlightWeekend` set to `true`, its turn weekend days to highlighted. Default is `true`.                                         |
+| `loading`          |                                `boolean`                                | If `true`, renders loading component in calendar instead of caledar panel                                                             |
+| `loadingIndicator` |                            `React.ReactNode`                            | Set custom loading indicator                                                                                                          |
+| `onModeChange`     |                          `(mode:Mode) => void`                          | Callback function which will be executed when calendar mode changes.                                                                  |
+| `style`            |                          `React.CSSProperties`                          | styles for root element of calendar panel                                                                                             |
+| `className`        |                                `string`                                 | class for root element of calendar panel                                                                                              |

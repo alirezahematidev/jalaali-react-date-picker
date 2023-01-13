@@ -6,7 +6,7 @@ import {
 } from "../../core";
 import RangePanel from "./rangePanel";
 
-interface RangePickerProps extends Props {
+export interface RangePickerProps extends Props {
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -14,7 +14,7 @@ type RangePickerComponent = typeof RangePicker;
 
 const RangePicker = (
   rangeProps: RangePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
+  pickerRef?: ForwardedRef<HTMLDivElement>,
 ) => {
   const {
     headerRender,

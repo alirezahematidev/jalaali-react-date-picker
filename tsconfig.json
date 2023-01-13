@@ -23,7 +23,8 @@
     "checkJs": false,
     "outDir": "lib",
     "rootDir": "src",
-    "typeRoots": ["lib/index.d.ts", "@types"]
+    "typeRoots": ["lib/index.d.ts", "@types"],
+    "baseUrl": "."
   },
   "ts-node": {
     "compilerOptions": {

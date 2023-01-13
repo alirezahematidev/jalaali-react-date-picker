@@ -83,6 +83,14 @@ function App() {
 }
 ```
 
+## Live Demo Examples
+
+To see demo examples, run the following command:
+
+```bash
+  npm run storybook or yarn storybook
+```
+
 ## Running Tests
 
 To run tests, run the following command:
@@ -225,6 +233,7 @@ The **jalaali-react-date-picker** package offers a wide range of customizable pr
 | `suffixIcon`        |                       `React.ReactNode`                        | Input custom suffix icon                                                                                                    |
 | `placement`         |                `top \| bottom \| right \| left`                | The position where the popup calendar box pops up.                                                                          |
 | `getPopupContainer` |         `HTMLElement \| (() => HTMLElement) \| string`         | The mounted node for popup calendar.                                                                                        |
+| `disabledDates`     |                 `(current:Moment) => boolean`                  | Callback function that can specify the date that cannot be selected                                                         |
 | `format`            |         `string \| (value:[Moment, Moment]) => string`         | The format is which the selected range dates should be displayed. Uses moment.js format strings. Default is `jYYYY-jMM-jDD` |
 | `locale`            |                            `Locale`                            | The locale to be used for localization, while default is `fa`.                                                              |
 | `responsive`        |                  `desktop \| mobile \| auto`                   | To set responsive, the range picker component is responsed and optimized to device it runs on. Default set to `auto`.       |

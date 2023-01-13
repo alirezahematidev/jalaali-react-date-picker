@@ -1,13 +1,17 @@
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import { InputRangePickerProps, RangeProvider, useSetColors } from "../../core";
 import { Popup } from "../popup";
 import RangePanel from "../range/rangePanel";
 import { Suffix } from "../suffix";
 import { Input } from "./input";
 
-export const InputRangePicker = (
+type InputRangePickerComponent = typeof InputRangePicker;
+
+const InputRangePicker = (
   inputRangePickerProps: InputRangePickerProps,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _ref?: ForwardedRef<HTMLInputElement>,
 ) => {
   const {
     value,
@@ -170,3 +174,10 @@ export const InputRangePicker = (
     </RangeProvider>
   );
 };
+
+const InputRangePickerWithRef = forwardRef<
+  HTMLInputElement,
+  InputRangePickerProps
+>(InputRangePicker) as InputRangePickerComponent;
+
+export { InputRangePickerWithRef as InputRangePicker };
