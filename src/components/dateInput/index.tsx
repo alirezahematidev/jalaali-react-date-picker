@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
-import { Popup } from "../popup";
+import Popup from "../popup";
 import { Suffix } from "../suffix";
 import { CustomWrapper } from "./customWrapper";
 

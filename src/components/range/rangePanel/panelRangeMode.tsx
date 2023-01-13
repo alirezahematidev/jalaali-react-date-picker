@@ -27,14 +27,14 @@ const RangePanelModeContext = createContext<
   highlightWeekend: true,
 });
 
-export const RangePanelMode = memo(
-  ({ children, ...props }: RangePanelModeProps) => {
-    return (
-      <RangePanelModeContext.Provider value={{ ...props }}>
-        {children}
-      </RangePanelModeContext.Provider>
-    );
-  },
-);
+const RangePanelMode = memo(({ children, ...props }: RangePanelModeProps) => {
+  return (
+    <RangePanelModeContext.Provider value={{ ...props }}>
+      {children}
+    </RangePanelModeContext.Provider>
+  );
+});
 
 export const useRangePanelContext = () => useContext(RangePanelModeContext);
+
+export default RangePanelMode;

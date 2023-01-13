@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import { InputRangePickerProps, RangeProvider, useSetColors } from "../../core";
-import { Popup } from "../popup";
+import Popup from "../popup";
 import RangePanel from "../range/rangePanel";
 import { Suffix } from "../suffix";
 import { Input } from "./input";

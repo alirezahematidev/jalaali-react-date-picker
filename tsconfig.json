@@ -39,5 +39,5 @@
     }
   },
   "include": ["src", "src/custom.d.ts"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "lib", "src/stories"]
 }

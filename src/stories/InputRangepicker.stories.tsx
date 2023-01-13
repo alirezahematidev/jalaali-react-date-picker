@@ -1,4 +1,6 @@
+// organize-imports-ignore
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import React from "react";
 import { InputRangePicker } from "../components";
 import "../styles/index.css";
 
