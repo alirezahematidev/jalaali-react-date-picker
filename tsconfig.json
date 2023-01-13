@@ -22,7 +22,8 @@
     "downlevelIteration": true,
     "checkJs": false,
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "typeRoots": ["lib/index.d.ts", "@types"]
   },
   "ts-node": {
     "compilerOptions": {
