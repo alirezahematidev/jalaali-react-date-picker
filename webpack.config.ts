@@ -6,7 +6,6 @@ import * as path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import * as webpack from "webpack";
-import nodeExternals from "webpack-node-externals";
 import pkg from "./package.json";
 
 const config: webpack.Configuration = {
@@ -146,13 +145,6 @@ const config: webpack.Configuration = {
       ],
     }),
     new webpack.HotModuleReplacementPlugin(),
-  ],
-  externals: [
-    nodeExternals({
-      modulesFromFile: {
-        include: ["dependencies"],
-      },
-    }),
   ],
 };
 
