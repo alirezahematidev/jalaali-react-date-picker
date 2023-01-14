@@ -284,14 +284,16 @@ export const useRangeReducer = ({
   /** Callback function that updates the selected day range and dispatches an action. */
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {
-      const isBefore = dateTransformer(payload, isJalaali).isBefore(
-        dateTransformer(rangeState.startDate, isJalaali),
-        "day",
-      );
-
       const isValidRange = rangeState.startDate && rangeState.endDate;
 
-      if ((!isStartDate && isBefore) || isValidRange) {
+      if (
+        (!isStartDate &&
+          dateTransformer(payload, isJalaali).isBefore(
+            dateTransformer(rangeState.startDate, isJalaali),
+            "day",
+          )) ||
+        isValidRange
+      ) {
         const res: RangeDate = {
           startDate: payload,
           endDate: null,
