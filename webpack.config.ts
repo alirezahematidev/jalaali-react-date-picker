@@ -146,6 +146,7 @@ const config: webpack.Configuration = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+  externals: ["react", "react-dom", "moment-jalaali"],
 };
 
 export default config;

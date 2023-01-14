@@ -51,9 +51,8 @@
   },
   "scripts": {
     "start": "node scripts/dev-scripts.js && yarn format && webpack --mode=development --config webpack.config.ts && react-scripts start",
-    "eject": "react-scripts eject",
-    "build": "node scripts/build-scripts.js && yarn format && rimraf lib  && tsc -b  && webpack --mode=production --config webpack.config.ts",
-    "test": "rimraf lib  && tsc -b && cross-env TZ=UTC react-scripts test  --detectOpenHandles",
+    "build": "node scripts/build-scripts.js && yarn format && rimraf lib  && yarn compile  && webpack --mode=production --config webpack.config.ts",
+    "test": "rimraf lib  && yarn compile && cross-env TZ=UTC react-scripts test  --detectOpenHandles",
     "release": "yarn test --watchAll=false && yarn lint && yarn build && yarn publish",
     "lint": "eslint . --ext tsx,ts --quiet",
     "format": "prettier --write .",
