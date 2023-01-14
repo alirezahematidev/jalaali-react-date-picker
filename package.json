@@ -58,7 +58,7 @@
     "format": "prettier --write .",
     "compile": "tsc -b",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o storybook-docs",
     "preview": "yarn build && serve -s lib -p 3000"
   },
   "devDependencies": {

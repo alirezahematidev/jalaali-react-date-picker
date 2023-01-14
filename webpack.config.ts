@@ -83,6 +83,7 @@ const config: webpack.Configuration = {
     chunkIds: "named",
     minimize: true,
     usedExports: true,
+    providedExports: true,
   },
 
   devtool: "source-map",
