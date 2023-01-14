@@ -1,20 +1,10 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
-import {
-  ForwardedRef,
-  forwardRef,
-  Fragment,
-  lazy,
-  memo,
-  Ref,
-  Suspense,
-} from "react";
-import { Fallback } from "src/components/fallback";
+import { ForwardedRef, forwardRef, Fragment, memo, Ref } from "react";
 import { RangeProps as Props, useRangepicker } from "../../../core";
 import { Loading } from "../../loading";
+import RangePanelMode from "./panelRangeMode";
 import { RangePanelTemplate } from "./panelTemplate";
-
-const RangePanelMode = lazy(() => import("./panelRangeMode"));
 
 moment.loadPersian({ dialect: "persian-modern" });
 
@@ -91,30 +81,28 @@ const RangePanel = (
       style={style}
     >
       <Loading loading={loading} indicator={loadingIndicator}>
-        <Suspense fallback={<Fallback />}>
-          <RangePanelMode
-            {...{
-              headerRender,
-              panelRender,
-              dayLabelRender,
-              highlightDays,
-              onModeChange,
-              highlightWeekend,
-              onClose,
-              shouldResponsive,
-              presets,
-            }}
-          >
-            {responsive ? (
-              renderTemplate[responsive]
-            ) : (
-              <Fragment>
-                <RangePanelTemplate type="from" />
-                <RangePanelTemplate type="to" />
-              </Fragment>
-            )}
-          </RangePanelMode>
-        </Suspense>
+        <RangePanelMode
+          {...{
+            headerRender,
+            panelRender,
+            dayLabelRender,
+            highlightDays,
+            onModeChange,
+            highlightWeekend,
+            onClose,
+            shouldResponsive,
+            presets,
+          }}
+        >
+          {responsive ? (
+            renderTemplate[responsive]
+          ) : (
+            <Fragment>
+              <RangePanelTemplate type="from" />
+              <RangePanelTemplate type="to" />
+            </Fragment>
+          )}
+        </RangePanelMode>
       </Loading>
     </div>
   );
