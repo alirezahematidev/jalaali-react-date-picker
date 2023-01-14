@@ -4,4 +4,4 @@ dist
 lib
 coverage
 .vscode
-storybook-static
+storybook-docs
