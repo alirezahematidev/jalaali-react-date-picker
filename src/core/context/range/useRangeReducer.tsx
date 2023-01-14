@@ -27,9 +27,28 @@ interface RangeDateReducerType {
   locale: Locale;
 }
 
+type Offsets = [number, number];
+
+type RangeInput = [string, string];
+
+type FromTo = {
+  from: Date;
+  to: Date;
+};
+
+/** Function that returns the default date range. */
 const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
+  let defaultDate = {
+    startDate: {
+      day: 0,
+      year: getCurrentYear(isJalaali),
+      month: getCurrentMonth(isJalaali),
+    },
+    endDate: null,
+  };
+
   if (value && value.length) {
-    return {
+    defaultDate = {
       startDate: {
         day: 0,
         year: getDateYear(value[0], isJalaali),
@@ -39,14 +58,7 @@ const getDefaultValue = (value?: RangeValue, isJalaali = true): RangeDate => {
     };
   }
 
-  return {
-    startDate: {
-      day: 0,
-      year: getCurrentYear(isJalaali),
-      month: getCurrentMonth(isJalaali),
-    },
-    endDate: null,
-  };
+  return defaultDate;
 };
 
 export const useRangeReducer = ({
@@ -60,11 +72,8 @@ export const useRangeReducer = ({
   locale,
 }: RangeDateReducerType) => {
   const isJalaali = locale === "fa";
-  const [offsets, setOffset] = useState<[number, number]>([0, 0]);
-  const [rangeInputValue, setRangeInputValue] = useState<[string, string]>([
-    "",
-    "",
-  ]);
+  const [offsets, setOffset] = useState<Offsets>([0, 0]);
+  const [rangeInputValue, setRangeInputValue] = useState<RangeInput>(["", ""]);
 
   const fromAndToDefaultValue = useMemo(
     () => ({
@@ -86,41 +95,49 @@ export const useRangeReducer = ({
     [isJalaali],
   );
 
-  const [fromAndTo, setFromAndTo] = useState<{ from: Date; to: Date }>(
-    fromAndToDefaultValue,
-  );
+  const [fromAndTo, setFromAndTo] = useState<FromTo>(fromAndToDefaultValue);
 
+  /** State to hold the cached date range. */
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
+  /** State and Dispatch hook for managing the date range. */
   const [rangeState, dispatch] = useReducer(
     rangeReducer,
     getDefaultValue(defaultValueProp, isJalaali),
   );
 
+  /** State to hold the placeholder text. */
   const [placeholderFrom, setPlaceholderFrom] = useState<string>("");
 
+  /** State to hold the placeholder text. */
   const [placeholderTo, setPlaceholderTo] = useState<string>("");
 
   const formattedDates = useCallback(
     (dates: [Moment, Moment | null] | null) => {
-      return dates?.map((date) =>
-        date
-          ? date.format(formatProp ? formatProp : formatGenerator(isJalaali))
-          : "",
-      ) as [string, string];
+      return dates?.map((date) => {
+        if (date) {
+          return date.format(
+            formatProp ? formatProp : formatGenerator(isJalaali),
+          );
+        }
+        return "";
+      }) as RangeInput;
     },
     [formatProp, isJalaali],
   );
 
   const { dateRange } = useMemo(() => {
-    const dateRange =
+    let dateRange = null;
+
+    if (
       rangeState.startDate.day !== 0 &&
       rangeState.endDate?.day !== 0 &&
       rangeState.endDate !== null
-        ? rangeTransformer(rangeState, isJalaali)
-        : null;
+    ) {
+      dateRange = rangeTransformer(rangeState, isJalaali);
+    }
 
     return { dateRange };
   }, [isJalaali, rangeState]);
@@ -135,23 +152,29 @@ export const useRangeReducer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isJalaali, rangeInputValue]);
 
+  /**
+   * UseEffect hook that updates the cached date and input value when the
+   * valueProp changes.
+   */
   useEffect(() => {
     if (valueProp && valueProp.length) {
-      const values: RangeDate = {
-        startDate: {
-          day: getDateDay(valueProp[0], isJalaali),
-          year: getDateYear(valueProp[0], isJalaali),
-          month: getDateMonth(valueProp[0], isJalaali),
-        },
-        endDate:
-          valueProp?.[1] !== null
-            ? {
-                day: getDateDay(valueProp[1], isJalaali),
-                year: getDateYear(valueProp[1], isJalaali),
-                month: getDateMonth(valueProp[1], isJalaali),
-              }
-            : null,
+      const startDate = {
+        day: getDateDay(valueProp[0], isJalaali),
+        year: getDateYear(valueProp[0], isJalaali),
+        month: getDateMonth(valueProp[0], isJalaali),
       };
+
+      let endDate = null;
+
+      if (valueProp?.[1] !== null) {
+        endDate = {
+          day: getDateDay(valueProp[1], isJalaali),
+          year: getDateYear(valueProp[1], isJalaali),
+          month: getDateMonth(valueProp[1], isJalaali),
+        };
+      }
+
+      const values: RangeDate = { startDate, endDate };
 
       setCacheRangeDate(values);
 
@@ -166,22 +189,31 @@ export const useRangeReducer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueProp]);
 
+  /**
+   * UseEffect hook that updates the cached date and input value when the
+   * defaultValueProp changes.
+   */
   useEffect(() => {
     if (defaultValueProp && !valueProp) {
+      const startDate = {
+        day: getDateDay(defaultValueProp[0], isJalaali),
+        year: getDateYear(defaultValueProp[0], isJalaali),
+        month: getDateMonth(defaultValueProp[0], isJalaali),
+      };
+
+      let endDate = null;
+
+      if (defaultValueProp?.[1] !== null) {
+        endDate = {
+          day: getDateDay(defaultValueProp[1], isJalaali),
+          year: getDateYear(defaultValueProp[1], isJalaali),
+          month: getDateMonth(defaultValueProp[1], isJalaali),
+        };
+      }
+
       const values: RangeDate = {
-        startDate: {
-          day: getDateDay(defaultValueProp[0], isJalaali),
-          year: getDateYear(defaultValueProp[0], isJalaali),
-          month: getDateMonth(defaultValueProp[0], isJalaali),
-        },
-        endDate:
-          defaultValueProp[1] !== null
-            ? {
-                day: getDateDay(defaultValueProp[1], isJalaali),
-                year: getDateYear(defaultValueProp[1], isJalaali),
-                month: getDateMonth(defaultValueProp[1], isJalaali),
-              }
-            : null,
+        startDate,
+        endDate,
       };
 
       setCacheRangeDate(values);
@@ -201,16 +233,24 @@ export const useRangeReducer = ({
     setFromAndTo(fromAndToDefaultValue);
   }, [fromAndToDefaultValue, isJalaali]);
 
+  /**
+   * This function is a callback function that updates the selected date range
+   * and dispatches an action.
+   */
   const onRangeDateChange = useCallback(
     (payload: RangeDate | null) => {
       if (payload === null) {
         setRangeInputValue(["", ""]);
+
         setPlaceholderFrom("");
+
         setPlaceholderTo("");
+
         setCacheRangeDate((prev) => ({
           startDate: { ...prev.startDate, day: 0 },
           endDate: null,
         }));
+
         dispatch({
           type: RangeActionKind.DATE,
           payload: {
@@ -218,6 +258,7 @@ export const useRangeReducer = ({
             endDate: null,
           },
         });
+
         return;
       }
       dispatch({ type: RangeActionKind.DATE, payload });
@@ -240,27 +281,33 @@ export const useRangeReducer = ({
     [formatProp, formattedDates, isJalaali, onChangeProp, rangeState.startDate],
   );
 
+  /** Callback function that updates the selected day range and dispatches an action. */
   const onRangeDaychange = useCallback(
     (payload: Date, isStartDate: boolean) => {
-      if (
-        (!isStartDate &&
-          dateTransformer(payload, isJalaali).isBefore(
-            dateTransformer(rangeState.startDate, isJalaali),
-            "day",
-          )) ||
-        (rangeState.startDate && rangeState.endDate)
-      ) {
+      const isBefore = dateTransformer(payload, isJalaali).isBefore(
+        dateTransformer(rangeState.startDate, isJalaali),
+        "day",
+      );
+
+      const isValidRange = rangeState.startDate && rangeState.endDate;
+
+      if ((!isStartDate && isBefore) || isValidRange) {
         const res: RangeDate = {
           startDate: payload,
           endDate: null,
         };
+
         dispatch({ type: RangeActionKind.DAY, payload: res });
+
         setCacheRangeDate(res);
+
         setPlaceholderTo("");
+
         setRangeInputValue([
           dateTransformer(res.startDate, isJalaali).format(formatProp),
           "",
         ]);
+
         return;
       }
       const res: RangeDate = {
@@ -271,20 +318,21 @@ export const useRangeReducer = ({
       dispatch({ type: RangeActionKind.DAY, payload: res });
       setCacheRangeDate(res);
 
-      if (res) {
-        if (
-          res.startDate.day !== 0 &&
-          res?.endDate?.day !== 0 &&
-          res.endDate !== null
-        ) {
-          onDayChangeProp?.([res.startDate.day, res.endDate.day]);
-        }
-        setRangeInputValue([
-          dateTransformer(res.startDate, isJalaali).format(formatProp),
-          "",
-        ]);
-        onRangeDateChange?.(res);
+      if (!res) return;
+
+      if (
+        res.startDate.day !== 0 &&
+        res?.endDate?.day !== 0 &&
+        res.endDate !== null
+      ) {
+        onDayChangeProp?.([res.startDate.day, res.endDate.day]);
       }
+
+      setRangeInputValue([
+        dateTransformer(res.startDate, isJalaali).format(formatProp),
+        "",
+      ]);
+      onRangeDateChange?.(res);
     },
     [
       isJalaali,
@@ -296,34 +344,40 @@ export const useRangeReducer = ({
     ],
   );
 
+  /** Callback function that updates the selected month range and dispatches an action. */
   const onRangeMonthchange = useCallback(
     (month: number, mode: "from" | "to") => {
       setFromAndTo(({ from, to }) => {
+        const isToNextYear = to.year > from.year;
         const updatedFrom = {
           ...from,
           ...(mode === "from" && { month }),
         };
 
-        const isToNextYear = to.year > from.year;
-        const updatedTo = {
-          ...to,
-          ...(mode === "to"
-            ? { month }
-            : {
-                month: isToNextYear
-                  ? to.month
-                  : month === 12
-                  ? 1
-                  : to.month <= month
-                  ? month + 1
-                  : to.month,
-              }),
-          year: isToNextYear
-            ? to.year
-            : month === 12 && mode === "from"
-            ? to.year + 1
-            : to.year,
-        };
+        const updatedTo = { ...to };
+
+        if (mode === "to") {
+          updatedTo.month = month;
+        } else {
+          if (isToNextYear) {
+            updatedTo.month = to.month;
+          } else if (month === 12) {
+            updatedTo.month = 1;
+          } else if (to.month <= month) {
+            updatedTo.month = month + 1;
+          } else {
+            updatedTo.month = to.month;
+          }
+        }
+
+        if (isToNextYear) {
+          updatedTo.year = to.year;
+        } else if (month === 12 && mode === "from") {
+          updatedTo.year = to.year + 1;
+        } else {
+          updatedTo.year = to.year;
+        }
+
         onMonthChangeProp?.([
           {
             name: getMonthLabels(updatedFrom.month, isJalaali),
@@ -342,6 +396,8 @@ export const useRangeReducer = ({
     },
     [isJalaali, onMonthChangeProp],
   );
+
+  /** Callback function that updates the selected year range and dispatches an action. */
   const onRangeYearchange = useCallback(
     (year: number, mode: "from" | "to") => {
       setFromAndTo(({ from, to }) => {
@@ -349,13 +405,17 @@ export const useRangeReducer = ({
           ...from,
           ...(mode === "from" && { year }),
         };
-        const updatedTo: Date = {
-          ...to,
-          ...(mode === "to"
-            ? { year }
-            : { year: to.year < year ? year : to.year }),
-        };
+
+        const updatedTo = { ...to };
+
+        if (mode === "to") {
+          updatedTo.year = year;
+        } else {
+          updatedTo.year = to.year < year ? year : to.year;
+        }
+
         onYearChangeProp?.([updatedFrom.year, updatedTo.year]);
+
         return {
           from: updatedFrom,
           to: updatedTo,
@@ -364,6 +424,8 @@ export const useRangeReducer = ({
     },
     [onYearChangeProp],
   );
+
+  /** Callback function that increases the selected year range and dispatches an action. */
   const onRangeIncreaseYear = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       const updatedFrom: Date = {
@@ -382,6 +444,8 @@ export const useRangeReducer = ({
       };
     });
   }, [onYearChangeProp]);
+
+  /** Callback function that decreases the selected year range and dispatches an action. */
   const onRangeDecreaseYear = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       const updatedFrom: Date = {
@@ -400,6 +464,8 @@ export const useRangeReducer = ({
       };
     });
   }, [onYearChangeProp]);
+
+  /** Callback function that increases the selected month range and dispatches an action. */
   const onRangeIncreaseMonth = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       if (to.month === 12) {
@@ -430,9 +496,10 @@ export const useRangeReducer = ({
 
       const updatedFrom: Date = {
         ...from,
-        month: from.month + 1 === 13 ? 1 : from.month + 1,
-        year: from.month + 1 === 13 ? from.year + 1 : from.year,
+        month: from.month === 12 ? 1 : from.month + 1,
+        year: from.month === 12 ? from.year + 1 : from.year,
       };
+
       const updatedTo: Date = {
         ...to,
         month: to.month + 1,
@@ -448,6 +515,7 @@ export const useRangeReducer = ({
           value: updatedTo.month,
         },
       ]);
+
       return {
         from: updatedFrom,
         to: updatedTo,
@@ -455,6 +523,7 @@ export const useRangeReducer = ({
     });
   }, [isJalaali, onMonthChangeProp]);
 
+  /** Callback function that decreases the selected month range and dispatches an action. */
   const onRangeDecreaseMonth = useCallback(() => {
     setFromAndTo(({ from, to }) => {
       if (from.month === 1) {
@@ -488,8 +557,8 @@ export const useRangeReducer = ({
       };
       const updatedTo = {
         ...to,
-        month: to.month - 1 === 0 ? 12 : to.month - 1,
-        year: to.month - 1 === 0 ? to.year - 1 : to.year,
+        month: to.month === 1 ? 12 : to.month - 1,
+        year: to.month === 1 ? to.year - 1 : to.year,
       };
 
       onMonthChangeProp?.([
@@ -509,13 +578,16 @@ export const useRangeReducer = ({
     });
   }, [isJalaali, onMonthChangeProp]);
 
+  /** This function is used to handle changes to the inputs field value. */
   const onChangeInputRange = (
     e: React.ChangeEvent<HTMLInputElement>,
     isStartDate: boolean,
   ) => {
-    const fromInputValue = isStartDate ? e.target.value : rangeInputValue[0];
+    const [rangeInputValueFrom, rangeInputValueTo] = rangeInputValue;
 
-    const toInputValue = !isStartDate ? e.target.value : rangeInputValue[1];
+    const fromInputValue = isStartDate ? e.target.value : rangeInputValueFrom;
+
+    const toInputValue = !isStartDate ? e.target.value : rangeInputValueTo;
 
     const momentValueFrom = moment(fromInputValue, formatProp, true);
 
@@ -525,20 +597,25 @@ export const useRangeReducer = ({
 
     if (isStartDate && momentValueFrom.isValid()) {
       if (momentValueFrom.isBefore(momentValueTo)) {
-        // x<y everything is good and don't need to change anything
         const startDate = momentTransformer(momentValueFrom, isJalaali);
         const endDate = momentTransformer(momentValueTo, isJalaali);
         if (
           startDate.month === endDate.month &&
           startDate.year === endDate.year
         ) {
+          const to = { ...endDate };
+
+          if (endDate.month === 12) {
+            to.month = 1;
+            to.year = endDate.year + 1;
+          } else {
+            to.month = endDate.month + 1;
+            to.year = endDate.year;
+          }
+
           setFromAndTo({
             from: startDate,
-            to: {
-              ...endDate,
-              month: endDate.month === 12 ? 1 : endDate.month + 1,
-              year: endDate.month === 12 ? endDate.year + 1 : endDate.year,
-            },
+            to,
           });
         } else {
           setFromAndTo({ from: startDate, to: endDate });
@@ -548,17 +625,25 @@ export const useRangeReducer = ({
           endDate: momentTransformer(momentValueTo, isJalaali),
         });
       } else {
-        // x>y
         const startDate = momentTransformer(momentValueFrom, isJalaali);
+
+        const to = { ...startDate };
+
+        if (startDate.month === 12) {
+          to.month = 1;
+          to.year = startDate.year + 1;
+        } else {
+          to.month = startDate.month + 1;
+          to.year = startDate.year;
+        }
+
         setFromAndTo({
           from: startDate,
-          to: {
-            ...startDate,
-            month: startDate.month === 12 ? 1 : startDate.month + 1,
-            year: startDate.month === 12 ? startDate.year + 1 : startDate.year,
-          },
+          to,
         });
+
         setRangeInputValue([fromInputValue, ""]);
+
         onRangeDateChange({
           startDate: momentTransformer(momentValueFrom, isJalaali),
           endDate: null,
@@ -572,12 +657,18 @@ export const useRangeReducer = ({
           startDate.month === endDate.month &&
           startDate.year === endDate.year
         ) {
+          const from = { ...endDate };
+
+          if (endDate.month === 1) {
+            from.month = 12;
+            from.year = endDate.year - 1;
+          } else {
+            from.month = endDate.month - 1;
+            from.year = endDate.year;
+          }
+
           setFromAndTo({
-            from: {
-              ...endDate,
-              month: endDate.month === 1 ? 12 : endDate.month - 1,
-              year: endDate.month === 1 ? endDate.year - 1 : endDate.year,
-            },
+            from,
             to: endDate,
           });
         } else {
@@ -591,18 +682,28 @@ export const useRangeReducer = ({
         return;
       } else {
         const endDate = momentTransformer(momentValueTo, isJalaali);
+
+        const to = { ...endDate };
+
+        if (endDate.month === 12) {
+          to.month = 1;
+          to.year = endDate.year + 1;
+        } else {
+          to.month = endDate.month + 1;
+          to.year = endDate.year;
+        }
+
         setFromAndTo({
           from: endDate,
-          to: {
-            ...endDate,
-            month: endDate.month === 12 ? 1 : endDate.month + 1,
-            year: endDate.month === 12 ? endDate.year + 1 : endDate.year,
-          },
+          to,
         });
 
         setRangeInputValue(["", ""]);
+
         setPlaceholderFrom("");
+
         setPlaceholderTo("");
+
         onRangeDateChange({
           startDate: { ...rangeState.startDate, day: 0 },
           endDate: null,
@@ -611,6 +712,7 @@ export const useRangeReducer = ({
     }
   };
 
+  /** Callback function that updates the placeholder text of the inputs field. */
   const changePlaceholder = useCallback(
     (date: Date | null) => {
       if (rangeState.startDate.day > 0 && rangeState.endDate !== null) {
