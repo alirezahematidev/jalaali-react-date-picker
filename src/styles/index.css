@@ -83,7 +83,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  padding: 4px;
 }
 
 .icon:hover {
@@ -142,10 +141,12 @@
   font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
   content: "\e908";
 }
+
 .icon-arrow_drop_down::before {
   font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
   content: "\e90b";
 }
+
 .icon-error::before {
   font-family: IcomoonWOFF, IcomoonTTF, IcomoonEOT, IcomoonSVG !important;
   content: "\e90a";
@@ -262,6 +263,7 @@
   align-items: center;
   height: 312px;
   max-height: 312px;
+  width: 600px;
   background-color: var(--background);
   border-radius: 2px;
   overflow: hidden;
@@ -272,6 +274,7 @@
   color: var(--text);
   font-size: 16px;
   opacity: 0.5;
+  user-select: none;
 }
 
 .panel-header-date-selected {
@@ -286,6 +289,7 @@
   justify-content: center;
   align-items: center;
   height: 312px;
+  width: 600px;
   max-height: 312px;
   background-color: var(--background);
   border-radius: 2px;
@@ -568,6 +572,7 @@
   transition: color 100ms ease;
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .today-text:hover {
@@ -758,11 +763,13 @@
 .range-panel-header-item-text {
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .panel-header-item-text {
   color: var(--text);
   font-size: 14px;
+  user-select: none;
 }
 
 .panel-header-item-text:hover {
@@ -779,6 +786,7 @@
   font-size: 14px;
   margin-inline: 4px;
   color: var(--text);
+  user-select: none;
 }
 
 .panel-header-year-picker span:hover {
@@ -898,6 +906,7 @@
 
 .year-item-name {
   font-size: 14px;
+  user-select: none;
 }
 
 .year-item-prev {
@@ -1160,27 +1169,35 @@
   padding-inline: 8px;
   display: block;
 }
+
 .day-span-text {
   color: inherit;
   line-height: 30px;
   font-size: 16px;
+  user-select: none;
+}
+
+.iconItem {
+  display: inline-block;
+  overflow: hidden;
 }
 
 /* start of timepicker styles */
 
 .time-panel {
-  width: 500px;
-  height: 500px;
+  width: 300px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ccc;
+  background-color: var(--background);
+  font-family: IRANSansRegular;
 }
 
 .time-clock-area {
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  background-color: #fff;
+  width: 220px;
+  height: 220px;
+  background-color: var(--background-disabled);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -1193,7 +1210,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #777;
+  background-color: #1976d2;
   border-radius: 50%;
   left: 50%;
   top: 50%;
@@ -1202,31 +1219,83 @@
 
 .time-clock-handle {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 2px);
   bottom: 50%;
-  transform: translate(-50%, 5px);
   height: 50%;
   width: 4px;
+  transform-origin: center bottom 0px;
   border-radius: 50px;
-  background-color: #777;
+  background-color: #1976d2;
   cursor: grab;
+  z-index: 1;
 }
 
-.time-clock-handle-move {
-  background-color: #444;
+.time-clock-handle-grab {
   cursor: grabbing !important;
 }
 
 .time-clock-handle::after {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #777;
+  width: 4px;
+  height: 4px;
+  border: 16px solid #1976d2;
+  background-color: #1976d2;
   left: 0;
   top: 0;
   border-radius: 50%;
   transform: translate(calc(-50% + 2px));
+}
+
+.time-clock-handle-tick {
+  position: absolute;
+  left: calc(50% - 2px);
+  bottom: 50%;
+  height: 50%;
+  width: 4px;
+  transform-origin: center bottom 0px;
+  border-radius: 50px;
+  background-color: #1976d2;
+  cursor: grab;
+  z-index: 1;
+}
+
+.time-clock-handle-tick::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border: 16px solid #1976d2;
+  background-color: #fff;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  transform: translate(calc(-50% + 2px));
+}
+
+.tick {
+  position: absolute;
+  background: transparent;
+  left: calc((100% - 36px) / 2);
+  top: 0;
+  color: #000;
+  width: 36px;
+  height: 36px;
+  z-index: 2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.tick-hour-selected {
+  color: #fff;
+}
+
+.tick-minute-selected {
+  color: #fff;
 }
 
 /* end of timepicker styles */

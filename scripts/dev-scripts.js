@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require("fs");
 const prettier = require("prettier");
+const pkg = require("../package.json");
 
 const APP_DIR = "src/App.tsx";
 const INDEX_DIR = "src/index.tsx";
@@ -30,6 +31,17 @@ export default App;
     fs.mkdirSync("public");
     fs.writeFileSync("public/index.html", `<div id="root"></div>`);
   }
+
+  pkg.homepage = "/";
+
+  prettier.resolveConfig("package.json").then((options) => {
+    const formatted = prettier.format(JSON.stringify(pkg), {
+      parser: "json-stringify",
+      ...options,
+    });
+
+    fs.writeFileSync("package.json", formatted);
+  });
 
   prettier.resolveConfig(APP_DIR).then((options) => {
     const formatted = prettier.format(app_dir_template, {

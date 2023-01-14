@@ -1,55 +1,39 @@
-import { useRef, useState } from "react";
-import { useMouseAngularPosition } from "../../core/hooks/time";
+import classNames from "classnames";
+import { useRef } from "react";
+import { TimePickerProps } from "../../core";
+import { useTimeConfig, useTransforms } from "../../core/hooks/time";
+import { Transform } from "./transform";
 
-export const TimePicker = () => {
-  const [grabbed, setGrabbed] = useState<boolean>(false);
-  const getPosition = useMouseAngularPosition();
+export const TimePicker = (timePickerProps: TimePickerProps) => {
   const handleRef = useRef<HTMLDivElement>(null);
 
-  const onMouseDown = () => {
-    setGrabbed(true);
-  };
+  const config = useTimeConfig({ handleRef });
 
-  const onMouseUp = () => {
-    setGrabbed(false);
-  };
-
-  console.log({ grabbed });
+  const transforms = useTransforms(config.mode);
 
   return (
-    <div className="time-panel">
+    <div className="time-panel panel-elevation">
       <div
-        className="time-clock-area"
-        onMouseDown={(e) => {
-          const x = e.nativeEvent.offsetX;
-          const y = e.nativeEvent.offsetY;
-
-          const _x = e.clientX - e.currentTarget.offsetLeft;
-
-          const _y = e.clientY - e.currentTarget.offsetTop;
-
-          console.log({ x, y, _x, _y });
-
-          // const angle = getPosition({ x, y });
-
-          // console.log("down", { angle });
-        }}
-        // onMouseMove={(e) => {
-        //   if (!grabbed) return;
-        //   const x = e.nativeEvent.offsetX;
-        //   const y = e.nativeEvent.offsetY;
-
-        //   const angle = getPosition({ x, y });
-
-        //   console.log("move", { angle });
-        // }}
-        onMouseUp={onMouseUp}
+        className={classNames(
+          "time-clock-area",
+          config.handleGrabbed && "time-clock-handle-grab",
+        )}
+        {...config.clockEvents}
       >
         <div
           ref={handleRef}
-          className="time-clock-handle"
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
+          className={classNames(
+            config.handleTickClassName,
+            config.handleGrabbed && "time-clock-handle-grab",
+          )}
+          {...config.handleEvents}
+          style={{
+            transform: config.transform,
+          }}
+        />
+        <Transform
+          transforms={transforms}
+          activeTickClassName={config.activeTickClassName}
         />
       </div>
     </div>

@@ -91,12 +91,7 @@ export const useDateReducer = ({
       const value = momentTransformer(valueProp, isJalaali);
       setCacheDate(value);
       setInputValue(formattedValue(valueProp));
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueProp]);
-  useEffect(() => {
-    if (defaultValueProp && !valueProp) {
+    } else if (defaultValueProp) {
       const value = momentTransformer(defaultValueProp, isJalaali);
       setCacheDate(value);
       setInputValue(formattedValue(defaultValueProp));

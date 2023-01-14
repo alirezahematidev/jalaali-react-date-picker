@@ -50,7 +50,18 @@ export type RangeDate = {
   endDate: Date | null;
 };
 
-export type RangeValue = [Moment, Moment];
+export type TimeMode = "hour" | "minute";
+
+export type Point = {
+  x: number;
+  y: number;
+};
+
+export type Time = {
+  [k in TimeMode]: number;
+};
+
+export type RangeValue = [Moment, Moment | null] | null;
 
 export type Locale = "fa" | "en";
 

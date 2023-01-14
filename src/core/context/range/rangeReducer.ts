@@ -60,7 +60,7 @@ export function rangeReducer(state: RangeDate, action: RangeAction): RangeDate {
         startDate: {
           ...state.startDate,
           day: 0,
-          month: startDate.month - 1 === 0 ? 12 : startDate.month - 1,
+          month: startDate.month === 1 ? 12 : startDate.month - 1,
           year: startDate.year,
         },
         endDate: nextMonthDecrease(endDate, state),
@@ -70,7 +70,7 @@ export function rangeReducer(state: RangeDate, action: RangeAction): RangeDate {
         startDate: {
           ...state.startDate,
           day: 0,
-          month: startDate.month + 1 === 13 ? 1 : startDate.month + 1,
+          month: startDate.month === 12 ? 1 : startDate.month + 1,
           year: startDate.year,
         },
         endDate: nextMonthIncrease(endDate, state),
