@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import moment from "moment-jalaali";
-import { ForwardedRef, forwardRef, Ref } from "react";
+import { ForwardedRef, forwardRef, lazy, Ref, Suspense } from "react";
+import { Fallback } from "src/components/fallback";
 import {
   NavigationIcon,
   PickerProps as Props,
@@ -8,7 +9,8 @@ import {
 } from "../../../core";
 import { Footer } from "../../footer";
 import { Loading } from "../../loading";
-import PanelMode from "./panelMode";
+
+const PanelMode = lazy(() => import("./panelMode"));
 
 moment.loadPersian({ dialect: "persian-modern" });
 
@@ -53,19 +55,21 @@ const Panel = (
       style={style}
     >
       <Loading loading={loading} indicator={loadingIndicator}>
-        <PanelMode
-          {...{
-            headerRender,
-            panelRender,
-            dayLabelRender,
-            highlightDays,
-            onModeChange,
-            toggle,
-            navigationIcons,
-            highlightWeekend,
-            presets,
-          }}
-        />
+        <Suspense fallback={<Fallback />}>
+          <PanelMode
+            {...{
+              headerRender,
+              panelRender,
+              dayLabelRender,
+              highlightDays,
+              onModeChange,
+              toggle,
+              navigationIcons,
+              highlightWeekend,
+              presets,
+            }}
+          />
+        </Suspense>
         <Footer toggle={toggle} footerRender={footerRender} />
       </Loading>
     </div>

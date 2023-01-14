@@ -1181,3 +1181,8 @@
   display: inline-block;
   overflow: hidden;
 }
+
+.fallback {
+  width: 100%;
+  height: 100%;
+}

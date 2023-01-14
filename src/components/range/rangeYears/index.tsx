@@ -46,4 +46,4 @@ const RangeYears = ({}: RangeYearsProps) => {
   );
 };
 
-export { RangeYears };
+export default RangeYears;

@@ -1,8 +1,9 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { Mode, NavigationIcon, PickerProps } from "../../../core";
-import { Days } from "../days";
-import { Months } from "../months";
-import { Years } from "../years";
+
+import Days from "../days";
+import Months from "../months";
+import Years from "../years";
 
 type Panel = Record<Mode, JSX.Element>;
 

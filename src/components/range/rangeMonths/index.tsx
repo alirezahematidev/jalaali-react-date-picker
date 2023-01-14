@@ -19,4 +19,4 @@ const RangeMonths = ({}: RangeMonthsProps) => {
   );
 };
 
-export { RangeMonths };
+export default RangeMonths;

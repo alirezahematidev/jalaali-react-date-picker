@@ -85,6 +85,7 @@
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "commitlint": "^17.0.3",
+    "compression-webpack-plugin": "^10.0.0",
     "concurrently": "^6.3.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",

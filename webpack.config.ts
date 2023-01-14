@@ -80,6 +80,8 @@ const config: webpack.Configuration = {
         },
       }),
     ],
+    chunkIds: "named",
+    minimize: true,
     usedExports: true,
   },
 
@@ -113,6 +115,7 @@ const config: webpack.Configuration = {
     globalObject: "this",
     clean: true,
     publicPath: "",
+    chunkFilename: "[name].chunk.js",
   },
   resolveLoader: {
     modules: [
@@ -120,7 +123,6 @@ const config: webpack.Configuration = {
       path.resolve(__dirname, "./lib"),
     ],
   },
-  ignoreWarnings: [() => false],
   mode: "production",
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
