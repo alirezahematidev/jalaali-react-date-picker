@@ -1,12 +1,17 @@
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import Panel from "../../components/date/panel";
 import { DateProvider, InputDatePickerProps, useSetColors } from "../../core";
-import { Popup } from "../popup";
+import Popup from "../popup";
 import { Suffix } from "../suffix";
 import { CustomWrapper } from "./customWrapper";
 
-export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
+type InputDatePickerComponent = typeof InputDatePicker;
+
+const InputDatePicker = (
+  inputDatePickerProps: InputDatePickerProps,
+  ref?: ForwardedRef<HTMLInputElement>,
+) => {
   const {
     value,
     onChange,
@@ -142,6 +147,7 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
               <input
                 {...rest}
                 value={value}
+                ref={ref}
                 placeholder={placeholder || inputPlaceholder}
                 className={classNames(
                   isRtl ? "picker-input-fa" : "picker-input-en",
@@ -165,3 +171,10 @@ export const InputDatePicker = (inputDatePickerProps: InputDatePickerProps) => {
     </DateProvider>
   );
 };
+
+const InputDatePickerWithRef = forwardRef<
+  HTMLInputElement,
+  InputDatePickerProps
+>(InputDatePicker) as InputDatePickerComponent;
+
+export { InputDatePickerWithRef as InputDatePicker };

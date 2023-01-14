@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
 import TerserPlugin from "terser-webpack-plugin";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import * as webpack from "webpack";
 import pkg from "./package.json";
 
@@ -95,6 +96,11 @@ const config: webpack.Configuration = {
     },
     preferRelative: true,
     extensions: [".ts", ".tsx", ".jsx", ".js"],
+    plugins: [
+      new TsconfigPathsPlugin({
+        extensions: [".ts", ".tsx", ".jsx", ".js"],
+      }),
+    ],
   },
   entry: {
     main: path.resolve(__dirname, "./src/index"),
@@ -140,7 +146,7 @@ const config: webpack.Configuration = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-  externals: ["react", "react-dom", "moment-jalaali", "moment"],
+  externals: ["react", "react-dom", "moment-jalaali"],
 };
 
 export default config;

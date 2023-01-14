@@ -22,7 +22,9 @@
     "downlevelIteration": true,
     "checkJs": false,
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "typeRoots": ["lib/index.d.ts", "@types"],
+    "baseUrl": "."
   },
   "ts-node": {
     "compilerOptions": {
@@ -37,5 +39,5 @@
     }
   },
   "include": ["src", "src/custom.d.ts"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "lib", "src/stories"]
 }

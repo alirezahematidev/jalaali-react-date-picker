@@ -6,7 +6,7 @@ import {
 } from "../../../core";
 import Panel from "../panel";
 
-interface DatePickerProps extends Props {
+export interface DatePickerProps extends Props {
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -14,7 +14,7 @@ type DatePickerComponent = typeof DatePicker;
 
 const DatePicker = (
   dateProps: DatePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
+  pickerRef?: ForwardedRef<HTMLDivElement>,
 ) => {
   const {
     footerRender,

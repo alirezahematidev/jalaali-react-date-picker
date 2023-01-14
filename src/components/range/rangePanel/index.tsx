@@ -3,7 +3,7 @@ import moment from "moment-jalaali";
 import { ForwardedRef, forwardRef, Fragment, memo, Ref } from "react";
 import { RangeProps as Props, useRangepicker } from "../../../core";
 import { Loading } from "../../loading";
-import { RangePanelMode } from "./panelRangeMode";
+import RangePanelMode from "./panelRangeMode";
 import { RangePanelTemplate } from "./panelTemplate";
 
 moment.loadPersian({ dialect: "persian-modern" });

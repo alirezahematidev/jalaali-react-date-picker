@@ -28,7 +28,7 @@ const PanelModeContext = createContext<PanelModeContext>({
   highlightWeekend: true,
 });
 
-export const PanelMode = ({
+const PanelMode = ({
   toggle,
   onModeChange,
   navigationIcons,
@@ -61,3 +61,5 @@ export const PanelMode = ({
 };
 
 export const usePanelContext = () => useContext(PanelModeContext);
+
+export default PanelMode;
