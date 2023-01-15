@@ -13,9 +13,9 @@ export interface TimePickerProps {
 
   format?: string | ((current: Moment) => string);
 
-  minTime?: Moment | { hour: number; minute: number };
+  minTime?: { hour: number; minute: number };
 
-  maxTime?: Moment | { hour: number; minute: number };
+  maxTime?: { hour: number; minute: number };
 
   use12Hours?: boolean;
 

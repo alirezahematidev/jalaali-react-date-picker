@@ -4,7 +4,7 @@ import * as c from "../../constants/variables";
 import { Point, TimeMode } from "../../types";
 
 export const useMouseAngularPosition = () => {
-  const getPosition = useCallback((mouse: Point, mode: TimeMode) => {
+  const getValue = useCallback((mouse: Point, mode: TimeMode) => {
     const x = mouse.x - c.ORIGIN_X;
     const y = mouse.y - c.ORIGIN_Y;
 
@@ -29,5 +29,5 @@ export const useMouseAngularPosition = () => {
     return value;
   }, []);
 
-  return getPosition;
+  return getValue;
 };

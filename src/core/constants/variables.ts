@@ -20,6 +20,9 @@ const CLOCK_HEIGHT = 220;
 const ORIGIN_X = (CLOCK_WIDTH - 4) / 2;
 const ORIGIN_Y = CLOCK_HEIGHT / 2;
 const MARK_SIZE = 36;
+const SECTOR_X = CLOCK_WIDTH / 2;
+const SECTOR_Y = CLOCK_WIDTH / 2;
+const RADIUS = CLOCK_WIDTH / 2;
 
 // time units
 const HALF_PI = Math.PI / 2;
@@ -47,4 +50,7 @@ export {
   FULL_PI,
   HALF_DEG,
   FULL_DEG,
+  SECTOR_X,
+  SECTOR_Y,
+  RADIUS,
 };
