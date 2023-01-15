@@ -1,15 +1,26 @@
 import { useMemo } from "react";
 import { createMarkets, degreeToRadian, timePad } from "../../../utils";
 import * as c from "../../constants/variables";
-import { TimeMode } from "../../types";
+import { Time, TimeMode } from "../../types";
 
 type TransformMarker = {
   marker: number;
   label: string;
   transform: string;
+  disableClassName: string;
 };
 
-export const useTransforms = (mode: TimeMode) => {
+type UseTransformsProps = {
+  mode: TimeMode;
+  minTime?: Time;
+  maxTime?: Time;
+};
+
+export const useTransforms = ({
+  mode,
+  maxTime,
+  minTime,
+}: UseTransformsProps) => {
   const { transforms } = useMemo(() => {
     const markers = createMarkets(mode);
 
@@ -47,14 +58,43 @@ export const useTransforms = (mode: TimeMode) => {
 
         let label = marker.toString();
 
+        let disableClassName = "";
+
+        if (mode === "hour") {
+          if (minTime && minTime.hour) {
+            if (marker < minTime.hour) {
+              disableClassName = "disable-tick";
+            }
+          }
+
+          if (maxTime && maxTime.hour) {
+            if (marker > maxTime.hour) {
+              disableClassName = "disable-tick";
+            }
+          }
+        }
+
         if (mode === "minute") {
           const m = marker === 60 ? 0 : marker;
           label = timePad(m);
+
+          if (minTime && minTime.minute) {
+            if (marker < minTime.minute) {
+              disableClassName = "disable-tick";
+            }
+          }
+
+          if (maxTime && maxTime.minute) {
+            if (marker > maxTime.minute) {
+              disableClassName = "disable-tick";
+            }
+          }
         }
 
         return {
           marker,
           label,
+          disableClassName,
           transform: t,
         };
       });
@@ -65,7 +105,7 @@ export const useTransforms = (mode: TimeMode) => {
     const transforms = transformMap(markers);
 
     return { transforms };
-  }, [mode]);
+  }, [maxTime, minTime, mode]);
 
   return transforms;
 };

@@ -58,7 +58,7 @@ export type Point = {
 };
 
 export type Time = {
-  [k in TimeMode]: number;
+  [k in TimeMode]?: number;
 };
 
 export type RangeValue = [Moment, Moment | null] | null;

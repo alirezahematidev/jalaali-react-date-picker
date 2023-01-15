@@ -1,6 +1,6 @@
-import * as c from "../../constants/variables";
+import * as c from "../../core/constants/variables";
 
-export function describeArc(startAngle: number, endAngle: number) {
+export function arc(startAngle: number, endAngle: number) {
   const innerStart = polarToCartesian(0, endAngle);
   const innerEnd = polarToCartesian(0, startAngle);
   const outerStart = polarToCartesian(c.RADIUS, endAngle);

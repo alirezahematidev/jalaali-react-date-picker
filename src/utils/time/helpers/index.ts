@@ -1,4 +1,4 @@
-import { Time, TimeMode } from "./../../core/types/global.types";
+import { Time, TimeMode } from "../../../core/types/global.types";
 
 const timePad = (value: number) => {
   return value.toString().padStart(2, "0");
@@ -22,8 +22,8 @@ const createMarkets = (mode: TimeMode): number[] => {
 };
 
 const formatTime = (time: Time) => {
-  const hour = time.hour;
-  const minute = time.minute === 60 ? 0 : time.minute;
+  const hour = time.hour || 0;
+  const minute = time.minute === 60 ? 0 : time.minute || 0;
 
   const format = timePad(hour) + ":" + timePad(minute);
 

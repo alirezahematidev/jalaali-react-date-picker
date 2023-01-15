@@ -1,4 +1,5 @@
 import { Moment } from "moment-jalaali";
+import { Time } from "../types";
 
 export interface TimePickerProps {
   value?: Moment | null;
@@ -13,9 +14,9 @@ export interface TimePickerProps {
 
   format?: string | ((current: Moment) => string);
 
-  minTime?: { hour: number; minute: number };
+  minTime?: Time;
 
-  maxTime?: { hour: number; minute: number };
+  maxTime?: Time;
 
   use12Hours?: boolean;
 

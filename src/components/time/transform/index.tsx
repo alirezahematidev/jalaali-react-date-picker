@@ -5,6 +5,7 @@ type TransformMarker = {
   marker: number;
   label: string;
   transform: string;
+  disableClassName: string;
 };
 
 interface TransformProps {
@@ -15,10 +16,14 @@ interface TransformProps {
 const Transform = ({ transforms, activeTickClassName }: TransformProps) => {
   return (
     <Fragment>
-      {transforms.map(({ marker, label, transform }) => (
+      {transforms.map(({ marker, label, transform, disableClassName }) => (
         <div
           key={marker}
-          className={classNames("tick", activeTickClassName(marker))}
+          className={classNames(
+            "tick",
+            disableClassName,
+            activeTickClassName(marker),
+          )}
           style={{ transform }}
         >
           {label}

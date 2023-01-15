@@ -6,7 +6,7 @@
   --primary-fade: #e1f7ff;
   --text: #000000;
   --background: #ffffff;
-  --background-disabled: #dedede;
+  --background-disabled: #e8e8e8;
   --background-hovered: #f2f2f2;
   --border-fade: #e0e0e0e7;
   --border: #cacaca;
@@ -14,6 +14,8 @@
   --day-label-background: #4b4949;
   --highlight: #18c5ff;
   --weekend: #f83959;
+  --clock-background: #f6fdff;
+  --clock-background-disabled: #dcdcdc6a;
 }
 
 @font-face {
@@ -1197,7 +1199,7 @@
 .time-clock-area {
   width: 220px;
   height: 220px;
-  background-color: var(--background-disabled);
+  background-color: var(--clock-background);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -1267,7 +1269,7 @@
   width: 4px;
   height: 4px;
   border: 16px solid #1976d2;
-  background-color: #fff;
+  background-color: var(--background);
   left: 0;
   top: 0;
   border-radius: 50%;
@@ -1279,7 +1281,7 @@
   background: transparent;
   left: calc((100% - 36px) / 2);
   top: 0;
-  color: #000;
+  color: var(--text);
   width: 36px;
   height: 36px;
   z-index: 2;
@@ -1300,11 +1302,35 @@
 }
 
 .tick-hour-selected {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .tick-minute-selected {
-  color: #fff;
+  color: var(--text-primary);
+}
+
+.disable-tick {
+  opacity: 0.4;
+}
+
+#__path_min_minute {
+  stroke: none;
+  fill: var(--clock-background-disabled);
+}
+
+#__path_max_minute {
+  stroke: none;
+  fill: var(--clock-background-disabled);
+}
+
+#__path_min_hour {
+  stroke: none;
+  fill: var(--clock-background-disabled);
+}
+
+#__path_max_hour {
+  stroke: none;
+  fill: var(--clock-background-disabled);
 }
 
 /* end of timepicker styles */
