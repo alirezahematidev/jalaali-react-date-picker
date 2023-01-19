@@ -1307,6 +1307,7 @@
 
 .tick-minute-selected {
   color: var(--text-primary);
+  /* transition: color 380ms linear; */
 }
 
 .disable-tick {

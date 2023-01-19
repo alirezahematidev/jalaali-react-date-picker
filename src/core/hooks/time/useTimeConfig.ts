@@ -25,6 +25,8 @@ type TimeConfigProps = {
   handleRef: React.RefObject<HTMLDivElement>;
   minTime?: Time;
   maxTime?: Time;
+  hoursStep: number;
+  minutesStep: number;
 };
 
 type TimeConfigReturn = {
@@ -46,9 +48,12 @@ function existsTime(value?: number): value is number {
 export const useTimeConfig = ({
   minTime,
   maxTime,
+  hoursStep,
+  minutesStep,
 }: TimeConfigProps): TimeConfigReturn => {
   const [handleGrabbed, setHandleGrabbed] = useState<boolean>(false);
   const [mode, setMode] = useState<TimeMode>("hour");
+  const [shouldAnimated, setShouldAnimated] = useState<boolean>(false);
 
   // 0: hour, 1: minute
   const [TClasses, setTClasses] = useState<[string, string]>(["", ""]);
@@ -58,7 +63,7 @@ export const useTimeConfig = ({
     minute: 0,
   });
 
-  const getValue = useMouseAngularPosition();
+  const getValue = useMouseAngularPosition({ hoursStep, minutesStep });
 
   const onTimeModeChange = (timeMode: TimeMode) => {
     setMode(timeMode);
@@ -122,7 +127,7 @@ export const useTimeConfig = ({
       const value = getValue({ x, y }, mode);
 
       setTime((prevTime) => ({ ...prevTime, [mode]: value }));
-
+      setShouldAnimated(false);
       setTClasses(["", ""]);
     },
     [getValue, handleGrabbed, mode],
@@ -144,7 +149,7 @@ export const useTimeConfig = ({
         ) {
           if (time.hour < minTime.hour) {
             setTClasses(["animated-clock-handle-hour", ""]);
-
+            setShouldAnimated(true);
             setTime((prevTime) => ({ ...prevTime, [mode]: minTime.hour }));
           }
         } else if (
@@ -154,7 +159,7 @@ export const useTimeConfig = ({
         ) {
           if (time.minute < minTime.minute) {
             setTClasses(["", "animated-clock-handle-minute"]);
-
+            setShouldAnimated(true);
             setTime((prevTime) => ({ ...prevTime, [mode]: minTime.minute }));
           }
         }
@@ -168,7 +173,7 @@ export const useTimeConfig = ({
         ) {
           if (time.hour > maxTime.hour) {
             setTClasses(["animated-clock-handle-hour", ""]);
-
+            setShouldAnimated(true);
             setTime((prevTime) => ({ ...prevTime, [mode]: maxTime.hour }));
           }
         } else if (
@@ -178,7 +183,7 @@ export const useTimeConfig = ({
         ) {
           if (time.minute > maxTime.minute) {
             setTClasses(["", "animated-clock-handle-minute"]);
-
+            setShouldAnimated(true);
             setTime((prevTime) => ({ ...prevTime, [mode]: maxTime.minute }));
           }
         }
@@ -197,6 +202,7 @@ export const useTimeConfig = ({
   };
 
   const onHandleTransitionEnd = () => {
+    setShouldAnimated(false);
     setTClasses(["", ""]);
   };
 
@@ -250,6 +256,8 @@ export const useTimeConfig = ({
       const hour = time.hour || 0;
       const minute = time.minute || 0;
 
+      if (shouldAnimated) return "";
+
       if (mode === "hour") {
         const active = [marker - 12, marker].includes(hour);
 
@@ -290,7 +298,7 @@ export const useTimeConfig = ({
         if (active && !disabled) return "tick-minute-selected";
       }
     },
-    [maxTime, minTime, mode, time],
+    [maxTime, minTime, mode, time, shouldAnimated],
   );
 
   const clockEvents: TimeEvent = {

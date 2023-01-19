@@ -2,18 +2,26 @@ import classNames from "classnames";
 import { useRef } from "react";
 import { TimePickerProps } from "../../core";
 import { useTimeConfig, useTransforms } from "../../core/hooks/time";
-import { isTouchInWindow } from "../../utils";
 import { DisableTime } from "./disableTime";
 import { Transform } from "./transform";
 
-export const TimePicker = ({ minTime, maxTime }: TimePickerProps) => {
+export const TimePicker = ({
+  minTime,
+  maxTime,
+  hoursStep = 1,
+  minutesStep = 1,
+}: TimePickerProps) => {
   const handleRef = useRef<HTMLDivElement>(null);
 
-  const config = useTimeConfig({ handleRef, minTime, maxTime });
+  const config = useTimeConfig({
+    handleRef,
+    minTime,
+    maxTime,
+    hoursStep,
+    minutesStep,
+  });
 
   const transforms = useTransforms({ mode: config.mode, maxTime, minTime });
-
-  console.log({ a: isTouchInWindow() });
 
   return (
     <div className="time-panel panel-elevation">

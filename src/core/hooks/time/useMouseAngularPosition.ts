@@ -3,31 +3,50 @@ import { radianToDegree } from "../../../utils";
 import * as c from "../../constants/variables";
 import { Point, TimeMode } from "../../types";
 
-export const useMouseAngularPosition = () => {
-  const getValue = useCallback((mouse: Point, mode: TimeMode) => {
-    const x = mouse.x - c.ORIGIN_X;
-    const y = mouse.y - c.ORIGIN_Y;
+interface Props {
+  hoursStep: number;
+  minutesStep: number;
+}
 
-    const angleRadian = Math.atan2(y, x) + c.HALF_PI;
+export const useMouseAngularPosition = ({ hoursStep, minutesStep }: Props) => {
+  const getValue = useCallback(
+    (mouse: Point, mode: TimeMode) => {
+      const hs = hoursStep < 1 ? 1 : hoursStep;
+      const ms = minutesStep < 1 ? 1 : minutesStep;
 
-    let angle = radianToDegree(angleRadian);
+      const x = mouse.x - c.ORIGIN_X;
+      const y = mouse.y - c.ORIGIN_Y;
 
-    if (angle < 0) {
-      angle += c.FULL_DEG;
-    }
+      const angleRadian = Math.atan2(y, x) + c.HALF_PI;
 
-    const tick = mode === "hour" ? c.HOUR_TICK : c.MINUTE_TICK;
+      let angle = radianToDegree(angleRadian);
 
-    const mark = Math.floor(angle / tick);
+      if (angle < 0) {
+        angle += c.FULL_DEG;
+      }
 
-    const average = (mark + 0.5) * tick;
+      const tick = mode === "hour" ? c.HOUR_TICK : c.MINUTE_TICK;
 
-    const rotate = angle > average ? (mark + 1) * tick : mark * tick;
+      const interval = mode === "hour" ? hs : ms;
 
-    const value = Math.round(rotate / (mode === "hour" ? tick : tick * 6));
+      const mark = Math.floor(angle / (tick * interval));
 
-    return value;
-  }, []);
+      const average = (mark + 0.5) * tick;
+
+      const currentTick = mark * tick * interval;
+
+      const nextTick = (mark + 1) * tick * interval;
+
+      const rotate = angle > average ? nextTick : currentTick;
+
+      const tickValue = mode === "hour" ? tick : tick * 6;
+
+      const value = Math.round(rotate / tickValue);
+
+      return value;
+    },
+    [hoursStep, minutesStep],
+  );
 
   return getValue;
 };
