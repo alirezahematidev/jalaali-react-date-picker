@@ -1,3 +1,4 @@
+import moment, { Moment } from "moment-jalaali";
 import { Time, TimeMode } from "../../../core/types/global.types";
 
 const timePad = (value: number) => {
@@ -30,4 +31,79 @@ const formatTime = (time: Time) => {
   return format;
 };
 
-export { degreeToRadian, radianToDegree, createMarkets, formatTime, timePad };
+const transformTimeToMoment = (time: Time): Moment => {
+  return moment().set(time);
+};
+
+const transformMomentToTime = (time: Moment): Time => {
+  if (!time.isValid()) {
+    throw new Error("time moment inputs is invalid");
+  }
+
+  const h = time.hours();
+
+  const m = time.minutes();
+
+  const ah = h > 12 ? h - 12 : h;
+
+  const fh = Number(time.format("hh"));
+
+  const fm = Number(time.format("mm"));
+
+  const hour = isNaN(fh) ? ah : fh;
+
+  const minute = isNaN(fm) ? m : fm;
+
+  return { hour, minute };
+};
+
+const formattedTime = (
+  time: Time,
+  format?: string | ((current: Moment) => string),
+) => {
+  const m = transformTimeToMoment(time);
+
+  if (!format) return moment(m).format("hh:mm");
+
+  if (typeof format === "function") {
+    return moment(m).format(format(moment()));
+  }
+
+  return moment(m).format(format);
+};
+
+function existsTime(value?: number): value is number {
+  return value !== undefined && typeof value === "number";
+}
+
+function invokeSync<T extends Function>(callback: T, delay = 0) {
+  new Promise((resolve) => setTimeout(resolve, delay)).then(() => callback());
+}
+
+function noLimitProvided(minTime?: Time, maxTime?: Time) {
+  let noLimit = true;
+
+  if (minTime && !moment.isMoment(minTime) && Object.keys(minTime).length > 0) {
+    noLimit = false;
+  }
+
+  if (maxTime && !moment.isMoment(maxTime) && Object.keys(maxTime).length > 0) {
+    noLimit = false;
+  }
+
+  return noLimit;
+}
+
+export {
+  degreeToRadian,
+  radianToDegree,
+  createMarkets,
+  formatTime,
+  timePad,
+  transformMomentToTime,
+  transformTimeToMoment,
+  formattedTime,
+  existsTime,
+  invokeSync,
+  noLimitProvided,
+};

@@ -1,10 +1,12 @@
 import { Moment } from "moment-jalaali";
-import { Time } from "../types";
+import { Locale, Time, TimeMode } from "../types";
 
 export interface TimePickerProps {
   value?: Moment | null;
 
   defaultValue?: Moment | null;
+
+  locale?: Locale;
 
   onChange?: (time: Moment, timeString: string) => void;
 
@@ -12,15 +14,17 @@ export interface TimePickerProps {
 
   onMinuteChange?: (minute: number) => void;
 
+  onModeChange?: (mode: TimeMode) => void;
+
+  onClose?: () => void;
+
   format?: string | ((current: Moment) => string);
 
-  minTime?: Time;
+  minTime?: Moment | Time;
 
-  maxTime?: Time;
+  maxTime?: Moment | Time;
 
   use12Hours?: boolean;
-
-  ampm?: boolean;
 
   dialogComponent?: "modal" | "popup";
 
@@ -29,6 +33,8 @@ export interface TimePickerProps {
   hoursStep?: number;
 
   showNow?: boolean;
+
+  closeOnSelect?: boolean;
 
   style?: React.CSSProperties;
 

@@ -1,30 +1,22 @@
 import classNames from "classnames";
-import { useRef } from "react";
 import { TimePickerProps } from "../../core";
 import { useTimeConfig, useTransforms } from "../../core/hooks/time";
 import { DisableTime } from "./disableTime";
 import { Transform } from "./transform";
 
-export const TimePicker = ({
-  minTime,
-  maxTime,
-  hoursStep = 1,
-  minutesStep = 1,
-}: TimePickerProps) => {
-  const handleRef = useRef<HTMLDivElement>(null);
+export const TimePicker = (timeProps: TimePickerProps) => {
+  const config = useTimeConfig(timeProps);
 
-  const config = useTimeConfig({
-    handleRef,
-    minTime,
-    maxTime,
-    hoursStep,
-    minutesStep,
+  const transforms = useTransforms({
+    mode: config.mode,
+    ...timeProps,
   });
 
-  const transforms = useTransforms({ mode: config.mode, maxTime, minTime });
-
   return (
-    <div className="time-panel panel-elevation">
+    <div
+      className="time-panel panel-elevation"
+      onMouseMove={config.clockEvents.onMouseMove}
+    >
       <div
         onContextMenu={(e) => e.preventDefault()}
         className={classNames(
@@ -34,7 +26,6 @@ export const TimePicker = ({
         {...config.clockEvents}
       >
         <div
-          ref={handleRef}
           className={classNames(
             ...config.handleClasses,
             config.handleGrabbed && "time-clock-handle-grab",
@@ -44,11 +35,14 @@ export const TimePicker = ({
             transform: config.transform,
           }}
         />
-        <DisableTime mode={config.mode} maxTime={maxTime} minTime={minTime} />
+        <DisableTime
+          mode={config.mode}
+          maxTime={config.maxTime}
+          minTime={config.minTime}
+        />
         <Transform
           transforms={transforms}
           activeTickClassName={config.activeTickClassName}
-          {...{ minTime, maxTime }}
         />
       </div>
     </div>

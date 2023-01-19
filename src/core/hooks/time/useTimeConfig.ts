@@ -1,8 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { isTouchInWindow } from "../../../utils";
+import moment, { Moment } from "moment-jalaali";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  existsTime,
+  formattedTime,
+  invokeSync,
+  isEqual,
+  isTouchInWindow,
+  noLimitProvided,
+  transformMomentToTime,
+  transformTimeToMoment,
+} from "../../../utils";
 import * as c from "../../constants/variables";
+import { TimePickerProps } from "../../interfaces";
 import { Time, TimeMode } from "../../types";
 import { useMouseAngularPosition } from "./useMouseAngularPosition";
+import { useNow } from "./useNow";
 
 type TEvent =
   | "onMouseDown"
@@ -21,14 +39,6 @@ type TimeEvent = {
   [event in TEvent]: (event: Events) => void;
 };
 
-type TimeConfigProps = {
-  handleRef: React.RefObject<HTMLDivElement>;
-  minTime?: Time;
-  maxTime?: Time;
-  hoursStep: number;
-  minutesStep: number;
-};
-
 type TimeConfigReturn = {
   clockEvents: TimeEvent;
   handleEvents: TimeEvent;
@@ -38,39 +48,141 @@ type TimeConfigReturn = {
   handleGrabbed: boolean;
   handleClasses: string[];
   time: Time;
+  minTime?: Time;
+  maxTime?: Time;
   mode: TimeMode;
 };
 
-function existsTime(value?: number): value is number {
-  return value !== undefined && typeof value === "number";
+function setTimeValue(defaultValue?: Moment | null): Time {
+  if (!defaultValue || !defaultValue.isValid()) {
+    return { hour: 0, minute: 0 };
+  }
+
+  return transformMomentToTime(defaultValue);
 }
 
-export const useTimeConfig = ({
-  minTime,
-  maxTime,
-  hoursStep,
-  minutesStep,
-}: TimeConfigProps): TimeConfigReturn => {
+export const useTimeConfig = (props: TimePickerProps): TimeConfigReturn => {
   const [handleGrabbed, setHandleGrabbed] = useState<boolean>(false);
   const [mode, setMode] = useState<TimeMode>("hour");
   const [shouldAnimated, setShouldAnimated] = useState<boolean>(false);
-
   // 0: hour, 1: minute
   const [TClasses, setTClasses] = useState<[string, string]>(["", ""]);
 
-  const [time, setTime] = useState<Time>({
-    hour: 0,
-    minute: 0,
+  const [time, setTime] = useState<Time>(setTimeValue(props.defaultValue));
+
+  const setNowOnce = useRef<boolean>(true);
+
+  const minutesStep = props.minutesStep ? props.minutesStep : 1;
+
+  const hoursStep = props.hoursStep ? props.hoursStep : 1;
+
+  useEffect(() => {
+    if (props.defaultValue && !props.value) {
+      setTime(setTimeValue(props.defaultValue));
+    } else if (props.value) {
+      setTime(setTimeValue(props.value));
+    }
+  }, [props.defaultValue, props.value]);
+
+  const onSelectTime = useCallback(
+    (mode: TimeMode, value?: number) => {
+      setTime((prevTime) => ({ ...prevTime, [mode]: value }));
+
+      const momentTime = transformTimeToMoment({ [mode]: value });
+
+      const timeString = formattedTime({ [mode]: value }, props.format);
+
+      if (mode === "hour") {
+        props.onHourChange?.(value || 0);
+      }
+
+      if (mode === "minute") {
+        props.onMinuteChange?.(value || 0);
+      }
+
+      props.onChange?.(momentTime, timeString);
+    },
+    [props],
+  );
+
+  /** Set time to now, if showNow is true */
+  useNow({
+    handleGrabbed,
+    showNow: props.showNow,
+    once: setNowOnce,
+    setter(time) {
+      setTime((t) => (isEqual(t, time) ? t : time));
+    },
   });
+
+  const minTime = useMemo<Time | undefined>(() => {
+    const _minTime = props.minTime;
+
+    if (!moment.isMoment(_minTime)) return _minTime;
+
+    if (!_minTime.isValid()) return undefined;
+
+    const time = transformMomentToTime(_minTime);
+
+    return time;
+  }, [props.minTime]);
+
+  const maxTime = useMemo<Time | undefined>(() => {
+    const _maxTime = props.maxTime;
+
+    if (!moment.isMoment(_maxTime)) return _maxTime;
+
+    if (!_maxTime.isValid()) return undefined;
+
+    const time = transformMomentToTime(_maxTime);
+
+    return time;
+  }, [props.maxTime]);
 
   const getValue = useMouseAngularPosition({ hoursStep, minutesStep });
 
-  const onTimeModeChange = (timeMode: TimeMode) => {
+  const onTimeModeChange = useCallback((timeMode: TimeMode) => {
     setMode(timeMode);
-  };
+  }, []);
+
+  const shouldWaitTransition = useMemo(() => {
+    if (!minTime && !maxTime) return false;
+
+    if (minTime) {
+      if (minTime.hour && time.hour && mode === "hour") {
+        if (time.hour < minTime.hour) {
+          return true;
+        }
+        return false;
+      } else if (minTime.minute && time.minute && mode === "minute") {
+        if (time.minute < minTime.minute) {
+          return true;
+        }
+        return false;
+      }
+    }
+
+    if (maxTime) {
+      if (maxTime.hour && time.hour && mode === "hour") {
+        if (time.hour > maxTime.hour) {
+          return true;
+        }
+        return false;
+      } else if (maxTime.minute && time.minute && mode === "minute") {
+        if (time.minute > maxTime.minute) {
+          return true;
+        }
+        return false;
+      }
+    }
+
+    return false;
+  }, [maxTime, minTime, mode, time]);
 
   const onClockMouseDown = useCallback(
     (event: Events) => {
+      event.stopPropagation();
+
       if (!isTouchInWindow()) {
         if (event.button !== 0) return;
       }
@@ -102,6 +214,7 @@ export const useTimeConfig = ({
   const onClockMouseMove = useCallback(
     (event: Events) => {
       if (!handleGrabbed) return;
+      event.stopPropagation();
 
       if (!isTouchInWindow()) {
         if (event.button !== 0) return;
@@ -139,7 +252,14 @@ export const useTimeConfig = ({
       }
 
       setHandleGrabbed(false);
-      onTimeModeChange("minute");
+
+      if (!shouldWaitTransition) {
+        onTimeModeChange("minute");
+      }
+
+      if (noLimitProvided(minTime, maxTime)) {
+        return onSelectTime(mode, time[mode]);
+      }
 
       if (minTime) {
         if (
@@ -150,7 +270,9 @@ export const useTimeConfig = ({
           if (time.hour < minTime.hour) {
             setTClasses(["animated-clock-handle-hour", ""]);
             setShouldAnimated(true);
-            setTime((prevTime) => ({ ...prevTime, [mode]: minTime.hour }));
+            onSelectTime(mode, minTime.hour);
+          } else {
+            onSelectTime(mode, time.hour);
           }
         } else if (
           mode === "minute" &&
@@ -160,7 +282,9 @@ export const useTimeConfig = ({
           if (time.minute < minTime.minute) {
             setTClasses(["", "animated-clock-handle-minute"]);
             setShouldAnimated(true);
-            setTime((prevTime) => ({ ...prevTime, [mode]: minTime.minute }));
+            onSelectTime(mode, minTime.minute);
+          } else {
+            onSelectTime(mode, time.minute);
           }
         }
       }
@@ -174,7 +298,9 @@ export const useTimeConfig = ({
           if (time.hour > maxTime.hour) {
             setTClasses(["animated-clock-handle-hour", ""]);
             setShouldAnimated(true);
-            setTime((prevTime) => ({ ...prevTime, [mode]: maxTime.hour }));
+            onSelectTime(mode, maxTime.hour);
+          } else {
+            onSelectTime(mode, time.hour);
           }
         } else if (
           mode === "minute" &&
@@ -184,24 +310,39 @@ export const useTimeConfig = ({
           if (time.minute > maxTime.minute) {
             setTClasses(["", "animated-clock-handle-minute"]);
             setShouldAnimated(true);
-            setTime((prevTime) => ({ ...prevTime, [mode]: maxTime.minute }));
+            onSelectTime(mode, maxTime.minute);
+          } else {
+            onSelectTime(mode, time.minute);
           }
         }
       }
     },
-    [maxTime, minTime, mode, time],
+    [
+      maxTime,
+      minTime,
+      mode,
+      onSelectTime,
+      onTimeModeChange,
+      shouldWaitTransition,
+      time,
+    ],
   );
 
-  const onHandleMouseDown = () => {
+  const onHandleMouseDown = (event: Events) => {
+    event.stopPropagation();
+
     setHandleGrabbed(true);
   };
 
   const onHandleMouseUp = () => {
     setHandleGrabbed(false);
-    onTimeModeChange("minute");
+    if (!shouldWaitTransition) {
+      onTimeModeChange("minute");
+    }
   };
 
   const onHandleTransitionEnd = () => {
+    invokeSync(() => onTimeModeChange("minute"), 400);
     setShouldAnimated(false);
     setTClasses(["", ""]);
   };
@@ -212,13 +353,15 @@ export const useTimeConfig = ({
     function handler(e: MouseEvent) {
       e.preventDefault();
       setHandleGrabbed(false);
-      onTimeModeChange("minute");
+      if (!shouldWaitTransition) {
+        onTimeModeChange("minute");
+      }
     }
 
     window.addEventListener("mouseup", handler);
 
     return () => window.removeEventListener("mouseup", handler);
-  }, [handleGrabbed]);
+  }, [handleGrabbed, onTimeModeChange, shouldWaitTransition]);
 
   const handleTickClassName = useMemo(() => {
     if (mode === "hour") return "time-clock-handle";
@@ -236,6 +379,7 @@ export const useTimeConfig = ({
 
   const transform = useMemo(() => {
     const hour = time.hour || 0;
+
     const minute = time.minute || 0;
 
     const hourDegree = hour * c.HOUR_TICK;
@@ -340,5 +484,7 @@ export const useTimeConfig = ({
     handleClasses,
     time,
     mode,
+    minTime,
+    maxTime,
   };
 };

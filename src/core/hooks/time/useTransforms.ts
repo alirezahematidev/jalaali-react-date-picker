@@ -1,6 +1,8 @@
+import moment from "moment-jalaali";
 import { useMemo } from "react";
 import { createMarkets, degreeToRadian, timePad } from "../../../utils";
 import * as c from "../../constants/variables";
+import { TimePickerProps } from "../../interfaces";
 import { Time, TimeMode } from "../../types";
 
 type TransformMarker = {
@@ -10,17 +12,66 @@ type TransformMarker = {
   disableClassName: string;
 };
 
-type UseTransformsProps = {
+interface UseTransformsProps extends TimePickerProps {
   mode: TimeMode;
-  minTime?: Time;
-  maxTime?: Time;
-};
+}
 
 export const useTransforms = ({
   mode,
-  maxTime,
-  minTime,
+  use12Hours,
+  maxTime: _maxTime,
+  minTime: _minTime,
 }: UseTransformsProps) => {
+  const minTime = useMemo<Time | undefined>(() => {
+    if (!moment.isMoment(_minTime)) return _minTime;
+
+    if (!_minTime.isValid()) return undefined;
+
+    const h = _minTime.hours();
+
+    const m = _minTime.minutes();
+
+    const ah = h > 12 ? h - 12 : h;
+
+    const fh = Number(_minTime.format("hh"));
+
+    const fm = Number(_minTime.format("mm"));
+
+    const hour = isNaN(fh) ? ah : fh;
+
+    const minute = isNaN(fm) ? m : fm;
+
+    return {
+      hour,
+      minute,
+    };
+  }, [_minTime]);
+
+  const maxTime = useMemo<Time | undefined>(() => {
+    if (!moment.isMoment(_maxTime)) return _maxTime;
+
+    if (!_maxTime.isValid()) return undefined;
+
+    const h = _maxTime.hours();
+
+    const m = _maxTime.minutes();
+
+    const ah = h > 12 ? h - 12 : h;
+
+    const fh = Number(_maxTime.format("hh"));
+
+    const fm = Number(_maxTime.format("mm"));
+
+    const hour = isNaN(fh) ? ah : fh;
+
+    const minute = isNaN(fm) ? m : fm;
+
+    return {
+      hour,
+      minute,
+    };
+  }, [_maxTime]);
+
   const { transforms } = useMemo(() => {
     const markers = createMarkets(mode);
 
@@ -61,6 +112,10 @@ export const useTransforms = ({
         let disableClassName = "";
 
         if (mode === "hour") {
+          const h = use12Hours ? marker + 12 : marker;
+
+          label = h.toString();
+
           if (minTime && minTime.hour) {
             if (marker < minTime.hour) {
               disableClassName = "disable-tick";
@@ -105,7 +160,7 @@ export const useTransforms = ({
     const transforms = transformMap(markers);
 
     return { transforms };
-  }, [maxTime, minTime, mode]);
+  }, [maxTime, minTime, mode, use12Hours]);
 
   return transforms;
 };

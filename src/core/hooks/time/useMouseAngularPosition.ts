@@ -27,7 +27,7 @@ export const useMouseAngularPosition = ({ hoursStep, minutesStep }: Props) => {
 
       const tick = mode === "hour" ? c.HOUR_TICK : c.MINUTE_TICK;
 
-      const interval = mode === "hour" ? hs : ms;
+      const interval = mode === "hour" ? hs : ms * 6;
 
       const mark = Math.floor(angle / (tick * interval));
 
@@ -35,7 +35,9 @@ export const useMouseAngularPosition = ({ hoursStep, minutesStep }: Props) => {
 
       const currentTick = mark * tick * interval;
 
-      const nextTick = (mark + 1) * tick * interval;
+      const procTick = (mark + 1) * tick * interval;
+
+      const nextTick = procTick > c.FULL_DEG ? c.FULL_DEG : procTick;
 
       const rotate = angle > average ? nextTick : currentTick;
 
