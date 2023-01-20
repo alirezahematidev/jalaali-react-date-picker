@@ -16,8 +16,6 @@ export interface TimePickerProps {
 
   onModeChange?: (mode: TimeMode) => void;
 
-  onClose?: () => void;
-
   format?: string | ((current: Moment) => string);
 
   minTime?: Moment | Time;
@@ -26,15 +24,11 @@ export interface TimePickerProps {
 
   use12Hours?: boolean;
 
-  dialogComponent?: "modal" | "popup";
-
   minutesStep?: number;
 
   hoursStep?: number;
 
   showNow?: boolean;
-
-  closeOnSelect?: boolean;
 
   style?: React.CSSProperties;
 

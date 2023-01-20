@@ -1,5 +1,5 @@
 import moment from "moment-jalaali";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { transformMomentToTime } from "../../../utils";
 import { Time } from "../../types";
 
@@ -7,10 +7,11 @@ type NowArgs = {
   handleGrabbed: boolean;
   showNow?: boolean;
   setter: (time: Time) => void;
-  once: React.MutableRefObject<boolean>;
 };
 
-export const useNow = ({ handleGrabbed, setter, showNow, once }: NowArgs) => {
+export const useNow = ({ handleGrabbed, setter, showNow }: NowArgs) => {
+  const once = useRef<boolean>(true);
+
   useEffect(() => {
     if (!showNow || handleGrabbed) return;
     const t = transformMomentToTime(moment());
@@ -26,5 +27,5 @@ export const useNow = ({ handleGrabbed, setter, showNow, once }: NowArgs) => {
     }
 
     return () => clearInterval(timer);
-  }, [handleGrabbed, once, setter, showNow]);
+  }, [handleGrabbed, setter, showNow]);
 };

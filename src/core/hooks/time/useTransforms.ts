@@ -1,6 +1,11 @@
 import moment from "moment-jalaali";
 import { useMemo } from "react";
-import { createMarkets, degreeToRadian, timePad } from "../../../utils";
+import {
+  createMarkets,
+  degreeToRadian,
+  timePad,
+  transformMomentToTime,
+} from "../../../utils";
 import * as c from "../../constants/variables";
 import { TimePickerProps } from "../../interfaces";
 import { Time, TimeMode } from "../../types";
@@ -27,24 +32,9 @@ export const useTransforms = ({
 
     if (!_minTime.isValid()) return undefined;
 
-    const h = _minTime.hours();
+    const time = transformMomentToTime(_minTime);
 
-    const m = _minTime.minutes();
-
-    const ah = h > 12 ? h - 12 : h;
-
-    const fh = Number(_minTime.format("hh"));
-
-    const fm = Number(_minTime.format("mm"));
-
-    const hour = isNaN(fh) ? ah : fh;
-
-    const minute = isNaN(fm) ? m : fm;
-
-    return {
-      hour,
-      minute,
-    };
+    return time;
   }, [_minTime]);
 
   const maxTime = useMemo<Time | undefined>(() => {
@@ -52,24 +42,9 @@ export const useTransforms = ({
 
     if (!_maxTime.isValid()) return undefined;
 
-    const h = _maxTime.hours();
+    const time = transformMomentToTime(_maxTime);
 
-    const m = _maxTime.minutes();
-
-    const ah = h > 12 ? h - 12 : h;
-
-    const fh = Number(_maxTime.format("hh"));
-
-    const fm = Number(_maxTime.format("mm"));
-
-    const hour = isNaN(fh) ? ah : fh;
-
-    const minute = isNaN(fm) ? m : fm;
-
-    return {
-      hour,
-      minute,
-    };
+    return time;
   }, [_maxTime]);
 
   const { transforms } = useMemo(() => {

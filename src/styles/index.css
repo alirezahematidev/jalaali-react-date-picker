@@ -87,16 +87,22 @@
   border-radius: 50%;
 }
 
-.icon:hover {
+.icon:not(.panel-icon-disabled):hover {
   opacity: 1;
 }
 
-.panel-icon:hover {
+.panel-icon:not(.panel-icon-disabled):hover {
   opacity: 1;
 }
 
 .panel-icon-hovered:hover {
   background-color: var(--background-hovered);
+}
+
+.panel-icon-disabled {
+  background-color: transparent;
+  cursor: default !important;
+  opacity: 0.4;
 }
 
 .icon-forward::before {
@@ -1193,7 +1199,20 @@
   justify-content: center;
   align-items: center;
   background-color: var(--background);
+  position: relative;
+  overflow: hidden;
+}
+
+.time-panel-rtl {
+  direction: rtl;
   font-family: IRANSansRegular;
+}
+
+.time-panel-ltr {
+  direction: ltr;
+  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto,
+    helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
+    segoe ui emoji, segoe ui symbol, noto color emoji;
 }
 
 .time-clock-area {
@@ -1312,6 +1331,21 @@
 
 .disable-tick {
   opacity: 0.4;
+}
+
+.time-panel-header {
+  height: 30px;
+  position: absolute;
+  top: 12px;
+  inset-inline-start: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.time-navigators-gap {
+  display: inline-block;
+  width: 16px;
 }
 
 #__path_min_minute {

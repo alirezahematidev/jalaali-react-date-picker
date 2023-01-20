@@ -6,125 +6,245 @@ interface IconProps {
   onClick?: (e?: MouseEvent<HTMLDivElement>) => void;
   isJalaali?: boolean;
   hoverEffect?: boolean;
+  disabled?: boolean;
 }
 
 const Icon = () => null;
 
-const Forward = ({ size = 20, onClick }: IconProps) => {
+const Forward = ({ size = 20, onClick, disabled }: IconProps) => {
   return (
     <div
-      className={classNames("icon", "icon-forward")}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      className={classNames(
+        "icon",
+        "icon-forward",
+        disabled && "panel-icon-disabled",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const Calendar = ({ size = 20, onClick }: IconProps) => {
+const Calendar = ({ size = 20, onClick, disabled }: IconProps) => {
   return (
     <div
-      className="icon icon-calendar"
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      className={classNames(
+        "icon",
+        "icon-calendar",
+        disabled && "panel-icon-disabled",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const CalendarToday = ({ size = 20, onClick }: IconProps) => {
+const CalendarToday = ({ size = 20, onClick, disabled }: IconProps) => {
   return (
     <div
-      className="icon icon-calendar-today"
+      className={classNames(
+        "icon",
+        "icon-calendar-today",
+        disabled && "panel-icon-disabled",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const ChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const ChevronLeft = ({
+  size = 20,
+  onClick,
+  hoverEffect,
+  disabled,
+}: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         "icon-chevron-left",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const ChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const ChevronRight = ({
+  size = 20,
+  onClick,
+  hoverEffect,
+  disabled,
+}: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         "icon-chevron-right",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const Chevron = ({ size = 20, onClick, isJalaali, hoverEffect }: IconProps) => {
+const Chevron = ({
+  size = 20,
+  onClick,
+  isJalaali,
+  hoverEffect,
+  disabled,
+}: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         isJalaali ? "icon-chevron-right" : "icon-chevron-left",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const Clear = ({ size = 20, onClick }: IconProps) => {
+const Clear = ({ size = 20, onClick, disabled }: IconProps) => {
   return (
     <div
-      className="icon icon-highlight_off"
+      className={classNames(
+        "icon",
+        "icon-highlight_off",
+        disabled && "panel-icon-disabled",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const DoubleChevronLeft = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const DoubleChevronLeft = ({
+  size = 20,
+  onClick,
+  hoverEffect,
+  disabled,
+}: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         "icon-keyboard_double_arrow_left",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const DoubleChevronRight = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const DoubleChevronRight = ({
+  size = 20,
+  onClick,
+  hoverEffect,
+  disabled,
+}: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         "icon-keyboard_double_arrow_right",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
@@ -134,6 +254,7 @@ const DoubleChevron = ({
   onClick,
   isJalaali,
   hoverEffect,
+  disabled,
 }: IconProps) => {
   return (
     <div
@@ -142,50 +263,89 @@ const DoubleChevron = ({
         isJalaali
           ? "icon-keyboard_double_arrow_right"
           : "icon-keyboard_double_arrow_left",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
 
-const Back = ({ size = 20, onClick }: IconProps) => {
+const Back = ({ size = 20, onClick, disabled }: IconProps) => {
   return (
     <div
-      className="icon icon-arrow_back"
+      className={classNames(
+        "icon",
+        "icon-arrow_back",
+        disabled && "panel-icon-disabled",
+      )}
       style={{ width: size, height: "100%", fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
-const Dropdown = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const Dropdown = ({ size = 20, onClick, hoverEffect, disabled }: IconProps) => {
   return (
     <div
       className={classNames(
         "panel-icon",
         "icon-arrow_drop_down",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size + 4, height: size + 4, fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };
-const Error = ({ size = 20, onClick, hoverEffect }: IconProps) => {
+const Error = ({ size = 20, onClick, hoverEffect, disabled }: IconProps) => {
   return (
     <div
       className={classNames(
         "icon",
         "icon-error",
-        hoverEffect && "panel-icon-hovered",
+        hoverEffect && !disabled && "panel-icon-hovered",
+        disabled && "panel-icon-disabled",
       )}
       style={{ width: size, height: "100%", fontSize: size }}
-      onClick={onClick}
-      onTouchStart={() => onClick?.()}
+      onClick={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
+      onTouchStart={() => {
+        if (disabled) return;
+
+        onClick?.();
+      }}
     />
   );
 };

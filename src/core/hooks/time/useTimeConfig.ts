@@ -1,11 +1,5 @@
 import moment, { Moment } from "moment-jalaali";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   existsTime,
   formattedTime,
@@ -70,8 +64,6 @@ export const useTimeConfig = (props: TimePickerProps): TimeConfigReturn => {
 
   const [time, setTime] = useState<Time>(setTimeValue(props.defaultValue));
 
-  const setNowOnce = useRef<boolean>(true);
-
   const minutesStep = props.minutesStep ? props.minutesStep : 1;
 
   const hoursStep = props.hoursStep ? props.hoursStep : 1;
@@ -87,13 +79,24 @@ export const useTimeConfig = (props: TimePickerProps): TimeConfigReturn => {
   const onSelectTime = useCallback(
     (mode: TimeMode, value?: number) => {
       setTime((prevTime) => ({ ...prevTime, [mode]: value }));
+      const use12Hours = props.use12Hours;
 
-      const momentTime = transformTimeToMoment({ [mode]: value });
+      const momentTime = transformTimeToMoment(
+        { ...time, [mode]: value },
+        use12Hours,
+      );
 
-      const timeString = formattedTime({ [mode]: value }, props.format);
+      const timeString = formattedTime(
+        { ...time, [mode]: value },
+        props.format,
+        use12Hours,
+      );
 
       if (mode === "hour") {
-        props.onHourChange?.(value || 0);
+        const _value = value || 0;
+
+        const hour = use12Hours ? _value + 12 : _value;
+        props.onHourChange?.(hour);
       }
 
       if (mode === "minute") {
@@ -102,14 +105,13 @@ export const useTimeConfig = (props: TimePickerProps): TimeConfigReturn => {
 
       props.onChange?.(momentTime, timeString);
     },
-    [props],
+    [props, time],
   );
 
   /** Set time to now, if showNow is true */
   useNow({
     handleGrabbed,
     showNow: props.showNow,
-    once: setNowOnce,
     setter(time) {
       setTime((t) => (isEqual(t, time) ? t : time));
     },
