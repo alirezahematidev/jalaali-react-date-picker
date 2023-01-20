@@ -5,6 +5,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import * as webpack from "webpack";
+import LicensePlugin from "webpack-license-plugin";
 import pkg from "./package.json";
 
 const config: webpack.Configuration = {
@@ -122,6 +123,12 @@ const config: webpack.Configuration = {
     new webpack.BannerPlugin(`${pkg.name} v${pkg.version}`),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
+    new LicensePlugin({
+      outputFilename: "licenses.json",
+      excludedPackageTest: (packageName) => {
+        return packageName.includes("webpack");
+      },
+    }),
     new HtmlWebpackPlugin({
       title: pkg.name,
       minify: "auto",
