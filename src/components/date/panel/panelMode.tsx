@@ -1,8 +1,9 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { Mode, NavigationIcon, PickerProps } from "../../../core";
-import { Days } from "../days";
-import { Months } from "../months";
-import { Years } from "../years";
+
+import Days from "../days";
+import Months from "../months";
+import Years from "../years";
 
 type Panel = Record<Mode, JSX.Element>;
 
@@ -28,7 +29,7 @@ const PanelModeContext = createContext<PanelModeContext>({
   highlightWeekend: true,
 });
 
-export const PanelMode = ({
+const PanelMode = ({
   toggle,
   onModeChange,
   navigationIcons,
@@ -61,3 +62,5 @@ export const PanelMode = ({
 };
 
 export const usePanelContext = () => useContext(PanelModeContext);
+
+export default PanelMode;

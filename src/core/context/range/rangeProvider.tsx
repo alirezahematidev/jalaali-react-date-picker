@@ -70,9 +70,11 @@ interface RangeProviderProps {
 }
 
 export const RangeProvider = ({ children, props }: RangeProviderProps) => {
-  const language = props ? props.locale || "fa" : "fa";
+  const locale = props ? props.locale || "fa" : "fa";
+
   const { setLocale, setRangeDisabledDates, propsState, setFormat } =
     useRangePropsReducer();
+
   const {
     cacheRangeDate,
     onRangeDateChange,
@@ -92,7 +94,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     offsets,
     setOffsets,
   } = useRangeReducer({
-    language,
+    locale,
     onDayChangeProp: props?.onDayChange,
     onMonthChangeProp: props?.onMonthChange,
     onYearChangeProp: props?.onYearChange,
@@ -106,23 +108,30 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     if (props.locale && props.locale !== propsState.locale) {
       setLocale(props.locale);
     }
+
     if (
       props.format !== propsState.format ||
       (props.format === undefined && propsState.format === undefined)
     ) {
-      const format = props.format
-        ? typeof props.format === "function"
-          ? props.format([
-              dateTransformer(cacheRangeDate.startDate, language === "fa"),
-              dateTransformer(
-                cacheRangeDate.endDate ?? cacheRangeDate.startDate,
-                language === "fa",
-              ),
-            ])
-          : props.format
-        : formatGenerator(language === "fa");
+      let format = formatGenerator(locale === "fa");
+
+      if (props.format) {
+        if (typeof props.format === "function") {
+          format = props.format([
+            dateTransformer(cacheRangeDate.startDate, locale === "fa"),
+            dateTransformer(
+              cacheRangeDate.endDate ?? cacheRangeDate.startDate,
+              locale === "fa",
+            ),
+          ]);
+        } else {
+          format = props.format;
+        }
+      }
+
       setFormat(format);
     }
+
     if (props.disabledDates) {
       setRangeDisabledDates(props.disabledDates);
     }

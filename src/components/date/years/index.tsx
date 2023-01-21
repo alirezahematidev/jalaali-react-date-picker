@@ -56,4 +56,4 @@ const Years = () => {
   );
 };
 
-export { Years };
+export default Years;

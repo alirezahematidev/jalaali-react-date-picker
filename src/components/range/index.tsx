@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, Ref } from "react";
+import { forwardRef } from "react";
 import {
   RangePickerProps as Props,
   RangeProvider,
@@ -6,51 +6,46 @@ import {
 } from "../../core";
 import RangePanel from "./rangePanel";
 
-interface RangePickerProps extends Props {
-  ref?: Ref<HTMLDivElement>;
-}
+export interface RangePickerProps extends Props {}
 
-type RangePickerComponent = typeof RangePicker;
+const RangePicker = forwardRef<HTMLDivElement, RangePickerProps>(
+  (rangeProps, ref) => {
+    const {
+      headerRender,
+      dayLabelRender,
+      panelRender,
+      highlightDays,
+      customColors,
+      onModeChange,
+      highlightWeekend,
+      style,
+      className,
+      loading,
+      ...restProps
+    } = rangeProps;
+    useSetColors(customColors);
 
-const RangePicker = (
+    return (
+      <RangeProvider props={restProps}>
+        <RangePanel
+          ref={ref}
+          headerRender={headerRender}
+          panelRender={panelRender}
+          dayLabelRender={dayLabelRender}
+          highlightDays={highlightDays}
+          onModeChange={onModeChange}
+          highlightWeekend={highlightWeekend}
+          style={style}
+          className={className}
+          loading={loading}
+        />
+      </RangeProvider>
+    );
+  },
+);
+
+const RangePickerWithRef = RangePicker as (
   rangeProps: RangePickerProps,
-  pickerRef: ForwardedRef<HTMLDivElement>,
-) => {
-  const {
-    headerRender,
-    dayLabelRender,
-    panelRender,
-    highlightDays,
-    customColors,
-    onModeChange,
-    highlightWeekend,
-    style,
-    className,
-    loading,
-    ...restProps
-  } = rangeProps;
-  useSetColors(customColors);
-
-  return (
-    <RangeProvider props={restProps}>
-      <RangePanel
-        ref={pickerRef}
-        headerRender={headerRender}
-        panelRender={panelRender}
-        dayLabelRender={dayLabelRender}
-        highlightDays={highlightDays}
-        onModeChange={onModeChange}
-        highlightWeekend={highlightWeekend}
-        style={style}
-        className={className}
-        loading={loading}
-      />
-    </RangeProvider>
-  );
-};
-
-const RangePickerWithRef = forwardRef<HTMLDivElement, RangePickerProps>(
-  RangePicker,
-) as RangePickerComponent;
+) => JSX.Element;
 
 export { RangePickerWithRef as RangePicker };

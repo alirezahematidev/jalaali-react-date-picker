@@ -200,7 +200,6 @@ interface RangePickerPickable
     | "format"
     | "locale"
     | "disabledDates"
-    | "highlightWeekend"
     | "customColors"
   > {}
 

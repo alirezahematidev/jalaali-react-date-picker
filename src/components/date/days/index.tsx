@@ -143,4 +143,4 @@ const Days = () => {
   );
 };
 
-export { Days };
+export default Days;

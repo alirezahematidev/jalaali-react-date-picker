@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
 import TerserPlugin from "terser-webpack-plugin";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import * as webpack from "webpack";
 import pkg from "./package.json";
 
@@ -79,7 +80,10 @@ const config: webpack.Configuration = {
         },
       }),
     ],
+    chunkIds: "named",
+    minimize: true,
     usedExports: true,
+    providedExports: true,
   },
 
   devtool: "source-map",
@@ -95,6 +99,11 @@ const config: webpack.Configuration = {
     },
     preferRelative: true,
     extensions: [".ts", ".tsx", ".jsx", ".js"],
+    plugins: [
+      new TsconfigPathsPlugin({
+        extensions: [".ts", ".tsx", ".jsx", ".js"],
+      }),
+    ],
   },
   entry: {
     main: path.resolve(__dirname, "./src/index"),
@@ -107,6 +116,7 @@ const config: webpack.Configuration = {
     globalObject: "this",
     clean: true,
     publicPath: "",
+    chunkFilename: "[name].chunk.js",
   },
   resolveLoader: {
     modules: [
@@ -114,7 +124,6 @@ const config: webpack.Configuration = {
       path.resolve(__dirname, "./lib"),
     ],
   },
-  ignoreWarnings: [() => false],
   mode: "production",
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),

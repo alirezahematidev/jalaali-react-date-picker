@@ -20,6 +20,7 @@ export interface DateAction {
 export function reducer(state: Date, action: DateAction): Date {
   const { type, payload } = action;
   switch (type) {
+    /** When date changes */
     case DateActionKind.DATE:
       return {
         ...state,
@@ -27,6 +28,8 @@ export function reducer(state: Date, action: DateAction): Date {
         month: payload.month,
         year: payload.year,
       };
+
+    /** When day changes */
     case DateActionKind.DAY:
       return {
         ...state,
@@ -34,12 +37,16 @@ export function reducer(state: Date, action: DateAction): Date {
         month: payload.month,
         year: payload.year,
       };
+
+    /** When month changes */
     case DateActionKind.MONTH:
       return {
         ...state,
         month: payload.month,
         day: 0,
       };
+
+    /** When month decreases */
     case DateActionKind.MONTH_MINUS:
       return {
         ...state,
@@ -47,6 +54,8 @@ export function reducer(state: Date, action: DateAction): Date {
         day: 0,
         year: payload.year,
       };
+
+    /** When month increases */
     case DateActionKind.MONTH_PLUS:
       return {
         ...state,
@@ -54,16 +63,22 @@ export function reducer(state: Date, action: DateAction): Date {
         day: 0,
         year: payload.year,
       };
+
+    /** When year changes */
     case DateActionKind.YEAR:
       return {
         ...payload,
         year: payload.year,
       };
+
+    /** When year decreases */
     case DateActionKind.YEAR_MINUS:
       return {
         ...payload,
         year: payload.year - 1,
       };
+
+    /** When year increases */
     case DateActionKind.YEAR_PLUS:
       return {
         ...payload,

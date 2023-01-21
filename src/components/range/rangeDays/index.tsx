@@ -103,7 +103,7 @@ const RangeDays = ({}: RangeDaysProps) => {
   );
 };
 
-export { RangeDays };
+export default RangeDays;
 
 function getRange(startDate: Moment, endDate: Moment) {
   const diff = endDate.diff(startDate, "days");

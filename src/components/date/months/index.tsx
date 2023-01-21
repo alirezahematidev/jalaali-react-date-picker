@@ -47,4 +47,4 @@ const Months = () => {
   );
 };
 
-export { Months };
+export default Months;

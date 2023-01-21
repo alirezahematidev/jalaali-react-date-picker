@@ -8,7 +8,7 @@ import {
 } from "../../../core";
 import { Footer } from "../../footer";
 import { Loading } from "../../loading";
-import { PanelMode } from "./panelMode";
+import PanelMode from "./panelMode";
 
 moment.loadPersian({ dialect: "persian-modern" });
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Mode } from "../../../core";
-import { RangeDays } from "../rangeDays";
-import { RangeMonths } from "../rangeMonths";
-import { RangeYears } from "../rangeYears";
+import RangeDays from "../rangeDays";
+import RangeMonths from "../rangeMonths";
+import RangeYears from "../rangeYears";
 import { useRangePanelContext } from "./panelRangeMode";
 import { RangeTemplateContext } from "./templateContext";
 

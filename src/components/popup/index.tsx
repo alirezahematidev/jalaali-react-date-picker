@@ -23,7 +23,7 @@ interface PopupProps {
   isJalaali?: boolean;
 }
 
-export const Popup = memo(
+const Popup = memo(
   ({
     children,
     placement,
@@ -104,3 +104,5 @@ export const Popup = memo(
     );
   },
 );
+
+export default Popup;
