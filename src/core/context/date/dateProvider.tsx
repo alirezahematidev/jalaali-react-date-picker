@@ -112,7 +112,6 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
           ? props.format(dateTransformer(cacheDate, props.locale === "fa"))
           : props.format
         : formatGenerator(language === "fa");
-
       setFormat(format);
     }
 

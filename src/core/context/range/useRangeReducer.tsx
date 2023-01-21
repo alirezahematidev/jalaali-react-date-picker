@@ -152,7 +152,7 @@ export const useRangeReducer = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueProp]);
+  }, [valueProp, formatProp]);
 
   useEffect(() => {
     if (defaultValueProp && !valueProp) {
@@ -191,7 +191,7 @@ export const useRangeReducer = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValueProp, valueProp]);
+  }, [defaultValueProp, valueProp, formatProp]);
 
   useEffect(() => {
     setFromAndTo(fromAndToDefaultValue);
@@ -264,7 +264,6 @@ export const useRangeReducer = ({
 
       dispatch({ type: RangeActionKind.DAY, payload: res });
       setCacheRangeDate(res);
-
       if (res) {
         if (
           res.startDate.day !== 0 &&
