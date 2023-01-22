@@ -137,7 +137,11 @@ export const RangeDayPanel = ({
                         )
                   }
                   isWeekend={canHighlighWeekend ? isWeekend : false}
-                  isToday={isEqual(today, date)}
+                  isToday={
+                    isEqual(today, date) &&
+                    (!isEqual(selectedRange.startDate, today) ||
+                      !isEqual(selectedRange.endDate, today))
+                  }
                 />
               </div>
             </div>

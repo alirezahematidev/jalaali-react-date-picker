@@ -34,6 +34,8 @@ interface ContextType extends RangePropsReducerType {
   onRangeDecreaseYear: () => void;
   onRangeIncreaseMonth: () => void;
   onRangeDecreaseMonth: () => void;
+  changeFrom: (date: Partial<Date>) => void;
+  changeTo: (date: Partial<Date>) => void;
   changePlaceholder: (date: Date | null) => void;
   from: Date;
   to: Date;
@@ -58,6 +60,8 @@ export const RangePickerContext = createContext<ContextType>({
   onRangeIncreaseMonth: () => null,
   onRangeDecreaseMonth: () => null,
   changePlaceholder: () => null,
+  changeFrom: () => null,
+  changeTo: () => null,
   from: { day: 0, month: 0, year: 0 },
   to: { day: 0, month: 0, year: 0 },
   offsets: [0, 0],
@@ -93,6 +97,8 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     changePlaceholder,
     offsets,
     setOffsets,
+    changeFrom,
+    changeTo,
   } = useRangeReducer({
     locale,
     onDayChangeProp: props?.onDayChange,
@@ -152,6 +158,8 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
         onRangeMonthchange,
         onRangeYearchange,
         changePlaceholder,
+        changeFrom,
+        changeTo,
         from,
         to,
         rangeState,

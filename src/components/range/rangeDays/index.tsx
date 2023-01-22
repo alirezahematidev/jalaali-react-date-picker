@@ -13,22 +13,22 @@ const RangeDays = ({}: RangeDaysProps) => {
     onRangeDaychange,
     cacheRangeDate,
     disabledDates,
-    onRangeMonthchange,
-    onRangeIncreaseYear,
-    onRangeDecreaseYear,
     from,
     to,
     isJalaali,
+    changeFrom,
+    changeTo,
   } = useRangepicker();
   const { type, onChangeMode } = useRangeTemplate();
 
   const { days } = useRangeDays(type);
 
   const onSelect = useCallback(
-    ({ day, month, year, isNotCurrentMonth }: DateMetadata) => {
+    ({ day, month, year }: DateMetadata) => {
       const isStartDate =
         !cacheRangeDate?.startDate.day ||
         (!!cacheRangeDate.startDate && !!cacheRangeDate.endDate);
+
       if (!isStartDate) {
         const selectedRange = getRange(
           dateTransformer(cacheRangeDate.startDate, isJalaali),
@@ -45,39 +45,22 @@ const RangeDays = ({}: RangeDaysProps) => {
           );
         }
       }
-      if (isNotCurrentMonth) {
-        if (cacheRangeDate?.endDate === null) {
-          if (from.month - 1 === 0) {
-            onRangeMonthchange(12, "from");
-            onRangeDecreaseYear();
-          }
-          if (from.month - 1 === month) {
-            onRangeMonthchange(month, "from");
-          }
-          if (to.month + 1 === 13) {
-            isStartDate && onRangeMonthchange(1, "from");
-            onRangeMonthchange(isStartDate ? month + 1 : 2, "to");
-            onRangeIncreaseYear();
-          }
-          if (to.month + 1 === month) {
-            isStartDate && onRangeMonthchange(month, "from");
-            onRangeMonthchange(isStartDate ? month + 1 : month, "to");
-          }
-        }
-      }
       onRangeDaychange({ day, month, year }, isStartDate);
+      if (isStartDate) {
+        to.month !== month && changeFrom({ day, month, year });
+      } else {
+        from.month !== month && changeTo({ day, month, year });
+      }
     },
     [
-      cacheRangeDate?.endDate,
-      cacheRangeDate?.startDate,
+      cacheRangeDate,
+      changeFrom,
+      changeTo,
       disabledDates,
-      from.month,
+      from,
       isJalaali,
       onRangeDaychange,
-      onRangeDecreaseYear,
-      onRangeIncreaseYear,
-      onRangeMonthchange,
-      to.month,
+      to,
     ],
   );
 

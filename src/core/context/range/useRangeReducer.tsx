@@ -187,7 +187,7 @@ export const useRangeReducer = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueProp]);
+  }, [valueProp, formatProp]);
 
   /**
    * UseEffect hook that updates the cached date and input value when the
@@ -227,7 +227,7 @@ export const useRangeReducer = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValueProp, valueProp]);
+  }, [defaultValueProp, valueProp, formatProp]);
 
   useEffect(() => {
     setFromAndTo(fromAndToDefaultValue);
@@ -748,6 +748,13 @@ export const useRangeReducer = ({
     setOffset(offsets);
   }, []);
 
+  const changeFrom = (from: Partial<FromTo["from"]>) => {
+    setFromAndTo((prev) => ({ to: prev.to, from: { ...prev.from, ...from } }));
+  };
+  const changeTo = (to: Partial<FromTo["to"]>) => {
+    setFromAndTo((prev) => ({ from: prev.from, to: { ...prev.to, ...to } }));
+  };
+
   return {
     rangeState,
     cacheRangeDate,
@@ -759,6 +766,8 @@ export const useRangeReducer = ({
     onRangeDecreaseYear,
     onRangeIncreaseMonth,
     onRangeDecreaseMonth,
+    changeFrom,
+    changeTo,
     dateRange,
     from: fromAndTo.from,
     to: fromAndTo.to,

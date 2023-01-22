@@ -136,7 +136,7 @@ export const useDateReducer = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValueProp, valueProp]);
+  }, [defaultValueProp, valueProp, formatProp]);
 
   /**
    * This function is a callback function that updates the selected date and
