@@ -13,6 +13,10 @@ const RANGE_HEIGHT = 312;
 const RESP_RANGE_HEIGHT = 360;
 
 //time
+const TIME_WIDTH = 300;
+const TIME_HEIGHT = 300;
+
+//time
 const HOUR_TICK = 30; // in degree
 const MINUTE_TICK = 1; // in degree
 const CLOCK_WIDTH = 220;
@@ -53,4 +57,6 @@ export {
   SECTOR_X,
   SECTOR_Y,
   RADIUS,
+  TIME_WIDTH,
+  TIME_HEIGHT,
 };

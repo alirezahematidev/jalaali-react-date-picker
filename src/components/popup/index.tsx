@@ -8,12 +8,14 @@ export type Placement = "bottom" | "top" | "right" | "left";
 
 export type Responsive = "desktop" | "mobile" | "auto";
 
+type Mode = "date" | "range" | "time";
+
 interface PopupProps {
   children: ReactNode;
   placement?: Placement;
   isOpen?: boolean;
   panel: (shouldResponsive?: boolean) => ReactNode;
-  mode: "date" | "range";
+  mode: Mode;
   getContainer?: HTMLElement | (() => HTMLElement) | string;
   close: () => void;
   toggleAnimate: (animate: boolean) => void;
@@ -64,14 +66,18 @@ export const Popup = memo(
 
     const className = useMemo(() => {
       if (isOpen) {
+        const animatedClass: Record<Mode, string> = {
+          date: "popover-panel-date",
+          time: "popover-panel-time",
+          range: shouldResponsive
+            ? "mobile-popover-panel-range"
+            : "popover-panel-range",
+        };
+
         return classNames(
           "popup-panel-overlay",
           "popover-panel-open",
-          mode === "date"
-            ? "popover-panel-date"
-            : shouldResponsive
-            ? "mobile-popover-panel-range"
-            : "popover-panel-range",
+          animatedClass[mode],
           config().animationClassName,
         );
       }

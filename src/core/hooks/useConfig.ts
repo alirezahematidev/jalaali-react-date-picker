@@ -7,16 +7,20 @@ import {
   RANGE_HEIGHT,
   RANGE_WIDTH,
   RESP_RANGE_HEIGHT,
+  TIME_HEIGHT,
+  TIME_WIDTH,
 } from "../constants/variables";
 import { useWindowSize } from "./useWindowSize";
 
 const placements: Placement[] = ["bottom", "left", "right", "top"];
 
+type Mode = "date" | "range" | "time";
+
 type ConfigProps = {
   element: MutableRefObject<HTMLDivElement | null>;
   placement?: Placement;
   shouldResponsive?: boolean;
-  mode: "date" | "range";
+  mode: Mode;
   isJalaali?: boolean;
 };
 
@@ -44,13 +48,17 @@ export const useConfig = ({
   const _window = useWindowSize();
 
   const config: () => Config = useCallback(() => {
-    const ph =
-      mode === "date"
-        ? DATE_HEIGHT
-        : shouldResponsive
-        ? RESP_RANGE_HEIGHT
-        : RANGE_HEIGHT;
-    const pw = mode === "date" || shouldResponsive ? DATE_WIDTH : RANGE_WIDTH;
+    const ph: Record<Mode, number> = {
+      date: DATE_HEIGHT,
+      time: TIME_HEIGHT,
+      range: shouldResponsive ? RESP_RANGE_HEIGHT : RANGE_HEIGHT,
+    };
+
+    const pw: Record<Mode, number> = {
+      date: DATE_WIDTH,
+      time: TIME_WIDTH,
+      range: shouldResponsive ? DATE_WIDTH : RANGE_WIDTH,
+    };
 
     if (!element.current)
       return {
@@ -60,8 +68,8 @@ export const useConfig = ({
           left: 0,
           right: 0,
           top: 0,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         },
       };
 
@@ -77,8 +85,8 @@ export const useConfig = ({
           left: 0,
           right: 0,
           top: 0,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         },
       };
 
@@ -116,12 +124,12 @@ export const useConfig = ({
           : "open-vert-bottom-right";
 
         const coordinates: Coordinate = {
-          left: isJalaali ? l + w - pw : l,
+          left: isJalaali ? l + w - pw[mode] : l,
           bottom: undefined,
           top: t + h + gap,
           right: undefined,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         };
 
         return { coordinates, animationClassName };
@@ -133,12 +141,12 @@ export const useConfig = ({
           : "open-vert-top-right";
 
         const coordinates: Coordinate = {
-          left: isJalaali ? l + w - pw : l,
-          top: t - (ph + gap),
+          left: isJalaali ? l + w - pw[mode] : l,
+          top: t - (ph[mode] + gap),
           bottom: undefined,
           right: undefined,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         };
 
         return { coordinates, animationClassName };
@@ -147,12 +155,12 @@ export const useConfig = ({
         const animationClassName = "open-horz-left";
 
         const coordinates: Coordinate = {
-          left: l - (pw + gap),
+          left: l - (pw[mode] + gap),
           top: t,
           bottom: undefined,
           right: undefined,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         };
 
         return { coordinates, animationClassName };
@@ -162,21 +170,21 @@ export const useConfig = ({
         const animationClassName = "open-horz-right";
 
         const coordinates: Coordinate = {
-          right: r - (gap + pw),
+          right: r - (gap + pw[mode]),
           top: t,
           left: undefined,
           bottom: undefined,
-          width: pw,
-          height: ph,
+          width: pw[mode],
+          height: ph[mode],
         };
 
         return { coordinates, animationClassName };
       }
     }
 
-    const canReverse = gap + h + ph < _window.height;
+    const canReverse = gap + h + ph[mode] < _window.height;
 
-    const shouldReverse = canReverse ? b <= ph && t >= ph : false;
+    const shouldReverse = canReverse ? b <= ph[mode] && t >= ph[mode] : false;
 
     const animationClassName = shouldReverse
       ? isJalaali
@@ -187,12 +195,12 @@ export const useConfig = ({
       : "open-vert-bottom-right";
 
     const coordinates: Coordinate = {
-      left: isJalaali ? l + w - pw : l,
+      left: isJalaali ? l + w - pw[mode] : l,
       bottom: undefined,
-      top: shouldReverse ? t - gap - ph : t + h + gap,
+      top: shouldReverse ? t - gap - ph[mode] : t + h + gap,
       right: undefined,
-      width: pw,
-      height: ph,
+      width: pw[mode],
+      height: ph[mode],
     };
 
     return {

@@ -995,6 +995,11 @@
   max-width: 600px;
 }
 
+.popover-panel-time {
+  max-height: 300px;
+  max-width: 300px;
+}
+
 .open-vert-top-right {
   transform-origin: bottom left;
 }
