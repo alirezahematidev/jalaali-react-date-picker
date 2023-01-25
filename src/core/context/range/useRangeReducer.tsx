@@ -741,7 +741,7 @@ export const useRangeReducer = ({
     setRangeInputValue(["", ""]);
     setPlaceholderFrom("");
     setPlaceholderTo("");
-    onRangeDateChange(getDefaultValue(undefined, isJalaali));
+    onRangeDateChange(null);
   };
 
   const setOffsets = useCallback((offsets: [number, number]) => {
