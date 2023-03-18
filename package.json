@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/alirezahematidev/jalaali-react-date-picker/issues"
   },
-  "homepage": "https://github.com/alirezahematidev/jalaali-react-date-picker#readme",
+  "homepage": "/",
   "main": "lib/main.js",
   "module": "lib/main.js",
   "types": "lib/index.d.ts",

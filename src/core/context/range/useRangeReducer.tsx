@@ -75,27 +75,28 @@ export const useRangeReducer = ({
   const [offsets, setOffset] = useState<Offsets>([0, 0]);
   const [rangeInputValue, setRangeInputValue] = useState<RangeInput>(["", ""]);
 
-  const fromAndToDefaultValue = useMemo(
-    () => ({
-      from: {
-        day: 0,
-        year: getCurrentYear(isJalaali),
-        month: getCurrentMonth(isJalaali),
-      },
-      to: {
-        day: 0,
-        year: getCurrentYear(isJalaali),
-        month: Number(
-          moment()
-            .add(1, "month")
-            .format(isJalaali ? "jM" : "M"),
-        ),
-      },
-    }),
-    [isJalaali],
-  );
+  const fromAndToDefaultValue = useMemo(() => {
+    const currentYear = getCurrentYear(isJalaali);
+    const currentMonth = getCurrentMonth(isJalaali);
+    const from = {
+      day: 0,
+      year: currentYear,
+      month: currentMonth,
+    };
+    const to = {
+      day: 0,
+      year: currentMonth === 12 ? currentYear + 1 : currentYear,
+      month: currentMonth === 12 ? 1 : currentMonth + 1,
+    };
+    return {
+      from,
+      to,
+    };
+  }, [isJalaali]);
 
   const [fromAndTo, setFromAndTo] = useState<FromTo>(fromAndToDefaultValue);
+
+  console.log("fromAndTo", fromAndTo);
 
   /** State to hold the cached date range. */
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
