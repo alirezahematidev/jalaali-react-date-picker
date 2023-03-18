@@ -96,8 +96,6 @@ export const useRangeReducer = ({
 
   const [fromAndTo, setFromAndTo] = useState<FromTo>(fromAndToDefaultValue);
 
-  console.log("fromAndTo", fromAndTo);
-
   /** State to hold the cached date range. */
   const [cacheRangeDate, setCacheRangeDate] = useState<RangeDate>(
     getDefaultValue(defaultValueProp, isJalaali),
