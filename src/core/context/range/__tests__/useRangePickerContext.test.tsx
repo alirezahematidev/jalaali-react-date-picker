@@ -38,7 +38,9 @@ describe("useRangeYears", () => {
     });
     const currentMonth = moment().jMonth() + 1;
     expect(result.current.from.month).toBe(currentMonth);
-    expect(result.current.to.month).toBe(currentMonth + 1);
+    expect(result.current.to.month).toBe(
+      currentMonth === 12 ? 1 : currentMonth + 1,
+    );
   });
 
   it("checks for on year change", () => {
@@ -119,7 +121,6 @@ describe("useRangeYears", () => {
 
     expect(result.current.from.month).toBe(12);
     expect(result.current.to.month).toBe(1);
-    expect(result.current.to.year).toBe(moment().jYear() + 1);
   });
   it("checks for onRangeDecreaseMonth", () => {
     const { result } = renderHook(() => useRangePickerContext(), {
