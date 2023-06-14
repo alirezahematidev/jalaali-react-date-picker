@@ -156,6 +156,9 @@ export const useRangeReducer = ({
    * valueProp changes.
    */
   useEffect(() => {
+    if (!valueProp) {
+      onClear();
+    }
     if (valueProp && valueProp.length) {
       const startDate = {
         day: getDateDay(valueProp[0], isJalaali),

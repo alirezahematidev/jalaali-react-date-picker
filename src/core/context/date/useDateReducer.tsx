@@ -133,6 +133,8 @@ export const useDateReducer = ({
       setCacheDate(value);
 
       setInputValue(formattedValue(defaultValueProp));
+    } else {
+      onClear();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -195,7 +197,6 @@ export const useDateReducer = ({
       dispatch({ type: DateActionKind.MONTH, payload });
 
       const name = months.find(({ id }) => id === payload.month)?.name || "--";
-
       onMonthChangeProp?.({
         value: payload.month,
         name,
