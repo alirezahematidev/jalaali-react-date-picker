@@ -128,7 +128,6 @@ const InputRangePicker = forwardRef<HTMLInputElement, InputRangePickerProps>(
               ref={inputRef}
               style={wrapperStyle}
               onClick={onOpen}
-              onTouchStart={onOpen}
               onMouseEnter={() => values[0] && setClearIconVisible(true)}
               onMouseLeave={() => setClearIconVisible(false)}
             >

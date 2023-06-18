@@ -28,7 +28,6 @@ const MonthsHeader = ({}: HeaderProps) => {
               <span
                 className="clickable"
                 onClick={() => onChangeMode?.("year")}
-                onTouchStart={() => onChangeMode?.("year")}
               >
                 {year}
               </span>

@@ -8,12 +8,7 @@ interface CustomWrapperProps {
 
 const CustomWrapper = ({ children, onOpen, inputRef }: CustomWrapperProps) => {
   return (
-    <div
-      ref={inputRef}
-      onClick={onOpen}
-      onTouchStart={onOpen}
-      className="custom-input-wrapper"
-    >
+    <div ref={inputRef} onClick={onOpen} className="custom-input-wrapper">
       {children}
     </div>
   );

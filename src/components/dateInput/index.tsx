@@ -134,7 +134,6 @@ const InputDatePicker = forwardRef<HTMLInputElement, InputDatePickerProps>(
                 )}
                 style={wrapperStyle}
                 onClick={onOpen}
-                onTouchStart={onOpen}
                 onMouseEnter={() => value && setClearIconVisible(true)}
                 onMouseLeave={() => setClearIconVisible(false)}
               >
