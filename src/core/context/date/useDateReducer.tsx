@@ -134,7 +134,8 @@ export const useDateReducer = ({
 
       setInputValue(formattedValue(defaultValueProp));
     } else {
-      onClear();
+      setInputValue("");
+      setCacheDate(getDefaultValue(valueProp, isJalaali));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -342,7 +343,7 @@ export const useDateReducer = ({
     offset,
     setOffset,
     inputProps: {
-      value: inputValue || dateValue,
+      value: inputValue ?? dateValue,
       placeholder,
       onChangeInputValue,
       onClear,

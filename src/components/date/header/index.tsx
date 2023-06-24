@@ -32,7 +32,6 @@ const Header = ({ onSelectMonthPicker, onSelectYearPicker }: HeaderProps) => {
           <div
             className="iconItem"
             onClick={(e) => {
-              console.log("e onClick", e);
               isJalaali
                 ? onDecreaseYear(selectedDate)
                 : onIncreaseYear(selectedDate);
