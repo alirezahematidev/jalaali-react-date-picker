@@ -33,12 +33,6 @@ const Years = () => {
                   onChangeMode?.("month");
                 }
               }}
-              onTouchStart={() => {
-                if (!isDisabled) {
-                  onYearchange({ ...state, year: item.id });
-                  onChangeMode?.("month");
-                }
-              }}
               className={classNames(
                 "year-item",
                 !isSelected && !isDisabled && "year-item-hovered",

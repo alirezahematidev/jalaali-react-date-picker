@@ -18,13 +18,13 @@ const Months = () => {
           const isDisabled = item.isDisabled;
           return (
             <div
-              onClick={() => {
+              onMouseUp={(e) => {
                 if (!isDisabled) {
                   onMonthchange({ ...state, month: item.id });
                   onChangeMode?.("day");
                 }
               }}
-              onTouchStart={() => {
+              onTouchEnd={(e) => {
                 if (!isDisabled) {
                   onMonthchange({ ...state, month: item.id });
                   onChangeMode?.("day");

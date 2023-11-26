@@ -31,7 +31,6 @@ export const FromNavigator = ({
         <div
           className="panel-date-holder-item clickable"
           onClick={onSelectYearPicker}
-          onTouchStart={onSelectYearPicker}
         >
           <span className="range-panel-header-item-text">{yearLabel}</span>
         </div>
@@ -44,18 +43,10 @@ export const FromNavigator = ({
 
   return (
     <div className="center">
-      <div
-        className="iconItem"
-        onClick={onDecreaseYear}
-        onTouchStart={onDecreaseYear}
-      >
+      <div className="iconItem" onClick={onDecreaseYear}>
         <Icon.DoubleChevron isJalaali={isJalaali} hoverEffect />
       </div>
-      <div
-        className="iconItem"
-        onClick={onDecreaseMonth}
-        onTouchStart={onDecreaseMonth}
-      >
+      <div className="iconItem" onClick={onDecreaseMonth}>
         <Icon.Chevron isJalaali={isJalaali} hoverEffect />
       </div>
     </div>

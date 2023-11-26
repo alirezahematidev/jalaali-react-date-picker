@@ -33,9 +33,6 @@ const YearsHeader = ({
             onClick={() =>
               isJalaali ? onDecreaseDecade() : onIncreaseDecade()
             }
-            onTouchStart={() =>
-              isJalaali ? onDecreaseDecade() : onIncreaseDecade()
-            }
           >
             <Icon.DoubleChevronRight hoverEffect />
           </div>
@@ -54,7 +51,6 @@ const YearsHeader = ({
                 <span
                   className="clickable"
                   onClick={() => onYearPress?.(lowerDecade)}
-                  onTouchStart={() => onYearPress?.(lowerDecade)}
                 >
                   {lowerDecade}
                 </span>
@@ -62,7 +58,6 @@ const YearsHeader = ({
                 <span
                   className="clickable"
                   onClick={() => onYearPress?.(upperDecade)}
-                  onTouchStart={() => onYearPress?.(upperDecade)}
                 >
                   {upperDecade}
                 </span>
@@ -72,7 +67,6 @@ const YearsHeader = ({
                 <span
                   className="clickable"
                   onClick={() => onYearPress?.(upperDecade)}
-                  onTouchStart={() => onYearPress?.(upperDecade)}
                 >
                   {upperDecade}
                 </span>
@@ -80,7 +74,6 @@ const YearsHeader = ({
                 <span
                   className="clickable"
                   onClick={() => onYearPress?.(lowerDecade)}
-                  onTouchStart={() => onYearPress?.(lowerDecade)}
                 >
                   {lowerDecade}
                 </span>
@@ -92,9 +85,6 @@ const YearsHeader = ({
           <div
             className="iconItem"
             onClick={() =>
-              isJalaali ? onIncreaseDecade() : onDecreaseDecade()
-            }
-            onTouchStart={() =>
               isJalaali ? onIncreaseDecade() : onDecreaseDecade()
             }
           >

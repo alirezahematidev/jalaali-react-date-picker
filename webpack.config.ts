@@ -1,7 +1,5 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
@@ -86,7 +84,6 @@ const config: webpack.Configuration = {
     providedExports: true,
   },
 
-  devtool: "source-map",
   resolve: {
     modules: [
       path.resolve(__dirname, "./node_modules"),
@@ -115,7 +112,6 @@ const config: webpack.Configuration = {
     libraryTarget: "umd",
     globalObject: "this",
     clean: true,
-    publicPath: "",
     chunkFilename: "[name].chunk.js",
   },
   resolveLoader: {
@@ -124,17 +120,11 @@ const config: webpack.Configuration = {
       path.resolve(__dirname, "./lib"),
     ],
   },
-  mode: "production",
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.LoaderOptionsPlugin({ minimize: true }),
     new webpack.BannerPlugin(`${pkg.name} v${pkg.version}`),
-    new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      title: pkg.name,
-      minify: "auto",
-    }),
     new CopyPlugin({
       patterns: [
         {
@@ -147,7 +137,6 @@ const config: webpack.Configuration = {
         },
       ],
     }),
-    new webpack.HotModuleReplacementPlugin(),
   ],
   externals: ["react", "react-dom", "moment-jalaali"],
 };

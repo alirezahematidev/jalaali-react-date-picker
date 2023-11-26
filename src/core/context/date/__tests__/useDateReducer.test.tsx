@@ -75,12 +75,12 @@ describe("onMonthchange", () => {
     const { result } = renderHook(() => useDateReducer({ locale: "fa" }), {
       wrapper,
     });
-    act(() => result.current.onMonthchange({ day: 0, month: 8, year: 1401 }));
+    act(() => result.current.onMonthchange({ day: 0, month: 8, year: 1402 }));
 
     expect(result.current.state).toStrictEqual({
       day: 0,
       month: 8,
-      year: 1401,
+      year: 1402,
     });
   });
 });
