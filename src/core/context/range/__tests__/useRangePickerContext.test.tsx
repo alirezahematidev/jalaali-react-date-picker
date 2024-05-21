@@ -107,9 +107,11 @@ describe("useRangeYears", () => {
     });
     act(() => result.current.onRangeIncreaseMonth());
     expect(result.current.from.month).toBe(
-      moment().add(1, "month").jMonth() + 1,
+      moment().add(1, "jMonth").jMonth() + 1,
     );
-    expect(result.current.to.month).toBe(moment().add(2, "month").jMonth() + 1);
+    expect(result.current.to.month).toBe(
+      moment().add(2, "jMonth").jMonth() + 1,
+    );
   });
   it("checks for onRangeIncreaseMonth when the from month is the end of the year", () => {
     const { result } = renderHook(() => useRangePickerContext(), {
