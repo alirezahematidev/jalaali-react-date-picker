@@ -744,6 +744,7 @@ export const useRangeReducer = ({
     setPlaceholderFrom("");
     setPlaceholderTo("");
     onRangeDateChange(null);
+    onChangeProp?.(null, ["", ""]);
   };
 
   const setOffsets = useCallback((offsets: [number, number]) => {
