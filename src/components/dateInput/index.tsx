@@ -35,6 +35,7 @@ const InputDatePicker = forwardRef<HTMLInputElement, InputDatePickerProps>(
       presets = true,
       placeholder: inputPlaceholder,
       onClear: inputOnClear,
+      closeOnChange,
       ...rest
     } = inputDatePickerProps;
 
@@ -95,6 +96,8 @@ const InputDatePicker = forwardRef<HTMLInputElement, InputDatePickerProps>(
           locale,
           onDayChange,
           defaultValue,
+          closeOnChange,
+          close,
         }}
       >
         {({ onChangeInputValue, onClear, isJalaali, value, placeholder }) => (
