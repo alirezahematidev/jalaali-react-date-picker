@@ -180,9 +180,6 @@ export interface DatePickerProps {
 
   className?: string;
 
-  /** Whether close the popup after value change */
-  closeOnChange?: boolean;
-
   /** Callback to close popup */
   close?: () => void;
 }

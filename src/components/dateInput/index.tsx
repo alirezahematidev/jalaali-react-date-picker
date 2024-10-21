@@ -96,8 +96,7 @@ const InputDatePicker = forwardRef<HTMLInputElement, InputDatePickerProps>(
           locale,
           onDayChange,
           defaultValue,
-          closeOnChange,
-          close,
+          close: closeOnChange ? close : undefined,
         }}
       >
         {({ onChangeInputValue, onClear, isJalaali, value, placeholder }) => (

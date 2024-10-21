@@ -93,7 +93,6 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     formatProp: propsState.format,
     valueProp: props.value,
     defaultValueProp: props.defaultValue,
-    closeOnChange: props.closeOnChange,
     close: props.close,
   });
 
