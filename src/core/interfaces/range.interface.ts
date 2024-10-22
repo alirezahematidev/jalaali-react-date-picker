@@ -169,6 +169,9 @@ export interface RangePickerProps {
   style?: React.CSSProperties;
 
   className?: string;
+  closeOnChange?: boolean;
+  /** Callback to close popup */
+  onClose?: () => void;
 }
 
 interface RangePanelProps
@@ -269,4 +272,6 @@ export interface InputRangePickerProps extends InputRangePickerPickable {
   wrapperClassName?: string;
 
   wrapperStyle?: CSSProperties;
+  /** Whether close the popup after value change */
+  closeOnChange?: boolean;
 }

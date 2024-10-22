@@ -25,6 +25,7 @@ interface RangeDateReducerType {
   onMonthChangeProp?: RangePickerProps["onMonthChange"];
   onYearChangeProp?: RangePickerProps["onYearChange"];
   locale: Locale;
+  onClose?: () => void;
 }
 
 type Offsets = [number, number];
@@ -70,6 +71,7 @@ export const useRangeReducer = ({
   onMonthChangeProp,
   onYearChangeProp,
   locale,
+  onClose,
 }: RangeDateReducerType) => {
   const isJalaali = locale === "fa";
   const [offsets, setOffset] = useState<Offsets>([0, 0]);
@@ -272,6 +274,7 @@ export const useRangeReducer = ({
 
         if (payload.startDate.day !== 0 && payload.endDate.day !== 0) {
           onChangeProp?.(dates, formattedDates(dates));
+          onClose?.();
         }
 
         setRangeInputValue([
@@ -280,7 +283,14 @@ export const useRangeReducer = ({
         ]);
       }
     },
-    [formatProp, formattedDates, isJalaali, onChangeProp, rangeState.startDate],
+    [
+      formatProp,
+      formattedDates,
+      isJalaali,
+      onChangeProp,
+      rangeState.startDate,
+      onClose,
+    ],
   );
 
   /** Callback function that updates the selected day range and dispatches an action. */
