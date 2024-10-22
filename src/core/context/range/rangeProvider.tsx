@@ -108,6 +108,7 @@ export const RangeProvider = ({ children, props }: RangeProviderProps) => {
     formatProp: propsState.format,
     valueProp: props.value,
     defaultValueProp: props.defaultValue,
+    onClose: props.onClose,
   });
 
   useEffect(() => {

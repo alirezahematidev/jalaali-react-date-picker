@@ -35,6 +35,8 @@ const InputRangePicker = forwardRef<HTMLInputElement, InputRangePickerProps>(
       placeholder,
       presets = true,
       onClear: inputOnClear,
+      closeOnChange,
+
       ...rest
     } = inputRangePickerProps;
     const isRtl = (locale || "fa") === "fa";
@@ -85,6 +87,7 @@ const InputRangePicker = forwardRef<HTMLInputElement, InputRangePickerProps>(
           locale,
           onDayChange,
           defaultValue,
+          onClose: closeOnChange ? onClose : undefined,
         }}
       >
         {({
