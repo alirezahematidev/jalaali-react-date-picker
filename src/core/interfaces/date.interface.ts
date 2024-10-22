@@ -179,6 +179,9 @@ export interface DatePickerProps {
   style?: React.CSSProperties;
 
   className?: string;
+
+  /** Callback to close popup */
+  close?: () => void;
 }
 
 interface PanelProps
@@ -273,4 +276,7 @@ export interface InputDatePickerProps extends InputDatePickerPickable {
   wrapperClassName?: string;
 
   wrapperStyle?: React.CSSProperties;
+
+  /** Whether close the popup after value change */
+  closeOnChange?: boolean;
 }

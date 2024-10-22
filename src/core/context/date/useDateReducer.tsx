@@ -23,6 +23,7 @@ interface DateReducerType {
   onYearChangeProp?: DatePickerProps["onYearChange"];
   locale: Locale;
   setOffset?: (offset: number) => void;
+  close?: () => void;
 }
 
 /**
@@ -64,6 +65,7 @@ export const useDateReducer = ({
   onMonthChangeProp,
   onYearChangeProp,
   locale,
+  close,
 }: DateReducerType) => {
   const isJalaali = locale === "fa";
 
@@ -165,9 +167,10 @@ export const useDateReducer = ({
 
       if (isDateObjectValid(payload)) {
         onChangeProp?.(res, formattedValue(res));
+        close?.();
       }
     },
-    [isJalaali, onChangeProp, formattedValue, state],
+    [isJalaali, onChangeProp, formattedValue, state, close],
   );
 
   /**

@@ -93,6 +93,7 @@ export const DateProvider = ({ children, props }: DateProviderProps) => {
     formatProp: propsState.format,
     valueProp: props.value,
     defaultValueProp: props.defaultValue,
+    close: props.close,
   });
 
   useEffect(() => {
